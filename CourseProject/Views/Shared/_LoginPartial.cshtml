@@ -9,7 +9,7 @@
         <li>
             @Html.ActionLink(String.Format(@Resources.Resource.LoginPartialAuthorizedUserWelcomeMessage, User.Identity.GetUserName()), "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Resource.LoginPartialLogOffText</a></li>
     </ul>
     }
 }

@@ -61,11 +61,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        public static string ChangePasswordButtonSubmitText {
+            get {
+                return ResourceManager.GetString("ChangePasswordButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password and confirmation password do not match..
         /// </summary>
         public static string CompareError {
             get {
                 return ResourceManager.GetString("CompareError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to click here to log in.
+        /// </summary>
+        public static string ConfirmEmailLoginLinkText {
+            get {
+                return ResourceManager.GetString("ConfirmEmailLoginLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for confirming your account. Please.
+        /// </summary>
+        public static string ConfirmEmailMessage {
+            get {
+                return ResourceManager.GetString("ConfirmEmailMessage", resourceCulture);
             }
         }
         
@@ -106,6 +133,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string ExternalLoginConfirmationButtonSubmitText {
+            get {
+                return ResourceManager.GetString("ExternalLoginConfirmationButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ve successfully authenticated with {0}. Please enter a user name for this site below and click the Register button to finish logging in..
+        /// </summary>
+        public static string ExternalLoginConfirmationMessage {
+            get {
+                return ResourceManager.GetString("ExternalLoginConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsuccessful login with service..
+        /// </summary>
+        public static string ExternalLoginFailureMessage {
+            get {
+                return ResourceManager.GetString("ExternalLoginFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Failure.
+        /// </summary>
+        public static string ExternalLoginFailureTitleText {
+            get {
+                return ResourceManager.GetString("ExternalLoginFailureTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Link.
+        /// </summary>
+        public static string forgotPasswordButtonSubmitText {
+            get {
+                return ResourceManager.GetString("forgotPasswordButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your email to reset your password..
+        /// </summary>
+        public static string ForgotPasswordConfirmationMessage {
+            get {
+                return ResourceManager.GetString("ForgotPasswordConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot Password Confirmation.
+        /// </summary>
+        public static string ForgotPasswordConfirmationTitleText {
+            get {
+                return ResourceManager.GetString("ForgotPasswordConfirmationTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your email..
+        /// </summary>
+        public static string ForgotPasswordMessage {
+            get {
+                return ResourceManager.GetString("ForgotPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot your password?.
+        /// </summary>
+        public static string ForgotPasswordTitleText {
+            get {
+                return ResourceManager.GetString("ForgotPasswordTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string LayoutHomeLinkText {
@@ -138,6 +246,15 @@ namespace Resources {
         public static string LoginPartialLogInLinkText {
             get {
                 return ResourceManager.GetString("LoginPartialLogInLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log off.
+        /// </summary>
+        public static string LoginPartialLogOffText {
+            get {
+                return ResourceManager.GetString("LoginPartialLogOffText", resourceCulture);
             }
         }
         
@@ -192,6 +309,15 @@ namespace Resources {
         public static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set password.
+        /// </summary>
+        public static string SetPasswordButtonSubmitText {
+            get {
+                return ResourceManager.GetString("SetPasswordButtonSubmitText", resourceCulture);
             }
         }
     }
