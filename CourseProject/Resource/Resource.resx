@@ -132,6 +132,21 @@
   <data name="EmailRequired" xml:space="preserve">
     <value>Email is required</value>
   </data>
+  <data name="LayoutHomeLinkText" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="LayoutTitle" xml:space="preserve">
+    <value>Course Project</value>
+  </data>
+  <data name="LoginPartialAuthorizedUserWelcomeMessage" xml:space="preserve">
+    <value>Hello {0}!</value>
+  </data>
+  <data name="LoginPartialLogInLinkText" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="LoginPartialRegisterLinkText" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>The password must be at least 6 characters long.</value>
   </data>

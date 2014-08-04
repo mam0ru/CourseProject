@@ -106,6 +106,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string LayoutHomeLinkText {
+            get {
+                return ResourceManager.GetString("LayoutHomeLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Course Project.
+        /// </summary>
+        public static string LayoutTitle {
+            get {
+                return ResourceManager.GetString("LayoutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello {0}!.
+        /// </summary>
+        public static string LoginPartialAuthorizedUserWelcomeMessage {
+            get {
+                return ResourceManager.GetString("LoginPartialAuthorizedUserWelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log In.
+        /// </summary>
+        public static string LoginPartialLogInLinkText {
+            get {
+                return ResourceManager.GetString("LoginPartialLogInLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string LoginPartialRegisterLinkText {
+            get {
+                return ResourceManager.GetString("LoginPartialRegisterLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password must be at least 6 characters long..
         /// </summary>
         public static string NewPassword {
