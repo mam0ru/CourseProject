@@ -174,6 +174,9 @@
   <data name="LayoutTitle" xml:space="preserve">
     <value>Course Project</value>
   </data>
+  <data name="LoginMessage" xml:space="preserve">
+    <value>Use a local account to log in.</value>
+  </data>
   <data name="LoginPartialAuthorizedUserWelcomeMessage" xml:space="preserve">
     <value>Hello {0}!</value>
   </data>
@@ -186,8 +189,14 @@
   <data name="LoginPartialRegisterLinkText" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="LoginRegisterNewUserLinkText" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
   <data name="LoginTitleText" xml:space="preserve">
-    <value>Log in</value>
+    <value>Log In</value>
+  </data>
+  <data name="ManageTitleText" xml:space="preserve">
+    <value>Manage Account</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
     <value>The password must be at least 6 characters long.</value>
@@ -201,8 +210,35 @@
   <data name="PasswordRequired" xml:space="preserve">
     <value>Passwored is required</value>
   </data>
+  <data name="RegisterButtonSubmitText" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterMessage" xml:space="preserve">
+    <value>Create a new account.</value>
+  </data>
+  <data name="RegisterTitleText" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Rememberme" xml:space="preserve">
     <value>Remember me?</value>
+  </data>
+  <data name="ResetPasswordButtonSubmitText" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ResetPasswordConfirmationLinkText" xml:space="preserve">
+    <value>click here to log in</value>
+  </data>
+  <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
+    <value>Your password has been reset. Please</value>
+  </data>
+  <data name="ResetPasswordConfirmationTitleText" xml:space="preserve">
+    <value>Reset password confirmation</value>
+  </data>
+  <data name="ResetPasswordMessage" xml:space="preserve">
+    <value>Reset your password.</value>
+  </data>
+  <data name="ResetPasswordTitleText" xml:space="preserve">
+    <value>Reset password</value>
   </data>
   <data name="SetPasswordButtonSubmitText" xml:space="preserve">
     <value>Set password</value>

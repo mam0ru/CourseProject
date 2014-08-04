@@ -232,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use a local account to log in..
+        /// </summary>
+        public static string LoginMessage {
+            get {
+                return ResourceManager.GetString("LoginMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello {0}!.
         /// </summary>
         public static string LoginPartialAuthorizedUserWelcomeMessage {
@@ -264,6 +273,33 @@ namespace Resources {
         public static string LoginPartialRegisterLinkText {
             get {
                 return ResourceManager.GetString("LoginPartialRegisterLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register as a new user.
+        /// </summary>
+        public static string LoginRegisterNewUserLinkText {
+            get {
+                return ResourceManager.GetString("LoginRegisterNewUserLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log In.
+        /// </summary>
+        public static string LoginTitleText {
+            get {
+                return ResourceManager.GetString("LoginTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Account.
+        /// </summary>
+        public static string ManageTitleText {
+            get {
+                return ResourceManager.GetString("ManageTitleText", resourceCulture);
             }
         }
         
@@ -304,11 +340,92 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string RegisterButtonSubmitText {
+            get {
+                return ResourceManager.GetString("RegisterButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new account..
+        /// </summary>
+        public static string RegisterMessage {
+            get {
+                return ResourceManager.GetString("RegisterMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string RegisterTitleText {
+            get {
+                return ResourceManager.GetString("RegisterTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember me?.
         /// </summary>
         public static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ResetPasswordButtonSubmitText {
+            get {
+                return ResourceManager.GetString("ResetPasswordButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to click here to log in.
+        /// </summary>
+        public static string ResetPasswordConfirmationLinkText {
+            get {
+                return ResourceManager.GetString("ResetPasswordConfirmationLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been reset. Please.
+        /// </summary>
+        public static string ResetPasswordConfirmationMessage {
+            get {
+                return ResourceManager.GetString("ResetPasswordConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password confirmation.
+        /// </summary>
+        public static string ResetPasswordConfirmationTitleText {
+            get {
+                return ResourceManager.GetString("ResetPasswordConfirmationTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset your password..
+        /// </summary>
+        public static string ResetPasswordMessage {
+            get {
+                return ResourceManager.GetString("ResetPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password.
+        /// </summary>
+        public static string ResetPasswordTitleText {
+            get {
+                return ResourceManager.GetString("ResetPasswordTitleText", resourceCulture);
             }
         }
         
