@@ -243,4 +243,7 @@
   <data name="SetPasswordButtonSubmitText" xml:space="preserve">
     <value>Set password</value>
   </data>
+  <data name="IndexTitleText" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
 </root>
