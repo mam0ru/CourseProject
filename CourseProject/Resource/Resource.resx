@@ -246,4 +246,10 @@
   <data name="IndexTitleText" xml:space="preserve">
     <value>Home Page</value>
   </data>
+  <data name="LayoutDrakThemeText" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="LayoutWhiteThemeText" xml:space="preserve">
+    <value>White</value>
+  </data>
 </root>

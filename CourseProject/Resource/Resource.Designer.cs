@@ -223,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string LayoutDrakThemeText {
+            get {
+                return ResourceManager.GetString("LayoutDrakThemeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string LayoutHomeLinkText {
@@ -237,6 +246,15 @@ namespace Resources {
         public static string LayoutTitle {
             get {
                 return ResourceManager.GetString("LayoutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White.
+        /// </summary>
+        public static string LayoutWhiteThemeText {
+            get {
+                return ResourceManager.GetString("LayoutWhiteThemeText", resourceCulture);
             }
         }
         

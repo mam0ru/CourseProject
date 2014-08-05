@@ -12,5 +12,27 @@ namespace CourseProject.Controllers
         {
             return View();
         }
+
+        public ActionResult SetTheme(String theme = "white")
+        {
+            List<string> themes = new List<string>() { "white", "dark" };
+            if (!themes.Contains(theme))
+            {
+                theme = "white";
+            }
+            HttpCookie cookie = Request.Cookies["theme"];
+            if (cookie != null)
+                cookie.Value = theme;
+            else
+            {
+                cookie = new HttpCookie("theme");
+                cookie.HttpOnly = false;
+                cookie.Value = theme;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            String redirectTo = Request.UrlReferrer.AbsolutePath;
+            return Redirect(redirectTo);
+        }
     }
 }

@@ -20,6 +20,10 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
+            <div class="row" align="right">
+                <div class="btn-default col-md-1" align="right">@Html.ActionLink(@Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</div>
+                <div class="btn-default col-md-1" align="right">@Html.ActionLink(@Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</div>
+            </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(@Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
@@ -32,7 +36,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Course Project</p>
         </footer>
     </div>
 
