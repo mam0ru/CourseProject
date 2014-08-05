@@ -23,5 +23,7 @@ namespace CourseProject.View_Models
         public ICollection<Tag> Tags { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
+
+        public Category Category { get; set; }
     }
 }

@@ -36,7 +36,9 @@ namespace CourseProject.Models
 
         public ICollection<Answer> Answers { get; set; }
 
-        public Boolean Active { get; set; } 
+        public Boolean Active { get; set; }
+
+        public Category Category { get; set; }
 
         public Document GetDocument()
         {
