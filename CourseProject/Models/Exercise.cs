@@ -16,6 +16,8 @@ namespace CourseProject.Models
 
         public ICollection<Evaluation> Evaluations { get; set; }
 
+        public String Name { get; set; }
+
         public int TriesOfAnswers { get; set; }
 
         public ICollection<ApplicationUser> RightAnsweredUsers { get; set; }

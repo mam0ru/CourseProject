@@ -24,6 +24,7 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
             <form>
                 <textarea name="Text" id="editor" data-provide="markdown" rows="5"></textarea>
                 <hr />

@@ -26,10 +26,9 @@ namespace CourseProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            appKernel = new StandardKernel(new ExerciseNinjectModule());
-            Repository.Repository.ProjectDAO DataBase = new Repository.Repository.ProjectDAO();
-            ExerciseBuildIndex(DataBase.GetExercises());
-            CommentsBuildIndex(DataBase.GetComments());
+            Repository.Repositories dataBase = new Repositories();
+            ExerciseBuildIndex(dataBase.ExerciseRepository.Get());
+            CommentsBuildIndex(dataBase.CommentRepository.Get());
         }
 
         public void ExerciseBuildIndex(IEnumerable<Exercise> exercises)
@@ -64,14 +63,6 @@ namespace CourseProject
 
             indexWriter.Optimize();
             indexWriter.Close();
-        }
-    }
-
-    public class ExerciseNinjectModule : NinjectModule
-    {
-        public override void Load()
-        {
-            this.Bind<Repository.Repository.IRepositoriable>().To<Repository.Repository.ProjectDAO>();
         }
     }
 }

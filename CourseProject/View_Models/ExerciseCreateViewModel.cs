@@ -9,6 +9,8 @@ namespace CourseProject.View_Models
     public class ExerciseCreateViewModel
     {
         public String Text { get; set; }
+
+        public String Name { get; set; }
         
         public ICollection<Video> Videos { get; set; }
 

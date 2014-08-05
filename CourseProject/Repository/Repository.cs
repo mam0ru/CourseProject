@@ -2,69 +2,81 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using CourseProject.Models;
 using Ninject;
 
 namespace CourseProject.Repository
 {
-    public class Repository
+    public class GenericRepository<TEntity>: IRepository<TEntity> where TEntity : class
     {
-        public interface IRepositoriable
+        internal ApplicationDbContext context;
+        
+        internal DbSet<TEntity> dbSet;
+
+        public GenericRepository(ApplicationDbContext context)
         {
-            IEnumerable<Exercise> GetExercises();
-
-            IEnumerable<Comment> GetComments();
-
-            Exercise GetById(int id);
-
-            void Insert(Exercise exercise);
-
-            void Delete(int id);
-
-            void Update(Exercise exercise);
+            this.context = context;
+            this.dbSet = context.Set<TEntity>();
         }
 
-        public class ProjectDAO : IRepositoriable
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
         {
-            private ApplicationDbContext context = MvcApplication.appKernel.Get<ApplicationDbContext>();
+            IQueryable<TEntity> query = dbSet;
 
-            public IEnumerable<Exercise> GetExercises()
+            if (filter != null)
             {
-                return context.Exercises.Select(exercise => exercise);
+                query = query.Where(filter);
             }
 
-            public IEnumerable<Comment> GetComments()
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                return context.Comments.Select(comment => comment);
+                query = query.Include(includeProperty);
             }
 
-            public Exercise GetById(int id)
+            if (orderBy != null)
             {
-                return context.Exercises.Where(exercise => exercise.Id == id).FirstOrDefault();
+                return orderBy(query).ToList();
             }
-
-            public void Insert(Exercise exercise)
+            else
             {
-                context.Exercises.Add(exercise);
-                context.Entry(exercise).State = EntityState.Added;
-                context.SaveChangesAsync();
+                return query.ToList();
             }
+        }
 
-            public void Delete(int id)
+        public TEntity GetByID(object id)
+        {
+            return dbSet.Find(id);
+        }
+
+        public void Insert(TEntity entity)
+        {
+            dbSet.Add(entity);
+        }
+
+        public void Delete(object id)
+        {
+            TEntity entityToDelete = dbSet.Find(id);
+            Delete(entityToDelete);
+        }
+
+        public void Delete(TEntity entityToDelete)
+        {
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                Exercise exercise = GetById(id);
-                context.Exercises.Remove(exercise);
-                context.Entry(exercise).State = EntityState.Deleted;
-                context.SaveChangesAsync();
+                dbSet.Attach(entityToDelete);
             }
+            dbSet.Remove(entityToDelete);
+        }
 
-            public void Update(Exercise exercise)
-            {
-                context.Entry(exercise).State = EntityState.Modified;
-                context.SaveChangesAsync();
-            }
-
+        public void Update(TEntity entityToUpdate)
+        {
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
