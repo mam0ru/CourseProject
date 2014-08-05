@@ -39,7 +39,7 @@ namespace CourseProject.Repository
             }
         }
 
-        public GenericRepository<Answer> AnsweRepository
+        public GenericRepository<Answer> AnswerRepository
         {
             get
             {

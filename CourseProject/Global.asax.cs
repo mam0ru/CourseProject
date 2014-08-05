@@ -20,13 +20,15 @@ namespace CourseProject
     {
         public static IKernel appKernel;
 
+        public static Repository.Repositories dataBase;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Repository.Repositories dataBase = new Repositories();
+            dataBase = new Repositories();
             ExerciseBuildIndex(dataBase.ExerciseRepository.Get());
             CommentsBuildIndex(dataBase.CommentRepository.Get());
         }

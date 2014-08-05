@@ -30,7 +30,9 @@
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(@Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
+                        <li>@Html.ActionLink(@Resources.Resource.LayoutHomeLinkText, "MyProfile", "Profile")</li>
                     }
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
