@@ -15,7 +15,7 @@ namespace CourseProject.Models
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Exercise> RihgtAnswers { get; set; }
+        public ICollection<Exercise> RightAnswers { get; set; }
 
         public ICollection<Evaluation> Evaluations { get; set; }
 
