@@ -33,8 +33,14 @@ namespace CourseProject
             bundles.Add(new StyleBundle("~/Content/markdown/css").Include(
                 "~/Content/markdown/css/bootstrap-markdown.min.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
+            bundles.Add(new ScriptBundle("~/bundles/markdown_bootstrap").Include(
                         "~/Scripts/markdown/js/bootstrap-markdown.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
+                        "~/Scripts/markdown/js/markdown.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/to_markdown").Include(
+                        "~/Scripts/markdown/js/to-markdown.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));

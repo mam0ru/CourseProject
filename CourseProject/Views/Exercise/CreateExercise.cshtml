@@ -4,15 +4,18 @@
     ViewBag.Title = @Resources.Resource.CreateExerciseTitleText;
 }
 @Styles.Render("~/Content/markdown/css")
-@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/markdown")
+@Scripts.Render("~/bundles/markdown_bootstrap")
+@Scripts.Render("~/bundles/to_markdown")
+
+
 
 <script type="text/javascript" src="~/Scripts/Exercise/Create/markdown_settings.js"></script>
 <style>
 
 #editor {
-    width: 800px;
+    width: 400px;
 }
 </style>
 <br/>
@@ -22,7 +25,7 @@
         {
             @Html.AntiForgeryToken()
             <form>
-                <textarea name="Text" id="editor Text" data-provide="markdown" rows="5"></textarea>
+                <textarea name="Text" id="editor" data-provide="markdown" rows="5"></textarea>
                 <hr />
                 <button type="submit" class="btn">Submit</button>
             </form>
