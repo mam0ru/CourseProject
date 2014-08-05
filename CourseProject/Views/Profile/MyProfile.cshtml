@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CourseProject.Models.Exercise>
+﻿@model CourseProject.Models.ApplicationUser
 @{
     ViewBag.Title = "My Profile";
 }
@@ -11,7 +11,7 @@
                 <a href="~/Exercise/CreateExercise">Create Exercise</a>
             </thead>
             <tbody>
-                @foreach (var exersise in Model)
+                @foreach (var exersise in Model.Exercises)
                 {
                     <tr>
                         <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
@@ -33,4 +33,20 @@
     </div>
 </div>
 
-
+<div class="jumbotron">
+    <div class="container">
+        <br />
+        <table class="table table-striped table-hover ">
+            <thead>
+                @Resources.Resource.SolvedExercises
+            </thead>
+            <tbody>
+                @foreach (var exersise in Model.RihgtAnswers){
+                    <tr>
+                       @**<td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>*@
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

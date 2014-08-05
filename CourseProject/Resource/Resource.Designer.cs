@@ -500,5 +500,14 @@ namespace Resources {
                 return ResourceManager.GetString("SetPasswordButtonSubmitText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SolvedExercises.
+        /// </summary>
+        public static string SolvedExercises {
+            get {
+                return ResourceManager.GetString("SolvedExercises", resourceCulture);
+            }
+        }
     }
 }

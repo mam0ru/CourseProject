@@ -16,6 +16,8 @@ namespace CourseProject.Repository
 
         private GenericRepository<Comment> commentRepository;
 
+        private GenericRepository<ApplicationUser> userRepository;
+
         public GenericRepository<Exercise> ExerciseRepository {
             get
             {
@@ -48,6 +50,18 @@ namespace CourseProject.Repository
                     this.answerRepository = new GenericRepository<Answer>(context);
                 }
                 return answerRepository;
+            }
+        }
+
+        public GenericRepository<ApplicationUser> UserRepository
+        {
+            get
+            {
+                if (this.userRepository == null)
+                {
+                    this.userRepository = new GenericRepository<ApplicationUser>(context);
+                }
+                return userRepository;
             }
         }
 

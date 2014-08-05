@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CourseProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Controllers
 {
@@ -13,7 +14,7 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult MyProfile()
         {
-            return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
+            return View(MvcApplication.dataBase.UserRepository.dbSet.First(user=>user.Id == Request.LogonUserIdentity.GetUserId()));
         }
 
         public ActionResult MakeActiveUnactive(int id, bool isActive)
