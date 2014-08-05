@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Profile.
+        /// </summary>
+        public static string LayoutMyProfileLinkText {
+            get {
+                return ResourceManager.GetString("LayoutMyProfileLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select theme.
         /// </summary>
         public static string LayoutSelectThemeText {

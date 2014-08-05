@@ -261,4 +261,7 @@
   <data name="LayoutSelectThemeText" xml:space="preserve">
     <value>Select theme</value>
   </data>
+  <data name="LayoutMyProfileLinkText" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
 </root>
