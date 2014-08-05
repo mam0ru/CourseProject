@@ -22,5 +22,19 @@ namespace CourseProject.Controllers
         {
             return RedirectToAction("Index","Home");
         }
+
+        [HttpGet]
+        public ActionResult ShowExercise()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ShowExercise(int id)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

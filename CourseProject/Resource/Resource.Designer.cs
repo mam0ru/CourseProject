@@ -385,6 +385,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You haven`t  created  exercises. .
+        /// </summary>
+        public static string NoExercises {
+            get {
+                return ResourceManager.GetString("NoExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {

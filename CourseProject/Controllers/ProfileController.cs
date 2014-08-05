@@ -14,7 +14,7 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult MyProfile()
         {
-            return View(MvcApplication.dataBase.UserRepository.dbSet.First(user=>user.Id == Request.LogonUserIdentity.GetUserId()));
+            return View(MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
         }
 
         public ActionResult MakeActiveUnactive(int id, bool isActive)
