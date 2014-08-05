@@ -264,10 +264,16 @@
   <data name="LayoutMyProfileLinkText" xml:space="preserve">
     <value>My Profile</value>
   </data>
+  <data name="MyExercises" xml:space="preserve">
+    <value>My Exercises</value>
+  </data>
   <data name="NoExercises" xml:space="preserve">
     <value>You haven`t  created  exercises. </value>
   </data>
+  <data name="NoRightAnsweredExercises" xml:space="preserve">
+    <value>You haven`t right answered exercises</value>
+  </data>
   <data name="SolvedExercises" xml:space="preserve">
-    <value>SolvedExercises</value>
+    <value>Solved Exercises</value>
   </data>
 </root>

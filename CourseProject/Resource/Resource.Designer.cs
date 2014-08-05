@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Exercises.
+        /// </summary>
+        public static string MyExercises {
+            get {
+                return ResourceManager.GetString("MyExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password must be at least 6 characters long..
         /// </summary>
         public static string NewPassword {
@@ -390,6 +399,15 @@ namespace Resources {
         public static string NoExercises {
             get {
                 return ResourceManager.GetString("NoExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven`t right answered exercises.
+        /// </summary>
+        public static string NoRightAnsweredExercises {
+            get {
+                return ResourceManager.GetString("NoRightAnsweredExercises", resourceCulture);
             }
         }
         
@@ -511,7 +529,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SolvedExercises.
+        ///   Looks up a localized string similar to Solved Exercises.
         /// </summary>
         public static string SolvedExercises {
             get {
