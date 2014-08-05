@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Exercise.
+        /// </summary>
+        public static string CreateExerciseTitleText {
+            get {
+                return ResourceManager.GetString("CreateExerciseTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old Password.
         /// </summary>
         public static string CurrentPassword {
@@ -219,6 +228,15 @@ namespace Resources {
         public static string IndexTitleText {
             get {
                 return ResourceManager.GetString("IndexTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Exercise.
+        /// </summary>
+        public static string LayoutAddExerciseLinkText {
+            get {
+                return ResourceManager.GetString("LayoutAddExerciseLinkText", resourceCulture);
             }
         }
         

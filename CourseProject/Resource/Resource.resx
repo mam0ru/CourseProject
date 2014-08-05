@@ -252,4 +252,10 @@
   <data name="LayoutWhiteThemeText" xml:space="preserve">
     <value>White</value>
   </data>
+  <data name="CreateExerciseTitleText" xml:space="preserve">
+    <value>Create Exercise</value>
+  </data>
+  <data name="LayoutAddExerciseLinkText" xml:space="preserve">
+    <value>Add Exercise</value>
+  </data>
 </root>

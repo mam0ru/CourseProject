@@ -7,6 +7,9 @@
     <title>@Resources.Resource.LayoutTitle</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
     @if (Request.Cookies["theme"] == null || Request.Cookies["theme"].Value == null || Request.Cookies["theme"].Value == "white")
     {
         @Styles.Render("~/Content/white");
@@ -27,6 +30,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(@Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(@Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -40,8 +47,5 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
