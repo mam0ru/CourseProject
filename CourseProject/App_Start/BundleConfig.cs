@@ -30,6 +30,15 @@ namespace CourseProject
 
             bundles.Add(new StyleBundle("~/Content/white").Include("~/Content/bootstrap.white.css"));
 
+            bundles.Add(new StyleBundle("~/Content/markdown/css").Include(
+                "~/Content/markdown/css/bootstrap-markdown.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
+                        "~/Scripts/markdown/js/bootstrap-markdown.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui-{version}.js"));
+
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;

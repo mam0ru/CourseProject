@@ -3,33 +3,29 @@
 @{
     ViewBag.Title = @Resources.Resource.CreateExerciseTitleText;
 }
-
+@Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/markdown")
+
+<script type="text/javascript" src="~/Scripts/Exercise/Create/markdown_settings.js"></script>
+<style>
+
+#editor {
+    width: 800px;
+}
+</style>
 <br/>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>ExerciseCreateViewModel</h4>
+            <form>
+                <textarea name="Text" id="editor Text" data-provide="markdown" rows="5"></textarea>
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
         }
 
     </div>
