@@ -24,13 +24,6 @@ namespace CourseProject.Controllers
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
         }
 
-        public ActionResult AddAnswer(int id)
-        {
-            //MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;
-            // context.Exercises.
-            return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
-        }
-
         /*[HttpPost]
         public ActionResult MyProfile()
         {

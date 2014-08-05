@@ -35,6 +35,12 @@ namespace CourseProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult AddAnswer(int id)
+        {
+            //MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;
+            // context.Exercises.
+            return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
+        }
 
     }
 }
