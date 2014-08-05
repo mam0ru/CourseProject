@@ -258,4 +258,7 @@
   <data name="LayoutAddExerciseLinkText" xml:space="preserve">
     <value>Add Exercise</value>
   </data>
+  <data name="LayoutSelectThemeText" xml:space="preserve">
+    <value>Select theme</value>
+  </data>
 </root>

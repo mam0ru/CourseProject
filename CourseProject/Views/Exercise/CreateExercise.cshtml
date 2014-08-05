@@ -1,4 +1,5 @@
-﻿@model CourseProject.View_Models.ExerciseCreateViewModel
+﻿@using Ninject.Activation
+@model CourseProject.View_Models.ExerciseCreateViewModel
 
 @{
     ViewBag.Title = @Resources.Resource.CreateExerciseTitleText;
@@ -14,7 +15,7 @@
 <script type="text/javascript" src="~/Scripts/Exercise/Create/markdown_settings.js"></script>
 <style>
 
-#editor {
+#Text {
     width: 400px;
 }
 </style>
@@ -24,12 +25,26 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            <form>
-                <textarea name="Text" id="editor" data-provide="markdown" rows="5"></textarea>
-                <hr />
-                <button type="submit" class="btn">Submit</button>
-            </form>
+            <div class="row">
+                <div class="col-md-1" align="center">
+                    @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-2" } })    
+                </div>
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })    
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <textarea name="Text" id="Text" data-provide="markdown" rows="5"></textarea>
+                        <hr />
+                        <button type="submit" class="btn">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+
         }
 
     </div>
