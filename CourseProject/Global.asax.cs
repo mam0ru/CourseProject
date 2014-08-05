@@ -18,8 +18,6 @@ namespace CourseProject
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static IKernel appKernel;
-
         public static Repository.Repositories dataBase;
 
         protected void Application_Start()
