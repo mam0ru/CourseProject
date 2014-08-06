@@ -24,10 +24,17 @@ namespace CourseProject.Controllers
            // context.Exercises.
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
         }
-        
+
+        [HttpGet]
         public ActionResult ShowProfile()
         {
-            return View(MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
+            return View();//MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
+        }
+
+        [HttpPost]
+        public ActionResult ShowProfile(int id)
+        {
+            return View(MvcApplication.dataBase.UserRepository.GetByID(id));
         }
         /*[HttpPost]
         public ActionResult MyProfile()

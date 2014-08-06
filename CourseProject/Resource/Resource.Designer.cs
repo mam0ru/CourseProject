@@ -439,6 +439,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User don`t have exercises.
+        /// </summary>
+        public static string NoCurrentUserExercises {
+            get {
+                return ResourceManager.GetString("NoCurrentUserExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User don`t have right answered exercises.
+        /// </summary>
+        public static string NoCurrentUserRightAnsweredExercises {
+            get {
+                return ResourceManager.GetString("NoCurrentUserRightAnsweredExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You haven`t  created  exercises. .
         /// </summary>
         public static string NoExercises {
@@ -538,7 +556,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your password has been reset. Please.
+        ///   Looks up a localized string similar to Your password has been reset. Please .
         /// </summary>
         public static string ResetPasswordConfirmationMessage {
             get {
@@ -556,7 +574,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset your password..
+        ///   Looks up a localized string similar to Reset your password.
         /// </summary>
         public static string ResetPasswordMessage {
             get {

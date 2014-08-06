@@ -229,13 +229,13 @@
     <value>Click here to log in</value>
   </data>
   <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
-    <value>Your password has been reset. Please</value>
+    <value>Your password has been reset. Please </value>
   </data>
   <data name="ResetPasswordConfirmationTitleText" xml:space="preserve">
     <value>Reset password confirmation</value>
   </data>
   <data name="ResetPasswordMessage" xml:space="preserve">
-    <value>Reset your password.</value>
+    <value>Reset your password</value>
   </data>
   <data name="ResetPasswordTitleText" xml:space="preserve">
     <value>Reset password</value>
@@ -299,5 +299,11 @@
   </data>
   <data name="TagsListIsEmpty" xml:space="preserve">
     <value>Tag`s list is empty</value>
+  </data>
+  <data name="NoCurrentUserExercises" xml:space="preserve">
+    <value>User don`t have exercises</value>
+  </data>
+  <data name="NoCurrentUserRightAnsweredExercises" xml:space="preserve">
+    <value>User don`t have right answered exercises</value>
   </data>
 </root>
