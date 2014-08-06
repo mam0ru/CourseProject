@@ -50,7 +50,11 @@
                <h3> @Resources.Resource.SolvedExercises</h3>
             </thead>
             <tbody>
+<<<<<<< HEAD
+                @if (Model.Exercises != null)
+=======
                 @if (Model.RightAnswers != null)
+>>>>>>> origin/master
                 {
                     foreach (var exersise in Model.RightAnswers)
                     {
@@ -59,6 +63,7 @@
                         </tr>
                     }
                 }
+<<<<<<< HEAD
                 else
                 {
                     <br/>
@@ -70,3 +75,10 @@
             </table>
         </div>
     </div>
+=======
+
+            </tbody>
+        </table>
+    </div>
+</div>
+>>>>>>> origin/master
