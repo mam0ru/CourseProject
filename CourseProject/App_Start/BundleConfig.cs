@@ -45,6 +45,11 @@ namespace CourseProject
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/fileupload").Include(
+                        "~/Scripts/FileUpload/jqueryui/jquery.ui.widget.js",
+                        "~/Scripts/FileUpload/jquery.iframe-transport.js",
+                        "~/Scripts/FileUpload/jquery.fileupload.js"));
+
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;

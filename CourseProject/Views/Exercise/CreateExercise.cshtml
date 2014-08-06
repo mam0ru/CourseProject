@@ -9,7 +9,7 @@
 @Scripts.Render("~/bundles/markdown")
 @Scripts.Render("~/bundles/markdown_bootstrap")
 @Scripts.Render("~/bundles/to_markdown")
-
+@Scripts.Render("~/bundles/fileupload")
 
 
 <script type="text/javascript" src="~/Scripts/Exercise/Create/markdown_settings.js"></script>
@@ -44,6 +44,22 @@
                 </div>
 
             </div>
+            <div>
+                <script>
+                    $(function () {
+                        $('#fileupload').fileupload({
+                            dataType: 'json',
+                            done: function (e, data) {
+                                $.each(data.result.files, function (index, file) {
+                                    $('<p/>').text(file.name).appendTo("div#file");
+                                });
+                            }
+                        });
+                    });
+                </script>
+                <input id="fileupload" type="file" name="files[]" data-url="" multiple>
+            </div>
+
 
         }
 
