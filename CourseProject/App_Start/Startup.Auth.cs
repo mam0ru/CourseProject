@@ -47,9 +47,13 @@ namespace CourseProject
             //   consumerKey: "",
             //   consumerSecret: "");
 
+           // app.UseFacebookAuthentication(
+           //    appId: "782366515116851",
+           //    appSecret: "ec7fcac74f7cefc71c2e56b3a1b5a531");
+
             app.UseFacebookAuthentication(
-               appId: "782366515116851",
-               appSecret: "ec7fcac74f7cefc71c2e56b3a1b5a531");
+              appId: "744619798944798",
+              appSecret: "b87f1807dd418483517982b22233fd01");
 
             app.UseGitHubAuthentication(
                 clientId: "6497daacd0a1e2d7e90e", 
