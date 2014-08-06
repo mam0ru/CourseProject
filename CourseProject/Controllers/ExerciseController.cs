@@ -58,7 +58,7 @@ namespace CourseProject.Controllers
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
         }
 
-        public ActionResult UploadImage()
+        public ActionResult UploadImage(String str)
         {
             Cloudinary cloudinary = new Cloudinary(account);
             //var param = new ImageUploadParams()
