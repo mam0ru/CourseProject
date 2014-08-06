@@ -285,6 +285,9 @@
   <data name="LayoutRatingLinkText" xml:space="preserve">
     <value>Rating</value>
   </data>
+  <data name="LayoutUsersAndExercisesLinkText" xml:space="preserve">
+    <value>Users and Exercises</value>
+  </data>
   <data name="MostPopularExercises" xml:space="preserve">
     <value>Most Popular Exercises</value>
   </data>

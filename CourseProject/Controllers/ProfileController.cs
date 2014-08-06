@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Controllers
 {
+     [Authorize(Roles = "user")]
     public class ProfileController : Controller
     {
         // GET: Profile

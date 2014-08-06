@@ -19,6 +19,15 @@ namespace CourseProject.Controllers
     {
         private ApplicationUserManager _userManager;
 
+        private async Task AddUserToRoleAsync(ApplicationUser user, string role)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                var result = await userManager.AddToRoleAsync(user.Id, role);
+            }
+        }
+
         public AccountController()
         {
         }
@@ -94,13 +103,17 @@ namespace CourseProject.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // если создание прошло успешно, то добавляем роль пользователя
+                    await AddUserToRoleAsync(user, "user");
                     await SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                   
 
                     return RedirectToAction("Index", "Home");
                 }

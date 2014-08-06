@@ -38,7 +38,14 @@
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(@Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
-                        <li>@Html.ActionLink(@Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                        if (User.IsInRole("user"))
+                        {
+                            <li>@Html.ActionLink(@Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                        }
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li>@Html.ActionLink(@Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
                     }
                     <li>@Html.ActionLink(@Resources.Resource.LayoutRatingLinkText, "Rating", "Home")</li>
                 </ul>
@@ -52,11 +59,11 @@
         @if (MvcApplication.dataBase.ExerciseRepository.Get().Count() != 0)
         {
             isExercisesEmpty = false;
-            var mostPopularExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.TriesOfAnswers).ToList();  
+            var mostPopularExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.TriesOfAnswers).ToList();
             for (int i = 0; i < 5 || i < mostPopularExercises.Count(); i++)
             {
-                @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise",new { id = mostPopularExercises.ElementAt(i).Id},null)  
-            <br>
+                @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = mostPopularExercises.ElementAt(i).Id }, null)
+                <br>
             }
         }
         else
@@ -72,7 +79,7 @@
             var lastAddedExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.Id).ToList();
             for (int i = 0; i < 5 || i < lastAddedExercises.Count(); i++)
             {
-                @Html.ActionLink(lastAddedExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = lastAddedExercises.ElementAt(i).Id },null)
+                @Html.ActionLink(lastAddedExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = lastAddedExercises.ElementAt(i).Id }, null)
                 <br>
             }
         }
@@ -88,10 +95,10 @@
             var exercises = MvcApplication.dataBase.ExerciseRepository.Get();
             for (int i = 0; i < exercises.Count(); i++)
             {
-                for (int j= 0; j < exercises.ElementAt(i).Tags.Count; j++)
+                for (int j = 0; j < exercises.ElementAt(i).Tags.Count; j++)
                 {
-                    @Html.ActionLink(exercises.ElementAt(i).Tags.ElementAt(j).Text, "ShowExercisesWithTag", "Exercise",new { tag = exercises.ElementAt(i).Tags.ElementAt(j).Text},null)
-      
+                    @Html.ActionLink(exercises.ElementAt(i).Tags.ElementAt(j).Text, "ShowExercisesWithTag", "Exercise", new { tag = exercises.ElementAt(i).Tags.ElementAt(j).Text }, null)
+
                 }
             }
         }

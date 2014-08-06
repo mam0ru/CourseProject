@@ -313,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users and Exercises.
+        /// </summary>
+        public static string LayoutUsersAndExercisesLinkText {
+            get {
+                return ResourceManager.GetString("LayoutUsersAndExercisesLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to White.
         /// </summary>
         public static string LayoutWhiteThemeText {
