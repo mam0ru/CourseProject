@@ -35,6 +35,18 @@ namespace CourseProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public ActionResult ShowExercisesWithTag(string tag)
+        {
+            return RedirectToAction("Index", "Home"); //"ShowExercise", "Exersise",);
+        }
+
+        [HttpGet]
+        public ActionResult ShowExercisesWithTag()
+        {
+            return View();
+        }
+
         public ActionResult AddAnswer(int id)
         {
             //MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;

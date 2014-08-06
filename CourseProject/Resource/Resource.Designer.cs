@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exercise`s list  is empty.
+        /// </summary>
+        public static string ExercisesListIsEmpty {
+            get {
+                return ResourceManager.GetString("ExercisesListIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string ExternalLoginConfirmationButtonSubmitText {
@@ -232,6 +241,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last added exercises.
+        /// </summary>
+        public static string LastAddedExercises {
+            get {
+                return ResourceManager.GetString("LastAddedExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Exercise.
         /// </summary>
         public static string LayoutAddExerciseLinkText {
@@ -264,6 +282,15 @@ namespace Resources {
         public static string LayoutMyProfileLinkText {
             get {
                 return ResourceManager.GetString("LayoutMyProfileLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rating.
+        /// </summary>
+        public static string LayoutRatingLinkText {
+            get {
+                return ResourceManager.GetString("LayoutRatingLinkText", resourceCulture);
             }
         }
         
@@ -367,6 +394,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Most Popular Exercises.
+        /// </summary>
+        public static string MostPopularExercises {
+            get {
+                return ResourceManager.GetString("MostPopularExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Exercises.
         /// </summary>
         public static string MyExercises {
@@ -408,6 +444,15 @@ namespace Resources {
         public static string NoRightAnsweredExercises {
             get {
                 return ResourceManager.GetString("NoRightAnsweredExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No right answered users.
+        /// </summary>
+        public static string NoRightAnsweredUsers {
+            get {
+                return ResourceManager.GetString("NoRightAnsweredUsers", resourceCulture);
             }
         }
         
@@ -475,7 +520,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to click here to log in.
+        ///   Looks up a localized string similar to Click here to log in.
         /// </summary>
         public static string ResetPasswordConfirmationLinkText {
             get {
@@ -534,6 +579,24 @@ namespace Resources {
         public static string SolvedExercises {
             get {
                 return ResourceManager.GetString("SolvedExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        public static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tag`s list is empty.
+        /// </summary>
+        public static string TagsListIsEmpty {
+            get {
+                return ResourceManager.GetString("TagsListIsEmpty", resourceCulture);
             }
         }
     }

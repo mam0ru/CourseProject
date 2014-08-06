@@ -23,7 +23,11 @@ namespace CourseProject.Controllers
            // context.Exercises.
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
         }
-
+        
+        public ActionResult ShowProfile()
+        {
+            return View(MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
+        }
         /*[HttpPost]
         public ActionResult MyProfile()
         {

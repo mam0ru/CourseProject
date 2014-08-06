@@ -226,7 +226,7 @@
     <value>Reset</value>
   </data>
   <data name="ResetPasswordConfirmationLinkText" xml:space="preserve">
-    <value>click here to log in</value>
+    <value>Click here to log in</value>
   </data>
   <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
     <value>Your password has been reset. Please</value>
@@ -275,5 +275,26 @@
   </data>
   <data name="SolvedExercises" xml:space="preserve">
     <value>Solved Exercises</value>
+  </data>
+  <data name="ExercisesListIsEmpty" xml:space="preserve">
+    <value>Exercise`s list  is empty</value>
+  </data>
+  <data name="LastAddedExercises" xml:space="preserve">
+    <value>Last added exercises</value>
+  </data>
+  <data name="LayoutRatingLinkText" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="MostPopularExercises" xml:space="preserve">
+    <value>Most Popular Exercises</value>
+  </data>
+  <data name="NoRightAnsweredUsers" xml:space="preserve">
+    <value>No right answered users</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagsListIsEmpty" xml:space="preserve">
+    <value>Tag`s list is empty</value>
   </data>
 </root>

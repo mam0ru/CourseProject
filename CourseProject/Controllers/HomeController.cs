@@ -34,5 +34,11 @@ namespace CourseProject.Controllers
             String redirectTo = Request.UrlReferrer.AbsolutePath;
             return Redirect(redirectTo);
         }
+
+        public ActionResult Rating()
+        {
+           
+            return View("Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+        }
     }
 }
