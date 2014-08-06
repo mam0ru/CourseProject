@@ -18,6 +18,8 @@ namespace CourseProject.Repository
 
         private GenericRepository<ApplicationUser> userRepository;
 
+        private GenericRepository<Category> categoryRepository;
+
         public GenericRepository<Exercise> ExerciseRepository {
             get
             {
@@ -26,6 +28,18 @@ namespace CourseProject.Repository
                     this.exerciseRepository = new GenericRepository<Exercise>(context);
                 }
                 return exerciseRepository;
+            }
+        }
+
+        public GenericRepository<Category> CategoryRepository
+        {
+            get
+            {
+                if (this.categoryRepository == null)
+                {
+                    this.categoryRepository = new GenericRepository<Category>(context);
+                }
+                return categoryRepository;
             }
         }
 

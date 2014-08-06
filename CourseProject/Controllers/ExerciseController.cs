@@ -17,6 +17,7 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult CreateExercise()
         {
+            ViewBag.categories = MvcApplication.dataBase.CategoryRepository.Get().Select(category => category.Text);
             return View();
         }
 

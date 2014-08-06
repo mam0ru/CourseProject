@@ -45,6 +45,8 @@ namespace CourseProject.Models
         public DbSet<Graph> Graphs { get; set; }
 
         public DbSet<Formula> Formulas { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
         
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
