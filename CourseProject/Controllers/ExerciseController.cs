@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using CloudinaryDotNet.Actions;
 using CourseProject.View_Models;
@@ -58,7 +59,8 @@ namespace CourseProject.Controllers
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
         }
 
-        public ActionResult UploadImage(String str)
+        [HttpPost]
+        public ActionResult UploadImage()
         {
             Cloudinary cloudinary = new Cloudinary(account);
             //var param = new ImageUploadParams()

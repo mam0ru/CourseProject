@@ -33,22 +33,28 @@ namespace CourseProject
             bundles.Add(new StyleBundle("~/Content/markdown/css").Include(
                 "~/Content/markdown/css/bootstrap-markdown.min.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/markdown_bootstrap").Include(
+            //bundles.Add(new ScriptBundle("~/bundles/markdown_bootstrap").Include(
+            //            "~/Scripts/markdown/js/bootstrap-markdown.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
+            //            "~/Scripts/markdown/js/markdown.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/to_markdown").Include(
+            //            "~/Scripts/markdown/js/to-markdown.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/exercise/create/markdown").Include(
+                        "~/Scripts/markdown/js/markdown.js",
+                        "~/Scripts/markdown/js/to-markdown.js",
                         "~/Scripts/markdown/js/bootstrap-markdown.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
-                        "~/Scripts/markdown/js/markdown.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/to_markdown").Include(
-                        "~/Scripts/markdown/js/to-markdown.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/fileupload").Include(
+            bundles.Add(new ScriptBundle("~/bundles/exercise/create/image").Include(
                         "~/Scripts/FileUpload/jqueryui/jquery.ui.widget.js",
-                        "~/Scripts/FileUpload/jquery.iframe-transport.js",
-                        "~/Scripts/FileUpload/jquery.fileupload.js"));
+                        "~/Scripts/FileUpload/jquery.fileupload.js",
+                        "~/Scripts/FileUpload/jquery.fileupload-ui.js",
+                        "~/Scripts/FileUpload/jquery.iframe-transport.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

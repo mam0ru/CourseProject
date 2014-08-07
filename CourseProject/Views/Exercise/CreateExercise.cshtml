@@ -5,22 +5,18 @@
 @{
     ViewBag.Title = @Resources.Resource.CreateExerciseTitleText;
 }
-@Styles.Render("~/Content/markdown/css")
+
 @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/markdown")
-@Scripts.Render("~/bundles/markdown_bootstrap")
-@Scripts.Render("~/bundles/to_markdown")
-@Scripts.Render("~/bundles/fileupload")
-
-
-<script type="text/javascript" src="~/Scripts/Exercise/Create/markdown_settings.js"></script>
+@Scripts.Render("~/bundles/exercise/create/markdown")
+@Styles.Render("~/Content/markdown/css")
+@Scripts.Render("~/bundles/exercise/create/image")
+<script src="~/Scripts/Exercise/Create/fileupload.js"></script>
 <style>
-
-#Text {
-    width: 400px;
-}
+    #Text {
+        width: 400px;
+    }
 </style>
-<br/>
+<br />
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
         @using (Html.BeginForm())
@@ -28,10 +24,10 @@
             @Html.AntiForgeryToken()
             <div class="row">
                 <div class="col-md-1" align="center">
-                    @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-2" } })    
+                    @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-2" } })
                 </div>
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })    
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row">
@@ -44,14 +40,10 @@
                 </div>
 
             </div>
-            <div>
-                <script>
-                    $(function () {
-                        $('#fileupload').fileupload();
-                    });
-                </script>
-                <input id="fileupload" type="file" name="files[]" data-url="" multiple>
-            </div>
+            <form>
+                <input id="fileupload" type="file" name="MyFile">&nbsp;
+                <button id="Upload" class="btn-default">Upload</button>
+            </form>
 
 
         }
