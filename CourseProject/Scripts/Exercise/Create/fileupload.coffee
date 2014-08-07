@@ -17,8 +17,6 @@ $ ->
     initFileUpload()
     alert "init"
     $('#Upload').on 'click', () ->
-        if not jqXHRData
-          alert "data" 
         if jqXHRData
           alert "submit"
           jqXHRData.submit()

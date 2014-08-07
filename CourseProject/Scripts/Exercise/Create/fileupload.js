@@ -27,9 +27,6 @@
       initFileUpload();
       alert("init");
       $('#Upload').on('click', function() {
-        if (!jqXHRData) {
-          alert("data");
-        }
         if (jqXHRData) {
           alert("submit");
           jqXHRData.submit();
