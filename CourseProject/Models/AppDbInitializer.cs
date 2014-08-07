@@ -37,6 +37,7 @@ namespace CourseProject.Models
             }
  
             base.Seed(context);
+            MvcApplication.dataBase.UserRepository.Insert(admin);////////////////////////////////////////////////////////////////
         }
     }
 }
