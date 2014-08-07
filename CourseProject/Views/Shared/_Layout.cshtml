@@ -7,11 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@Resources.Resource.LayoutTitle</title>
     <style type="text/css">
-        .column {
-            background-color: blanchedalmond;
-            width: 300px;
-            padding-left: 20px;
-        }
     </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -30,101 +25,109 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(@Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink(@Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
-                        if (User.IsInRole("user"))
+    <div id="block">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink(@Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
+                        @if (Request.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink(@Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                            <li>@Html.ActionLink(@Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
+                            if (User.IsInRole("user"))
+                            {
+                                <li>@Html.ActionLink(@Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                            }
                         }
-                    }
-                    @if (User.IsInRole("admin"))
-                    {
-                        <li>@Html.ActionLink(@Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
-                    }
-                    <li>@Html.ActionLink(@Resources.Resource.LayoutRatingLinkText, "Rating", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li>@Html.ActionLink(@Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
+                        }
+                        <li>@Html.ActionLink(@Resources.Resource.LayoutRatingLinkText, "Rating", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div id="left-div" class="column">
-        <h3>@Resources.Resource.MostPopularExercises</h3>
-        @{ bool isExercisesEmpty;}
-        @if (MvcApplication.dataBase.ExerciseRepository.Get().Count() != 0)
-        {
-            isExercisesEmpty = false;
-            var mostPopularExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.TriesOfAnswers).ToList();
-            for (int i = 0; i < 5 || i < mostPopularExercises.Count(); i++)
+        <div class="left-col">
+            <h3>@Resources.Resource.MostPopularExercises</h3>
+            @{ bool isExercisesEmpty;}
+            @if (MvcApplication.dataBase.ExerciseRepository.Get().Count() != 0)
             {
-                @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = mostPopularExercises.ElementAt(i).Id }, null)
-                <br>
-            }
-        }
-        else
-        {
-            isExercisesEmpty = true;
-            @Resources.Resource.ExercisesListIsEmpty
-        }
-        <hr />
-
-        <h3>@Resources.Resource.LastAddedExercises</h3>
-        @if (!isExercisesEmpty)
-        {
-            var lastAddedExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.Id).ToList();
-            for (int i = 0; i < 5 || i < lastAddedExercises.Count(); i++)
-            {
-                @Html.ActionLink(lastAddedExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = lastAddedExercises.ElementAt(i).Id }, null)
-                <br>
-            }
-        }
-        else
-        {
-            @Resources.Resource.ExercisesListIsEmpty
-        }
-        <hr />
-
-        <h3>@Resources.Resource.Tags</h3>
-        @if (!isExercisesEmpty)
-        {
-            var exercises = MvcApplication.dataBase.ExerciseRepository.Get();
-            for (int i = 0; i < exercises.Count(); i++)
-            {
-                for (int j = 0; j < exercises.ElementAt(i).Tags.Count; j++)
+                isExercisesEmpty = false;
+                var mostPopularExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.TriesOfAnswers).ToList();
+                for (int i = 0; i < 5 || i < mostPopularExercises.Count(); i++)
                 {
-                    @Html.ActionLink(exercises.ElementAt(i).Tags.ElementAt(j).Text, "ShowExercisesWithTag", "Exercise", new { tag = exercises.ElementAt(i).Tags.ElementAt(j).Text }, null)
-
+                    @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = mostPopularExercises.ElementAt(i).Id }, null)
+                    <br>
                 }
             }
-        }
-        else
-        {
-            @Resources.Resource.TagsListIsEmpty
-        }
-    </div>
+            else
+            {
+                isExercisesEmpty = true;
+                @Resources.Resource.ExercisesListIsEmpty
+            }
+            <hr />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                @Resources.Resource.LayoutSelectThemeText
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation">@Html.ActionLink(@Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
-                <li role="presentation">@Html.ActionLink(@Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
-            </ul>
+            <h3>@Resources.Resource.LastAddedExercises</h3>
+            @if (!isExercisesEmpty)
+            {
+                var lastAddedExercises = MvcApplication.dataBase.ExerciseRepository.Get().OrderByDescending(exercise => exercise.Id).ToList();
+                for (int i = 0; i < 5 || i < lastAddedExercises.Count(); i++)
+                {
+                    @Html.ActionLink(lastAddedExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = lastAddedExercises.ElementAt(i).Id }, null)
+                    <br>
+                }
+            }
+            else
+            {
+                @Resources.Resource.ExercisesListIsEmpty
+            }
+            <hr />
+
+            <h3>@Resources.Resource.Tags</h3>
+            @if (!isExercisesEmpty)
+            {
+                var exercises = MvcApplication.dataBase.ExerciseRepository.Get();
+                for (int i = 0; i < exercises.Count(); i++)
+                {
+                    for (int j = 0; j < exercises.ElementAt(i).Tags.Count; j++)
+                    {
+                        @Html.ActionLink(exercises.ElementAt(i).Tags.ElementAt(j).Text, "ShowExercisesWithTag", "Exercise", new { tag = exercises.ElementAt(i).Tags.ElementAt(j).Text }, null)
+
+                    }
+                }
+            }
+            else
+            {
+                @Resources.Resource.TagsListIsEmpty
+            }
+
         </div>
-
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Course Project</p>
-        </footer>
+        <div class="container body-content">
+            <div id='search-box'>
+                <form action='~/Controllers/Home/Search' id='search-form' method='get' target='_top'>
+                    <input id='search-text' name='search' placeholder='Search on Site' type='text' />
+                    <button id='search-button' type='submit'>Search</button>
+                </form>
+            </div>
+            @RenderBody()
+            <hr />
+            <footer>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        @Resources.Resource.LayoutSelectThemeText
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">@Html.ActionLink(@Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
+                        <li role="presentation">@Html.ActionLink(@Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
+                    </ul>
+                </div>
+                <center>&copy; @DateTime.Now.Year - Course Project</center>
+                <br>
+            </footer>
+        </div>
     </div>
 </body>
 </html>

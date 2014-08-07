@@ -1,24 +1,65 @@
-﻿body {
+﻿#search-box {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+#search-form {
+    height: 40px;
+    border: 1px solid #999;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+#search-text {
+    font-size: 14px;
+    color: #ddd;
+    background: transparent;
+    width: 100%;
+}
+
+#search-box input[type="text"] {
+    width: 90%;
+    height: 40px;
+    color: black;
+}
+
+#search-button {
+    position: absolute;
+    height: 40px;
+    width: 105px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    background-color: #4d90fe;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+}
+
+div.body-content {
+    width: 100%;
+    padding-top: 60px;
+    padding-left: 300px;
+    padding-bottom: 10px;
+}
+
+div.left-col {
+    background-color: lavender;
+    width: 280px;
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-left: 20px;
+    float: left;
+    /* Internet Explorer */
+    filter: alpha(opacity=80);
+    /* CSS3 standard */
+    opacity: 0.8;
+    border-radius: 10px;
+    color: darkslategray;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 200px;
-    padding-right: 15px;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select {
-    max-width: 280px;
-}
-
-textarea {
-    max-width: 1000px;
-}
-
-#editor {
-    width: 800px;
+div.home {
+    height: 460px;
 }

@@ -23,7 +23,7 @@ namespace CourseProject
 
         protected void Application_Start()
         {
-            Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
+         //   Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
