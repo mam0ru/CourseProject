@@ -106,10 +106,15 @@
         </div>
         <div class="container body-content">
             <div id='search-box'>
-                <form action='~/Controllers/Home/Search' id='search-form' method='get' target='_top'>
-                    <input id='search-text' name='search' placeholder='Search on Site' type='text' />
-                    <button id='search-button' type='submit'>Search</button>
-                </form>
+                @using (Html.BeginForm("Search", "Home"))
+                {
+                    <input type="text" placeholder="Search on Site" id="search-text" name="search" />
+                    <input type="submit" id="search-button" value="Search" />
+                }
+                @* <form action='~/Controllers/Home/Search' id='search-form' method='get' target='_top'>
+                        <input id='search-text' name='search' placeholder='Search on Site' type='text' />
+                        <button id='search-button' type='submit'>Search</button>
+                    </form>*@
             </div>
             @RenderBody()
             <hr />

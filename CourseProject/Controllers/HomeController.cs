@@ -40,5 +40,16 @@ namespace CourseProject.Controllers
            
             return View("Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
         }
+        [HttpGet]
+        public ActionResult Search()
+        {
+
+            return View("Index");//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+        }
+        /*[HttPost]
+        public ActionResult Search()
+        {
+            return View("Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+        }*/
     }
 }
