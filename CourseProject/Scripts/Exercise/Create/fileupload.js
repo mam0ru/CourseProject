@@ -4,37 +4,37 @@
   jqXHRData = null;
 
   initFileUpload = function() {
-    alert("initialize");
     return $('#imageupload').fileupload({
       url: '/Exercise/UploadImage',
       dataType: 'json',
       add: function(e, data) {
-        alert("data add");
         return jqXHRData = data;
       },
       done: function(event, data) {
-        return alert("asd");
+        var jsItem;
+        alert("file uploaded");
+        jsItem = document.createElement('img');
+        jsItem.src = data.result.path;
+        return $('#uploaded_images').append(jsItem);
       },
       fail: function(event, data) {
-        return alert("qwe");
+        alert("uplod filed");
+        if (data.files[0].error) {
+          return alert(data.files[0].error);
+        }
       }
     });
   };
 
   $(function() {
     return $(document).ready(function() {
-      alert("ready");
       initFileUpload();
-      alert("init");
-      $('#Upload').on('click', function() {
+      return $('#Upload').on('click', function() {
         if (jqXHRData) {
-          alert("submit");
           jqXHRData.submit();
         }
-        alert("false");
         return false;
       });
-      return alert("end");
     });
   });
 

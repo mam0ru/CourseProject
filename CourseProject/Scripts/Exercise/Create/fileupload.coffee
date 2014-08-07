@@ -1,25 +1,26 @@
 jqXHRData = null
 
 initFileUpload = () ->
-  alert "initialize"
   $('#imageupload').fileupload({
     url: '/Exercise/UploadImage',
     dataType: 'json',
     add: (e, data) -> 
-        alert "data add"
         jqXHRData = data
-    done: (event, data) -> alert "asd"
-    fail: (event, data) -> alert "qwe"})
+    done: (event, data) -> 
+        alert "file uploaded"
+        jsItem = document.createElement('img')
+        jsItem.src=data.result.path
+        $('#uploaded_images').append(jsItem)
+    fail: (event, data) ->
+        alert "uplod filed"
+        if data.files[0].error
+          alert data.files[0].error
+        })
 
 $ ->
   $(document).ready ()->
-    alert "ready"
     initFileUpload()
-    alert "init"
     $('#Upload').on 'click', () ->
         if jqXHRData
-          alert "submit"
           jqXHRData.submit()
-        alert "false"
         return false
-    alert "end"

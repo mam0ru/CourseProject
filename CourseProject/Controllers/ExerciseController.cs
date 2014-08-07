@@ -71,10 +71,10 @@ namespace CourseProject.Controllers
             };
 
             var uploadResult = cloudinary.Upload(param);
-            var uplPath = uploadResult.Uri.AbsolutePath;
+            var uplPath = uploadResult.Uri.AbsoluteUri;
             Picture uploadedPicture = new Picture();
             uploadedPicture.Path = uplPath;
-            uploadedPicture.Name = image.FileName;
+            uploadedPicture.Name = uploadResult.PublicId;
             MvcApplication.dataBase.PictureRepository.Insert(uploadedPicture);
             MvcApplication.dataBase.Save();
             return Json(new {path = uplPath, });
