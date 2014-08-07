@@ -2,7 +2,7 @@ jqXHRData = null
 
 initFileUpload = () ->
   alert "initialize"
-  $('#fileupload').fileupload({
+  $('#imageupload').fileupload({
     url: '/Exercise/UploadImage',
     dataType: 'json',
     add: (e, data) -> 

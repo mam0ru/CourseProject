@@ -5,7 +5,7 @@
 
   initFileUpload = function() {
     alert("initialize");
-    return $('#fileupload').fileupload({
+    return $('#imageupload').fileupload({
       url: '/Exercise/UploadImage',
       dataType: 'json',
       add: function(e, data) {

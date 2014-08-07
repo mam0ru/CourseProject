@@ -12,5 +12,7 @@ namespace CourseProject.Models
         public String Path { get; set; }
 
         public Exercise Task { get; set; }
+
+        public String Name { get; set; }
     }
 }

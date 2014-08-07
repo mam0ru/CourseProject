@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using CloudinaryDotNet.Actions;
+using CourseProject.Models;
 using CourseProject.View_Models;
 using CloudinaryDotNet;
 
@@ -63,15 +64,20 @@ namespace CourseProject.Controllers
         public ActionResult UploadImage()
         {
             Cloudinary cloudinary = new Cloudinary(account);
-            //var param = new ImageUploadParams()
-            //{
-            //    File = new FileDescription(fileUpload.FileName, fileUpload.InputStream)
-            //};
+            HttpPostedFileBase image = Request.Files["imageupload"];
+            var param = new ImageUploadParams()
+            {
+                File = new FileDescription(image.FileName, image.InputStream)
+            };
 
-            //var uploadResult = cloudinary.Upload(param);
-
-            //var uplPath = uploadResult.Uri;
-            return RedirectToAction("Index","Home");
+            var uploadResult = cloudinary.Upload(param);
+            var uplPath = uploadResult.Uri.AbsolutePath;
+            Picture uploadedPicture = new Picture();
+            uploadedPicture.Path = uplPath;
+            uploadedPicture.Name = image.FileName;
+            MvcApplication.dataBase.PictureRepository.Insert(uploadedPicture);
+            MvcApplication.dataBase.Save();
+            return Json(new {path = uplPath, });
         }
 
     }
