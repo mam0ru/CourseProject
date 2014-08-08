@@ -10,11 +10,9 @@ initFileUpload = () ->
         alert "file uploaded"
         jsItem = document.createElement('img')
         jsItem.src=data.result.path
+        jsItem.width = 400
+        jsItem.vspace = 5
         $('#uploaded_images').append(jsItem)
-        progress = 0
-        $('#progress .bar').css(
-            'width',
-            progress + '%')
     fail: (event, data) ->
         alert "uplod filed"
         if data.files[0].error

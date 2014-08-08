@@ -11,13 +11,13 @@
         return jqXHRData = data;
       },
       done: function(event, data) {
-        var jsItem, progress;
+        var jsItem;
         alert("file uploaded");
         jsItem = document.createElement('img');
         jsItem.src = data.result.path;
-        $('#uploaded_images').append(jsItem);
-        progress = 0;
-        return $('#progress .bar').css('width', progress + '%');
+        jsItem.width = 400;
+        jsItem.vspace = 5;
+        return $('#uploaded_images').append(jsItem);
       },
       fail: function(event, data) {
         alert("uplod filed");
