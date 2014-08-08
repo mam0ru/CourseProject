@@ -11,6 +11,7 @@ using CourseProject.Repository.Implementation;
 using CourseProject.Repository.Interfaces;
 using CourseProject.View_Models;
 using CloudinaryDotNet;
+using Microsoft.AspNet.Identity;
 using Ninject;
 
 namespace CourseProject.Controllers
@@ -26,14 +27,17 @@ namespace CourseProject.Controllers
 
         private readonly IAnswerRepository answerRepository;
 
+        private readonly IApplicationUserRepository applicationUserRepository;
+
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, IApplicationUserRepository applicationUserRepository)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
             this.pictureRepository = pictureRepository;
             this.answerRepository = answerRepository;
+            this.applicationUserRepository = applicationUserRepository;
         }
 
         [HttpGet]
@@ -46,7 +50,28 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult CreateExercise(ExerciseCreateViewModel model)
         {
+            Exercise exercise = InitializExercise(model);
+            exerciseRepository.Insert(exercise);
             return RedirectToAction("Index","Home");
+        }
+
+        private Exercise InitializExercise(ExerciseCreateViewModel model)
+        {
+            Exercise exercise = new Exercise();
+            exercise.Active = true;
+            exercise.Answers = model.Answers;
+            exercise.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
+            // TODO: add category in view
+            Category categories = null;//= categoryRepository.Get(category => category.Text == model.Category).First();
+            exercise.Formulas = model.Formulas;
+            exercise.Graphs = model.Graphs;
+            exercise.Name = model.Name;
+            exercise.Pictures = model.Pictures;
+            exercise.Text = model.Text;
+            exercise.Tags = model.Tags;
+            exercise.TriesOfAnswers = 0;
+            exercise.Videos = model.Videos;
+            return exercise;
         }
 
         [HttpGet]

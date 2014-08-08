@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
 
 namespace CourseProject.Controllers
@@ -11,9 +12,15 @@ namespace CourseProject.Controllers
     {
         private readonly IApplicationUserRepository applicationUserRepository;
 
-        public HomeController(IApplicationUserRepository applicationUserRepository)
+        private readonly IExerciseRepository exerciseRepository;
+
+        private readonly ITagRepository tagRepository;
+
+        public HomeController(IApplicationUserRepository applicationUserRepository, IExerciseRepository exerciseRepository, ITagRepository tagRepository)
         {
             this.applicationUserRepository = applicationUserRepository;
+            this.tagRepository = tagRepository;
+            this.exerciseRepository = exerciseRepository;
         }
 
         public ActionResult Index()
@@ -61,5 +68,15 @@ namespace CourseProject.Controllers
         {
             return View("Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
         }*/
+
+        public ActionResult SidePanel()
+        {
+            return PartialView("_SidePanelPartial", exerciseRepository.Get());
+        }
+
+        public ActionResult TagsOutput()
+        {
+            return PartialView("_TagCloudPartial",tagRepository.Get());
+        }
     }
 }
