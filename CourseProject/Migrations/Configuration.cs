@@ -9,7 +9,7 @@ namespace CourseProject.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "CourseProject.Models.ApplicationDbContext";
         }
 
