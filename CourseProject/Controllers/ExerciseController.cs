@@ -64,8 +64,8 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult AddAnswer(int id)
         {
-            var exercise = MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id);
-            exercise.Answers.Add();
+            //var exercise = MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id);
+           // exercise.Answers.Add();
             // context.Exercises.
 
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
