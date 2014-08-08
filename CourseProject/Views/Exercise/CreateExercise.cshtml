@@ -60,7 +60,17 @@
                     </div>
                 </div>
                 <div class="jumbotron col-md-12">
-                    
+                    <script src="http://www.wiris.net/demo/editor/editor"></script>
+                    <script>
+                        var editor;
+                        window.onload = function () {
+                            editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' });
+                            editor.insertInto(document.getElementById('editorContainer'));
+                        }
+                    </script>
+                    <div id="editorContainer"></div>
+                    <div class="boxedcontent"></div>
+
                 </div>
             </div>
 
