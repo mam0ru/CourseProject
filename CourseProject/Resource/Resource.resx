@@ -318,4 +318,13 @@
   <data name="Answers" xml:space="preserve">
     <value>Answers</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category: </value>
+  </data>
+  <data name="RightAnsweredUsers" xml:space="preserve">
+    <value>Right answered users</value>
+  </data>
+  <data name="TriesOfAnswers" xml:space="preserve">
+    <value>Number of tries to answer </value>
+  </data>
 </root>

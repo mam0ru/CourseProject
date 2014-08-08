@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category: .
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change password.
         /// </summary>
         public static string ChangePasswordButtonSubmitText {
@@ -628,6 +637,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Right answered users.
+        /// </summary>
+        public static string RightAnsweredUsers {
+            get {
+                return ResourceManager.GetString("RightAnsweredUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set password.
         /// </summary>
         public static string SetPasswordButtonSubmitText {
@@ -660,6 +678,15 @@ namespace Resources {
         public static string TagsListIsEmpty {
             get {
                 return ResourceManager.GetString("TagsListIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of tries to answer .
+        /// </summary>
+        public static string TriesOfAnswers {
+            get {
+                return ResourceManager.GetString("TriesOfAnswers", resourceCulture);
             }
         }
     }

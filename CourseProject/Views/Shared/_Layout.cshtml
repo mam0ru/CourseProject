@@ -30,20 +30,20 @@
             <div class="container">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink(@Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
+                        <li>@Html.ActionLink(Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
                         @if (Request.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink(@Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
+                            <li>@Html.ActionLink(Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
                             if (User.IsInRole("user"))
                             {
-                                <li>@Html.ActionLink(@Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                                <li>@Html.ActionLink(Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
                             }
                         }
                         @if (User.IsInRole("admin"))
                         {
-                            <li>@Html.ActionLink(@Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
+                            <li>@Html.ActionLink(Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
                         }
-                        <li>@Html.ActionLink(@Resources.Resource.LayoutRatingLinkText, "Rating", "Home")</li>
+                        <li>@Html.ActionLink(Resources.Resource.LayoutRatingLinkText, "Rating", "Home")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -125,8 +125,8 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation">@Html.ActionLink(@Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
-                        <li role="presentation">@Html.ActionLink(@Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
+                        <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
+                        <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
                     </ul>
                 </div>
                 <center>&copy; @DateTime.Now.Year - Course Project</center>

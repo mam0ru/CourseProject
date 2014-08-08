@@ -15,7 +15,7 @@
                     <h3><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h3>
                     <div>
                         <div id="accordion">
-                            @{ string activeAction = null; }
+                            @{ string activeAction = ""; }
                             if (exersise.Active){
                             activeAction = @Resources.Resource.MakeUnactive;
                             }
@@ -40,9 +40,32 @@
                                     <input type="submit" id="answer" value="Add answer" />
                                 }
                             </div>
-
-
-                        </div>
+                            <h4>@Resources.Resource.Tags</h4>
+                            <div class="row">
+                                @foreach (var tag in exersise.Tags)
+                                {
+                                    <div class="col-md-5">
+                                        @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
+                                    </div>
+                                }
+                            </div>
+                            <h4>@Resources.Resource.Category @exersise.Category.Text</h4>
+                            <h4>@Resources.Resource.TriesOfAnswers @exersise.TriesOfAnswers</h4>
+                            <h4>@Resources.Resource.RightAnsweredUsers</h4>
+                            <div>
+                                @if (@exersise.RightAnsweredUsers.Count != 0)
+                                {
+                                    foreach (var user in exersise.RightAnsweredUsers)
+                                    {
+                                            @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                                    }
+                                }
+                                else
+                                {
+                                    @Resources.Resource.NoRightAnsweredUsers
+                                }
+                            </div>
+                            </div>
                     </div>
                 }
                 else{
