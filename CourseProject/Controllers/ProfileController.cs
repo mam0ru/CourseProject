@@ -18,24 +18,26 @@ namespace CourseProject.Controllers
             return View(MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
         }
 
+        [HttpPost]
         public ActionResult MakeActiveUnactive(int id, bool isActive)
         {
-            MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;
-           // context.Exercises.
-            return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
+            var exercise = MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id);
+            exercise.Active = !isActive;
+            MvcApplication.dataBase.ExerciseRepository.Update(exercise);
+            return View("MyProfile", MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
         }
 
         [HttpGet]
-        public ActionResult ShowProfile()
-        {
-            return View();//MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));
-        }
-
-        [HttpPost]
         public ActionResult ShowProfile(int id)
         {
             return View(MvcApplication.dataBase.UserRepository.GetByID(id));
         }
+         /*
+        [HttpPost]
+        public ActionResult ShowProfile(int id)
+        {
+            return View(MvcApplication.dataBase.UserRepository.GetByID(id));
+        }*/
         /*[HttpPost]
         public ActionResult MyProfile()
         {
