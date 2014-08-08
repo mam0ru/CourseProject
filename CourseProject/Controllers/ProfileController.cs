@@ -21,7 +21,7 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult MakeActiveUnactive(int id, bool isActive)
         {
-            var exercise = MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id);
+            var exercise = MvcApplication.dataBase.ExerciseRepository.GetByID(id);
             exercise.Active = !isActive;
             MvcApplication.dataBase.ExerciseRepository.Update(exercise);
             return View("MyProfile", MvcApplication.dataBase.UserRepository.GetByID(User.Identity.GetUserId()));

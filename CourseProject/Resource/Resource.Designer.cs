@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add answer.
+        /// </summary>
+        public static string AddAnswer {
+            get {
+                return ResourceManager.GetString("AddAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Answers.
+        /// </summary>
+        public static string Answers {
+            get {
+                return ResourceManager.GetString("Answers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change password.
         /// </summary>
         public static string ChangePasswordButtonSubmitText {
@@ -390,6 +408,24 @@ namespace Resources {
         public static string LoginTitleText {
             get {
                 return ResourceManager.GetString("LoginTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make Active.
+        /// </summary>
+        public static string MakeActive {
+            get {
+                return ResourceManager.GetString("MakeActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make Unactive.
+        /// </summary>
+        public static string MakeUnactive {
+            get {
+                return ResourceManager.GetString("MakeUnactive", resourceCulture);
             }
         }
         

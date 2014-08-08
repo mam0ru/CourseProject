@@ -306,4 +306,16 @@
   <data name="NoCurrentUserRightAnsweredExercises" xml:space="preserve">
     <value>User don`t have right answered exercises</value>
   </data>
+  <data name="MakeActive" xml:space="preserve">
+    <value>Make Active</value>
+  </data>
+  <data name="MakeUnactive" xml:space="preserve">
+    <value>Make Unactive</value>
+  </data>
+  <data name="AddAnswer" xml:space="preserve">
+    <value>Add answer</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>Answers</value>
+  </data>
 </root>

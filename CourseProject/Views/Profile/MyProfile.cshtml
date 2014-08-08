@@ -3,51 +3,62 @@
     ViewBag.Title = "My Profile";
 }
 
+<a href="~/Exercise/CreateExercise">Create Exercise</a>
 <div class="jumbotron">
     <div class="container">
-        <br />
-        <a href="~/Exercise/CreateExercise">Create Exercise</a>
-        <table class="table table-striped table-hover ">
-            @if (Model.Exercises != null)
-            {
-                <h3> @Resources.Resource.MyExercises</h3>
-                foreach (var exersise in Model.Exercises)
+        @if (Model.Exercises != null)
+        {
+            <h3> @Resources.Resource.MyExercises</h3>
+            <div id="accordion">
+                @foreach (var exersise in Model.Exercises)
                 {
-                    <tr>
-                        <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                        @{ string activeAction; }
-                        @if (exersise.Active)
-                        {
-                            activeAction = "Make Unactive";
-                        }
-                        else
-                        {
-                            activeAction = "Make Active";
-                        }
-                        <td>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, null)</td>
+                    <h3><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h3>
+                    <div>
+                        <div id="accordion">
+                            @{ string activeAction = null; }
+                            if (exersise.Active){
+                            activeAction = @Resources.Resource.MakeUnactive;
+                            }
+                            else{
+                            activeAction = @Resources.Resource.MakeActive;
+                            }
+                            <h4>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, null))</h4>
+                            }
+                            <h4>@Resources.Resource.Answers</h4>
+                            <div>
+                                @foreach (var answer in exersise.Answers)
+                                {
+                                    @answer
+                                }
+                            </div>
+                            <h4>@Resources.Resource.AddAnswer</h4>
+                            <div>
+                                @using (Html.BeginForm("AddAnswer", "Exercise"))
+                                {
+                                    <input value="@exersise.Id" hidden="true">
+                                    <input type="text" placeholder="Add new answer" id="search-text" name="answer" />
+                                    <input type="submit" id="answer" value="Add answer" />
+                                }
+                            </div>
 
-                    </tr>
+
+                        </div>
+                    </div>
                 }
-
-            }
-            else
-            {
+                else{
                 <br />
-                <thead>
-                    @Resources.Resource.NoExercises
-                </thead>
-            }
-        </table>
-
+                <thead>@Resources.Resource.NoExercises</thead>
+                }
+            </div>
+        }
     </div>
 </div>
-
 <div class="jumbotron">
     <div class="container">
         <br />
         <table class="table table-striped table-hover ">
             <thead>
-               <h3> @Resources.Resource.SolvedExercises</h3>
+                <h3> @Resources.Resource.SolvedExercises</h3>
             </thead>
             <tbody>
                 @if (Model.RightAnswers != null)
@@ -61,7 +72,7 @@
                 }
                 else
                 {
-                    <br/>
+                    <br />
                 <thead>
                     @Resources.Resource.NoRightAnsweredExercises
                 </thead>

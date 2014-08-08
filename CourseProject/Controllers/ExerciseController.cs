@@ -62,13 +62,16 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAnswer(int id)
+        public ActionResult AddAnswer(int id, string answer)
         {
-            var exercise = MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id);
-            exercise.Answers.Add();
-            // context.Exercises.
+            var exercise = MvcApplication.dataBase.ExerciseRepository.GetByID(id);
+            Answer newAnswer = new Answer();
+            newAnswer.Task = exercise;
+            newAnswer.Text = answer;
+            MvcApplication.dataBase.AnswerRepository.Update(newAnswer);
+            MvcApplication.dataBase.ExerciseRepository.Update(exercise);
 
-            return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
+            return RedirectToAction("MyProfile", "Profile");
         }
 
         [HttpPost]
