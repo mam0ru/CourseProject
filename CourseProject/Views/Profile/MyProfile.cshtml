@@ -25,7 +25,7 @@
                             activeAction = "Make Active";
                         }
                         <td>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, null)</td>
-                        <td>@Html.ActionLink(activeAction, "AddAnswer", "Exercise", new { id = exersise.Id }, null)</td>
+
                     </tr>
                 }
 
