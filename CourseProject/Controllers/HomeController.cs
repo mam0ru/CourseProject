@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CourseProject.Repository.Interfaces;
 
 namespace CourseProject.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IApplicationUserRepository applicationUserRepository;
+
+        public HomeController(IApplicationUserRepository applicationUserRepository)
+        {
+            this.applicationUserRepository = applicationUserRepository;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -37,8 +45,8 @@ namespace CourseProject.Controllers
 
         public ActionResult Rating()
         {
-           
-            return View("Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+
+            return View("Rating", applicationUserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
         }
         [HttpPost]
         public ActionResult Search(string search)

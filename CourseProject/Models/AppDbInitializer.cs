@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CourseProject.Repository.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
@@ -10,6 +11,13 @@ namespace CourseProject.Models
 {
     public class AppDbInitializer: DropCreateDatabaseAlways<ApplicationDbContext>
     {
+        private readonly IApplicationUserRepository applicationUserRepository;
+
+        public AppDbInitializer(IApplicationUserRepository applicationUserRepository)
+        {
+            this.applicationUserRepository = applicationUserRepository;
+        }
+
         protected override void Seed(ApplicationDbContext context)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -37,8 +45,7 @@ namespace CourseProject.Models
             }
  
             base.Seed(context);
-            MvcApplication.dataBase.UserRepository.Insert(admin);////////////////////////////////////////////////////////////////
-            MvcApplication.dataBase.Save();
+            applicationUserRepository.Insert(admin);
         }
     }
 }

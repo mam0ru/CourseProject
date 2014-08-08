@@ -53,6 +53,7 @@ namespace CourseProject.Repository
         public void Insert(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
+            context.SaveChanges();
         }
 
         public void Delete(object id)
@@ -68,12 +69,14 @@ namespace CourseProject.Repository
                 context.Set<TEntity>().Attach(entityToDelete);
             }
             context.Set<TEntity>().Remove(entityToDelete);
+            context.SaveChanges();
         }
 
         public void Update(TEntity entityToUpdate)
         {
             context.Set<TEntity>().Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.SaveChanges();
         }
     }
 }

@@ -19,7 +19,20 @@ namespace CourseProject
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static Repository.Repositories dataBase;
+        //private readonly IExerciseRepository exerciseRepository;
+
+        //private readonly ICommentRepository commentRepository;
+
+        //public MvcApplication(IExerciseRepository exerciseRepository, ICommentRepository commentRepository)
+        //{
+        //    this.exerciseRepository = exerciseRepository;
+        //    this.commentRepository = commentRepository;
+        //}
+
+        //public MvcApplication()
+        //{
+            
+        //}
 
         protected void Application_Start()
         {
@@ -28,9 +41,8 @@ namespace CourseProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            dataBase = new Repositories();
-            ExerciseBuildIndex(dataBase.ExerciseRepository.Get());
-            CommentsBuildIndex(dataBase.CommentRepository.Get());
+            //ExerciseBuildIndex(exerciseRepository.Get());
+            //CommentsBuildIndex(commentRepository.Get());
         }
 
         public void ExerciseBuildIndex(IEnumerable<Exercise> exercises)

@@ -6,20 +6,40 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using CloudinaryDotNet.Actions;
 using CourseProject.Models;
+using CourseProject.Repository;
+using CourseProject.Repository.Implementation;
+using CourseProject.Repository.Interfaces;
 using CourseProject.View_Models;
 using CloudinaryDotNet;
+using Ninject;
 
 namespace CourseProject.Controllers
 {
     [Authorize]
     public class ExerciseController : Controller
     {
+        private readonly IExerciseRepository exerciseRepository;
+
+        private readonly ICategoryRepository categoryRepository;
+
+        private readonly IPictureRepository pictureRepository;
+
+        private readonly IAnswerRepository answerRepository;
+
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
-        // GET: Exrcise
+
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository)
+        {
+            this.exerciseRepository = exerciseRepository;
+            this.categoryRepository = categoryRepository;
+            this.pictureRepository = pictureRepository;
+            this.answerRepository = answerRepository;
+        }
+
         [HttpGet]
         public ActionResult CreateExercise()
         {
-            ViewBag.categories = MvcApplication.dataBase.CategoryRepository.Get().Select(category => category.Text);
+            ViewBag.categories = categoryRepository.Get().Select(category => category.Text);
             return View();
         }
 
@@ -64,12 +84,12 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult AddAnswer(int id, string answer)
         {
-            var exercise = MvcApplication.dataBase.ExerciseRepository.GetByID(id);
+            var exercise = exerciseRepository.GetByID(id);
             Answer newAnswer = new Answer();
             newAnswer.Task = exercise;
             newAnswer.Text = answer;
-            MvcApplication.dataBase.AnswerRepository.Update(newAnswer);
-            MvcApplication.dataBase.ExerciseRepository.Update(exercise);
+            answerRepository.Update(newAnswer);
+            exerciseRepository.Update(exercise);
             return RedirectToAction("MyProfile", "Profile");
         }
 
@@ -88,8 +108,7 @@ namespace CourseProject.Controllers
             Picture uploadedPicture = new Picture();
             uploadedPicture.Path = uplPath;
             uploadedPicture.Name = uploadResult.PublicId;
-            MvcApplication.dataBase.PictureRepository.Insert(uploadedPicture);
-            MvcApplication.dataBase.Save();
+            pictureRepository.Insert(uploadedPicture);
             return Json(new {path = uplPath, });
         }
 
