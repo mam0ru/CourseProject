@@ -53,10 +53,20 @@ namespace CourseProject.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult AddAnswer()
+        {
+            //MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;
+            // context.Exercises.
+            return RedirectToAction("MyProfile", "Profile");
+        }
+
+        [HttpPost]
         public ActionResult AddAnswer(int id)
         {
             //MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;
             // context.Exercises.
+
             return View(MvcApplication.dataBase.ExerciseRepository.dbSet);
         }
 
