@@ -19,21 +19,6 @@ namespace CourseProject
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        //private readonly IExerciseRepository exerciseRepository;
-
-        //private readonly ICommentRepository commentRepository;
-
-        //public MvcApplication(IExerciseRepository exerciseRepository, ICommentRepository commentRepository)
-        //{
-        //    this.exerciseRepository = exerciseRepository;
-        //    this.commentRepository = commentRepository;
-        //}
-
-        //public MvcApplication()
-        //{
-            
-        //}
-
         protected void Application_Start()
         {
          //   Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
@@ -59,7 +44,7 @@ namespace CourseProject
             }
 
             indexWriter.Optimize();
-            indexWriter.Close();
+            indexWriter.Dispose();
         }
 
         public void CommentsBuildIndex(IEnumerable<Comment> comments)
@@ -76,7 +61,7 @@ namespace CourseProject
             }
 
             indexWriter.Optimize();
-            indexWriter.Close();
+            indexWriter.Dispose();
         }
     }
 }

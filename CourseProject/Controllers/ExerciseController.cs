@@ -62,7 +62,8 @@ namespace CourseProject.Controllers
             exercise.Answers = model.Answers;
             exercise.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
             // TODO: add category in view
-            Category categories = null;//= categoryRepository.Get(category => category.Text == model.Category).First();
+            Category category = null;//= categoryRepository.Get(category => category.Text == model.Category).First();
+            exercise.Category = category;
             exercise.Formulas = model.Formulas;
             exercise.Graphs = model.Graphs;
             exercise.Name = model.Name;
