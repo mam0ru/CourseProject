@@ -327,4 +327,31 @@
   <data name="TriesOfAnswers" xml:space="preserve">
     <value>Number of tries to answer </value>
   </data>
+  <data name="SidePanel" xml:space="preserve">
+    <value>Side Panel</value>
+  </data>
+  <data name="Exercises" xml:space="preserve">
+    <value>Exercises</value>
+  </data>
+  <data name="NotifyAboutMistake" xml:space="preserve">
+    <value>Notify author about mistakes</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Unactive" xml:space="preserve">
+    <value>Unactive</value>
+  </data>
+  <data name="Formulas" xml:space="preserve">
+    <value>Formulas</value>
+  </data>
+  <data name="Graphs" xml:space="preserve">
+    <value>Graphs</value>
+  </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Pistures</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
 </root>

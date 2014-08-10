@@ -52,7 +52,6 @@ namespace CourseProject.Controllers
 
         public ActionResult Rating()
         {
-
             return View("Rating", applicationUserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
         }
         [HttpPost]

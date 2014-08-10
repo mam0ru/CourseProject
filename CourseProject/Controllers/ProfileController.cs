@@ -10,7 +10,8 @@ using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Controllers
 {
-     [Authorize(Roles = "user")]
+    // [Authorize(Roles = "user")]
+    [Authorize]
     public class ProfileController : Controller
      {
          private readonly IApplicationUserRepository applicationUserRepository;

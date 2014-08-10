@@ -36,7 +36,7 @@
                                 @using (Html.BeginForm("AddAnswer", "Exercise"))
                                 {
                                     <input value="@exersise.Id" hidden="true">
-                                    <input type="text" placeholder="Add new answer" id="search-text" name="answer" />
+                                    <input type="text" placeholder="" id="search-text" name="answer" />
                                     <input type="submit" id="answer" value="Add answer" />
                                 }
                             </div>
@@ -57,7 +57,7 @@
                                 {
                                     foreach (var user in exersise.RightAnsweredUsers)
                                     {
-                                            @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                                        @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
                                     }
                                 }
                                 else
@@ -65,7 +65,7 @@
                                     @Resources.Resource.NoRightAnsweredUsers
                                 }
                             </div>
-                            </div>
+                        </div>
                     </div>
                 }
                 else{

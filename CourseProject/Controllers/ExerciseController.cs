@@ -76,15 +76,9 @@ namespace CourseProject.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowExercise()
-        {
-            return View();
-        }
-
-        [HttpPost]
         public ActionResult ShowExercise(int id)
         {
-            return RedirectToAction("Index", "Home");
+            return View(exerciseRepository.GetByID(id));
         }
 
         [HttpPost]
@@ -109,6 +103,18 @@ namespace CourseProject.Controllers
 
         [HttpPost]
         public ActionResult AddAnswer(int id, string answer)
+        {
+            var exercise = exerciseRepository.GetByID(id);
+            Answer newAnswer = new Answer();
+            newAnswer.Task = exercise;
+            newAnswer.Text = answer;
+            answerRepository.Update(newAnswer);
+            exerciseRepository.Update(exercise);
+            return RedirectToAction("MyProfile", "Profile");
+        }
+
+        [HttpPost]
+        public ActionResult WriteToAuthor(int id, string text)
         {
             var exercise = exerciseRepository.GetByID(id);
             Answer newAnswer = new Answer();

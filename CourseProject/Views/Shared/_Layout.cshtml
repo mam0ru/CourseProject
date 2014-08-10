@@ -35,10 +35,10 @@
                         @if (Request.IsAuthenticated)
                         {
                             <li>@Html.ActionLink(Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
-                            if (User.IsInRole("user"))
-                            {
+                           // if (User.IsInRole("user"))
+                           // {
                                 <li>@Html.ActionLink(Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
-                            }
+                           // }
                         }
                         @if (User.IsInRole("admin"))
                         {
@@ -51,7 +51,8 @@
             </div>
         </div>
         
-        @Html.Action("SidePanel","Home")
+       @* @Html.Action("SidePanel","Home") *@
+
 
         <div class="container body-content">
             <div id='search-box'>

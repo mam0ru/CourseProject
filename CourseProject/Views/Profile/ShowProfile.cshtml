@@ -14,7 +14,7 @@
                 {
                     <tr>
                         <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                        <td>@Html.ActionLink(activeAction, "ShowExercise", "Exercise", new { id = exersise.Id }, null)</td>
+                        <td>@Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new { id = exersise.Id }, null)</td>
                     </tr>
                 }
             }

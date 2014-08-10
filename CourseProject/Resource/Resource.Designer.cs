@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add answer.
         /// </summary>
         public static string AddAnswer {
@@ -169,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exercises.
+        /// </summary>
+        public static string Exercises {
+            get {
+                return ResourceManager.GetString("Exercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exercise`s list  is empty.
         /// </summary>
         public static string ExercisesListIsEmpty {
@@ -255,6 +273,24 @@ namespace Resources {
         public static string ForgotPasswordTitleText {
             get {
                 return ResourceManager.GetString("ForgotPasswordTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formulas.
+        /// </summary>
+        public static string Formulas {
+            get {
+                return ResourceManager.GetString("Formulas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graphs.
+        /// </summary>
+        public static string Graphs {
+            get {
+                return ResourceManager.GetString("Graphs", resourceCulture);
             }
         }
         
@@ -529,6 +565,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notify author about mistakes.
+        /// </summary>
+        public static string NotifyAboutMistake {
+            get {
+                return ResourceManager.GetString("NotifyAboutMistake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -543,6 +588,15 @@ namespace Resources {
         public static string PasswordRequired {
             get {
                 return ResourceManager.GetString("PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pistures.
+        /// </summary>
+        public static string Pictures {
+            get {
+                return ResourceManager.GetString("Pictures", resourceCulture);
             }
         }
         
@@ -655,6 +709,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Side Panel.
+        /// </summary>
+        public static string SidePanel {
+            get {
+                return ResourceManager.GetString("SidePanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solved Exercises.
         /// </summary>
         public static string SolvedExercises {
@@ -687,6 +750,24 @@ namespace Resources {
         public static string TriesOfAnswers {
             get {
                 return ResourceManager.GetString("TriesOfAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unactive.
+        /// </summary>
+        public static string Unactive {
+            get {
+                return ResourceManager.GetString("Unactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Videos.
+        /// </summary>
+        public static string Videos {
+            get {
+                return ResourceManager.GetString("Videos", resourceCulture);
             }
         }
     }

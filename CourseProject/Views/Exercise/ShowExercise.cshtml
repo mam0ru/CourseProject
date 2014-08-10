@@ -1,1 +1,104 @@
-﻿
+﻿@model CourseProject.Models.Exercise
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <br />
+        <h3>
+            Model.Name
+            (
+            @if (Model.Active)
+            {
+                @Resources.Resource.Active
+            }
+            else
+            {
+                @Resources.Resource.Unactive
+            }
+            )
+        </h3>
+        <div id="accordion">
+            Author: <a href="~/Profile/ShowProfile/@Model.Author.Id">@Model.Author.UserName</a>
+            @Resources.Resource.NotifyAboutMistake
+            <div>
+                @using (Html.BeginForm("WriteToAuthor", "Exercise"))
+                {
+                    <input value="@Model.Id" hidden="true">
+                    <input type="text" placeholder="" id="input-text" name="text" />
+                    <input type="submit" id="text" value="Send" />
+                }
+            </div>
+            <h4>@Resources.Resource.Tags</h4>
+            <div class="row">
+                @foreach (var tag in Model.Tags)
+                {
+                    <div class="col-md-5">
+                        @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
+                    </div>
+                }
+            </div>
+            <h4>@Resources.Resource.Category @Model.Category.Text</h4>
+            <h4>@Resources.Resource.TriesOfAnswers @Model.TriesOfAnswers</h4>
+            <h4>@Resources.Resource.RightAnsweredUsers</h4>
+            <div>
+                @if (@Model.RightAnsweredUsers.Count != 0)
+                {
+                    foreach (var user in Model.RightAnsweredUsers)
+                    {
+                        @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                    }
+                }
+                else
+                {
+                    @Resources.Resource.NoRightAnsweredUsers
+                }
+            </div>
+            <br>
+            @Model.Text
+            @if (Model.Formulas.Count != 0)
+            {
+                @Resources.Resource.Formulas
+                <div>
+                    @foreach (var formula in Model.Formulas)
+                    {
+                        @formula.Path
+                    }
+                </div>
+            }
+            @if (Model.Graphs.Count != 0)
+            {
+                @Resources.Resource.Graphs
+                <div>
+                    @foreach (var graph in Model.Graphs)
+                    {
+                        @graph.Path
+                    }
+                </div>
+            }
+            @if (Model.Pictures.Count != 0)
+            {
+                @Resources.Resource.Pictures
+                <div>
+                    @foreach (var picture in Model.Pictures)
+                    {
+                        @picture.Path
+                    }
+                </div>
+            }
+            @if (Model.Videos.Count != 0)
+            {
+                @Resources.Resource.Videos
+                <div>
+                    @foreach (var video in Model.Videos)
+                    {
+                        @video.Path
+                    }
+                </div>
+            }
+            <img src="~/Content/like.png" width="10" alt=@Model.Evaluations.Select(ev=>ev.Type==true).Count().ToString()" likes">@Model.Evaluations.Select(ev => ev.Type == true).Count()
+            <img src="~/Content/like.png" width="10" alt=@Model.Evaluations.Select(ev => ev.Type == false).Count().ToString()" dislikes">@Model.Evaluations.Select(ev => ev.Type == true).Count()
+        </div>
+    </div>
+</div>
