@@ -27,16 +27,19 @@ namespace CourseProject.Controllers
 
         private readonly IAnswerRepository answerRepository;
 
+        private readonly ICommentRepository commentRepository;
+
         private readonly IApplicationUserRepository applicationUserRepository;
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, IApplicationUserRepository applicationUserRepository)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository,  ICommentRepository commentRepository, IApplicationUserRepository applicationUserRepository)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
             this.pictureRepository = pictureRepository;
             this.answerRepository = answerRepository;
+            this.commentRepository = commentRepository;
             this.applicationUserRepository = applicationUserRepository;
         }
 
@@ -130,11 +133,7 @@ namespace CourseProject.Controllers
         public ActionResult WriteToAuthor(int id, string text)
         {
             var exercise = exerciseRepository.GetByID(id);
-            Answer newAnswer = new Answer();
-            newAnswer.Task = exercise;
-            newAnswer.Text = answer;
-            answerRepository.Update(newAnswer);
-            exerciseRepository.Update(exercise);
+           //TODO: email
             return RedirectToAction("MyProfile", "Profile");
         }
 
