@@ -31,7 +31,7 @@
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
-                <br/>
+                <br />
                 <div class="row">
                     <div class="col-md-2" align="center">
                         <label>Category</label>
@@ -52,6 +52,9 @@
                 <div class="row jumbotron" id="uploaded_images">
                     <p>Uploaded Images</p>
                 </div>
+                <div class="row jumbotron" id="formulas">
+                    <p>Formulas</p>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="row">
@@ -71,16 +74,9 @@
                 </div>
                 <div class="jumbotron col-md-12">
                     <script src="http://www.wiris.net/demo/editor/editor"></script>
-                    <script>
-                        var editor;
-                        window.onload = function () {
-                            editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' });
-                            editor.insertInto(document.getElementById('editorContainer'));
-                        }
-                    </script>
+                    @Scripts.Render("~/bundles/exercise/create/formulas")
                     <div id="editorContainer"></div>
-                    <div class="boxedcontent"></div>
-
+                    <button id="addFormula" class="btn btn-default">Add</button>
                 </div>
             </div>
 
