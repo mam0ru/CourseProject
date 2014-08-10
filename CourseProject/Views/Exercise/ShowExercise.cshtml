@@ -1,4 +1,5 @@
-﻿@model CourseProject.Models.Exercise
+﻿@using System.Net
+@model CourseProject.Models.Exercise
 @{
     ViewBag.Title = Model.Name;
 }
@@ -110,7 +111,8 @@
                 <div>
                     @foreach (var comment in Model.Comments)
                     {
-                        @comment.Path
+                        <b>@comment.Author</b>
+                        <p> @comment.Text</p>
                     }
                 </div>
             }
