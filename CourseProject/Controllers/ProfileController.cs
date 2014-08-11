@@ -17,14 +17,12 @@ namespace CourseProject.Controllers
     public class ProfileController : Controller
     {
         private ApplicationUserManager userManager;
-        private readonly IApplicationUserRepository applicationUserRepository;
 
         private readonly IExerciseRepository exerciseRepository;
 
         public ProfileController(ApplicationUserManager userManager, IExerciseRepository exerciseRepository)
         {
             this.userManager = userManager;
-            this.applicationUserRepository = applicationUserRepository;
             this.exerciseRepository = exerciseRepository;
         }
 
@@ -43,8 +41,8 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult MyProfile()
         {
-            var currentUser = UserManager.Users.First(user => user.Id == User.Identity.GetUserId());
-            return View(applicationUserRepository.GetByID(User.Identity.GetUserId()));
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(currentUser);//applicationUserRepository.GetByID(User.Identity.GetUserId()));
         }
 
         [HttpPost]
@@ -53,14 +51,14 @@ namespace CourseProject.Controllers
             var exercise = exerciseRepository.GetByID(id);
             exercise.Active = !isActive;
             exerciseRepository.Update(exercise);
-            return View("MyProfile", applicationUserRepository.GetByID(User.Identity.GetUserId()));
+            //UserManager.FindById(User.Identity.GetUserId()).Exercises.Remove()
+            return View("MyProfile", UserManager.FindById(User.Identity.GetUserId()));
         }
 
         [HttpGet]
         public ActionResult ShowProfile(int id)
         {
-
-            return View(applicationUserRepository.GetByID(id));
+            return View(UserManager.FindById(User.Identity.GetUserId()));
         }
 
         public ActionResult Rating()
