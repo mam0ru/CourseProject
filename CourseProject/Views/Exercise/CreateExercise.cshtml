@@ -10,6 +10,8 @@
 @Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/exercise/create/image")
+@Scripts.Render("~/bundles/exercise/create/autocomplite")
+@Scripts.Render("~/bundles/exercise/create/fillcategories")
 <script src="~/Scripts/Exercise/Create/fileupload.js"></script>
 <style>
     #Text {
@@ -37,8 +39,21 @@
                         <label>Category</label>
                     </div>
                     <div class="col-md-8">
-                        @* TODO: Edit dropdown for category*@
-                        @*Html.DropDownList("Category")*@
+                        <select id="Category"></select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-12 jumbotron" id="Tags">
+                        <div class="row">
+                            <label class="col-md-6">Tags</label>
+                            <button id="addTag" class="btn btn-default col-md-6">Add Tag</button>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <input type="text" data-autocomplete-source="@Url.Action("TagAutocompliteSearch", "Exercise")">
+                        </div>
                     </div>
                 </div>
                 <br />

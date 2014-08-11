@@ -14,6 +14,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+
     @RenderSection("scripts", required: false)
     @if (Request.Cookies["theme"] == null || Request.Cookies["theme"].Value == null || Request.Cookies["theme"].Value == "white")
     {

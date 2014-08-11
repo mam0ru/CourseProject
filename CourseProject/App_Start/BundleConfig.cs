@@ -56,8 +56,14 @@ namespace CourseProject
                         "~/Scripts/FileUpload/jquery.fileupload-ui.js",
                         "~/Scripts/FileUpload/jquery.iframe-transport.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/exercise/create/fileuploadsetting").Include("~/Scripts/Exercise/Create/fileupload.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/exercise/create/formulas").Include("~/Scripts/Exercise/Create/addFormulas.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/exercise/create/autocomplite").Include("~/Scripts/Exercise/Create/aoutocomplite.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/exercise/create/fillcategories").Include(
+                "~/Scripts/Exercise/Create/fillCategories.js"));
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;

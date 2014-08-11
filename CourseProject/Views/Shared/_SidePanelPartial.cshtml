@@ -8,7 +8,7 @@
         var mostPopularExercises = Model.OrderByDescending(exercise => exercise.TriesOfAnswers).ToList();
         for (int i = 0; i < 5 && i < mostPopularExercises.Count(); i++)
         {
-            @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = mostPopularExercises.ElementAt(i).Id }, null)
+            @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id}, null)
             <br>
         }
     }

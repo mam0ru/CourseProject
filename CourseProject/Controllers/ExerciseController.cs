@@ -31,9 +31,11 @@ namespace CourseProject.Controllers
 
         private readonly IApplicationUserRepository applicationUserRepository;
 
+        private readonly ITagRepository tagRepository;
+
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository,  ICommentRepository commentRepository, IApplicationUserRepository applicationUserRepository)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, IApplicationUserRepository applicationUserRepository, ITagRepository tagRepository)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
@@ -41,6 +43,7 @@ namespace CourseProject.Controllers
             this.answerRepository = answerRepository;
             this.commentRepository = commentRepository;
             this.applicationUserRepository = applicationUserRepository;
+            this.tagRepository = tagRepository;
         }
 
         [HttpGet]
@@ -154,6 +157,18 @@ namespace CourseProject.Controllers
             uploadedPicture.Name = uploadResult.PublicId;
             pictureRepository.Insert(uploadedPicture);
             return Json(new {path = uplPath, });
+        }
+
+        public ActionResult TagAutocompliteSearch(string term)
+        {
+            var models = tagRepository.Get().Where(tag => tag.Text.Contains(term)).Select(tag => new{value = tag.Text}).Distinct();
+            return Json(models, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCategoties()
+        {
+            var categories = categoryRepository.Get().Select(category => new {value = category.Text});
+            return Json(categories,JsonRequestBehavior.AllowGet);
         }
 
     }

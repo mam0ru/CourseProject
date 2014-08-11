@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using CourseProject.Models;
@@ -8,8 +9,10 @@ namespace CourseProject.View_Models
 {
     public class ExerciseCreateViewModel
     {
+        [Required]
         public String Text { get; set; }
-
+        
+        [Required]
         public String Name { get; set; }
         
         public ICollection<Video> Videos { get; set; }
@@ -23,7 +26,8 @@ namespace CourseProject.View_Models
         public ICollection<Tag> Tags { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
-
+        
+        [Required]
         public String Category { get; set; }
     }
 }
