@@ -7,6 +7,7 @@
       parent.className = 'row'
       child = document.createElement('input')
       child.type = 'text'
+      child.name = "tag"
       child.setAttribute('data-autocomplete-source', "/Exercise/TagAutocompliteSearch")
       parent.appendChild child
       $('#Tags').append parent

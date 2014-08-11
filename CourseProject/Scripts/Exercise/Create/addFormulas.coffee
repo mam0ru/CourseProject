@@ -8,6 +8,7 @@ $ ->
     window.onload()
 
     $('#addFormula').on 'click', () ->
-      jsItem = document.createElement('p')
-      jsItem.innerHTML = editor.getMathML()
-      $('#formulas').append(jsItem)
+      item = document.createElement('p')
+      item.id = "formula"
+      item.innerHTML = editor.getMathML()
+      $('#formulas').append(item)

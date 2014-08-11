@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -56,28 +57,70 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult CreateExercise(ExerciseCreateViewModel model)
         {
-            Exercise exercise = InitializExercise(model);
+            var exercise = InitializExercise(model);
             exerciseRepository.Insert(exercise);
             return RedirectToAction("Index","Home");
         }
 
         private Exercise InitializExercise(ExerciseCreateViewModel model)
         {
-            Exercise exercise = new Exercise();
+            var exercise = new Exercise();
             exercise.Active = true;
-            exercise.Answers = model.Answers;
+            ICollection<Answer> answers = new Collection<Answer>();
+            foreach (String ans in model.Answers.Split(','))
+            {
+                Answer answer = new Answer();
+                answer.Text = ans;
+                answer.Task = exercise;
+                answers.Add(answer);
+            }
+            exercise.Answers = answers;
             exercise.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
-            // TODO: add category in view
-            Category category = null;//= categoryRepository.Get(category => category.Text == model.Category).First();
-            exercise.Category = category;
-            exercise.Formulas = model.Formulas;
-            exercise.Graphs = model.Graphs;
+            var categ = categoryRepository.Get(category => category.Text == model.Category).First();
+            exercise.Category = categ;
+            if (model.Formulas != null)
+            {
+                ICollection<Formula> formulas = new Collection<Formula>();
+                foreach (String eq in model.Formulas.Split(','))
+                {
+                    Formula equation = new Formula();
+                    equation.Path = eq;
+                    equation.Task = exercise;
+                    formulas.Add(equation);
+                }
+                exercise.Formulas = formulas;  
+            }
             exercise.Name = model.Name;
-            exercise.Pictures = model.Pictures;
+            if (model.Pictures != null)
+            {
+                ICollection<Picture> pictures = new Collection<Picture>();
+                foreach (String imageSource in model.Pictures.Split(','))
+                {
+                    Picture picture = new Picture();
+                    picture.Path = imageSource;
+                    picture.Task = exercise;
+                    pictures.Add(picture);
+                }
+                exercise.Pictures = pictures;   
+            }
             exercise.Text = model.Text;
-            exercise.Tags = model.Tags;
+            //if (model.Tags != null)
+            //{
+            //    foreach (String tag in model.Tags.Split(','))
+            //    {
+            //        Tag tagTemp = tagRepository.Get(tag1 => tag1.Text == tag).First();
+            //        if (tagTemp == null)
+            //        {
+            //            tagTemp = new Tag();
+            //            tagTemp.Text = tag;
+            //        }
+            //        tagTemp.Task.Add(exercise);
+            //        exercise.Tags.Add(tagTemp);
+            //    }    
+            //}
             exercise.TriesOfAnswers = 0;
-            exercise.Videos = model.Videos;
+            //exercise.Graphs = model.Graphs;
+            //exercise.Videos = model.Videos;
             return exercise;
         }
 
@@ -112,7 +155,7 @@ namespace CourseProject.Controllers
         public ActionResult AddAnswer(int id, string answer)
         {
             var exercise = exerciseRepository.GetByID(id);
-            Answer newAnswer = new Answer();
+            var newAnswer = new Answer();
             newAnswer.Task = exercise;
             newAnswer.Text = answer;
             answerRepository.Update(newAnswer);
@@ -124,7 +167,7 @@ namespace CourseProject.Controllers
         public ActionResult AddComment(int id, string comment)
         {
             var exercise = exerciseRepository.GetByID(id);
-            Comment newComment = new Comment();
+            var newComment = new Comment();
             newComment.Target = exercise;
             newComment.Text = comment;
             newComment.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
@@ -144,8 +187,8 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult UploadImage()
         {
-            Cloudinary cloudinary = new Cloudinary(account);
-            HttpPostedFileBase image = Request.Files["imageupload"];
+            var cloudinary = new Cloudinary(account);
+            var image = Request.Files["imageupload"];
             var param = new ImageUploadParams()
             {
                 File = new FileDescription(image.FileName, image.InputStream)
@@ -153,7 +196,7 @@ namespace CourseProject.Controllers
 
             var uploadResult = cloudinary.Upload(param);
             var uplPath = uploadResult.Uri.AbsoluteUri;
-            Picture uploadedPicture = new Picture();
+            var uploadedPicture = new Picture();
             uploadedPicture.Path = uplPath;
             uploadedPicture.Name = uploadResult.PublicId;
             pictureRepository.Insert(uploadedPicture);

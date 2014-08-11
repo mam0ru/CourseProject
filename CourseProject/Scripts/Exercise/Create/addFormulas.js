@@ -13,10 +13,11 @@
   $(function() {
     window.onload();
     return $('#addFormula').on('click', function() {
-      var jsItem;
-      jsItem = document.createElement('p');
-      jsItem.innerHTML = editor.getMathML();
-      return $('#formulas').append(jsItem);
+      var item;
+      item = document.createElement('p');
+      item.id = "formula";
+      item.innerHTML = editor.getMathML();
+      return $('#formulas').append(item);
     });
   });
 

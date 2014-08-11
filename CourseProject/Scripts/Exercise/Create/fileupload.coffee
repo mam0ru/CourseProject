@@ -21,7 +21,6 @@ initFileUpload = () ->
   })
 
 $(document).ready ()->
-  alert "ready"
   initFileUpload()
   $('#Upload').on 'click', (e) ->
       e.stopPropagation()

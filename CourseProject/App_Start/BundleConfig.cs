@@ -64,6 +64,9 @@ namespace CourseProject
 
             bundles.Add(new ScriptBundle("~/bundles/exercise/create/fillcategories").Include(
                 "~/Scripts/Exercise/Create/fillCategories.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/exercise/create/addAnswer").Include(
+                "~/Scripts/Exercise/Create/addAnswer.js"));
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;

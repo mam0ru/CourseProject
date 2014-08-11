@@ -30,7 +30,6 @@
   };
 
   $(document).ready(function() {
-    alert("ready");
     initFileUpload();
     return $('#Upload').on('click', function(e) {
       e.stopPropagation();
