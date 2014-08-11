@@ -2,6 +2,8 @@ using CourseProject.Models;
 using CourseProject.Repository;
 using CourseProject.Repository.Implementation;
 using CourseProject.Repository.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CourseProject.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(CourseProject.App_Start.NinjectWebCommon), "Stop")]
@@ -49,6 +51,10 @@ namespace CourseProject.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                /////////
+                kernel.Bind<IUserStore<ApplicationUser>>()
+                .To<UserStore<ApplicationUser>>()
+                .WithConstructorArgument("context", context => kernel.Get<ApplicationDbContext>());
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -65,6 +71,7 @@ namespace CourseProject.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
             kernel.Bind<IAnswerRepository>().To<AnswerRepository>();
             kernel.Bind<IApplicationUserRepository>().To<ApplicationUserRepository>();

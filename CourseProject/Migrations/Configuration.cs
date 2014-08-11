@@ -10,11 +10,13 @@ namespace CourseProject.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "CourseProject.Models.ApplicationDbContext";
+            ContextKey = "CourseProject.Models.ApplicationDbContext";//"CustomIdentity.Models.ApplicationDbContext";
         }
 
         protected override void Seed(CourseProject.Models.ApplicationDbContext context)
         {
+            //тут можно проинициализировать базу данных начальными данными
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

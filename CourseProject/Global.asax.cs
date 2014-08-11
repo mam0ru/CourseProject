@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using CourseProject.Models;
 using CourseProject.Repository;
+using CourseProject.Repository.Implementation;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
@@ -21,7 +22,7 @@ namespace CourseProject
     {
         protected void Application_Start()
         {
-         //   Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
+            //Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer(new ApplicationUserRepository(new ApplicationDbContext())));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

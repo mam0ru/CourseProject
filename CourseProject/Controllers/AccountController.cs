@@ -28,16 +28,26 @@ namespace CourseProject.Controllers
             }
         }
 
-        public AccountController()
-        {
-        }
+        /* public AccountController()
+         {
+         }*/
 
         public AccountController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
         }
 
-        public ApplicationUserManager UserManager {
+        public AccountController()
+            : this(new ApplicationUserManager
+                (new UserStore<ApplicationUser>
+                    (new ApplicationDbContext())))
+        {
+            
+        }
+
+
+        public ApplicationUserManager UserManager
+        {
             get
             {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -70,7 +80,6 @@ namespace CourseProject.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
                 }
                 else
                 {
@@ -129,7 +138,7 @@ namespace CourseProject.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null) 
+            if (userId == null || code == null)
             {
                 return View("Error");
             }
@@ -189,13 +198,13 @@ namespace CourseProject.Controllers
         {
             return View();
         }
-	
+
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            if (code == null) 
+            if (code == null)
             {
                 return View("Error");
             }
@@ -267,10 +276,10 @@ namespace CourseProject.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.ChangePasswordSuccess ? @Resources.Resource.YourPasswordHasBeenChanged
+                : message == ManageMessageId.SetPasswordSuccess ? @Resources.Resource.YourPasswordHasBeenSet
+                : message == ManageMessageId.RemoveLoginSuccess ?  @Resources.Resource.TheExternalLoginWasRemoved
+                : message == ManageMessageId.Error ? @Resources.Resource.AnErrorHasOccurred
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -423,13 +432,13 @@ namespace CourseProject.Controllers
                     if (result.Succeeded)
                     {
                         await SignInAsync(user, isPersistent: false);
-                        
+
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
                         // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // SendEmail(user.Email, callbackUrl, "Confirm your account", "Please confirm your account by clicking this link");
-                        
+
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -491,7 +500,9 @@ namespace CourseProject.Controllers
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
+            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            //identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));//посл. параметр identity
         }
 
         private void AddErrors(IdentityResult result)
@@ -539,7 +550,8 @@ namespace CourseProject.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
             {
             }
 

@@ -1,0 +1,22 @@
+﻿@model IOrderedQueryable<CourseProject.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Rating";
+}
+<br />
+<div class="jumbotron">
+    <div class="container">
+        <br />
+        <h3> @Resources.Resource.Rating</h3>
+        <table class="table table-striped table-hover ">
+            @{ int i = 1;}
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@i) @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)</td>
+                    @{ i = i + 1; }
+                </tr> 
+            }
+        </table>
+    </div>
+</div>

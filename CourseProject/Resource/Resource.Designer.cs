@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occurred..
+        /// </summary>
+        public static string AnErrorHasOccurred {
+            get {
+                return ResourceManager.GetString("AnErrorHasOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Answers.
         /// </summary>
         public static string Answers {
@@ -601,6 +610,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rating.
+        /// </summary>
+        public static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string RegisterButtonSubmitText {
@@ -745,6 +763,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The external login was removed..
+        /// </summary>
+        public static string TheExternalLoginWasRemoved {
+            get {
+                return ResourceManager.GetString("TheExternalLoginWasRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of tries to answer .
         /// </summary>
         public static string TriesOfAnswers {
@@ -768,6 +795,24 @@ namespace Resources {
         public static string Videos {
             get {
                 return ResourceManager.GetString("Videos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been changed..
+        /// </summary>
+        public static string YourPasswordHasBeenChanged {
+            get {
+                return ResourceManager.GetString("YourPasswordHasBeenChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been set..
+        /// </summary>
+        public static string YourPasswordHasBeenSet {
+            get {
+                return ResourceManager.GetString("YourPasswordHasBeenSet", resourceCulture);
             }
         }
     }

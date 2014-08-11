@@ -84,7 +84,8 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult ShowExercise(int id)
         {
-            return View(exerciseRepository.GetByID(id));
+            var exercise = exerciseRepository.GetByID(id);
+            return View(exercise);//exerciseRepository.GetByID(id));
         }
 
         [HttpPost]
