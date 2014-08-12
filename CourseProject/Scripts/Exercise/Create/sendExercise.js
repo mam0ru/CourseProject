@@ -29,11 +29,12 @@
 
   getTags = function() {
     var t;
-    t = $("#Tags > .row > [name='Tags']");
+    t = $("#Tags > .row > [name='tag']");
     if (t.length === 0) {
       return null;
     }
     $.each(t, function(e, val) {
+      alert(val.value);
       return $tags.push(val.value);
     });
     return $tags;

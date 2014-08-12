@@ -24,6 +24,7 @@ $(document).ready ()->
   initFileUpload()
   $('#Upload').on 'click', (e) ->
       e.stopPropagation()
+      e.preventDefault()
       if jqXHRData
         alert "upload"
         jqXHRData.submit()

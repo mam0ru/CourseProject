@@ -33,6 +33,7 @@
     initFileUpload();
     return $('#Upload').on('click', function(e) {
       e.stopPropagation();
+      e.preventDefault();
       if (jqXHRData) {
         alert("upload");
         jqXHRData.submit();

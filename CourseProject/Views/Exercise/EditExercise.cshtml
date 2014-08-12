@@ -10,13 +10,27 @@
     }
 </style>
 
+
+
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
     <div class="jumbotron">
+        @Html.HiddenFor(exercise => exercise.Id)
         @Html.EditorFor(exercise => exercise.Name)
         <div class="row">
-            <textarea name="Text" id="Text" data-provide="markdown" rows="5"></textarea>
+            @Html.TextAreaFor(exercise => exercise.Text, 5, 47, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
         </div>
-
+        <script src="~/Scripts/Exercise/Edit/setting.js"></script>
+        @foreach (var tag in Model.Tags)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.Label("Tag", tag.Text)
+                </div>
+                <div class="col-md-4">
+                    <button name="deleteTag">Delete</button>
+                </div>
+            </div>
+        }
     </div>
 }

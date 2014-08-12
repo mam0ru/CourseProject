@@ -81,7 +81,7 @@ namespace CourseProject.Controllers
         {
             var exercise = new Exercise();
             exercise.Active = true;
-            exercise.Author = userManager.FindById(Request.LogonUserIdentity.GetUserId());
+            exercise.Author = userManager.FindById(User.Identity.GetUserId());
             var categ = categoryRepository.Get(category => category.Text == model.Category).First();
             exercise.Category = categ;
             exercise.Name = model.Name;

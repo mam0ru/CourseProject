@@ -7,7 +7,7 @@
       parent.className = 'row'
       child = document.createElement('input')
       child.type = 'text'
-      child.name = "Tags"
+      child.name = "tag"
       child.setAttribute('data-autocomplete-source', "/Exercise/TagAutocompliteSearch")
       child.setAttribute('data-val','true')
       child.setAttribute('data-val-required',"Требуется поле Tags.")

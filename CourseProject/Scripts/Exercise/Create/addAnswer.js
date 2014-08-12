@@ -4,6 +4,7 @@
       return $('#addAnswer').on('click', function(e) {
         var child, parent;
         e.stopPropagation();
+        e.preventDefault();
         parent = document.createElement('row');
         parent.className = 'row';
         child = document.createElement('input');

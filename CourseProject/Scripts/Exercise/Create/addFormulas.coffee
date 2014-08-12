@@ -7,7 +7,9 @@ window.onload = () ->
 $ ->
     window.onload()
 
-    $('#addFormula').on 'click', () ->
+    $('#addFormula').on 'click', (e) ->
+      e.stopPropagation()
+      e.preventDefault()
       item = document.createElement('p')
       item.id = "formula"
       item.innerHTML = editor.getMathML()
