@@ -71,33 +71,6 @@ namespace CourseProject.Controllers
             return View(users);
         }
 
-        [HttpGet]
-        public ActionResult MakeAdministrator(int Id)
-        {
-            //TODO
-            //Request.Form.Get()
-            return RedirectToAction("AdministratorMain");
-        }
-
-        [HttpGet]
-        public ActionResult BlockUser(int Id)
-        {
-            //TODO
-            return RedirectToAction("AdministratorMain");
-        }
-
-        [HttpGet]
-        public ActionResult DropUserPassword(int Id)
-        {
-            //TODO
-            return RedirectToAction("AdministratorMain");
-        }
-
-        [HttpGet]
-        public ActionResult DeleteUser(int Id)
-        {
-            //TODO
-            return RedirectToAction("AdministratorMain");
-        }
+       
     }
 }
