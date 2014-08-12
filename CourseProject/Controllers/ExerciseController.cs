@@ -81,7 +81,7 @@ namespace CourseProject.Controllers
         {
             var exercise = new Exercise();
             exercise.Active = true;
-            exercise.Author = applicationUserRepository.Get(user => user.UserName == User.Identity.Name ).First();
+            exercise.Author = userManager.FindById(Request.LogonUserIdentity.GetUserId());
             var categ = categoryRepository.Get(category => category.Text == model.Category).First();
             exercise.Category = categ;
             exercise.Name = model.Name;
@@ -101,14 +101,8 @@ namespace CourseProject.Controllers
                 }
                 exercise.Answers = answers;                
             }
-<<<<<<< HEAD
-
-=======
             exercise.Answers = answers;
-            exercise.Author = userManager.FindById(Request.LogonUserIdentity.GetUserId());
-            var categ = categoryRepository.Get(category => category.Text == model.Category).First();
-            exercise.Category = categ;
->>>>>>> origin/master
+
             if (model.Formulas != null)
             {
                 ICollection<Formula> formulas = new Collection<Formula>();
