@@ -1,1 +1,22 @@
 ﻿@model CourseProject.Models.Exercise
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/exercise/create/markdown")
+@Styles.Render("~/Content/markdown/css")
+
+<style>
+    #Text {
+        width: 400px;
+    }
+</style>
+
+@using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
+{
+    <div class="jumbotron">
+        @Html.EditorFor(exercise => exercise.Name)
+        <div class="row">
+            <textarea name="Text" id="Text" data-provide="markdown" rows="5"></textarea>
+        </div>
+
+    </div>
+}
