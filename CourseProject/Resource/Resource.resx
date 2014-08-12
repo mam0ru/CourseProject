@@ -366,7 +366,34 @@
   <data name="YourPasswordHasBeenSet" xml:space="preserve">
     <value>Your password has been set.</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Block user</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Delete user</value>
+  </data>
+  <data name="DropUserPassword" xml:space="preserve">
+    <value>Drop user`s password</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Rating</value>
+  </data>
+  <data name="RightAnsweredExercises" xml:space="preserve">
+    <value>Right answered exercises</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>
