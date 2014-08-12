@@ -32,6 +32,14 @@ namespace CourseProject.Controllers
         }
 
         [HttpGet]
+        public ActionResult MakeAdministrator(int Id)
+        {
+            //TODO
+            //Request.Form.Get()
+            return RedirectToAction("AdministratorMain");
+        }
+
+        [HttpGet]
         public ActionResult BlockUser(int Id)
         {
             //TODO

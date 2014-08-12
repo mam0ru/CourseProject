@@ -16,6 +16,9 @@
                 @Resources.Resource.RightAnsweredExercises
             </th>
             <th>
+                @Resources.Resource.Administrator
+            </th>
+            <th>
                 @Resources.Resource.BlockUser
             </th>
             <th>
@@ -24,13 +27,14 @@
             <th>
                 @Resources.Resource.DeleteUser
             </th>
-            @foreach (var User in Model)
+
+            @foreach (var user in Model)
             {
                 <tr>
-                    <td> @Html.ActionLink(User.UserName, "ShowProfile", "Profile", new { id = User.Id }, null)</td>
-                    <td> @Html.ActionLink(User.Email, "ShowProfile", "Profile", new { id = User.Id }, null)</td>
+                    <td> @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)</td>
+                    <td> @Html.ActionLink(user.Email, "ShowProfile", "Profile", new { id = user.Id }, null)</td>
                     <td>
-                        @foreach (var exersise in User.Exercises)
+                        @foreach (var exersise in user.Exercises)
                         {
                             @exersise.Name
                             @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, null)
@@ -40,9 +44,9 @@
                         }
                     </td>
                     <td>
-                        @if (User.RightAnswers != null)
+                        @if (user.RightAnswers != null)
                         {
-                            foreach (var exersise in User.RightAnswers)
+                            foreach (var exersise in user.RightAnswers)
                             {
                         <tr>
                             <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
@@ -55,23 +59,37 @@
                         }
                         </td>
                         <td>
+                            @using (Html.BeginForm("MakeAdministrator", "Administrator"))
+                            {
+                                <input value="@user.Id" hidden="true">
+                                if (User.IsInRole("admin"))
+                                {
+                                    <input type="checkbox" name="administrator" value="Admnistrator" checked />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="administrator" value="Admnistrator" />
+                                }
+                            }
+                        </td>
+                        <td>
                             @using (Html.BeginForm("BlockUser", "Administrator"))
                             {
-                                <input value="@User.Id" hidden="true">
+                                <input value="@user.Id" hidden="true">
                                 <input type="checkbox" name="blocked" value="Blocked" />
                             }
                         </td>
                         <td>
                             @using (Html.BeginForm("DropUserPassword", "Administrator"))
                             {
-                                <input value="@User.Id" hidden="true">
+                                <input value="@user.Id" hidden="true">
                                 <input type="checkbox" name="dropped" value="Dropped" />
                             }
                         </td>
                         <td>
-                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteUser", "Administrator", new { id = User.Id }, null)
-                        </td>   
-                  </tr>
+                            @Html.ActionLink(@Resources.Resource.Delete, "DeleteUser", "Administrator", new { id = user.Id }, null)
+                        </td>
+                        </tr>
             }
         </table>
     </div>
