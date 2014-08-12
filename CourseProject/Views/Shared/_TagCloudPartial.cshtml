@@ -1,14 +1,20 @@
 ﻿@using CourseProject.Models
 @model IEnumerable<CourseProject.Models.Tag>
 <h3>@Resources.Resource.Tags</h3>
-@if (Model.Count() != 0)
-{
-    foreach (Tag tag in Model)
+<div class="row">
+    @if (Model.Count() != 0)
     {
-        @Html.Label(tag.Text)
+        foreach (Tag tag in Model)
+        {
+            <div class="col-md-4">
+                @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
+            </div>
+        }
     }
-}
-else
-{
-    @Resources.Resource.TagsListIsEmpty
-}
+    else
+    {
+        <div class="col-md-12">
+            @Resources.Resource.TagsListIsEmpty
+        </div>
+    }
+</div>

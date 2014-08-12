@@ -19,7 +19,9 @@ getImages = () ->
   $images  
     
 getTags = () ->
-  t = $("#Tags > .row > [name='tag']")
+  t = $("#Tags > .row > [name='Tags']")
+  if t.length == 0
+    return null
   $.each t, (e,val) ->
     $tags.push(val.value)
   $tags  

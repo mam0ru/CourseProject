@@ -23,6 +23,7 @@ namespace CourseProject.View_Models
 
         public String Graphs { get; set; }
 
+        [Required]
         public String Tags { get; set; }
 
         public String Answers { get; set; }

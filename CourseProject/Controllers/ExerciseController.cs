@@ -60,7 +60,7 @@ namespace CourseProject.Controllers
         public ActionResult CreateExercise(ExerciseCreateViewModel model)
         {
             var exercise = InitializExercise(model);
-            exerciseRepository.Insert(exercise);
+            exerciseRepository.Update(exercise);
             return RedirectToAction("Index","Home");
         }
 
@@ -68,18 +68,27 @@ namespace CourseProject.Controllers
         {
             var exercise = new Exercise();
             exercise.Active = true;
-            ICollection<Answer> answers = new Collection<Answer>();
-            foreach (String ans in model.Answers.Split(','))
-            {
-                Answer answer = new Answer();
-                answer.Text = ans;
-                answer.Task = exercise;
-                answers.Add(answer);
-            }
-            exercise.Answers = answers;
-            exercise.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
+            exercise.Author = applicationUserRepository.Get(user => user.UserName == User.Identity.Name ).First();
             var categ = categoryRepository.Get(category => category.Text == model.Category).First();
             exercise.Category = categ;
+            exercise.Name = model.Name;
+            exercise.Text = model.Text;
+            exercise.TriesOfAnswers = 0;
+            exerciseRepository.Insert(exercise);
+            ICollection<Answer> answers = new Collection<Answer>();
+            if (model.Answers != null)
+            {
+                foreach (String ans in model.Answers.Split(','))
+                {
+                    Answer answer = new Answer();
+                    answer.Text = ans;
+                    answer.Task = exercise;
+                    answers.Add(answer);
+                    answerRepository.Insert(answer);
+                }
+                exercise.Answers = answers;                
+            }
+
             if (model.Formulas != null)
             {
                 ICollection<Formula> formulas = new Collection<Formula>();
@@ -89,11 +98,11 @@ namespace CourseProject.Controllers
                     equation.Path = eq;
                     equation.Task = exercise;
                     formulas.Add(equation);
-
+                    formulaRepository.Insert(equation);
                 }
-                exercise.Formulas = formulas;  
+                exercise.Formulas = formulas;
             }
-            exercise.Name = model.Name;
+
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
@@ -107,9 +116,9 @@ namespace CourseProject.Controllers
                 }
                 exercise.Pictures = pictures;   
             }
-            exercise.Text = model.Text;
             if (model.Tags != null)
             {
+                ICollection<Tag> addingTags = new Collection<Tag>();
                 foreach (String tag in model.Tags.Split(','))
                 {
                     IEnumerable<Tag> tags = tagRepository.Get();
@@ -119,17 +128,12 @@ namespace CourseProject.Controllers
                     {
                         tagTemp = new Tag();
                         tagTemp.Text = tag;
-                        tagTemp.Task.Add(exercise);
                         tagRepository.Insert(tagTemp);
                     }
-                    else
-                    {
-                        tagTemp.Task.Add(exercise);
-                    }
-                    exercise.Tags.Add(tagTemp);
+                    addingTags.Add(tagTemp);
                 }
+                exercise.Tags = addingTags;
             }
-            exercise.TriesOfAnswers = 0;
             //exercise.Graphs = model.Graphs;
             //exercise.Videos = model.Videos;
             return exercise;
