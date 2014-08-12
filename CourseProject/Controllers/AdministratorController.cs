@@ -51,6 +51,26 @@ namespace CourseProject.Controllers
             return View(users);
         }
 
+        [HttpPost]
+        public ActionResult AdministratorMain(List<UserForAdministratorMainViewModel> users)
+        {
+            foreach (var user in userManager.Users)
+            {
+                UserForAdministratorMainViewModel userForAdmin = new UserForAdministratorMainViewModel();
+                userForAdmin.Admin = userManager.IsInRole(user.Id, "admin");
+                userForAdmin.Blocked = false;
+                userForAdmin.Deleted = false;
+                userForAdmin.DroppedPassword = false;
+                userForAdmin.Email = user.Email;
+                userForAdmin.Name = user.UserName;
+                userForAdmin.SolvedExercises = user.RightAnswers;
+                userForAdmin.UsersExercises = user.Exercises;
+                userForAdmin.Id = user.Id;
+                users.Add(userForAdmin);
+            }
+            return View(users);
+        }
+
         [HttpGet]
         public ActionResult MakeAdministrator(int Id)
         {

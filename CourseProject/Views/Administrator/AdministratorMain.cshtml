@@ -61,13 +61,14 @@
                                 @Resources.Resource.NoCurrentUserRightAnsweredExercises
                             }
                         </td>
-                            <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
-                            <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
-                            <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
-                            <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
-                            </tr>
+                        <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
+                        <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
+                        <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
+                        <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
+                    </tr>
                 }
             </table>
+            <input type="submit" id="submit" value="Submit" />
         }
     </div>
 </div>
