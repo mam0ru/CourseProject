@@ -13,6 +13,7 @@ using CourseProject.Repository.Interfaces;
 using CourseProject.View_Models;
 using CloudinaryDotNet;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Ninject;
 
 namespace CourseProject.Controllers
@@ -30,23 +31,35 @@ namespace CourseProject.Controllers
 
         private readonly ICommentRepository commentRepository;
 
-        private readonly IApplicationUserRepository applicationUserRepository;
-
         private readonly IFormulaRepository formulaRepository;
 
         private readonly ITagRepository tagRepository;
 
+        private ApplicationUserManager userManager;
+
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, IApplicationUserRepository applicationUserRepository, ITagRepository tagRepository, IFormulaRepository formulaRepository)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IFormulaRepository formulaRepository, ApplicationUserManager userManager)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
             this.pictureRepository = pictureRepository;
             this.answerRepository = answerRepository;
             this.commentRepository = commentRepository;
-            this.applicationUserRepository = applicationUserRepository;
             this.tagRepository = tagRepository;
+            this.userManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                userManager = value;
+            }
         }
 
         [HttpGet]
@@ -77,7 +90,7 @@ namespace CourseProject.Controllers
                 answers.Add(answer);
             }
             exercise.Answers = answers;
-            exercise.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
+            exercise.Author = userManager.FindById(Request.LogonUserIdentity.GetUserId());
             var categ = categoryRepository.Get(category => category.Text == model.Category).First();
             exercise.Category = categ;
             if (model.Formulas != null)
@@ -154,7 +167,7 @@ namespace CourseProject.Controllers
         {
             var exercise = exerciseRepository.GetByID(id);
            exerciseRepository.Delete(exercise);
-           return RedirectToAction("AdministratorMain");
+           return RedirectToAction("AdministratorMain","Administrator");
         }
 
         [HttpPost]
@@ -196,7 +209,7 @@ namespace CourseProject.Controllers
             var newComment = new Comment();
             newComment.Target = exercise;
             newComment.Text = comment;
-            newComment.Author = applicationUserRepository.GetByID(Request.LogonUserIdentity.GetUserId());
+            newComment.Author = userManager.FindById(Request.LogonUserIdentity.GetUserId());
             commentRepository.Update(newComment);
             exerciseRepository.Update(exercise);
             return RedirectToAction("MyProfile", "Profile");
