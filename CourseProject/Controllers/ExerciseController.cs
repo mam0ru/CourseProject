@@ -142,6 +142,21 @@ namespace CourseProject.Controllers
             return View(exercise);//exerciseRepository.GetByID(id));
         }
 
+        [HttpGet]
+        public ActionResult EditExercise(int id)
+        {
+            var exercise = exerciseRepository.GetByID(id);
+            return View(exercise);//exerciseRepository.GetByID(id));
+        }
+
+        [HttpGet]
+        public ActionResult DeleteExercise(int id)
+        {
+            var exercise = exerciseRepository.GetByID(id);
+           exerciseRepository.Delete(exercise);
+           return RedirectToAction("AdministratorMain");
+        }
+
         [HttpPost]
         public ActionResult ShowExercisesWithTag(string tag)
         {

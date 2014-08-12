@@ -1,1 +1,78 @@
-﻿
+﻿@model IQueryable<CourseProject.Models.ApplicationUser>
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <table>
+            <th>
+                @Resources.Resource.Username
+            </th>
+            <th>
+                @Resources.Resource.Email
+            </th>
+            <th>
+                @Resources.Resource.Exercises
+            </th>
+            <th>
+                @Resources.Resource.RightAnsweredExercises
+            </th>
+            <th>
+                @Resources.Resource.BlockUser
+            </th>
+            <th>
+                @Resources.Resource.DropUserPassword
+            </th>
+            <th>
+                @Resources.Resource.DeleteUser
+            </th>
+            @foreach (var User in Model)
+            {
+                <tr>
+                    <td> @Html.ActionLink(User.UserName, "ShowProfile", "Profile", new { id = User.Id }, null)</td>
+                    <td> @Html.ActionLink(User.Email, "ShowProfile", "Profile", new { id = User.Id }, null)</td>
+                    <td>
+                        @foreach (var exersise in User.Exercises)
+                        {
+                            @exersise.Name
+                            @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, null)
+                            @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, null)
+                            @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, null)
+
+                        }
+                    </td>
+                    <td>
+                        @if (User.RightAnswers != null)
+                        {
+                            foreach (var exersise in User.RightAnswers)
+                            {
+                        <tr>
+                            <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
+                        </tr>
+                            }
+                        }
+                        else
+                        {
+                            @Resources.Resource.NoCurrentUserRightAnsweredExercises
+                        }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("BlockUser", "Administrator"))
+                            {
+                                <input value="@User.Id" hidden="true">
+                                <input type="checkbox" name="blocked" value="Blocked" />
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("DropUserPassword", "Administrator"))
+                            {
+                                <input value="@User.Id" hidden="true">
+                                <input type="checkbox" name="dropped" value="Dropped" />
+                            }
+                        </td>
+                        <td>
+                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteUser", "Administrator", new { id = User.Id }, null)
+                        </td>   
+                  </tr>
+            }
+        </table>
+    </div>
+</div>
