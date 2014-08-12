@@ -9,7 +9,7 @@ namespace CourseProject.Models
     {
         public int Id { get; set; }
 
-        public Exercise Task { get; set; }
+        public virtual Exercise Task { get; set; }
 
         public String Text { get; set; }
     }

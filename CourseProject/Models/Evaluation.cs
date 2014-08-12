@@ -11,7 +11,7 @@ namespace CourseProject.Models
 
         public ApplicationUser User { get; set; }
 
-        public Exercise Target { get; set; }
+        public virtual Exercise Target { get; set; }
 
         public Boolean Type { get; set; }
     }

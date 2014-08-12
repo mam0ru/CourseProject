@@ -12,7 +12,7 @@ namespace CourseProject.Models
 
         public String Text { get; set; }
 
-        public Exercise Target { get; set; }
+        public virtual Exercise Target { get; set; }
 
         public ApplicationUser Author { get; set; }
 

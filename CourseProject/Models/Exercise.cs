@@ -12,33 +12,33 @@ namespace CourseProject.Models
 
         public String Text { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
-        public ICollection<Evaluation> Evaluations { get; set; }
+        public virtual ICollection<Evaluation> Evaluations { get; set; }
 
         public String Name { get; set; }
 
         public int TriesOfAnswers { get; set; }
 
-        public ICollection<ApplicationUser> RightAnsweredUsers { get; set; }
+        public virtual ICollection<ApplicationUser> RightAnsweredUsers { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Video> Videos { get; set; }
+        public virtual ICollection<Video> Videos { get; set; }
 
-        public ICollection<Picture> Pictures { get; set; }
+        public virtual ICollection<Picture> Pictures { get; set; }
 
-        public ICollection<Formula> Formulas { get; set; }
+        public virtual ICollection<Formula> Formulas { get; set; }
 
-        public ICollection<Graph> Graphs { get; set; }
+        public virtual ICollection<Graph> Graphs { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
 
         public Boolean Active { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public Document GetDocument()
         {

@@ -11,6 +11,6 @@ namespace CourseProject.Models
 
         public String Text { get; set; }
 
-        public ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
     }
 }

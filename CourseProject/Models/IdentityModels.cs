@@ -11,13 +11,13 @@ namespace CourseProject.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Exercise> RightAnswers { get; set; }
+        public virtual ICollection<Exercise> RightAnswers { get; set; }
 
-        public ICollection<Evaluation> Evaluations { get; set; }
+        public virtual ICollection<Evaluation> Evaluations { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

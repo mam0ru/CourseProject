@@ -32,11 +32,13 @@ namespace CourseProject.Controllers
 
         private readonly IApplicationUserRepository applicationUserRepository;
 
+        private readonly IFormulaRepository formulaRepository;
+
         private readonly ITagRepository tagRepository;
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, IApplicationUserRepository applicationUserRepository, ITagRepository tagRepository)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, IApplicationUserRepository applicationUserRepository, ITagRepository tagRepository, IFormulaRepository formulaRepository)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
@@ -87,6 +89,7 @@ namespace CourseProject.Controllers
                     equation.Path = eq;
                     equation.Task = exercise;
                     formulas.Add(equation);
+
                 }
                 exercise.Formulas = formulas;  
             }
@@ -100,24 +103,32 @@ namespace CourseProject.Controllers
                     picture.Path = imageSource;
                     picture.Task = exercise;
                     pictures.Add(picture);
+                    pictureRepository.Insert(picture);
                 }
                 exercise.Pictures = pictures;   
             }
             exercise.Text = model.Text;
-            //if (model.Tags != null)
-            //{
-            //    foreach (String tag in model.Tags.Split(','))
-            //    {
-            //        Tag tagTemp = tagRepository.Get(tag1 => tag1.Text == tag).First();
-            //        if (tagTemp == null)
-            //        {
-            //            tagTemp = new Tag();
-            //            tagTemp.Text = tag;
-            //        }
-            //        tagTemp.Task.Add(exercise);
-            //        exercise.Tags.Add(tagTemp);
-            //    }    
-            //}
+            if (model.Tags != null)
+            {
+                foreach (String tag in model.Tags.Split(','))
+                {
+                    IEnumerable<Tag> tags = tagRepository.Get();
+                    Tag tagTemp = tags.FirstOrDefault(tag1 => tag1.Text == tag);
+
+                    if (tagTemp == null)
+                    {
+                        tagTemp = new Tag();
+                        tagTemp.Text = tag;
+                        tagTemp.Task.Add(exercise);
+                        tagRepository.Insert(tagTemp);
+                    }
+                    else
+                    {
+                        tagTemp.Task.Add(exercise);
+                    }
+                    exercise.Tags.Add(tagTemp);
+                }
+            }
             exercise.TriesOfAnswers = 0;
             //exercise.Graphs = model.Graphs;
             //exercise.Videos = model.Videos;
