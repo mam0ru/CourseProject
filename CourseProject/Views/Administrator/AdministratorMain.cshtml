@@ -1,96 +1,73 @@
-﻿@model IQueryable<CourseProject.Models.ApplicationUser>
+﻿@using System.Web.Mvc.Html
+@model List<CourseProject.View_Models.UserForAdministratorMainViewModel>
 <br>
 <div class="jumbotron">
     <div class="container">
-        <table>
-            <th>
-                @Resources.Resource.Username
-            </th>
-            <th>
-                @Resources.Resource.Email
-            </th>
-            <th>
-                @Resources.Resource.Exercises
-            </th>
-            <th>
-                @Resources.Resource.RightAnsweredExercises
-            </th>
-            <th>
-                @Resources.Resource.Administrator
-            </th>
-            <th>
-                @Resources.Resource.BlockUser
-            </th>
-            <th>
-                @Resources.Resource.DropUserPassword
-            </th>
-            <th>
-                @Resources.Resource.DeleteUser
-            </th>
+        @using (Html.BeginForm("MakeAdministrator", "Administrator"))
+        {
+            <table>
+                <th>
+                    @Resources.Resource.Username
+                </th>
+                <th>
+                    @Resources.Resource.Email
+                </th>
+                <th>
+                    @Resources.Resource.Exercises
+                </th>
+                <th>
+                    @Resources.Resource.RightAnsweredExercises
+                </th>
+                <th>
+                    @Resources.Resource.Administrator
+                </th>
+                <th>
+                    @Resources.Resource.BlockUser
+                </th>
+                <th>
+                    @Resources.Resource.DropUserPassword
+                </th>
+                <th>
+                    @Resources.Resource.DeleteUser
+                </th>
 
-            @foreach (var user in Model)
-            {
-                <tr>
-                    <td> @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)</td>
-                    <td> @Html.ActionLink(user.Email, "ShowProfile", "Profile", new { id = user.Id }, null)</td>
-                    <td>
-                        @foreach (var exersise in user.Exercises)
-                        {
-                            @exersise.Name
-                            @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, null)
-                            @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, null)
-                            @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, null)
-
-                        }
-                    </td>
-                    <td>
-                        @if (user.RightAnswers != null)
-                        {
-                            foreach (var exersise in user.RightAnswers)
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, null)</td>
+                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, null)</td>
+                        <td>
+                            @foreach (var exersise in Model.ElementAt(i).UsersExercises)
                             {
-                        <tr>
-                            <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                        </tr>
+                                @exersise.Name
+                                @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
+                                @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
+                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
+
                             }
-                        }
-                        else
-                        {
-                            @Resources.Resource.NoCurrentUserRightAnsweredExercises
-                        }
                         </td>
                         <td>
-                            @using (Html.BeginForm("MakeAdministrator", "Administrator"))
+                            @if (Model.ElementAt(i).SolvedExercises != null)
                             {
-                                <input value="@user.Id" hidden="true">
-                                if (User.IsInRole("admin"))
+                                foreach (var exersise in Model.ElementAt(i).SolvedExercises)
                                 {
-                                    <input type="checkbox" name="administrator" value="Admnistrator" checked />
-                                }
-                                else
-                                {
-                                    <input type="checkbox" name="administrator" value="Admnistrator" />
+                                    <tr>
+                                        <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
+                                    </tr>
                                 }
                             }
-                        </td>
-                        <td>
-                            @using (Html.BeginForm("BlockUser", "Administrator"))
+                            else
                             {
-                                <input value="@user.Id" hidden="true">
-                                <input type="checkbox" name="blocked" value="Blocked" />
+                                @Resources.Resource.NoCurrentUserRightAnsweredExercises
                             }
                         </td>
-                        <td>
-                            @using (Html.BeginForm("DropUserPassword", "Administrator"))
-                            {
-                                <input value="@user.Id" hidden="true">
-                                <input type="checkbox" name="dropped" value="Dropped" />
-                            }
-                        </td>
-                        <td>
-                            @Html.ActionLink(@Resources.Resource.Delete, "DeleteUser", "Administrator", new { id = user.Id }, null)
-                        </td>
-                        </tr>
-            }
-        </table>
+                            <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
+                            <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
+                            <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
+                            <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
+                            </tr>
+                }
+            </table>
+        }
     </div>
 </div>

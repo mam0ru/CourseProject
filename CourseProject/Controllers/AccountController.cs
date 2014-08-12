@@ -115,6 +115,12 @@ namespace CourseProject.Controllers
                     // если создание прошло успешно, то добавляем роль пользователя
                     await AddUserToRoleAsync(user, "user");
                     await SignInAsync(user, isPersistent: false);
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    ViewBag.Link = callbackUrl;
+                    //return View("DisplayEmail");
+                    
                     return RedirectToAction("Index", "Home");
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -142,17 +148,8 @@ namespace CourseProject.Controllers
             {
                 return View("Error");
             }
-
-            IdentityResult result = await UserManager.ConfirmEmailAsync(userId, code);
-            if (result.Succeeded)
-            {
-                return View("ConfirmEmail");
-            }
-            else
-            {
-                AddErrors(result);
-                return View();
-            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
