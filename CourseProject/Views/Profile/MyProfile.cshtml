@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "My Profile";
 }
-
+<br>
 <a href="~/Exercise/CreateExercise">Create Exercise</a>
+<br><br>
 <div class="jumbotron">
     <div class="container">
-        @if (Model.Exercises != null)
+        <h3> @Resources.Resource.MyExercises</h3>
+        @if (Model.Exercises.Count != 0)
         {
-            <h3> @Resources.Resource.MyExercises</h3>
             <div id="accordion">
                 @foreach (var exersise in Model.Exercises)
                 {
@@ -68,39 +69,37 @@
                         </div>
                     </div>
                 }
-                else{
-                <br />
-                <thead>@Resources.Resource.NoExercises</thead>
-                }
             </div>
+        }
+        else
+        {
+            <br />
+            @Resources.Resource.NoExercises
         }
     </div>
 </div>
+
 <div class="jumbotron">
     <div class="container">
         <br />
+        <h3> @Resources.Resource.SolvedExercises</h3>
         <table class="table table-striped table-hover ">
-            <thead>
-                <h3> @Resources.Resource.SolvedExercises</h3>
-            </thead>
-            <tbody>
-                @if (Model.RightAnswers != null)
+            @if (Model.RightAnswers.Count != 0)
+            {
+                foreach (var exersise in Model.RightAnswers)
                 {
-                    foreach (var exersise in Model.RightAnswers)
-                    {
-                        <tr>
-                            <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                        </tr>
-                    }
+                    <tr>
+                        <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
+                    </tr>
                 }
-                else
-                {
-                    <br />
+            }
+            else
+            {
+                <br />
                 <thead>
                     @Resources.Resource.NoRightAnsweredExercises
                 </thead>
-                }
-                </tbody>
-            </table>
-        </div>
+            }
+        </table>
     </div>
+</div>
