@@ -4,14 +4,12 @@
       var child, parent;
       e.preventDefault();
       e.stopPropagation();
-      parent = document.createElement('row');
+      parent = document.createElement('div');
       parent.className = 'row';
       child = document.createElement('input');
       child.type = 'text';
       child.name = "tag";
       child.setAttribute('data-autocomplete-source', "/Exercise/TagAutocompliteSearch");
-      child.setAttribute('data-val', 'true');
-      child.setAttribute('data-val-required', "Требуется поле Tags.");
       parent.appendChild(child);
       $('#Tags').append(parent);
       return $("[data-autocomplete-source]").each(function() {

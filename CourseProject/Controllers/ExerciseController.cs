@@ -164,7 +164,15 @@ namespace CourseProject.Controllers
         public ActionResult EditExercise(int id)
         {
             var exercise = exerciseRepository.GetByID(id);
-            return View(exercise);//exerciseRepository.GetByID(id));
+            EditExerciseViewModel model = new EditExerciseViewModel();
+            model.Exercise = exercise;
+            return View(model);//exerciseRepository.GetByID(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditExercise()
+        {
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]

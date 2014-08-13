@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using CourseProject.Models;
+
+namespace CourseProject.View_Models
+{
+    public class EditExerciseViewModel
+    {
+        public String Id { get; set; }
+
+        public Exercise Exercise { get; set; }
+
+        [Required]
+        public String Text { get; set; }
+
+        [Required]
+        public String Name { get; set; }
+
+        public String Videos { get; set; }
+
+        public String Pictures { get; set; }
+
+        public String Formulas { get; set; }
+
+        public String Graphs { get; set; }
+
+        [Required]
+        public String Tags { get; set; }
+
+        public String Answers { get; set; }
+
+        [Required]
+        public String Category { get; set; }
+    }
+}

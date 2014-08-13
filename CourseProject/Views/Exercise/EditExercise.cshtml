@@ -1,36 +1,100 @@
-﻿@model CourseProject.Models.Exercise
+﻿@model CourseProject.View_Models.EditExerciseViewModel
 
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
-
-<style>
-    #Text {
-        width: 400px;
-    }
-</style>
-
+@Scripts.Render("~/bundles/exercise/create/image")
+<script src="~/Scripts/Exercise/Edit/setting.js"></script>
 
 
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
-    <div class="jumbotron">
-        @Html.HiddenFor(exercise => exercise.Id)
-        @Html.EditorFor(exercise => exercise.Name)
-        <div class="row">
-            @Html.TextAreaFor(exercise => exercise.Text, 5, 47, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
-        </div>
-        <script src="~/Scripts/Exercise/Edit/setting.js"></script>
-        @foreach (var tag in Model.Tags)
-        {
+    <div class="row">
+        <div class="jumbotron">
+            @Html.HiddenFor(exercise => exercise.Exercise.Id)
+            @Html.LabelFor(model => model.Exercise.Name)
+            @Html.EditorFor(exercise => exercise.Exercise.Name)
             <div class="row">
-                <div class="col-md-4">
-                    @Html.Label("Tag", tag.Text)
-                </div>
-                <div class="col-md-4">
-                    <button name="deleteTag">Delete</button>
-                </div>
+                @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 47, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
             </div>
-        }
+        </div>
+
+        <div class="jumbotron" id="listOfTags">
+            <h3>Tags</h3>
+            <button class="btn btn-default" id="addTag">Add Tag</button>
+            @foreach (var tag in Model.Exercise.Tags)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.Editor("Tag", tag.Text, new {value = tag.Text, name = "Tag"})
+                    </div>
+                    <div class="col-md-4">
+                        <button name="delete">Delete</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="jumbotron" id="listOfAnswers">
+            <h3>Answers</h3>
+            <button class="btn btn-default" id="addAnswer">Add Answer</button>
+            @foreach (var answer in Model.Exercise.Answers)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.Editor("answer", answer.Text, new { value = answer.Text, name = "answer"})
+                    </div>
+                    <div class="col-md-4">
+                        <button name="delete">Delete</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="jumbotron" id="listOfFormulas">
+            <div class="col-md-12">
+                <script src="http://www.wiris.net/demo/editor/editor"></script>
+                <div id="editorContainer"></div>
+                <button id="addFormula" class="btn btn-default">Add</button>
+            </div>
+            <h3>Formulas</h3>
+            @foreach (var formula in Model.Exercise.Formulas)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.Label("formula", formula.Path, new {value = formula.Path})
+                    </div>
+                    <div class="col-md-4">
+                        <button name="delete">Delete</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-12 jumbotron">
+            <form>
+                <input id="imageupload" type="file" name="imageupload">
+                <br />
+                <button id="Upload" class="btn-default">Upload</button>
+            </form>
+        </div>
+        <div class="jumbotron" id="listOfPictures">
+            <h3>Pictures</h3>
+            @foreach (var picture in Model.Exercise.Pictures)
+            {
+                <div class="row">
+                    <div class="col-md-4 thumbnail">
+                        <img src="@picture.Path" width="400" vspace="5"/> 
+                    </div>
+                    <div class="col-md-4">
+                        <button name="delete">Delete</button>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
+    @Html.HiddenFor(model => model.Answers)
+    @*@Html.HiddenFor(model => model.Formulas)*@
+    @*@Html.HiddenFor(model => model.Graphs)*@
+    @Html.HiddenFor(model => model.Pictures)
+    @Html.HiddenFor(model => model.Tags)
+    @*@Html.HiddenFor(model => model.Videos)*@
+    <input type="submit" id="Submit" value="Submit" />
 }
