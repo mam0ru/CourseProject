@@ -1,9 +1,26 @@
 ﻿@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
 @model List<CourseProject.View_Models.UserForAdministratorMainViewModel>
 <br>
+<style>
+    th {
+        background-color: SlateBlue;
+        text-align: center;
+        border: 1px solid black;
+        color:white;
+    }
+     table, td {
+         border: 1px solid black;
+         background-color:lavender;
+     }
+     div.left {
+         padding-left: 800px; 
+     }
+
+</style>
 <div class="jumbotron">
     <div class="container">
-        @using (Html.BeginForm("MakeAdministrator", "Administrator"))
+        @using (Html.BeginForm("AdministratorMain", "Administrator"))
         {
             <table>
                 <th>
@@ -34,15 +51,21 @@
                 @for (int i = 0; i < Model.Count(); i++)
                 {
                     <tr>
-                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, null)</td>
-                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, null)</td>
+                        
+                        @Html.TextBoxFor(x => x[i].Id, new{@class="hidden"});                       
+                        @Html.TextBoxFor(x => x[i].Email, new { @class = "hidden" });
+                        @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" });
+                        @Html.TextBoxFor(x => x[i].SolvedExercises, new { @class = "hidden" });
+                        @Html.TextBoxFor(x => x[i].UsersExercises, new { @class = "hidden" });
+                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
+                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
                         <td>
                             @foreach (var exersise in Model.ElementAt(i).UsersExercises)
                             {
                                 @exersise.Name
-                                @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
-                                @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
-                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
+                                @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })
+                                @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })
+                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })
 
                             }
                         </td>
@@ -68,7 +91,9 @@
                     </tr>
                 }
             </table>
-            <input type="submit" id="submit" value="Submit" />
+            <div class="left">
+                <input type="submit" id="search-button" value="Submit"/>
+            </div>
         }
     </div>
 </div>
