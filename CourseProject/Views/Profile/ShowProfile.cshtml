@@ -6,27 +6,22 @@
 <div class="jumbotron">
     <div class="container">
         <br />
-        <table class="table table-striped table-hover ">
-            @if (Model.Exercises != null)
-            {
-                <h3> @Resources.Resource.Exercises</h3>
-                foreach (var exersise in Model.Exercises)
+        @if (Model.Exercises != null)
+        {
+            <h4> @Resources.Resource.Exercises</h4>
+            <ul>
+                @foreach (var exersise in Model.Exercises)
                 {
-                    <tr>
-                        <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                        <td>@Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new { id = exersise.Id }, null)</td>
-                    </tr>
+                    <li>
+                        @Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new { id = exersise.Id }, null)
+                    </li>
                 }
-            }
-            else
-            {
-                <br />
-                <thead>
-                    @Resources.Resource.NoCurrentUserExercises
-                </thead>
-            }
-        </table>
-
+            </ul>
+        }
+        else
+        {
+            @Resources.Resource.NoCurrentUserExercises
+        }
     </div>
 </div>
 

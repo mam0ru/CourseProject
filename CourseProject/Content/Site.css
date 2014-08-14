@@ -49,7 +49,7 @@ div.body-content {
 }
 
 div.left-col {
-    background-color: lavender;
+    background-color: #0000CD;
     width: 280px;
     padding-top: 50px;
     padding-left: 20px;
@@ -60,9 +60,43 @@ div.left-col {
     /* CSS3 standard */
     opacity: 0.8;
     border-radius: 10px;
-    color: darkslategray;
+    color: #F0F8FF;
+    border-color: #00008B;
 }
 
 div.home {
     height: 460px;
+}
+
+div.myexercises {
+    background-color: #FF1493;
+    /* Internet Explorer */
+    filter: alpha(opacity=70);
+    /* CSS3 standard */
+    opacity: 0.7;
+    border-radius: 10px;
+    color: #F0F8FF;
+    border-color: #FF1493;
+}
+
+div.solvedexercises {
+    background-color:#DC143C;
+    /* Internet Explorer */
+    filter: alpha(opacity=70);
+    /* CSS3 standard */
+    opacity: 0.7;
+    border-radius: 10px;
+    color: #F0F8FF;
+    border-color: #DC143C;
+}
+div.userinfo {
+    background-color:#FF69B4;
+    width: 90%;
+    /* Internet Explorer */
+    filter: alpha(opacity=70);
+    /* CSS3 standard */
+    opacity: 0.7;
+    border-radius: 10px;
+    color: #F0F8FF;
+    border-color: #FF69B4;
 }
