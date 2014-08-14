@@ -6,7 +6,12 @@
 <div class="myexercises">
     <div class="container">
         <div class="userinfo">
-            <h4>@Model.Email</h4>
+            <h4>
+                @Model.Email
+                <span class="badge">
+                    @ViewBag.Rating
+                </span>
+            </h4>
         </div>
             <h4> @Resources.Resource.MyExercises</h4>
             @if (Model.Exercises.Count != 0)

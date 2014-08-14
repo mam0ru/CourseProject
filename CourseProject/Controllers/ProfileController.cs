@@ -42,6 +42,7 @@ namespace CourseProject.Controllers
         public ActionResult MyProfile()
         {
             var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.Rating = UserManager.Users.OrderByDescending(user => user.RightAnswers.Count()).ToList().FindIndex(user=>user.Id==currentUser.Id);
             return View(currentUser);//applicationUserRepository.GetByID(User.Identity.GetUserId()));
         }
 
