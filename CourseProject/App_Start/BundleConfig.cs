@@ -74,7 +74,15 @@ namespace CourseProject
                 "~/Scripts/Exercise/tags/js/textext.plugin.autocomplete.js",
                 "~/Scripts/Exercise/tags/js/textext.plugin.tags.js",
                 "~/Scripts/Exercise/tags/js/textext.plugin.prompt.js",
-                "~/Scripts/Exercise/TagInputSetting.js"));
+                "~/Scripts/Exercise/Create/TagAndAnswerInputSetting.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/exercise/edit/taginput").Include(
+                "~/Scripts/Exercise/tags/js/textext.core.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.ajax.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.autocomplete.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.tags.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.prompt.js",
+                "~/Scripts/Exercise/Edit/TagAndAnswerInputSetting.js"));
 
             bundles.Add(new StyleBundle("~/Content/taginput").Include(
                 "~/Content/tags/css/textext.core.css",

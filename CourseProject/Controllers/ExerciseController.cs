@@ -213,11 +213,10 @@ namespace CourseProject.Controllers
             {
                 List<String> modelTags = System.Web.Helpers.Json.Decode<List<String>>(model.Tags);
                 ICollection<Tag> addingTags = new Collection<Tag>();
+                IEnumerable<Tag> tags = tagRepository.Get();
                 foreach (String tag in modelTags)
                 {
-                    IEnumerable<Tag> tags = tagRepository.Get();
                     Tag tagTemp = tags.FirstOrDefault(tag1 => tag1.Text == tag);
-
                     if (tagTemp == null)
                     {
                         tagTemp = new Tag();
@@ -265,7 +264,7 @@ namespace CourseProject.Controllers
             exercise.Name = model.Name;
             exercise.Text = model.Text;
             List<String> oldAnswers = exercise.Answers.Select(answer => answer.Text).ToList();
-            List<String> newAnswers = model.Answers.Split(',').ToList();
+            List<String> newAnswers = System.Web.Helpers.Json.Decode<List<String>>(model.Answers);
             foreach (String oldAnswer in oldAnswers)
             {
                 if (!newAnswers.Contains(oldAnswer))
@@ -285,7 +284,7 @@ namespace CourseProject.Controllers
             }
 
             List<String> oldTags = exercise.Tags.Select(tag => tag.Text).ToList();
-            List<String> newTags = model.Tags.Split(',').ToList();
+            List<String> newTags = System.Web.Helpers.Json.Decode<List<String>>(model.Tags);
             foreach (String oldTag in oldTags)
             {
                 if (!newTags.Contains(oldTag))
@@ -303,7 +302,7 @@ namespace CourseProject.Controllers
                     exercise.Tags.Add(tag);
                 }
             }
-
+            exerciseRepository.Update(exercise);
             return RedirectToAction("Index","Home");
         }
 

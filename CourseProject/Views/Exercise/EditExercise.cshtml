@@ -1,11 +1,12 @@
 ﻿@model CourseProject.View_Models.EditExerciseViewModel
-
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/exercise/create/image")
 <script src="~/Scripts/Exercise/Edit/setting.js"></script>
 
+@Styles.Render("~/Content/taginput")
+@Scripts.Render("~/bundles/exercise/edit/taginput")
 
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
@@ -19,35 +20,22 @@
                 @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
             </div>
         </div>
-
-        <div class="jumbotron" id="listOfTags">
-            <h3>Tags</h3>
-            <button class="btn btn-default" id="addTag">Add Tag</button>
-            @foreach (var tag in Model.Exercise.Tags)
-            {
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.EditorFor(x => tag.Text, null, "Tag")
-                    </div>
-                    <div class="col-md-4">
-                        <button name="delete">Delete</button>
-                    </div>
-                </div>
-            }
+        <div class="jumbotron">
+            <div id="tag">
+                <textarea id="inputTags" rows="1" cols="100"></textarea>
+            </div>
+            <textarea id="inputAnswers" rows="1" cols="100"></textarea>
         </div>
-        <div class="jumbotron" id="listOfAnswers">
-            <h3>Answers</h3>
-            <button class="btn btn-default" id="addAnswer">Add Answer</button>
+        <div>
+            @foreach(var tag in Model.Exercise.Tags)
+            {
+                @Html.Hidden("currTag",tag.Text)
+            }     
+        </div>
+        <div>
             @foreach (var answer in Model.Exercise.Answers)
             {
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.EditorFor(x => answer.Text, null, "answer")
-                    </div>
-                    <div class="col-md-4">
-                        <button name="delete">Delete</button>
-                    </div>
-                </div>
+                @Html.Hidden("currAnswer", answer.Text)
             }
         </div>
         <div class="jumbotron" id="listOfFormulas">

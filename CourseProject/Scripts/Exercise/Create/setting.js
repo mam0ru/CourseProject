@@ -166,7 +166,6 @@
       });
       $("#Submit").on('click', function(e) {
         var answers, images, tags;
-        alert("submit");
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         images = getImages();
         tags = $("#inputTags").textext()[0].hiddenInput().val();

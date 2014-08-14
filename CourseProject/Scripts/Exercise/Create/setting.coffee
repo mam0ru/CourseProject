@@ -142,14 +142,11 @@
             $("#listOfVideos").append parent
             $("#video").val("")
         $("#Submit").on 'click', (e) ->
-            alert "submit"
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
-#            formulas = getFormulas()
             images = getImages()
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
-#            $('input#Formulas').val(formulas)
             $('input#Pictures').val(images)
             $('input#Tags').val(tags)         
         return null
