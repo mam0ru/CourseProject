@@ -175,14 +175,14 @@
                 $jqXHRData.submit()
             return false
         $("#Submit").on 'click', (e) ->
+            alert "submit"
             answers = getAnswers()
-            formulas = getFormulas()
+#            formulas = getFormulas()
             images = getImages()
             tags = getTags()
-            category = $("select#Category").val()
-            $('input#Category').val(category)    
+            $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
-            $('input#Formulas').val(formulas)
+#            $('input#Formulas').val(formulas)
             $('input#Pictures').val(images)
             $('input#Tags').val(tags)         
         return null

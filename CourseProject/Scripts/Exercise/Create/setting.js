@@ -203,15 +203,13 @@
         return false;
       });
       $("#Submit").on('click', function(e) {
-        var answers, category, formulas, images, tags;
+        var answers, images, tags;
+        alert("submit");
         answers = getAnswers();
-        formulas = getFormulas();
         images = getImages();
         tags = getTags();
-        category = $("select#Category").val();
-        $('input#Category').val(category);
+        $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
-        $('input#Formulas').val(formulas);
         $('input#Pictures').val(images);
         return $('input#Tags').val(tags);
       });

@@ -53,7 +53,7 @@
         <div class="jumbotron">
             @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
         </div>
-        <div class="jumbotron" id="uploaded_images">
+        <div class="jumbotron" id="listOfPictures">
             <form>
                 <input id="imageupload" type="file" name="imageupload">
 
@@ -77,7 +77,6 @@
         @*@Html.HiddenFor(model => model.Formulas)*@
         @Html.HiddenFor(model => model.Pictures)
         @Html.HiddenFor(model => model.Tags)
-        <button type="submit" class="btn" id="sendExercise">Submit</button>
+        <button type="submit" class="btn" id="Submit">Submit</button>
     </div>
 }
-

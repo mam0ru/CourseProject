@@ -176,8 +176,46 @@ namespace CourseProject.Controllers
             Exercise exercise = exerciseRepository.GetByID(model.Exercise.Id);
             exercise.Name = model.Name;
             exercise.Text = model.Text;
-            IEnumerable<String> oldAnswers = exercise.Answers.Select(answer => answer.Text);
-            IEnumerable<String> newAnswers = model.Answers.Split(',');
+            List<String> oldAnswers = exercise.Answers.Select(answer => answer.Text).ToList();
+            List<String> newAnswers = model.Answers.Split(',').ToList();
+            foreach (String oldAnswer in oldAnswers)
+            {
+                if (!newAnswers.Contains(oldAnswer))
+                {
+                    exercise.Answers.Remove(exercise.Answers.First(ans => ans.Text == oldAnswer));
+                }
+            }
+            foreach (String newAnswer in newAnswers)
+            {
+                if (!oldAnswers.Contains(newAnswer))
+                {
+                    Answer ans = new Answer();
+                    ans.Text = newAnswer;
+                    answerRepository.Insert(ans);
+                    exercise.Answers.Add(ans);
+                }
+            }
+
+            List<String> oldTags = exercise.Tags.Select(tag => tag.Text).ToList();
+            List<String> newTags = model.Tags.Split(',').ToList();
+            foreach (String oldTag in oldTags)
+            {
+                if (!newTags.Contains(oldTag))
+                {
+                    exercise.Tags.Remove(exercise.Tags.First(tag => tag.Text == oldTag));
+                }
+            }
+            foreach (String newTag in newTags)
+            {
+                if (!oldTags.Contains(newTag))
+                {
+                    Tag tag = new Tag();
+                    tag.Text = newTag;
+                    tagRepository.Insert(tag);
+                    exercise.Tags.Add(tag);
+                }
+            }
+
             return RedirectToAction("Index","Home");
         }
 
