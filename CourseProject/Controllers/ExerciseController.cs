@@ -70,6 +70,27 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
+        public ActionResult SendAnswer(int id,string answer)
+        {
+            var exercise = exerciseRepository.GetByID(id);
+            var answers = answerRepository.Get().Select(localAnswer => localAnswer.Text);
+            bool answerFound = false;
+            for (int i = 0; i < answers.Count() || !answerFound; i++)
+            {
+                if (answers.ElementAt(i) == answer)
+                {
+                    answerFound = true;
+                    exercise.RightAnsweredUsers.Add(userManager.FindById(User.Identity.GetUserId()));
+                    userManager.FindById(User.Identity.GetUserId()).RightAnswers.Add(exercise);
+                    exerciseRepository.Update(exercise);
+                    TempData["alertMessage"] = "You answered right!";
+                }
+            }
+           
+           return RedirectToAction("ShowExercise",id);
+        }
+
+        [HttpPost]
         public ActionResult CreateExercise(ExerciseCreateViewModel model)
         {
             var exercise = InitializExercise(model);
@@ -158,7 +179,16 @@ namespace CourseProject.Controllers
         public ActionResult ShowExercise(int id)
         {
             var exercise = exerciseRepository.GetByID(id);
-            return View(exercise);//exerciseRepository.GetByID(id));
+            ViewBag.IsRightAnweredUser = true;
+            if(exercise.RightAnsweredUsers.Contains(userManager.FindById(User.Identity.GetUserId())))
+            {
+                 ViewBag.IsRightAnweredUser = true;
+            }
+            else
+            {
+                 ViewBag.IsRightAnweredUser = false;
+            }
+            return View(exercise);
         }
 
         [HttpGet]
@@ -167,7 +197,7 @@ namespace CourseProject.Controllers
             var exercise = exerciseRepository.GetByID(id);
             EditExerciseViewModel model = new EditExerciseViewModel();
             model.Exercise = exercise;
-            return View(model);//exerciseRepository.GetByID(id));
+            return View(model);
         }
 
         [HttpPost]

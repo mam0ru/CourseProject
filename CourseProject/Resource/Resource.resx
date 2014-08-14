@@ -402,4 +402,10 @@
   <data name="ExercisesWithTag" xml:space="preserve">
     <value>Exercises with tag</value>
   </data>
+  <data name="SendAnswer" xml:space="preserve">
+    <value>Send answer</value>
+  </data>
+  <data name="Answered" xml:space="preserve">
+    <value>Answered</value>
+  </data>
 </root>

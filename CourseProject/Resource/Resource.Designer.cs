@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Answered.
+        /// </summary>
+        public static string Answered {
+            get {
+                return ResourceManager.GetString("Answered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Answers.
         /// </summary>
         public static string Answers {
@@ -786,6 +795,15 @@ namespace Resources {
         public static string RightAnsweredUsers {
             get {
                 return ResourceManager.GetString("RightAnsweredUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send answer.
+        /// </summary>
+        public static string SendAnswer {
+            get {
+                return ResourceManager.GetString("SendAnswer", resourceCulture);
             }
         }
         
