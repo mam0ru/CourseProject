@@ -333,6 +333,7 @@ namespace CourseProject.Controllers
 
         public ActionResult TagAutocompliteSearch(string term)
         {
+
             var models = tagRepository.Get().Where(tag => tag.Text.Contains(term)).Select(tag => new{value = tag.Text}).Distinct();
             return Json(models, JsonRequestBehavior.AllowGet);
         }

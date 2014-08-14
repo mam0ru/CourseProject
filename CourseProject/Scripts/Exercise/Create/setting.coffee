@@ -1,7 +1,7 @@
 ﻿$ ->
     createParentDiv = () ->
         parent = document.createElement('div')
-        parent.className = 'row'
+        parent.className = 'col-md-12'
         return parent
 
     createChildDiv = () ->
@@ -175,6 +175,13 @@
                 alert "upload"
                 $jqXHRData.submit()
             return false
+        $("#addVideo").on 'click', (e) ->
+            e.stopPropagation()
+            e.preventDefault()
+            parent = createParentDiv()
+            parent.innerHTML =  $("#video").val()
+            $("#listOfVideos").append parent
+            $("#video").val("")
         $("#Submit").on 'click', (e) ->
             alert "submit"
             answers = getAnswers()

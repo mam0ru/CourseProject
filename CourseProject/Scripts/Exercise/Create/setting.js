@@ -4,7 +4,7 @@
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
-      parent.className = 'row';
+      parent.className = 'col-md-12';
       return parent;
     };
     createChildDiv = function() {
@@ -202,6 +202,15 @@
           $jqXHRData.submit();
         }
         return false;
+      });
+      $("#addVideo").on('click', function(e) {
+        var parent;
+        e.stopPropagation();
+        e.preventDefault();
+        parent = createParentDiv();
+        parent.innerHTML = $("#video").val();
+        $("#listOfVideos").append(parent);
+        return $("#video").val("");
       });
       $("#Submit").on('click', function(e) {
         var answers, images, tags;

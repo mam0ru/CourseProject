@@ -12,12 +12,12 @@
 @Scripts.Render("~/bundles/exercise/create/image")
 @Scripts.Render("~/bundles/exercise/create/fillcategories")
 @*@Scripts.Render("~/bundles/exercise/create/markdown")
-@Styles.Render("~/Content/markdown/css")
-@Scripts.Render("~/bundles/exercise/create/image")
-@Scripts.Render("~/bundles/exercise/create/autocomplite")
-@Scripts.Render("~/bundles/exercise/create/addAnswer")
-<script src="~/Scripts/Exercise/Create/fileupload.js"></script>
-<script src="~/Scripts/Exercise/Create/sendExercise.js"></script>*@
+    @Styles.Render("~/Content/markdown/css")
+    @Scripts.Render("~/bundles/exercise/create/image")
+    @Scripts.Render("~/bundles/exercise/create/autocomplite")
+    @Scripts.Render("~/bundles/exercise/create/addAnswer")
+    <script src="~/Scripts/Exercise/Create/fileupload.js"></script>
+    <script src="~/Scripts/Exercise/Create/sendExercise.js"></script>*@
 
 <script src="~/Scripts/Exercise/Create/setting.js"></script>
 
@@ -25,7 +25,7 @@
 {
     <div class="row">
         @Html.AntiForgeryToken()
-        <div class="row">
+        <div class="jumbotron">
             <div class="col-md-6">
                 <div class="col-md-2" align="center">
                     @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-2" } })
@@ -71,6 +71,19 @@
         <div class="jumbotron" id="listOfAnswers">
             <p>Answers</p><button class="btn-default" id="addAnswer">Add answer</button>
             <hr />
+        </div>
+        <div id="listOfVideos">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>VIDEO HTML-CODE</label>
+                </div>
+                <div class="col-md-9">
+                    @Html.Editor("video")
+                </div>
+            </div>
+            <button id="addVideo">Add Video</button>
+            <br />
+            <label>Videos</label>
         </div>
         @Html.HiddenFor(model => model.Answers)
         @Html.HiddenFor(model => model.Category)
