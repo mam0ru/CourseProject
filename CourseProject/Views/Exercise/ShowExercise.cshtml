@@ -7,6 +7,7 @@
 <h1>Show exercise with tag</h1>
 <div class="jumbotron">
     <div class="container">
+        @{ bool active = true;}
         <br />
         <h4>
             @Model.Name
@@ -14,6 +15,7 @@
                 (
                 @if (Model.Active)
                 {
+                    active = true;
                     @Resources.Resource.Active
                     if (Model.Author.Id != User.Identity.GetUserId())
                     {
@@ -38,6 +40,7 @@
                 else
                 {
                     @Resources.Resource.Unactive
+                    active = false;
                 }
                 )
             </h5>
@@ -122,12 +125,13 @@
             }
             <img src="~/Content/like.png" width="10" alt=@Model.Evaluations.Select(ev=>ev.Type==true).Count().ToString()" likes">@Model.Evaluations.Select(ev => ev.Type == true).Count()
             <img src="~/Content/like.png" width="10" alt=@Model.Evaluations.Select(ev => ev.Type == false).Count().ToString()" dislikes">@Model.Evaluations.Select(ev => ev.Type == true).Count()
-            @using (Html.BeginForm("AddComment", "Exercise"))
+            @if (active) { 
+            using (Html.BeginForm("AddComment", "Exercise"))
             {
                 <input value="@Model.Id" hidden="true">
                 <input type="text" placeholder="" id="input-text" name="text" />
                 <input type="submit" id="text" value="Send" />
-            }
+            }}
             @if (Model.Comments.Count != 0)
             {
                 <div>
