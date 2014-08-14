@@ -92,7 +92,8 @@
       editor = com.wiris.jsEditor.JsEditor.newInstance({
         'language': 'en'
       });
-      return editor.insertInto(document.getElementById('editorContainer'));
+      editor.insertInto(document.getElementById('editorContainer'));
+      return window.editor = editor;
     };
     initFileUpload = function() {
       return $('#imageupload').fileupload({

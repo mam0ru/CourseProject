@@ -83,6 +83,7 @@
     window.onload = () ->
         editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' })
         editor.insertInto(document.getElementById('editorContainer'))    
+        window.editor = editor
     
     initFileUpload = () ->
       $('#imageupload').fileupload({
