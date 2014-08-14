@@ -80,7 +80,7 @@
     
     editor = null
 
-    window.onload1 = () ->
+    window.onload = () ->
         editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' })
         editor.insertInto(document.getElementById('editorContainer'))    
     
@@ -135,9 +135,7 @@
       $answers    
 
     $(document).ready () ->
-        $(".md-header").css('height', '35px')
-        $(".jumbotron")[0].style.setProperty("height","250px")
-        window.onload1()
+        window.onload()
         $('#addFormula').on 'click', (e) ->
             e.stopPropagation()
             e.preventDefault()
@@ -178,11 +176,13 @@
             return false
         $("#Submit").on 'click', (e) ->
             answers = getAnswers()
+            formulas = getFormulas()
             images = getImages()
             tags = getTags()
-            $('input#Answers')[0].value = answers
-            $('input#Pictures')[0].value = images
-            $('input#Tags')[0].value = tags    
-            $("input#Name")[0].value = $("#Exercise_Name").val()
-            $("input#Text")[0].value = $("[name='Exercise.Text']").val()
+            category = $("select#Category").val()
+            $('input#Category').val(category)    
+            $('input#Answers').val(answers)
+            $('input#Formulas').val(formulas)
+            $('input#Pictures').val(images)
+            $('input#Tags').val(tags)         
         return null

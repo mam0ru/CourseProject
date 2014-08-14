@@ -10,103 +10,74 @@
 @Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/exercise/create/image")
-@Scripts.Render("~/bundles/exercise/create/autocomplite")
 @Scripts.Render("~/bundles/exercise/create/fillcategories")
+@*@Scripts.Render("~/bundles/exercise/create/markdown")
+@Styles.Render("~/Content/markdown/css")
+@Scripts.Render("~/bundles/exercise/create/image")
+@Scripts.Render("~/bundles/exercise/create/autocomplite")
 @Scripts.Render("~/bundles/exercise/create/addAnswer")
 <script src="~/Scripts/Exercise/Create/fileupload.js"></script>
-<script src="~/Scripts/Exercise/Create/sendExercise.js"></script>
-<style>
-    #Text {
-        width: 400px;
-    }
-</style>
-<br />
-<div class="row">
-    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-        @using (Html.BeginForm("CreateExercise","Exercise", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
+<script src="~/Scripts/Exercise/Create/sendExercise.js"></script>*@
+
+<script src="~/Scripts/Exercise/Create/setting.js"></script>
+
+@using (Html.BeginForm("CreateExercise", "Exercise", FormMethod.Post))
+{
+    <div class="row">
+        @Html.AntiForgeryToken()
+        <div class="row">
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-2" align="center">
-                        @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-2" } })
-                    </div>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
+                <div class="col-md-2" align="center">
+                    @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-2" } })
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-2" align="center">
-                        <label>Category</label>
-                    </div>
-                    <div class="col-md-8">
-                        <select id="Category"></select>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-
-                    <div class="col-md-12 jumbotron" id="Tags">
-                        <div class="row">
-                            <label class="col-md-6">Tags</label>
-                            <button id="addTag" class="btn btn-default col-md-6">Add Tag</button>
-                            <hr />
-                        </div>
-                        <br />
-                        <hr />
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-
-                        <textarea name="Text" id="Text" data-provide="markdown" rows="5"></textarea>
-                        <hr />
-                        @Html.HiddenFor(model => model.Answers)
-                        @Html.HiddenFor(model => model.Category)
-                        @*@Html.HiddenFor(model => model.Formulas)*@
-                        @Html.HiddenFor(model => model.Pictures)
-                        @Html.HiddenFor(model => model.Tags)
-                        <button type="submit" class="btn" id="sendExercise">Submit</button>
-
-                </div>
-                <div class="row jumbotron" id="uploaded_images">
-                    <p>Uploaded Images</p>
-                </div>
-                <div class="row jumbotron" id="formulas">
-                    <p>Formulas</p>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-12 jumbotron">
-                        <form>
-                            <style>
-                                .bar {
-                                    height: 18px;
-                                    background: green;
-                                }
-                            </style>
-                            <input id="imageupload" type="file" name="imageupload">
-                            <br />
-                            <button id="Upload" class="btn-default">Upload</button>
-                        </form>
-                    </div>
+                <div class="col-md-2" align="center">
+                    <label>Category</label>
                 </div>
-                <div class="jumbotron col-md-12">
-                    <script src="http://www.wiris.net/demo/editor/editor"></script>
-                    @Scripts.Render("~/bundles/exercise/create/formulas")
-                    <div id="editorContainer"></div>
-                    <button id="addFormula" class="btn btn-default">Add</button>
-                </div>
-                <div class="jumbotron col-md-12" id="answer">
-                    <p>Answers</p><button class="btn-default" id="addAnswer">Add answer</button>
-                    <br />
-                    <hr />
+                <div class="col-md-8">
+                    <select id="Category"></select>
                 </div>
             </div>
+        </div>
+        <div class="jumbotron" id="listOfTags">
+            <label class="col-md-6">Tags</label>
+            <button id="addTag" class="btn btn-default col-md-6">Add Tag</button>
+            <br />
+            <hr />
+        </div>
+        <br />
+        <div class="jumbotron">
+            @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
+        </div>
+        <div class="jumbotron" id="uploaded_images">
+            <form>
+                <input id="imageupload" type="file" name="imageupload">
 
-        }
-
+                <button id="Upload" class="btn-default">Upload</button>
+            </form>
+            <p>Uploaded Images</p>
+        </div>
+        <div class="jumbotron" id="listOfFormulas">
+            <script src="http://www.wiris.net/demo/editor/editor"></script>
+            @Scripts.Render("~/bundles/exercise/create/formulas")
+            <div id="editorContainer"></div>
+            <button id="addFormula" class="btn btn-default">Add Formula</button>
+            <p>Formulas</p>
+        </div>
+        <div class="jumbotron" id="listOfAnswers">
+            <p>Answers</p><button class="btn-default" id="addAnswer">Add answer</button>
+            <hr />
+        </div>
+        @Html.HiddenFor(model => model.Answers)
+        @Html.HiddenFor(model => model.Category)
+        @*@Html.HiddenFor(model => model.Formulas)*@
+        @Html.HiddenFor(model => model.Pictures)
+        @Html.HiddenFor(model => model.Tags)
+        <button type="submit" class="btn" id="sendExercise">Submit</button>
     </div>
-</div>
+}
+

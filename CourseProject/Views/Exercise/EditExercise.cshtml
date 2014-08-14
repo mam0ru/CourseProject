@@ -9,13 +9,14 @@
 
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
+    <br/>
     <div class="row">
         <div class="jumbotron">
             @Html.HiddenFor(exercise => exercise.Exercise.Id)
             @Html.LabelFor(model => model.Exercise.Name)
             @Html.EditorFor(exercise => exercise.Exercise.Name)
             <div class="row">
-                @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 47, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
+                @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
             </div>
         </div>
 
@@ -26,7 +27,7 @@
             {
                 <div class="row">
                     <div class="col-md-4">
-                        @Html.Editor("Tag", tag.Text, new {value = tag.Text, name = "Tag"})
+                        @Html.EditorFor(x => tag.Text, null, "Tag")
                     </div>
                     <div class="col-md-4">
                         <button name="delete">Delete</button>
@@ -41,7 +42,7 @@
             {
                 <div class="row">
                     <div class="col-md-4">
-                        @Html.Editor("answer", answer.Text, new { value = answer.Text, name = "answer"})
+                        @Html.EditorFor(x => answer.Text, null, "answer")
                     </div>
                     <div class="col-md-4">
                         <button name="delete">Delete</button>
@@ -68,7 +69,7 @@
                 </div>
             }
         </div>
-        <div class="col-md-12 jumbotron">
+        <div class="jumbotron">
             <form>
                 <input id="imageupload" type="file" name="imageupload">
                 <br />
@@ -89,12 +90,15 @@
                 </div>
             }
         </div>
+        @Html.HiddenFor(model => model.Answers)
+        @*@Html.HiddenFor(model => model.Formulas)*@
+        @*@Html.HiddenFor(model => model.Graphs)*@
+        @Html.HiddenFor(model => model.Pictures)
+        @Html.HiddenFor(model => model.Tags)
+        @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.Text)
+        @Html.HiddenFor(model => model.Category)
+        @*@Html.HiddenFor(model => model.Videos)*@
+        <input type="submit" id="Submit" value="Submit" />
     </div>
-    @Html.HiddenFor(model => model.Answers)
-    @*@Html.HiddenFor(model => model.Formulas)*@
-    @*@Html.HiddenFor(model => model.Graphs)*@
-    @Html.HiddenFor(model => model.Pictures)
-    @Html.HiddenFor(model => model.Tags)
-    @*@Html.HiddenFor(model => model.Videos)*@
-    <input type="submit" id="Submit" value="Submit" />
 }

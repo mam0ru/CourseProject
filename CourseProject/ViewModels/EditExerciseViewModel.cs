@@ -13,10 +13,8 @@ namespace CourseProject.View_Models
 
         public Exercise Exercise { get; set; }
 
-        [Required]
         public String Text { get; set; }
 
-        [Required]
         public String Name { get; set; }
 
         public String Videos { get; set; }
@@ -27,12 +25,10 @@ namespace CourseProject.View_Models
 
         public String Graphs { get; set; }
 
-        [Required]
         public String Tags { get; set; }
 
         public String Answers { get; set; }
 
-        [Required]
         public String Category { get; set; }
     }
 }

@@ -88,7 +88,7 @@
       return parent;
     };
     editor = null;
-    window.onload1 = function() {
+    window.onload = function() {
       editor = com.wiris.jsEditor.JsEditor.newInstance({
         'language': 'en'
       });
@@ -147,9 +147,7 @@
       return $answers;
     };
     return $(document).ready(function() {
-      $(".md-header").css('height', '35px');
-      $(".jumbotron")[0].style.setProperty("height", "250px");
-      window.onload1();
+      window.onload();
       $('#addFormula').on('click', function(e) {
         var item;
         e.stopPropagation();
@@ -205,15 +203,17 @@
         return false;
       });
       $("#Submit").on('click', function(e) {
-        var answers, images, tags;
+        var answers, category, formulas, images, tags;
         answers = getAnswers();
+        formulas = getFormulas();
         images = getImages();
         tags = getTags();
-        $('input#Answers')[0].value = answers;
-        $('input#Pictures')[0].value = images;
-        $('input#Tags')[0].value = tags;
-        $("input#Name")[0].value = $("#Exercise_Name").val();
-        return $("input#Text")[0].value = $("[name='Exercise.Text']").val();
+        category = $("select#Category").val();
+        $('input#Category').val(category);
+        $('input#Answers').val(answers);
+        $('input#Formulas').val(formulas);
+        $('input#Pictures').val(images);
+        return $('input#Tags').val(tags);
       });
       return null;
     });

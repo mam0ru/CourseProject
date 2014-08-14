@@ -170,8 +170,13 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditExercise()
+        public ActionResult EditExercise(EditExerciseViewModel model)
         {
+            Exercise exercise = exerciseRepository.GetByID(model.Exercise.Id);
+            exercise.Name = model.Name;
+            exercise.Text = model.Text;
+            IEnumerable<String> oldAnswers = exercise.Answers.Select(answer => answer.Text);
+            IEnumerable<String> newAnswers = model.Answers.Split(',');
             return RedirectToAction("Index","Home");
         }
 
