@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $answers, $equations, $images, $jqXHRData, $tags, createAnswerInput, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, createTagInput, editor, getAnswers, getImages, getTags, initFileUpload;
+    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, editor, getImages, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -26,35 +26,6 @@
       button.name = name;
       button.innerText = text;
       return button;
-    };
-    createTagInput = function() {
-      var childButton, childDivForButton, childDivForInput, childInput, parent;
-      parent = createParentDiv();
-      childInput = createInput("Tag");
-      childInput.setAttribute('data-autocomplete-source', "/Exercise/TagAutocompliteSearch");
-      childDivForInput = createChildDiv();
-      childDivForButton = createChildDiv();
-      childDivForInput.appendChild(childInput);
-      childButton = createButton("delete", "Delete");
-      childDivForButton.appendChild(childButton);
-      parent.appendChild(childDivForInput);
-      parent.appendChild(childDivForButton);
-      $('#listOfTags').append(parent);
-      return null;
-    };
-    createAnswerInput = function() {
-      var childButton, childDivForButton, childDivForInput, childInput, parent;
-      parent = createParentDiv();
-      childInput = createInput("answer");
-      childDivForInput = createChildDiv();
-      childDivForButton = createChildDiv();
-      childDivForInput.appendChild(childInput);
-      childButton = createButton("delete", "Delete");
-      childDivForButton.appendChild(childButton);
-      parent.appendChild(childDivForInput);
-      parent.appendChild(childDivForButton);
-      $('#listOfAnswers').append(parent);
-      return null;
     };
     $jqXHRData = null;
     createImageElement = function(src) {
@@ -128,25 +99,6 @@
       });
       return $images;
     };
-    getTags = function() {
-      var t;
-      t = $("#listOfTags > .row > div > [name='Tag']");
-      if (t.length === 0) {
-        return null;
-      }
-      $.each(t, function(e, val) {
-        return $tags.push(val.value);
-      });
-      return $tags;
-    };
-    getAnswers = function() {
-      var ans;
-      ans = $("#listOfAnswers > .row > div > [name='answer']");
-      $.each(ans, function(e, val) {
-        return $answers.push(val.value);
-      });
-      return $answers;
-    };
     return $(document).ready(function() {
       window.onload();
       $('#addFormula').on('click', function(e) {
@@ -215,9 +167,9 @@
       $("#Submit").on('click', function(e) {
         var answers, images, tags;
         alert("submit");
-        answers = getAnswers();
+        answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         images = getImages();
-        tags = getTags();
+        tags = $("#inputTags").textext()[0].hiddenInput().val();
         $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
         $('input#Pictures').val(images);

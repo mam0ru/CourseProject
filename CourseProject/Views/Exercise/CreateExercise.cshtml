@@ -11,6 +11,13 @@
 @Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/exercise/create/image")
 @Scripts.Render("~/bundles/exercise/create/fillcategories")
+
+
+
+
+
+@Scripts.Render("~/bundles/exercise/taginput")
+@Styles.Render("~/Content/taginput")
 @*@Scripts.Render("~/bundles/exercise/create/markdown")
     @Styles.Render("~/Content/markdown/css")
     @Scripts.Render("~/bundles/exercise/create/image")
@@ -43,11 +50,12 @@
                 </div>
             </div>
         </div>
-        <div class="jumbotron" id="listOfTags">
-            <label class="col-md-6">Tags</label>
-            <button id="addTag" class="btn btn-default col-md-6">Add Tag</button>
-            <br />
-            <hr />
+        <div class="jumbotron">
+            <div id="tag">
+                <textarea id="inputTags" rows="1" cols="100"></textarea>
+            </div>
+
+            <textarea id="inputAnswers" rows="1" cols="100"></textarea>
         </div>
         <br />
         <div class="jumbotron">
@@ -67,10 +75,6 @@
             <div id="editorContainer"></div>
             <button id="addFormula" class="btn btn-default">Add Formula</button>
             <p>Formulas</p>
-        </div>
-        <div class="jumbotron" id="listOfAnswers">
-            <p>Answers</p><button class="btn-default" id="addAnswer">Add answer</button>
-            <hr />
         </div>
         <div id="listOfVideos">
             <div class="row">

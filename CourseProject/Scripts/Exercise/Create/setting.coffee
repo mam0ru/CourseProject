@@ -20,33 +20,6 @@
         button.name = name
         button.innerText = text           
         return button         
-             
-    createTagInput = () ->
-        parent = createParentDiv()
-        childInput = createInput("Tag")
-        childInput.setAttribute('data-autocomplete-source', "/Exercise/TagAutocompliteSearch")    
-        childDivForInput = createChildDiv()
-        childDivForButton = createChildDiv()    
-        childDivForInput.appendChild childInput
-        childButton = createButton("delete","Delete")
-        childDivForButton.appendChild childButton
-        parent.appendChild childDivForInput
-        parent.appendChild childDivForButton
-        $('#listOfTags').append parent
-        return null
-    
-    createAnswerInput = () ->    
-        parent = createParentDiv()
-        childInput = createInput("answer")
-        childDivForInput = createChildDiv()
-        childDivForButton = createChildDiv()    
-        childDivForInput.appendChild childInput
-        childButton = createButton("delete","Delete")
-        childDivForButton.appendChild childButton
-        parent.appendChild childDivForInput
-        parent.appendChild childDivForButton
-        $('#listOfAnswers').append(parent)
-        return null
 
     $jqXHRData = null
 
@@ -120,20 +93,6 @@
       $.each im, (e,val) ->
         $images.push(val.src)
       $images  
-    
-    getTags = () ->
-      t = $("#listOfTags > .row > div > [name='Tag']")
-      if t.length == 0
-        return null
-      $.each t, (e,val) ->
-        $tags.push(val.value)
-      $tags  
-                
-    getAnswers = () ->
-      ans = $("#listOfAnswers > .row > div > [name='answer']")
-      $.each ans, (e,val) ->
-        $answers.push(val.value)  
-      $answers    
 
     $(document).ready () ->
         window.onload()
@@ -184,10 +143,10 @@
             $("#video").val("")
         $("#Submit").on 'click', (e) ->
             alert "submit"
-            answers = getAnswers()
+            answers = $("#inputAnswers").textext()[0].hiddenInput().val()
 #            formulas = getFormulas()
             images = getImages()
-            tags = getTags()
+            tags = $("#inputTags").textext()[0].hiddenInput().val()
             $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
 #            $('input#Formulas').val(formulas)

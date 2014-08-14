@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel.Description;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -168,7 +169,8 @@ namespace CourseProject.Controllers
             ICollection<Answer> answers = new Collection<Answer>();
             if (model.Answers != null)
             {
-                foreach (String ans in model.Answers.Split(','))
+                List<String> modelAnswers = System.Web.Helpers.Json.Decode<List<String>>(model.Answers);
+                foreach (String ans in modelAnswers)
                 {
                     Answer answer = new Answer();
                     answer.Text = ans;
@@ -209,8 +211,9 @@ namespace CourseProject.Controllers
             }
             if (model.Tags != null)
             {
+                List<String> modelTags = System.Web.Helpers.Json.Decode<List<String>>(model.Tags);
                 ICollection<Tag> addingTags = new Collection<Tag>();
-                foreach (String tag in model.Tags.Split(','))
+                foreach (String tag in modelTags)
                 {
                     IEnumerable<Tag> tags = tagRepository.Get();
                     Tag tagTemp = tags.FirstOrDefault(tag1 => tag1.Text == tag);
@@ -388,8 +391,12 @@ namespace CourseProject.Controllers
 
         public ActionResult TagAutocompliteSearch(string term)
         {
-
-            var models = tagRepository.Get().Where(tag => tag.Text.Contains(term)).Select(tag => new{value = tag.Text}).Distinct();
+            if (term == "" || term == null)
+            {
+                List<String> tags = tagRepository.Get().Select(tag => tag.Text).Distinct().ToList();
+                return Json(tags, JsonRequestBehavior.AllowGet);
+            }
+            List<String> models = tagRepository.Get().Where(tag => tag.Text.Contains(term)).Select(tag => tag.Text).Distinct().ToList();
             return Json(models, JsonRequestBehavior.AllowGet);
         }
 

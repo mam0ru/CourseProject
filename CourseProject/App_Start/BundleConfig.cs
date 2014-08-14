@@ -67,6 +67,20 @@ namespace CourseProject
 
             bundles.Add(new ScriptBundle("~/bundles/exercise/create/addAnswer").Include(
                 "~/Scripts/Exercise/Create/addAnswer.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/exercise/taginput").Include(
+                "~/Scripts/Exercise/tags/js/textext.core.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.ajax.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.autocomplete.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.tags.js",
+                "~/Scripts/Exercise/tags/js/textext.plugin.prompt.js",
+                "~/Scripts/Exercise/TagInputSetting.js"));
+
+            bundles.Add(new StyleBundle("~/Content/taginput").Include(
+                "~/Content/tags/css/textext.core.css",
+                "~/Content/tags/css/textext.plugin.tags.css",
+                "~/Content/tags/css/textext.plugin.prompt.css",
+                "~/Content/tags/css/textext.plugin.autocomplete.css"));
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;
