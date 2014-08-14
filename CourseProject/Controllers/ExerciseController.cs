@@ -34,18 +34,21 @@ namespace CourseProject.Controllers
         private readonly IFormulaRepository formulaRepository;
 
         private readonly ITagRepository tagRepository;
+        
+        private readonly IEvaluationRepository evaluationRepository;
 
         private ApplicationUserManager userManager;
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IFormulaRepository formulaRepository, ApplicationUserManager userManager)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IEvaluationRepository evaluationRepository, IFormulaRepository formulaRepository, ApplicationUserManager userManager)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
             this.pictureRepository = pictureRepository;
             this.answerRepository = answerRepository;
             this.commentRepository = commentRepository;
+            this.evaluationRepository = evaluationRepository;
             this.tagRepository = tagRepository;
             this.userManager = userManager;
         }
@@ -67,6 +70,58 @@ namespace CourseProject.Controllers
         {
             ViewBag.categories = categoryRepository.Get().Select(category => category.Text);
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddEvaluation(int id, string evaluationButton)
+        {
+            //все , что закомменчено - второй способ
+            var user = userManager.FindById(User.Identity.GetUserId());
+            var previousEvaluation = evaluationRepository.Get().First(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
+            /*var exercise = exerciseRepository.GetByID(id);
+            var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);*/
+            if (previousEvaluation != null)
+            {
+                bool type = previousEvaluation.Type;
+                switch (evaluationButton)
+                {
+                    case "like":
+                        if (!type)
+                        {
+                            previousEvaluation.Type = true;
+                            /*var newEvaluation = previousEvaluation;
+                        newEvaluation.Type = true;
+                        user.Exercises.Remove(exercise);
+                        exercise.Evaluations.Remove(previousEvaluation);
+                        exercise.Evaluations.Add(newEvaluation);
+                        exerciseRepository.Update(exercise);
+                        user.Exercises.Add(exercise);  
+                        userManager.UpdateAsync(user);
+                        */
+                            evaluationRepository.Update(previousEvaluation);
+                        }
+                        return RedirectToAction("ShowExercise", id);
+                    case "dislike":
+                        if (type)
+                        {
+                            previousEvaluation.Type = false;
+                            /*var newEvaluation = previousEvaluation;
+                        newEvaluation.Type = false;
+                        user.Exercises.Remove(exercise);
+                        exercise.Evaluations.Remove(previousEvaluation);
+                        exercise.Evaluations.Add(newEvaluation);
+                        exerciseRepository.Update(exercise);
+                        user.Exercises.Add(exercise);  
+                        userManager.UpdateAsync(user);
+                        */
+                            evaluationRepository.Update(previousEvaluation);
+                        }
+                        return RedirectToAction("ShowExercise", id);
+                    default:
+                        return RedirectToAction("ShowExercise", id);
+                }
+            }
+            return RedirectToAction("ShowExercise", id);
         }
 
         [HttpPost]
