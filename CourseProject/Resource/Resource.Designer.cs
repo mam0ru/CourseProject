@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exercises with tag.
+        /// </summary>
+        public static string ExercisesWithTag {
+            get {
+                return ResourceManager.GetString("ExercisesWithTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string ExternalLoginConfirmationButtonSubmitText {

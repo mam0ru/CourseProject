@@ -74,6 +74,7 @@ namespace CourseProject.Controllers
         {
             var exercise = InitializExercise(model);
             exerciseRepository.Update(exercise);
+            userManager.FindById(User.Identity.GetUserId()).Exercises.Add(exercise);
             return RedirectToAction("Index","Home");
         }
 
@@ -191,7 +192,9 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult ShowExercisesWithTag(string tag)
         {
-            return RedirectToAction("Index", "Home"); //"ShowExercise", "Exersise",);
+            ViewBag.Tag = tag;
+            var exercises = tagRepository.Get().First(localTag => localTag.Text == tag).Task;
+            return View("ShowExercisesWithTag",exercises);
         }
 
         [HttpGet]

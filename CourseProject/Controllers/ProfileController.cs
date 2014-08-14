@@ -42,6 +42,7 @@ namespace CourseProject.Controllers
         public ActionResult MyProfile()
         {
             var currentUser = UserManager.FindById(User.Identity.GetUserId());
+
             return View(currentUser);//applicationUserRepository.GetByID(User.Identity.GetUserId()));
         }
 

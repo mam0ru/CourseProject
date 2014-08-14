@@ -399,4 +399,7 @@
   <data name="Administrator" xml:space="preserve">
     <value>Administrator</value>
   </data>
+  <data name="ExercisesWithTag" xml:space="preserve">
+    <value>Exercises with tag</value>
+  </data>
 </root>
