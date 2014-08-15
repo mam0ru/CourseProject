@@ -319,7 +319,7 @@
     <value>Answers</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category: </value>
+    <value>Category</value>
   </data>
   <data name="RightAnsweredUsers" xml:space="preserve">
     <value>Right answered users</value>
@@ -407,5 +407,8 @@
   </data>
   <data name="Answered" xml:space="preserve">
     <value>Answered</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>

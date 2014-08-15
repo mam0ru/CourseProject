@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Category: .
+        ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
             get {
@@ -579,6 +579,15 @@ namespace Resources {
         public static string MyExercises {
             get {
                 return ResourceManager.GetString("MyExercises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
