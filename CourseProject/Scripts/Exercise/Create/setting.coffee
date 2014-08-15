@@ -38,26 +38,11 @@
         return parent
 
     createFormulaElement = (formula) ->
-        parent = createParentDiv()
-        childFormula = document.createElement('p')
-        childFormula.innerHTML = formula
-        childDivForImage = createChildDiv()
-        childDivForImage.className = "col-md-4"
-        childDivForButton = createChildDiv()    
-        childDivForImage.appendChild childFormula
-        childButton = createButton("delete","Delete")
-        childDivForButton.appendChild childButton
-        parent.appendChild childDivForImage
-        parent.appendChild childDivForButton
-        return parent    
-    
-    editor = null
+        formulaElement = document.createElement('div')
+        formulaElement.setAttribute("lang","latex")
+        formulaElement.innerHTML = formula
+        return formulaElement   
 
-    window.onload = () ->
-        editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' })
-        editor.insertInto(document.getElementById('editorContainer'))    
-        window.editor = editor
-    
     initFileUpload = () ->
       $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
@@ -95,16 +80,14 @@
       $images  
 
     $(document).ready () ->
-        window.onload()
-        $('#addFormula').on 'click', (e) ->
+        $(document).on 'click', '#addFormula', (e)->
             e.stopPropagation()
             e.preventDefault()
-            item = createFormulaElement(editor.getMathML())
-            $('#listOfFormulas').append(item)
-        $(document).on 'click', '#addAnswer', (e)->
-            e.stopPropagation()
-            e.preventDefault()
-            createAnswerInput()
+            equation = $('#equationInput').val()
+            alert equation
+            list = $("#listOfFormulas")[0]
+            list.appendChild(createFormulaElement(equation))
+            alert createFormulaElement(equation)
             return null
         $(document).on 'click', "[name='delete']", (e) ->
             e.stopPropagation()
@@ -113,18 +96,6 @@
             parent1 = $(this).parent()
             parent2 = parent1.parent()
             parent2.remove()
-            return null
-        $(document).on 'click', "#addTag", (e) ->
-            e.stopPropagation()
-            e.preventDefault()
-            createTagInput()
-            $("[data-autocomplete-source]").each () ->
-                target = $(this)
-                target.autocomplete({ source: target.attr("data-autocomplete-source") })
-            return null
-        $("[data-autocomplete-source]").each () ->
-            target = $(this)
-            target.autocomplete({ source: target.attr("data-autocomplete-source") })
             return null
         initFileUpload()
         $(document).on 'click', '#Upload', (e) ->
@@ -148,5 +119,5 @@
             $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
             $('input#Pictures').val(images)
-            $('input#Tags').val(tags)         
+            $('input#Tags').val(tags)             
         return null

@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, editor, getImages, initFileUpload;
+    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getImages, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -44,27 +44,11 @@
       return parent;
     };
     createFormulaElement = function(formula) {
-      var childButton, childDivForButton, childDivForImage, childFormula, parent;
-      parent = createParentDiv();
-      childFormula = document.createElement('p');
-      childFormula.innerHTML = formula;
-      childDivForImage = createChildDiv();
-      childDivForImage.className = "col-md-4";
-      childDivForButton = createChildDiv();
-      childDivForImage.appendChild(childFormula);
-      childButton = createButton("delete", "Delete");
-      childDivForButton.appendChild(childButton);
-      parent.appendChild(childDivForImage);
-      parent.appendChild(childDivForButton);
-      return parent;
-    };
-    editor = null;
-    window.onload = function() {
-      editor = com.wiris.jsEditor.JsEditor.newInstance({
-        'language': 'en'
-      });
-      editor.insertInto(document.getElementById('editorContainer'));
-      return window.editor = editor;
+      var formulaElement;
+      formulaElement = document.createElement('div');
+      formulaElement.setAttribute("lang", "latex");
+      formulaElement.innerHTML = formula;
+      return formulaElement;
     };
     initFileUpload = function() {
       return $('#imageupload').fileupload({
@@ -100,18 +84,15 @@
       return $images;
     };
     return $(document).ready(function() {
-      window.onload();
-      $('#addFormula').on('click', function(e) {
-        var item;
+      $(document).on('click', '#addFormula', function(e) {
+        var equation, list;
         e.stopPropagation();
         e.preventDefault();
-        item = createFormulaElement(editor.getMathML());
-        return $('#listOfFormulas').append(item);
-      });
-      $(document).on('click', '#addAnswer', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        createAnswerInput();
+        equation = $('#equationInput').val();
+        alert(equation);
+        list = $("#listOfFormulas")[0];
+        list.appendChild(createFormulaElement(equation));
+        alert(createFormulaElement(equation));
         return null;
       });
       $(document).on('click', "[name='delete']", function(e) {
@@ -122,27 +103,6 @@
         parent1 = $(this).parent();
         parent2 = parent1.parent();
         parent2.remove();
-        return null;
-      });
-      $(document).on('click', "#addTag", function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        createTagInput();
-        $("[data-autocomplete-source]").each(function() {
-          var target;
-          target = $(this);
-          return target.autocomplete({
-            source: target.attr("data-autocomplete-source")
-          });
-        });
-        return null;
-      });
-      $("[data-autocomplete-source]").each(function() {
-        var target;
-        target = $(this);
-        target.autocomplete({
-          source: target.attr("data-autocomplete-source")
-        });
         return null;
       });
       initFileUpload();
