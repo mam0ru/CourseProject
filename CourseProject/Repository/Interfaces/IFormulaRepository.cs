@@ -7,7 +7,7 @@ using CourseProject.Models;
 
 namespace CourseProject.Repository.Interfaces
 {
-    public interface IFormulaRepository:IRepository<Equation>
+    public interface IEquationRepository : IRepository<Equation>
     {
     }
 }

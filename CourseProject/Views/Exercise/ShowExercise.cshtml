@@ -83,13 +83,13 @@
             </div>
             <br>
             @Model.Text
-            @if (Model.Formulas.Count != 0)
+            @if (Model.Equations.Count != 0)
             {
                 @Resources.Resource.Formulas
                 <div>
-                    @foreach (var formula in Model.Formulas)
+                    @foreach (var equation in Model.Equations)
                     {
-                        @formula.Path
+                        @equation.Path
                     }
                 </div>
             }

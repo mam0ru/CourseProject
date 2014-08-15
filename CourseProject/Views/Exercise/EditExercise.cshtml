@@ -1,4 +1,10 @@
 ﻿@model CourseProject.View_Models.EditExerciseViewModel
+
+<link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
+<script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
+<script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-15.js"></script>
+<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
@@ -10,7 +16,7 @@
 
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
-    <br/>
+    <br />
     <div class="row">
         <div class="jumbotron">
             @Html.HiddenFor(exercise => exercise.Exercise.Id)
@@ -27,10 +33,10 @@
             <textarea id="inputAnswers" rows="1" cols="100"></textarea>
         </div>
         <div>
-            @foreach(var tag in Model.Exercise.Tags)
+            @foreach (var tag in Model.Exercise.Tags)
             {
-                @Html.Hidden("currTag",tag.Text)
-            }     
+                @Html.Hidden("currTag", tag.Text)
+            }
         </div>
         <div>
             @foreach (var answer in Model.Exercise.Answers)
@@ -40,16 +46,32 @@
         </div>
         <div class="jumbotron" id="listOfFormulas">
             <div class="col-md-12">
-                <script src="http://www.wiris.net/demo/editor/editor"></script>
-                <div id="editorContainer"></div>
-                <button id="addFormula" class="btn btn-default">Add</button>
+
+                <style type="text/css">
+                    #EqnEditor {
+                        text-align: left;
+                    }
+                </style>
+
+                <div id="toolbar"></div>
+                <textarea id="equationInput" rows="3" cols="40"></textarea>
+                <img id="equation" />
+                <textarea id="equationToImg" readonly="" hidden=""></textarea>
+                <script type="text/javascript">
+                    EqEditor.embed('toolbar', '');
+                    var a = new EqTextArea('equation', 'equationInput');
+                    EqEditor.add(a, false);
+                    a.addExportArea('equationToImg', 'html');
+                </script>
+
             </div>
+            <button id="addFormula" class="btn btn-default">Add Formula</button>
             <h3>Formulas</h3>
-            @foreach (var formula in Model.Exercise.Formulas)
+            @foreach (var equation in Model.Exercise.Equations)
             {
                 <div class="row">
-                    <div class="col-md-4">
-                        @Html.Label("formula", formula.Path, new {value = formula.Path})
+                    <div class="col-md-4" name="AddEquation">
+                        <img src="@equation.Path">
                     </div>
                     <div class="col-md-4">
                         <button name="delete">Delete</button>
@@ -70,7 +92,7 @@
             {
                 <div class="row">
                     <div class="col-md-4 thumbnail">
-                        <img src="@picture.Path" width="400" vspace="5"/> 
+                        <img src="@picture.Path" width="400" vspace="5" />
                     </div>
                     <div class="col-md-4">
                         <button name="delete">Delete</button>
@@ -79,7 +101,7 @@
             }
         </div>
         @Html.HiddenFor(model => model.Answers)
-        @*@Html.HiddenFor(model => model.Formulas)*@
+        @Html.HiddenFor(model => model.Equations)
         @*@Html.HiddenFor(model => model.Graphs)*@
         @Html.HiddenFor(model => model.Pictures)
         @Html.HiddenFor(model => model.Tags)

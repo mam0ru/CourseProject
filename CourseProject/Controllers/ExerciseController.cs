@@ -32,7 +32,7 @@ namespace CourseProject.Controllers
 
         private readonly ICommentRepository commentRepository;
 
-        private readonly IFormulaRepository formulaRepository;
+        private readonly IEquationRepository equationRepository;
 
         private readonly ITagRepository tagRepository;
         
@@ -42,7 +42,7 @@ namespace CourseProject.Controllers
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IEvaluationRepository evaluationRepository, IFormulaRepository formulaRepository, ApplicationUserManager userManager)
+        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IEvaluationRepository evaluationRepository, IEquationRepository equationRepository, ApplicationUserManager userManager)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
@@ -52,6 +52,7 @@ namespace CourseProject.Controllers
             this.evaluationRepository = evaluationRepository;
             this.tagRepository = tagRepository;
             this.userManager = userManager;
+            this.equationRepository = equationRepository;
         }
 
         public ApplicationUserManager UserManager
@@ -216,20 +217,18 @@ namespace CourseProject.Controllers
             }
 
             if (model.Formulas != null)
-            {
-                ICollection<Equation> formulas = new Collection<Equation>();
+               {
+                ICollection<Equation> equations = new Collection<Equation>();
                 List<String> modelFormulas = System.Web.Helpers.Json.Decode<List<String>>(model.Formulas);
                 foreach (String eq in modelFormulas)
                 {
                     Equation equation = new Equation();
                     equation.Path = eq;
-                    formulaRepository.Insert(equation);
                     equation.Task = exercise;
-                    //exercise.Formulas.Add(equation);
-                    formulaRepository.Update(equation);
-                    formulas.Add(equation);
+                    equations.Add(equation);
+                    equationRepository.Insert(equation);
                 }
-               
+                exercise.Equations = equations;
             }
             //exercise.Graphs = model.Graphs;
             //exercise.Videos = model.Videos;
@@ -306,6 +305,22 @@ namespace CourseProject.Controllers
                     exercise.Tags.Add(tag);
                 }
             }
+            // TODO: EDIT
+            if (model.Equations != null)
+            {
+                ICollection<Equation> equations = new Collection<Equation>();
+                List<String> newFormulas = System.Web.Helpers.Json.Decode<List<String>>(model.Equations);
+                foreach (String eq in newFormulas)
+                {
+                    Equation equation = new Equation();
+                    equation.Path = eq;
+                    equation.Task = exercise;
+                    equations.Add(equation);
+                    equationRepository.Insert(equation);
+                }
+                exercise.Equations = equations;
+            }
+
             exerciseRepository.Update(exercise);
             return RedirectToAction("Index","Home");
         }

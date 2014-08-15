@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, editor, getImages, initFileUpload;
+    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getImages, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -44,26 +44,18 @@
       return parent;
     };
     createFormulaElement = function(formula) {
-      var childButton, childDivForButton, childDivForImage, childFormula, parent;
+      var childButton, childDivForButton, childDivForImage, parent;
       parent = createParentDiv();
-      childFormula = document.createElement('p');
-      childFormula.innerHTML = formula;
       childDivForImage = createChildDiv();
       childDivForImage.className = "col-md-4";
       childDivForButton = createChildDiv();
-      childDivForImage.appendChild(childFormula);
+      childDivForImage.innerHTML = formula;
+      childDivForImage.setAttribute('name', 'AddEquation');
       childButton = createButton("delete", "Delete");
       childDivForButton.appendChild(childButton);
       parent.appendChild(childDivForImage);
       parent.appendChild(childDivForButton);
       return parent;
-    };
-    editor = null;
-    window.onload1 = function() {
-      editor = com.wiris.jsEditor.JsEditor.newInstance({
-        'language': 'en'
-      });
-      return editor.insertInto(document.getElementById('editorContainer'));
     };
     initFileUpload = function() {
       return $('#imageupload').fileupload({
@@ -90,6 +82,16 @@
     $images = [];
     $tags = [];
     $answers = [];
+    getFormulas = function() {
+      var elements;
+      elements = $("[name='AddEquation']");
+      $.each(elements, function(e, value) {
+        var img;
+        img = value.children[0];
+        return $equations.push(img.src);
+      });
+      return $equations;
+    };
     getImages = function() {
       var im;
       im = $("#listOfPictures > .row > .thumbnail > img");
@@ -101,13 +103,20 @@
     return $(document).ready(function() {
       $(".md-header").css('height', '35px');
       $(".jumbotron")[0].style.setProperty("height", "250px");
-      window.onload1();
-      $('#addFormula').on('click', function(e) {
-        var item;
+      $(document).on('click', '#addFormula', function(e) {
+        var child, img, list;
         e.stopPropagation();
         e.preventDefault();
-        item = createFormulaElement(editor.getMathML());
-        return $('#listOfFormulas').append(item);
+        img = $('#equationToImg')[0];
+        list = $("#listOfFormulas")[0];
+        if (img.value) {
+          child = createFormulaElement(img.value);
+          $('#equationToImg')[0].value = "";
+          $('#equation')[0].src = "";
+          $('#equationInput')[0].value = "";
+          list.appendChild(child);
+        }
+        return null;
       });
       $(document).on('click', '#addAnswer', function(e) {
         e.stopPropagation();
@@ -125,27 +134,6 @@
         parent2.remove();
         return null;
       });
-      $(document).on('click', "#addTag", function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        createTagInput();
-        $("[data-autocomplete-source]").each(function() {
-          var target;
-          target = $(this);
-          return target.autocomplete({
-            source: target.attr("data-autocomplete-source")
-          });
-        });
-        return null;
-      });
-      $("[data-autocomplete-source]").each(function() {
-        var target;
-        target = $(this);
-        target.autocomplete({
-          source: target.attr("data-autocomplete-source")
-        });
-        return null;
-      });
       initFileUpload();
       $(document).on('click', '#Upload', function(e) {
         e.stopPropagation();
@@ -157,13 +145,16 @@
         return false;
       });
       $("#Submit").on('click', function(e) {
-        var answers, images, tags;
+        var answers, equation, images, tags;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         images = getImages();
+        equation = getFormulas();
+        equation = JSON.stringify(equation);
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         $('input#Answers')[0].value = answers;
         $('input#Pictures')[0].value = images;
         $('input#Tags')[0].value = tags;
+        $('input#Equations').val(equation);
         $("input#Name")[0].value = $("#Exercise_Name").val();
         return $("input#Text")[0].value = $("[name='Exercise.Text']").val();
       });

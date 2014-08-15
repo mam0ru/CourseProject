@@ -154,7 +154,6 @@
         equation = JSON.stringify(equation);
         $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
-        $('input#Answers').val(answers);
         $('input#Formulas').val(equation);
         return $('input#Tags').val(tags);
       });

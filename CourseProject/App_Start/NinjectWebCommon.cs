@@ -79,7 +79,7 @@ namespace CourseProject.App_Start
             kernel.Bind<ICommentRepository>().To<CommentRepository>();
             kernel.Bind<IEvaluationRepository>().To<EvaluationRepository>();
             kernel.Bind<IExerciseRepository>().To<ExerciseRepository>();
-            kernel.Bind<IFormulaRepository>().To<FormulaRepository>();
+            kernel.Bind<IEquationRepository>().To<EquationRepository>();
             kernel.Bind<IGraphRepository>().To<GraphRepository>();
             kernel.Bind<IPictureRepository>().To<PictureRepository>();
             kernel.Bind<ITagRepository>().To<TagRepository>();

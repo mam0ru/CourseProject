@@ -21,7 +21,7 @@ namespace CourseProject.View_Models
 
         public String Pictures { get; set; }
 
-        public String Formulas { get; set; }
+        public String Equations { get; set; }
 
         public String Graphs { get; set; }
 

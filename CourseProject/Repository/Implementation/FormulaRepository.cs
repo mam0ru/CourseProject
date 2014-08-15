@@ -7,9 +7,9 @@ using CourseProject.Repository.Interfaces;
 
 namespace CourseProject.Repository.Implementation
 {
-    public class FormulaRepository:GenericRepository<Equation>,IFormulaRepository
+    public class EquationRepository : GenericRepository<Equation>, IEquationRepository
     {
-        public FormulaRepository(ApplicationDbContext context) : base(context)
+        public EquationRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

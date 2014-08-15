@@ -39,24 +39,17 @@
 
     createFormulaElement = (formula) ->
         parent = createParentDiv()
-        childFormula = document.createElement('p')
-        childFormula.innerHTML = formula
         childDivForImage = createChildDiv()
         childDivForImage.className = "col-md-4"
         childDivForButton = createChildDiv()    
-        childDivForImage.appendChild childFormula
+        childDivForImage.innerHTML = formula
+        childDivForImage.setAttribute('name','AddEquation')
         childButton = createButton("delete","Delete")
         childDivForButton.appendChild childButton
         parent.appendChild childDivForImage
-        parent.appendChild childDivForButton
+        parent.appendChild childDivForButton        
         return parent    
-    
-    editor = null
 
-    window.onload1 = () ->
-        editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' })
-        editor.insertInto(document.getElementById('editorContainer'))    
-    
     initFileUpload = () ->
       $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
@@ -80,12 +73,13 @@
     $tags = []
 
     $answers = []
-#
-#    getFormulas = () ->
-#      elements = $("#listOfFormulas > #formula")
-#      $.each elements, (e,value) ->
-#        $equations.push(value.innerHTML)
-#      return $equations
+    
+    getFormulas = () ->
+      elements = $("[name='AddEquation']")
+      $.each elements, (e,value) ->
+        img = value.children[0]
+        $equations.push(img.src)
+      return $equations
  
     getImages = () ->
       im = $("#listOfPictures > .row > .thumbnail > img") 
@@ -96,12 +90,18 @@
     $(document).ready () ->
         $(".md-header").css('height', '35px')
         $(".jumbotron")[0].style.setProperty("height","250px")
-        window.onload1()
-        $('#addFormula').on 'click', (e) ->
+        $(document).on 'click', '#addFormula', (e)->
             e.stopPropagation()
             e.preventDefault()
-            item = createFormulaElement(editor.getMathML())
-            $('#listOfFormulas').append(item)
+            img = $('#equationToImg')[0]
+            list = $("#listOfFormulas")[0]
+            if img.value
+                child = createFormulaElement(img.value)
+                $('#equationToImg')[0].value = ""
+                $('#equation')[0].src = ""
+                $('#equationInput')[0].value = ""
+                list.appendChild(child)
+            return null
         $(document).on 'click', '#addAnswer', (e)->
             e.stopPropagation()
             e.preventDefault()
@@ -115,18 +115,6 @@
             parent2 = parent1.parent()
             parent2.remove()
             return null
-        $(document).on 'click', "#addTag", (e) ->
-            e.stopPropagation()
-            e.preventDefault()
-            createTagInput()
-            $("[data-autocomplete-source]").each () ->
-                target = $(this)
-                target.autocomplete({ source: target.attr("data-autocomplete-source") })
-            return null
-        $("[data-autocomplete-source]").each () ->
-            target = $(this)
-            target.autocomplete({ source: target.attr("data-autocomplete-source") })
-            return null
         initFileUpload()
         $(document).on 'click', '#Upload', (e) ->
             e.stopPropagation()
@@ -138,10 +126,13 @@
         $("#Submit").on 'click', (e) ->
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
             images = getImages()
+            equation = getFormulas()
+            equation = JSON.stringify(equation)
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             $('input#Answers')[0].value = answers
             $('input#Pictures')[0].value = images
-            $('input#Tags')[0].value = tags    
+            $('input#Tags')[0].value = tags
+            $('input#Equations').val(equation)    
             $("input#Name")[0].value = $("#Exercise_Name").val()
             $("input#Text")[0].value = $("[name='Exercise.Text']").val()
         return null
