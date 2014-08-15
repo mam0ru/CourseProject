@@ -89,6 +89,13 @@ namespace CourseProject
                 "~/Content/tags/css/textext.plugin.tags.css",
                 "~/Content/tags/css/textext.plugin.prompt.css",
                 "~/Content/tags/css/textext.plugin.autocomplete.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/EquationEditor").Include(
+                "~/Scripts/Exercise/EquationEditor/eq_config.js",
+                "~/Scripts/Exercise/EquationEditor/eq_editor-lite-17.js"));
+
+            bundles.Add(new StyleBundle("~/Content/equationEditor").Include(
+                "~/Content/EquationEditor/equation-embed.css"));
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;

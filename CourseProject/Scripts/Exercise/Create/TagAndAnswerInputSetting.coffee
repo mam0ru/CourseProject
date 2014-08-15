@@ -9,7 +9,6 @@
             cacheResults: true
             }
             })
-        alert "init"
         $('#inputAnswers').textext({
             plugins: 'tags prompt',
             prompt  : 'Write here right answers...'
