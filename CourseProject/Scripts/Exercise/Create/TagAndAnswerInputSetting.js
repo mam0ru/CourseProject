@@ -10,7 +10,6 @@
           cacheResults: true
         }
       });
-      alert("init");
       return $('#inputAnswers').textext({
         plugins: 'tags prompt',
         prompt: 'Write here right answers...'

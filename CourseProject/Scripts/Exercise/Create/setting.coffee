@@ -1,7 +1,7 @@
 ﻿$ ->
     createParentDiv = () ->
         parent = document.createElement('div')
-        parent.className = 'col-md-12'
+        parent.className = 'row'
         return parent
 
     createChildDiv = () ->
@@ -39,9 +39,17 @@
 
     createFormulaElement = (formula) ->
         formulaElement = document.createElement('div')
-        formulaElement.setAttribute("lang","latex")
         formulaElement.innerHTML = formula
-        return formulaElement   
+        parent = createParentDiv()
+        childDivForImage = createChildDiv()
+        childDivForImage.className = "col-md-4"
+        childDivForButton = createChildDiv()    
+        childDivForImage.appendChild formulaElement
+        childButton = createButton("delete","Delete")
+        childDivForButton.appendChild childButton
+        parent.appendChild childDivForImage
+        parent.appendChild childDivForButton        
+        return parent   
 
     initFileUpload = () ->
       $('#imageupload').fileupload({
@@ -83,11 +91,14 @@
         $(document).on 'click', '#addFormula', (e)->
             e.stopPropagation()
             e.preventDefault()
-            equation = $('#equationInput').val()
-            alert equation
+            img = $('#equationToImg')[0]
             list = $("#listOfFormulas")[0]
-            list.appendChild(createFormulaElement(equation))
-            alert createFormulaElement(equation)
+            if img.value
+                child = createFormulaElement(img.value)
+                $('#equationToImg')[0].value = ""
+                $('#equation')[0].src = ""
+                $('#equationInput')[0].value = ""
+                list.appendChild(child)
             return null
         $(document).on 'click', "[name='delete']", (e) ->
             e.stopPropagation()

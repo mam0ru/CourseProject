@@ -77,16 +77,18 @@
                 <div id="toolbar"></div>
                 <textarea id="equationInput" rows="3" cols="40"></textarea>
                 <img id="equation" />
-
+                <textarea id="equationToImg" readonly="" hidden=""></textarea>
                 <script type="text/javascript">
                     EqEditor.embed('toolbar', '');
                     var a = new EqTextArea('equation', 'equationInput');
                     EqEditor.add(a, false);
+                    a.addExportArea('equationToImg', 'html');
                 </script>
+                
             </div>
             <button id="addFormula" class="btn btn-default">Add Formula</button>
+
             <p>Formulas</p>
-            <div lang="latex">1+sin(x)^2+3</div>
         </div>
         <div id="listOfVideos">
             <div class="row">
