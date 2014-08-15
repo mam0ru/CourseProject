@@ -24,78 +24,83 @@
 <script src="~/Scripts/Exercise/Create/setting.js"></script>
 @using (Html.BeginForm("CreateExercise", "Exercise", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-    <br>
-    <table width="51%">
-        @*width="530"*@
-    <col width="30%">
-    <col width="70%">
-    <tr>
-        <td><label>@Resources.Resource.Name</label></td>
-        <td>@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
-    </tr>
-    <tr>
-        <td><label>@Resources.Resource.Category</label></td>
-        <td><select id="Category"></select></td>
-    </tr>
-</table>
-    <br />
-    <div id="tag">
-        <textarea id="inputTags" rows="1" cols="100"></textarea>
-    </div>
-    <textarea id="inputAnswers" rows="1" cols="100"></textarea>
-    <br />
-    @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
-    <div class="jumbotron" id="listOfPictures">
-        <form>
-            <input id="imageupload" type="file" name="imageupload">
-            <button id="Upload" class="btn-default">Upload</button>
-        </form>
-        <p>Uploaded Images</p>
-    </div>
-    <div  id="listOfFormulas">
-
-
-        <div class="row">
-            <style type="text/css">
-                #EqnEditor {
-                    text-align: left;
-                }
-            </style>
-
-            <div id="toolbar"></div>
-            <textarea id="equationInput" rows="3" cols="40"></textarea>
-            <img id="equation" />
-            <textarea id="equationToImg" readonly="" hidden=""></textarea>
-            <script type="text/javascript">
-                EqEditor.embed('toolbar', '');
-                var a = new EqTextArea('equation', 'equationInput');
-                EqEditor.add(a, false);
-                a.addExportArea('equationToImg', 'html');
-            </script>
-
+    <div>
+        @Html.AntiForgeryToken()
+        <br>
+        <table width="51%">
+            @*width="530"*@
+            <col width="30%">
+            <col width="70%">
+            <tr>
+                <td><label>@Resources.Resource.Name</label></td>
+                <td>@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+            </tr>
+            <tr>
+                <td><label>@Resources.Resource.Category</label></td>
+                <td><select id="Category"></select></td>
+            </tr>
+        </table>
+        <br />
+        <div id="tag">
+            <textarea id="inputTags" rows="1" cols="100"></textarea>
         </div>
-        <button id="addFormula" class="btn btn-default">Add Formula</button>
+        <textarea id="inputAnswers" rows="1" cols="100"></textarea>
+        <br />
+        @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
+        <div class="jumbotron" id="listOfPictures">
+            <form>
+                <input id="imageupload" type="file" name="imageupload">
+                <button id="Upload" class="btn-default">Upload</button>
+            </form>
+            <p>Uploaded Images</p>
+        </div>
+        <div>
 
-        <p>Formulas</p>
-    </div>
-    <div id="listOfVideos">
-        <div class="row">
-            <div class="col-md-3">
-                <label>VIDEO HTML-CODE</label>
+
+            <div class="row">
+                <style type="text/css">
+                    #EqnEditor {
+                        text-align: left;
+                    }
+                </style>
+
+                <div id="toolbar"></div>
+                <textarea id="equationInput" rows="3" cols="40"></textarea>
+                <img id="equation" />
+                <textarea id="equationToImg" readonly="" hidden=""></textarea>
+                <script type="text/javascript">
+                    EqEditor.embed('toolbar', '');
+                    var a = new EqTextArea('equation', 'equationInput');
+                    EqEditor.add(a, false);
+                    a.addExportArea('equationToImg', 'html');
+                </script>
+
             </div>
-            <div class="col-md-9">
-                @Html.Editor("video")
+            <button id="addFormula" class="btn btn-default">Add Formula</button>
+
+            <p>Formulas</p>
+            <div id="listOfFormulas">
+
             </div>
         </div>
+        <div id="listOfVideos">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>VIDEO HTML-CODE</label>
+                </div>
+                <div class="col-md-9">
+                    @Html.Editor("video")
+                </div>
+            </div>
+        </div>
+        <button id="addVideo">Add Video</button>
+        <br />
+        <label>Videos</label>
+        @Html.HiddenFor(model => model.Answers)
+        @Html.HiddenFor(model => model.Category)
+        @*@Html.HiddenFor(model => model.Formulas)*@
+        @Html.HiddenFor(model => model.Pictures)
+        @Html.HiddenFor(model => model.Tags)
+        <button type="submit" class="btn" id="Submit">Submit</button>
     </div>
-    <button id="addVideo">Add Video</button>
-    <br />
-    <label>Videos</label>
-    @Html.HiddenFor(model => model.Answers)
-    @Html.HiddenFor(model => model.Category)
-    @*@Html.HiddenFor(model => model.Formulas)*@
-    @Html.HiddenFor(model => model.Pictures)
-    @Html.HiddenFor(model => model.Tags)
-    <button type="submit" class="btn" id="Submit">Submit</button>
 }
