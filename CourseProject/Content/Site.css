@@ -49,16 +49,12 @@ div.body-content {
 }
 
 div.left-col {
-    background-color: #0000CD;
+    background: rgba(0, 0, 160, .7);
     width: 280px;
     padding-top: 50px;
     padding-left: 20px;
     padding-bottom: 10px;
     float: left;
-    /* Internet Explorer */
-    filter: alpha(opacity=80);
-    /* CSS3 standard */
-    opacity: 0.8;
     border-radius: 10px;
     color: #F0F8FF;
     border-color: #00008B;
@@ -69,45 +65,28 @@ div.home {
 }
 
 div.myexercises {
-    background-color: #FF1493;
-    /* Internet Explorer */
-    filter: alpha(opacity=20);
-    /* CSS3 standard */
-    opacity: 0.2;
     border-radius: 10px;
     color: #F0F8FF;
     border-color: #FF1493;
+    background: rgba(255, 0, 100, .1);
 }
 
 div.solvedexercises {
-    background-color:#DC143C;
-    /* Internet Explorer */
-    filter: alpha(opacity=20);
-    /* CSS3 standard */
-    opacity: 0.2;
+    color: slategrey;
     border-radius: 10px;
-    color: #F0F8FF;
     border-color: #DC143C;
+    background: rgba(255, 0, 50, .1);
 }
 div.userinfo {
-    background-color:#FF69B4;
     width: 90%;
-    /* Internet Explorer */
-    filter: alpha(opacity=20);
-    /* CSS3 standard */
-    opacity: 0.2;
     border-radius: 10px;
-    color: #F0F8FF;
     border-color: #FF69B4;
+    background: rgba(255, 0, 255, .1);
 }
 div.rating {
     padding-left: 20px;
-    background-color:#FA8072;
-    /* Internet Explorer */
-    filter: alpha(opacity=20);
-    /* CSS3 standard */
-    opacity: 0.2;
     border-radius: 10px;
-    color: #F0F8FF;
+    color:slategrey;
     border-color: #FA8072;
+    background: rgba(255, 50, 50, .1);
 }
