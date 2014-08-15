@@ -35,7 +35,7 @@ namespace CourseProject.Controllers
         private readonly IEquationRepository equationRepository;
 
         private readonly ITagRepository tagRepository;
-        
+
         private readonly IEvaluationRepository evaluationRepository;
 
         private ApplicationUserManager userManager;
@@ -127,7 +127,7 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendAnswer(int id,string answer)
+        public ActionResult SendAnswer(int id, string answer)
         {
             var exercise = exerciseRepository.GetByID(id);
             var answers = answerRepository.Get().Select(localAnswer => localAnswer.Text);
@@ -143,8 +143,8 @@ namespace CourseProject.Controllers
                     TempData["alertMessage"] = "You answered right!";
                 }
             }
-           
-           return RedirectToAction("ShowExercise",id);
+
+            return RedirectToAction("ShowExercise", id);
         }
 
         [HttpPost]
@@ -152,10 +152,10 @@ namespace CourseProject.Controllers
         {
             var exercise = InitializExercise(model);
             exerciseRepository.Update(exercise);
-            var user =  userManager.FindById(User.Identity.GetUserId());
+            var user = userManager.FindById(User.Identity.GetUserId());
             user.Exercises.Add(exercise);
             userManager.UpdateAsync(user);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         private Exercise InitializExercise(ExerciseCreateViewModel model)
@@ -183,7 +183,7 @@ namespace CourseProject.Controllers
                 }
                 exercise.Answers = answers;
             }
-            
+
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
@@ -217,7 +217,7 @@ namespace CourseProject.Controllers
             }
 
             if (model.Formulas != null)
-               {
+            {
                 ICollection<Equation> equations = new Collection<Equation>();
                 List<String> modelFormulas = System.Web.Helpers.Json.Decode<List<String>>(model.Formulas);
                 foreach (String eq in modelFormulas)
@@ -240,13 +240,13 @@ namespace CourseProject.Controllers
         {
             var exercise = exerciseRepository.GetByID(id);
             ViewBag.IsRightAnweredUser = true;
-            if(exercise.RightAnsweredUsers.Contains(userManager.FindById(User.Identity.GetUserId())))
+            if (exercise.RightAnsweredUsers.Contains(userManager.FindById(User.Identity.GetUserId())))
             {
-                 ViewBag.IsRightAnweredUser = true;
+                ViewBag.IsRightAnweredUser = true;
             }
             else
             {
-                 ViewBag.IsRightAnweredUser = false;
+                ViewBag.IsRightAnweredUser = false;
             }
             return View(exercise);
         }
@@ -309,28 +309,40 @@ namespace CourseProject.Controllers
             if (model.Equations != null)
             {
                 ICollection<Equation> equations = new Collection<Equation>();
-                List<String> newFormulas = System.Web.Helpers.Json.Decode<List<String>>(model.Equations);
-                foreach (String eq in newFormulas)
+                List<String> oldEquations = exercise.Equations.Select(equation => equation.Path).ToList();
+                List<String> newEquations = System.Web.Helpers.Json.Decode<List<String>>(model.Equations);
+
+                foreach (String oldEquation in oldEquations)
                 {
-                    Equation equation = new Equation();
-                    equation.Path = eq;
-                    equation.Task = exercise;
-                    equations.Add(equation);
-                    equationRepository.Insert(equation);
+                    if (!newEquations.Contains(oldEquation))
+                    {
+                        Equation eq = exercise.Equations.First(equation => equation.Path == oldEquation);
+                        exercise.Equations.Remove(eq);
+                    }
                 }
-                exercise.Equations = equations;
+
+                foreach (String newEquation in newEquations)
+                {
+                    if (!oldEquations.Contains(newEquation))
+                    {
+                        Equation equation = new Equation();
+                        equation.Path = newEquation;
+                        equation.Task = exercise;
+                        equationRepository.Insert(equation);
+                    }
+                }
             }
 
             exerciseRepository.Update(exercise);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public ActionResult DeleteExercise(int id)
         {
             var exercise = exerciseRepository.GetByID(id);
-           exerciseRepository.Delete(exercise);
-           return RedirectToAction("AdministratorMain","Administrator");
+            exerciseRepository.Delete(exercise);
+            return RedirectToAction("AdministratorMain", "Administrator");
         }
 
         [HttpPost]
@@ -338,7 +350,7 @@ namespace CourseProject.Controllers
         {
             ViewBag.Tag = tag;
             var exercises = tagRepository.Get().First(localTag => localTag.Text == tag).Task;
-            return View("ShowExercisesWithTag",exercises);
+            return View("ShowExercisesWithTag", exercises);
         }
 
         [HttpGet]
@@ -384,7 +396,7 @@ namespace CourseProject.Controllers
         public ActionResult WriteToAuthor(int id, string text)
         {
             var exercise = exerciseRepository.GetByID(id);
-           //TODO: email
+            //TODO: email
             return RedirectToAction("MyProfile", "Profile");
         }
 
@@ -404,7 +416,7 @@ namespace CourseProject.Controllers
             uploadedPicture.Path = uplPath;
             uploadedPicture.Name = uploadResult.PublicId;
             pictureRepository.Insert(uploadedPicture);
-            return Json(new {path = uplPath, });
+            return Json(new { path = uplPath, });
         }
 
         public ActionResult TagAutocompliteSearch(string term)
@@ -420,8 +432,8 @@ namespace CourseProject.Controllers
 
         public ActionResult GetCategoties()
         {
-            var categories = categoryRepository.Get().Select(category => new {value = category.Text});
-            return Json(categories,JsonRequestBehavior.AllowGet);
+            var categories = categoryRepository.Get().Select(category => new { value = category.Text });
+            return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
     }
