@@ -151,7 +151,9 @@ namespace CourseProject.Controllers
         {
             var exercise = InitializExercise(model);
             exerciseRepository.Update(exercise);
-            userManager.FindById(User.Identity.GetUserId()).Exercises.Add(exercise);
+            var user =  userManager.FindById(User.Identity.GetUserId());
+            user.Exercises.Add(exercise);
+            userManager.UpdateAsync(user);
             return RedirectToAction("Index","Home");
         }
 
