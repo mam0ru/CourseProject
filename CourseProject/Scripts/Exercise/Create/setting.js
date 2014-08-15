@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getImages, initFileUpload;
+    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getImages, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -44,14 +44,13 @@
       return parent;
     };
     createFormulaElement = function(formula) {
-      var childButton, childDivForButton, childDivForImage, formulaElement, parent;
-      formulaElement = document.createElement('div');
-      formulaElement.innerHTML = formula;
+      var childButton, childDivForButton, childDivForImage, parent;
       parent = createParentDiv();
       childDivForImage = createChildDiv();
       childDivForImage.className = "col-md-4";
       childDivForButton = createChildDiv();
-      childDivForImage.appendChild(formulaElement);
+      childDivForImage.innerHTML = formula;
+      childDivForImage.setAttribute('name', 'AddEquation');
       childButton = createButton("delete", "Delete");
       childDivForButton.appendChild(childButton);
       parent.appendChild(childDivForImage);
@@ -83,6 +82,14 @@
     $images = [];
     $tags = [];
     $answers = [];
+    getFormulas = function() {
+      var elements;
+      elements = $("[name='AddEquation']");
+      $.each(elements, function(e, value) {
+        return $equations.push(value.innerHTML);
+      });
+      return $equations;
+    };
     getImages = function() {
       var im;
       im = $("#listOfPictures > .row > .thumbnail > img");
@@ -137,13 +144,16 @@
         return $("#video").val("");
       });
       $("#Submit").on('click', function(e) {
-        var answers, images, tags;
+        var answers, equation, images, tags;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         images = getImages();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
+        equation = getFormulas();
+        equation = JSON.stringify(equation);
         $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
-        $('input#Pictures').val(images);
+        $('input#Answers').val(answers);
+        $('input#Formulas').val(equation);
         return $('input#Tags').val(tags);
       });
       return null;
