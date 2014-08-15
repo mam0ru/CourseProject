@@ -77,7 +77,8 @@
     getFormulas = () ->
       elements = $("[name='AddEquation']")
       $.each elements, (e,value) ->
-        $equations.push(value.innerHTML)
+        img = value.children[0]
+        $equations.push(img.src)
       return $equations
 
  

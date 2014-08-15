@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CourseProject.Models
 {
-    public class Formula
+    public class Equation
     {
         public int Id { get; set; }
 

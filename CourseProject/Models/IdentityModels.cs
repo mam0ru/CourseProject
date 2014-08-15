@@ -44,7 +44,7 @@ namespace CourseProject.Models
 
         public DbSet<Graph> Graphs { get; set; }
 
-        public DbSet<Formula> Formulas { get; set; }
+        public DbSet<Equation> Formulas { get; set; }
 
         public DbSet<Category> Categories { get; set; }
         

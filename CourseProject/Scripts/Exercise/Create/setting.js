@@ -86,7 +86,9 @@
       var elements;
       elements = $("[name='AddEquation']");
       $.each(elements, function(e, value) {
-        return $equations.push(value.innerHTML);
+        var img;
+        img = value.children[0];
+        return $equations.push(img.src);
       });
       return $equations;
     };

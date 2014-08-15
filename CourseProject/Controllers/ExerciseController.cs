@@ -180,24 +180,9 @@ namespace CourseProject.Controllers
                     answers.Add(answer);
                     answerRepository.Insert(answer);
                 }
-                exercise.Answers = answers;                
+                exercise.Answers = answers;
             }
-            exercise.Answers = answers;
-
-            if (model.Formulas != null)
-            {
-                ICollection<Formula> formulas = new Collection<Formula>();
-                foreach (String eq in model.Formulas.Split(','))
-                {
-                    Formula equation = new Formula();
-                    equation.Path = eq;
-                    equation.Task = exercise;
-                    formulas.Add(equation);
-                    formulaRepository.Insert(equation);
-                }
-                exercise.Formulas = formulas;
-            }
-
+            
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
@@ -209,7 +194,7 @@ namespace CourseProject.Controllers
                     pictures.Add(picture);
                     pictureRepository.Insert(picture);
                 }
-                exercise.Pictures = pictures;   
+                exercise.Pictures = pictures;
             }
             if (model.Tags != null)
             {
@@ -228,6 +213,23 @@ namespace CourseProject.Controllers
                     addingTags.Add(tagTemp);
                 }
                 exercise.Tags = addingTags;
+            }
+
+            if (model.Formulas != null)
+            {
+                ICollection<Equation> formulas = new Collection<Equation>();
+                List<String> modelFormulas = System.Web.Helpers.Json.Decode<List<String>>(model.Formulas);
+                foreach (String eq in modelFormulas)
+                {
+                    Equation equation = new Equation();
+                    equation.Path = eq;
+                    formulaRepository.Insert(equation);
+                    equation.Task = exercise;
+                    //exercise.Formulas.Add(equation);
+                    formulaRepository.Update(equation);
+                    formulas.Add(equation);
+                }
+               
             }
             //exercise.Graphs = model.Graphs;
             //exercise.Videos = model.Videos;

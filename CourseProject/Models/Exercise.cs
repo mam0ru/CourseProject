@@ -28,7 +28,7 @@ namespace CourseProject.Models
 
         public virtual ICollection<Picture> Pictures { get; set; }
 
-        public virtual ICollection<Formula> Formulas { get; set; }
+        public virtual ICollection<Equation> Formulas { get; set; }
 
         public virtual ICollection<Graph> Graphs { get; set; }
 
