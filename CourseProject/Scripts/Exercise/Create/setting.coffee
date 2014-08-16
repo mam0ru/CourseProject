@@ -70,9 +70,7 @@
 
     $images = []
 
-    $tags = []
-
-    $answers = []
+    $graphs = []
 
     getFormulas = () ->
       elements = $("[name='AddEquation']")
@@ -81,16 +79,21 @@
         $equations.push(img.src)
       return $equations
 
- 
     getImages = () ->
       im = $("#listOfPictures > .row > .thumbnail > img") 
       $.each im, (e,val) ->
         $images.push(val.src)
       $images  
 
+    getGraphs = ()->
+        elements = $("[name='GraphInfo']")
+        $.each elements, (e,graph) ->
+            $graphs.push(graph.value)
+        return $graphs
+
+
     $(document).ready () ->
         $(document).on 'click', '#addFormula', (e)->
-            e.stopPropagation()
             e.preventDefault()
             img = $('#equationToImg')[0]
             list = $("#listOfFormulas")[0]
@@ -102,7 +105,6 @@
                 list.appendChild(child)
             return null
         $(document).on 'click', "[name='delete']", (e) ->
-            e.stopPropagation()
             e.preventDefault()
             $(this).unbind()
             parent1 = $(this).parent()
@@ -111,14 +113,12 @@
             return null
         initFileUpload()
         $(document).on 'click', '#Upload', (e) ->
-            e.stopPropagation()
             e.preventDefault()
             if $jqXHRData
                 alert "upload"
                 $jqXHRData.submit()
             return false
         $("#addVideo").on 'click', (e) ->
-            e.stopPropagation()
             e.preventDefault()
             parent = createParentDiv()
             parent.innerHTML =  $("#video").val()
@@ -130,8 +130,11 @@
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             equation = getFormulas()
             equation = JSON.stringify(equation)
+            graphs = getGraphs()
+            graphs = JSON.stringify(graphs)
             $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
+            $('input#Graphs').val(graphs)
             $('input#Formulas').val(equation)
             $('input#Tags').val(tags)             
         return null

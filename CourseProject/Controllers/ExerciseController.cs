@@ -38,11 +38,22 @@ namespace CourseProject.Controllers
 
         private readonly IEvaluationRepository evaluationRepository;
 
+        private readonly IGraphRepository graphRepository;
+
         private ApplicationUserManager userManager;
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
-        public ExerciseController(IExerciseRepository exerciseRepository, ICategoryRepository categoryRepository, IPictureRepository pictureRepository, IAnswerRepository answerRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IEvaluationRepository evaluationRepository, IEquationRepository equationRepository, ApplicationUserManager userManager)
+        public ExerciseController(IExerciseRepository exerciseRepository,
+            ICategoryRepository categoryRepository,
+            IPictureRepository pictureRepository,
+            IAnswerRepository answerRepository,
+            ICommentRepository commentRepository,
+            ITagRepository tagRepository,
+            IEvaluationRepository evaluationRepository,
+            IEquationRepository equationRepository,
+            ApplicationUserManager userManager,
+            IGraphRepository graphRepository)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
@@ -53,6 +64,7 @@ namespace CourseProject.Controllers
             this.tagRepository = tagRepository;
             this.userManager = userManager;
             this.equationRepository = equationRepository;
+            this.graphRepository = graphRepository;
         }
 
         public ApplicationUserManager UserManager
@@ -169,9 +181,9 @@ namespace CourseProject.Controllers
             exercise.Text = model.Text;
             exercise.TriesOfAnswers = 0;
             exerciseRepository.Insert(exercise);
-            ICollection<Answer> answers = new Collection<Answer>();
             if (model.Answers != null)
             {
+                ICollection<Answer> answers = new Collection<Answer>();
                 List<String> modelAnswers = System.Web.Helpers.Json.Decode<List<String>>(model.Answers);
                 foreach (String ans in modelAnswers)
                 {
@@ -182,6 +194,21 @@ namespace CourseProject.Controllers
                     answerRepository.Insert(answer);
                 }
                 exercise.Answers = answers;
+            }
+
+            if (model.Graphs != null)
+            {
+                ICollection<Graph> graphs = new Collection<Graph>();
+                List<String> modelGraphs = System.Web.Helpers.Json.Decode<List<String>>(model.Graphs);
+                foreach (String info in modelGraphs)
+                {
+                    Graph graph = new Graph();
+                    graph.Path = info;
+                    graph.Task = exercise;
+                    graphs.Add(graph);
+                    graphRepository.Insert(graph);
+                }
+                exercise.Graphs = graphs;
             }
 
             if (model.Pictures != null)

@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getImages, initFileUpload;
+    var $equations, $graphs, $images, $jqXHRData, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getGraphs, getImages, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -80,8 +80,7 @@
     };
     $equations = [];
     $images = [];
-    $tags = [];
-    $answers = [];
+    $graphs = [];
     getFormulas = function() {
       var elements;
       elements = $("[name='AddEquation']");
@@ -100,10 +99,17 @@
       });
       return $images;
     };
+    getGraphs = function() {
+      var elements;
+      elements = $("[name='GraphInfo']");
+      $.each(elements, function(e, graph) {
+        return $graphs.push(graph.value);
+      });
+      return $graphs;
+    };
     return $(document).ready(function() {
       $(document).on('click', '#addFormula', function(e) {
         var child, img, list;
-        e.stopPropagation();
         e.preventDefault();
         img = $('#equationToImg')[0];
         list = $("#listOfFormulas")[0];
@@ -118,7 +124,6 @@
       });
       $(document).on('click', "[name='delete']", function(e) {
         var parent1, parent2;
-        e.stopPropagation();
         e.preventDefault();
         $(this).unbind();
         parent1 = $(this).parent();
@@ -128,7 +133,6 @@
       });
       initFileUpload();
       $(document).on('click', '#Upload', function(e) {
-        e.stopPropagation();
         e.preventDefault();
         if ($jqXHRData) {
           alert("upload");
@@ -138,7 +142,6 @@
       });
       $("#addVideo").on('click', function(e) {
         var parent;
-        e.stopPropagation();
         e.preventDefault();
         parent = createParentDiv();
         parent.innerHTML = $("#video").val();
@@ -146,14 +149,17 @@
         return $("#video").val("");
       });
       $("#Submit").on('click', function(e) {
-        var answers, equation, images, tags;
+        var answers, equation, graphs, images, tags;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         images = getImages();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         equation = getFormulas();
         equation = JSON.stringify(equation);
+        graphs = getGraphs();
+        graphs = JSON.stringify(graphs);
         $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
+        $('input#Graphs').val(graphs);
         $('input#Formulas').val(equation);
         return $('input#Tags').val(tags);
       });

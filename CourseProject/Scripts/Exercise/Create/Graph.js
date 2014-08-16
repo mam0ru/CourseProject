@@ -1,7 +1,49 @@
 ﻿(function() {
   $(function() {
-    var calculateExpression, points;
+    var calculateExpression, createButton, createChildDiv, createContainerForGraph, createInfoElement, createParentDiv, points;
     points = [];
+    createParentDiv = function() {
+      var parent;
+      parent = document.createElement('div');
+      parent.className = 'row';
+      return parent;
+    };
+    createChildDiv = function() {
+      var childDiv;
+      childDiv = document.createElement('div');
+      childDiv.className = 'col-md-4';
+      return childDiv;
+    };
+    createButton = function() {
+      var button;
+      button = document.createElement('button');
+      button.name = "delete";
+      button.innerText = "Delete";
+      return button;
+    };
+    createInfoElement = function(graph) {
+      var info;
+      info = document.createElement('input');
+      info.type = 'hidden';
+      info.name = 'GraphInfo';
+      info.value = JSON.stringify(graph);
+      return info;
+    };
+    createContainerForGraph = function(graph) {
+      var GraphInfo, childButton, childDivForButton, childDivForGraph, parent;
+      parent = createParentDiv();
+      GraphInfo = createInfoElement(graph);
+      childDivForGraph = createChildDiv();
+      childDivForGraph.className = "col-md-4 thumbnail";
+      childDivForGraph.id = "currentDiv";
+      childDivForButton = createChildDiv();
+      childButton = createButton("delete", "Delete");
+      childDivForButton.appendChild(childButton);
+      parent.appendChild(GraphInfo);
+      parent.appendChild(childDivForGraph);
+      parent.appendChild(childDivForButton);
+      return parent;
+    };
     calculateExpression = function(expr, f, t, s) {
       var point, variable, _results;
       variable = f;
@@ -19,15 +61,21 @@
     };
     return $(document).ready(function() {
       return $("#addGraph").on('click', function(e) {
-        var expression, formula, from, step, to;
+        var container, expression, formula, from, graph, step, to;
         e.preventDefault();
         formula = $("#GraphFormula").val();
         from = parseFloat($("#RangeFrom").val());
         to = parseFloat($("#RangeTo").val());
         step = parseFloat($("#Step").val());
+        if (step < (to - from) / 100) {
+          step = (to - from) / 100;
+        }
         expression = Parser.parse(formula);
+        graph = [formula, from, to, step];
+        container = createContainerForGraph(graph);
+        $('#listOfGraphs')[0].appendChild(container);
         calculateExpression(expression, from, to, step);
-        $.jqplot('chart3', [points], {
+        $.jqplot('currentDiv', [points], {
           series: [
             {
               showMarker: false
@@ -42,6 +90,8 @@
             }
           }
         });
+        $('#currentDiv')[0].id = "";
+        points = [];
         return null;
       });
     });
