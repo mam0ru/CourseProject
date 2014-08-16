@@ -46,7 +46,9 @@
         </div>
         <textarea id="inputAnswers" rows="1" cols="100"></textarea>
         <br />
+        <div class = "markdownpanel">
         @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
+        </div>
         <div class="jumbotron" id="listOfPictures">
             <form>
                 <input id="imageupload" type="file" name="imageupload">
