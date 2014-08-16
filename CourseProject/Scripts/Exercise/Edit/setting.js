@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $answers, $equations, $images, $jqXHRData, $tags, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getImages, initFileUpload;
+    var $equations, $graphs, $images, $jqXHRData, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getGraphs, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -65,10 +65,14 @@
           return $jqXHRData = data;
         },
         done: function(event, data) {
-          var jsItem;
+          var img, img1, img2, img3, input;
           alert("file uploaded");
-          jsItem = createImageElement(data.result.path);
-          return $('#listOfPictures').append(jsItem);
+          input = $("[name='Exercise.Text']")[0];
+          img1 = "![]( ";
+          img2 = data.result.path;
+          img3 = " \"\")";
+          img = img1 + img2 + img3;
+          return input.value = input.value + img;
         },
         fail: function(event, data) {
           alert("ERROR");
@@ -80,8 +84,7 @@
     };
     $equations = [];
     $images = [];
-    $tags = [];
-    $answers = [];
+    $graphs = [];
     getFormulas = function() {
       var elements;
       elements = $("[name='AddEquation']");
@@ -92,13 +95,14 @@
       });
       return $equations;
     };
-    getImages = function() {
-      var im;
-      im = $("#listOfPictures > .row > .thumbnail > img");
-      $.each(im, function(e, val) {
-        return $images.push(val.src);
+    getGraphs = function() {
+      var elements;
+      elements = $("[name='GraphInfo']");
+      $.each(elements, function(e, graph) {
+        return $graphs.push(graph.value);
       });
-      return $images;
+      alert($graphs);
+      return $graphs;
     };
     return $(document).ready(function() {
       $(".md-header").css('height', '35px');
@@ -145,14 +149,15 @@
         return false;
       });
       $("#Submit").on('click', function(e) {
-        var answers, equation, images, tags;
+        var answers, equation, graphs, tags;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
-        images = getImages();
         equation = getFormulas();
         equation = JSON.stringify(equation);
         tags = $("#inputTags").textext()[0].hiddenInput().val();
+        graphs = getGraphs();
+        graphs = JSON.stringify(graphs);
+        $('input#Graphs').val(graphs);
         $('input#Answers')[0].value = answers;
-        $('input#Pictures')[0].value = images;
         $('input#Tags')[0].value = tags;
         $('input#Equations').val(equation);
         $("input#Name")[0].value = $("#Exercise_Name").val();

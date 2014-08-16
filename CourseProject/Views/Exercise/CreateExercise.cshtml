@@ -51,12 +51,11 @@
         <div class="markdownpanel">
             @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
         </div>
-        <div class="jumbotron" id="listOfPictures">
+        <div class="jumbotron">
             <form>
                 <input id="imageupload" type="file" name="imageupload">
                 <button id="Upload" class="btn-default">Upload</button>
             </form>
-            <p>Uploaded Images</p>
         </div>
         <div>
 
@@ -129,7 +128,6 @@
                     </div>
                 </div>
             </div>
-            <div id="chart3"></div>
         </div>
         <div id="listOfVideos">
             <div class="row">
@@ -147,7 +145,6 @@
         @Html.HiddenFor(model => model.Answers)
         @Html.HiddenFor(model => model.Category)
         @Html.HiddenFor(model => model.Formulas)
-        @Html.HiddenFor(model => model.Pictures)
         @Html.HiddenFor(model => model.Tags)
         @Html.HiddenFor(model => model.Graphs)
         <button type="submit" class="btn" id="Submit">Submit</button>

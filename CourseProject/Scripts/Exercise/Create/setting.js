@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $images, $jqXHRData, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getGraphs, getImages, initFileUpload;
+    var $equations, $graphs, $jqXHRData, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, getFormulas, getGraphs, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -28,21 +28,6 @@
       return button;
     };
     $jqXHRData = null;
-    createImageElement = function(src) {
-      var childButton, childDivForButton, childDivForImage, childImage, parent;
-      parent = createParentDiv();
-      childImage = document.createElement('img');
-      childImage.src = src;
-      childDivForImage = createChildDiv();
-      childDivForImage.className = "col-md-4 thumbnail";
-      childDivForButton = createChildDiv();
-      childDivForImage.appendChild(childImage);
-      childButton = createButton("delete", "Delete");
-      childDivForButton.appendChild(childButton);
-      parent.appendChild(childDivForImage);
-      parent.appendChild(childDivForButton);
-      return parent;
-    };
     createFormulaElement = function(formula) {
       var childButton, childDivForButton, childDivForImage, parent;
       parent = createParentDiv();
@@ -65,10 +50,14 @@
           return $jqXHRData = data;
         },
         done: function(event, data) {
-          var jsItem;
+          var img, img1, img2, img3, input;
           alert("file uploaded");
-          jsItem = createImageElement(data.result.path);
-          return $('#listOfPictures').append(jsItem);
+          input = $("[name='Text']")[0];
+          img1 = "![]( ";
+          img2 = data.result.path;
+          img3 = " \"\")";
+          img = img1 + img2 + img3;
+          return input.value = input.value + img;
         },
         fail: function(event, data) {
           alert("ERROR");
@@ -79,7 +68,6 @@
       });
     };
     $equations = [];
-    $images = [];
     $graphs = [];
     getFormulas = function() {
       var elements;
@@ -90,14 +78,6 @@
         return $equations.push(img.src);
       });
       return $equations;
-    };
-    getImages = function() {
-      var im;
-      im = $("#listOfPictures > .row > .thumbnail > img");
-      $.each(im, function(e, val) {
-        return $images.push(val.src);
-      });
-      return $images;
     };
     getGraphs = function() {
       var elements;
@@ -149,17 +129,16 @@
         return $("#video").val("");
       });
       $("#Submit").on('click', function(e) {
-        var answers, equation, graphs, images, tags;
+        var answers, equation, graphs, tags;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
-        images = getImages();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         equation = getFormulas();
         equation = JSON.stringify(equation);
         graphs = getGraphs();
         graphs = JSON.stringify(graphs);
+        $('input#Graphs').val(graphs);
         $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
-        $('input#Graphs').val(graphs);
         $('input#Formulas').val(equation);
         return $('input#Tags').val(tags);
       });

@@ -23,20 +23,6 @@
 
     $jqXHRData = null
 
-    createImageElement = (src) ->
-        parent = createParentDiv()
-        childImage = document.createElement('img')
-        childImage.src = src
-        childDivForImage = createChildDiv()
-        childDivForImage.className = "col-md-4 thumbnail"
-        childDivForButton = createChildDiv()    
-        childDivForImage.appendChild childImage
-        childButton = createButton("delete","Delete")
-        childDivForButton.appendChild childButton
-        parent.appendChild childDivForImage
-        parent.appendChild childDivForButton
-        return parent
-
     createFormulaElement = (formula) ->
         parent = createParentDiv()
         childDivForImage = createChildDiv()
@@ -58,8 +44,12 @@
             $jqXHRData = data
         done: (event, data) -> 
             alert "file uploaded"
-            jsItem = createImageElement(data.result.path)
-            $('#listOfPictures').append(jsItem)
+            input = $("[name='Text']")[0]
+            img1 = "![]( "
+            img2 = data.result.path 
+            img3 = " \"\")"
+            img = img1 + img2 + img3
+            input.value = input.value + img
         fail: (event, data) ->
             alert "ERROR"
             if data.files[0].error
@@ -67,8 +57,6 @@
       })
 
     $equations = []
-
-    $images = []
 
     $graphs = []
 
@@ -78,12 +66,6 @@
         img = value.children[0]
         $equations.push(img.src)
       return $equations
-
-    getImages = () ->
-      im = $("#listOfPictures > .row > .thumbnail > img") 
-      $.each im, (e,val) ->
-        $images.push(val.src)
-      $images  
 
     getGraphs = ()->
         elements = $("[name='GraphInfo']")
@@ -126,15 +108,14 @@
             $("#video").val("")
         $("#Submit").on 'click', (e) ->
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
-            images = getImages()
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             equation = getFormulas()
             equation = JSON.stringify(equation)
             graphs = getGraphs()
             graphs = JSON.stringify(graphs)
+            $('input#Graphs').val(graphs)            
             $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
-            $('input#Graphs').val(graphs)
             $('input#Formulas').val(equation)
             $('input#Tags').val(tags)             
         return null

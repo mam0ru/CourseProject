@@ -58,8 +58,12 @@
             $jqXHRData = data
         done: (event, data) -> 
             alert "file uploaded"
-            jsItem = createImageElement(data.result.path)
-            $('#listOfPictures').append(jsItem)
+            input = $("[name='Exercise.Text']")[0]
+            img1 = "![]( "
+            img2 = data.result.path 
+            img3 = " \"\")"
+            img = img1 + img2 + img3
+            input.value = input.value + img
         fail: (event, data) ->
             alert "ERROR"
             if data.files[0].error
@@ -70,9 +74,7 @@
 
     $images = []
 
-    $tags = []
-
-    $answers = []
+    $graphs = []
     
     getFormulas = () ->
       elements = $("[name='AddEquation']")
@@ -81,12 +83,13 @@
         $equations.push(img.src)
       return $equations
  
-    getImages = () ->
-      im = $("#listOfPictures > .row > .thumbnail > img") 
-      $.each im, (e,val) ->
-        $images.push(val.src)
-      $images  
-    
+    getGraphs = ()->
+        elements = $("[name='GraphInfo']")
+        $.each elements, (e,graph) ->
+            $graphs.push(graph.value)
+        alert ($graphs)
+        return $graphs    
+          
     $(document).ready () ->
         $(".md-header").css('height', '35px')
         $(".jumbotron")[0].style.setProperty("height","250px")
@@ -125,12 +128,13 @@
             return false
         $("#Submit").on 'click', (e) ->
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
-            images = getImages()
             equation = getFormulas()
             equation = JSON.stringify(equation)
             tags = $("#inputTags").textext()[0].hiddenInput().val()
+            graphs = getGraphs()
+            graphs = JSON.stringify(graphs)
+            $('input#Graphs').val(graphs)
             $('input#Answers')[0].value = answers
-            $('input#Pictures')[0].value = images
             $('input#Tags')[0].value = tags
             $('input#Equations').val(equation)    
             $("input#Name")[0].value = $("#Exercise_Name").val()

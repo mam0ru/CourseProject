@@ -1,4 +1,6 @@
-﻿@model CourseProject.View_Models.EditExerciseViewModel
+﻿@using CourseProject.Models
+@using Microsoft.Ajax.Utilities
+@model CourseProject.View_Models.EditExerciseViewModel
 
 <link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
 <script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
@@ -10,6 +12,11 @@
 @Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/exercise/create/image")
 <script src="~/Scripts/Exercise/Edit/setting.js"></script>
+
+@Styles.Render("~/Content/Graphs")
+@Scripts.Render("~/byndles/Graphs")
+<script src="~/Scripts/Exercise/Edit/Graph.js"></script>
+<script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
 
 @Styles.Render("~/Content/taginput")
 @Scripts.Render("~/bundles/exercise/edit/taginput")
@@ -86,24 +93,64 @@
                 <button id="Upload" class="btn-default">Upload</button>
             </form>
         </div>
-        <div class="jumbotron" id="listOfPictures">
-            <h3>Pictures</h3>
-            @foreach (var picture in Model.Exercise.Pictures)
-            {
+        <div id="listOfGraphs">
+            <div>
                 <div class="row">
-                    <div class="col-md-4 thumbnail">
-                        <img src="@picture.Path" width="400" vspace="5" />
+                    <div class="col-md-1">
+                        @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
                     </div>
-                    <div class="col-md-4">
-                        <button name="delete">Delete</button>
+                    <div class="col-md-3">
+                        @Html.TextArea("GraphFormula", new { rows = "1", cols = "25" })
+                    </div>
+                    <div class="col-md-1">
+                        <p id="inputFormulaHelp">?</p>
                     </div>
                 </div>
-            }
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphLabelRange</p>
+                    </div>
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextArea("RangeFrom", new { rows = "1", cols = "5" })
+                    </div>
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphLabelRangeTo</p>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphStep</p>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextArea("Step", new { rows = "1", cols = "5" })
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn-default" id="addGraph">Add Graph</button>
+                    </div>
+                </div>
+                @foreach (var graph in Model.Exercise.Graphs)
+                {
+                    <div class="row">
+                        @Html.Hidden("GraphInfo",graph.Path)
+                        <div class="col-md-4 thumbnail">
+
+                        </div>
+                        <div class="col-md-4">
+                            <button name="delete">Delete</button>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
         @Html.HiddenFor(model => model.Answers)
         @Html.HiddenFor(model => model.Equations)
-        @*@Html.HiddenFor(model => model.Graphs)*@
-        @Html.HiddenFor(model => model.Pictures)
+        @Html.HiddenFor(model => model.Graphs)
         @Html.HiddenFor(model => model.Tags)
         @Html.HiddenFor(model => model.Name)
         @Html.HiddenFor(model => model.Text)

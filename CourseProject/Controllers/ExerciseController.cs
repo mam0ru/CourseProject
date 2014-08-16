@@ -332,7 +332,6 @@ namespace CourseProject.Controllers
                     exercise.Tags.Add(tag);
                 }
             }
-            // TODO: EDIT
             if (model.Equations != null)
             {
                 ICollection<Equation> equations = new Collection<Equation>();
@@ -357,6 +356,43 @@ namespace CourseProject.Controllers
                         equation.Task = exercise;
                         equationRepository.Insert(equation);
                     }
+                }
+            }
+
+            if (model.Graphs != null)
+            {
+                ICollection<Graph> graphs = new Collection<Graph>();
+                List<String> oldGraphs = exercise.Graphs.Select(graph => graph.Path).ToList();
+                List<String> newGraphs = System.Web.Helpers.Json.Decode<List<String>>(model.Graphs);
+
+                foreach (String oldGraph in oldGraphs)
+                {
+                    if (!newGraphs.Contains(oldGraph))
+                    {
+                        Graph graph = exercise.Graphs.First(g => g.Path == oldGraph);
+                        exercise.Graphs.Remove(graph);
+                        graphRepository.Delete(graph);
+                    }
+                }
+
+                foreach (String newGraph in newGraphs)
+                {
+                    if (!oldGraphs.Contains(newGraph))
+                    {
+                        Graph graph = new Graph();
+                        graph.Path = newGraph;
+                        graph.Task = exercise;
+                        graphRepository.Insert(graph);
+                    }
+                }
+            }
+            else
+            {
+                ICollection<Graph> graphs = exercise.Graphs;
+                foreach (var graph in graphs)
+                {
+                    exercise.Graphs.Remove(graph);
+                    graphRepository.Delete(graph);
                 }
             }
 
