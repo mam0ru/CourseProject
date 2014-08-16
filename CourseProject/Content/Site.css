@@ -1,4 +1,8 @@
-﻿#search-box {
+﻿div.register-form {
+    height: 150px;
+    background-color: greenyellow;
+}
+#search-box {
     position: relative;
     padding-top: 0px;
     padding-left: 5px;
@@ -48,6 +52,7 @@ div.body-content {
     padding-top: 60px;
     padding-left: 300px;
     padding-bottom: 10px;
+    padding-right: 15px;
 }
 
 div.left-col {
@@ -96,3 +101,4 @@ div.rating {
 .md-header {
     height: 40px;
 }
+

@@ -20,66 +20,73 @@
             {
                 <div id="accordion">
                     <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
-                    @{
-                        string activeAction = "";
-                        if (exersise.Active)
-                        {
-                            activeAction = @Resources.Resource.MakeUnactive.ToString();
-                        }
-                        else
-                        {
-                            activeAction = @Resources.Resource.MakeActive.ToString();
-                        }
-                        <h6>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new {id = exersise.Id, isActive = exersise.Active}, null))</h6>
-                    }
-                        <h5>@Resources.Resource.Answers</h5>
-                    <ul>
-                        @foreach (var answer in exersise.Answers)
-                        {
-                            <li>
-                                @answer
-                            </li>
-                        }
-                    </ul>
-
-                    <h6>@Resources.Resource.AddAnswer</h6>
-                    @using (Html.BeginForm("AddAnswer", "Exercise"))
-                    {
-                        <input value="@exersise.Id" hidden="true">
-                        <input type="text" placeholder="" id="search-text" name="answer" />
-                        <input type="submit" id="answer" value="Add answer" />
-                    }
-                    <h5>@Resources.Resource.Tags</h5>
-                    <div class="row">
-                        @foreach (var tag in exersise.Tags)
-                        {
-                            <div class="col-md-5">
-                                @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
-                            </div>
-                        }
-                    </div>
-                    <h5>@Resources.Resource.Category @exersise.Category.Text</h5>
-                    <h5>@Resources.Resource.TriesOfAnswers @exersise.TriesOfAnswers</h5>
-                    <h5>@Resources.Resource.RightAnsweredUsers</h5>
                     <div>
-                        @if (@exersise.RightAnsweredUsers.Count != 0)
-                        {
-                            <ul>
-                                @foreach (var user in exersise.RightAnsweredUsers)
+                        <div id="accordion">
+                            @{
+                string activeAction = "";
+                if (exersise.Active)
+                {
+                    activeAction = @Resources.Resource.MakeUnactive.ToString();
+                }
+                else
+                {
+                    activeAction = @Resources.Resource.MakeActive.ToString();
+                }
+                <h6>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, null))</h6>
+                            }
+                            <h5>@Resources.Resource.Answers</h5>
+                            <div>
+                                <ul>
+                                    @foreach (var answer in exersise.Answers)
+                                    {
+                                        <li>
+                                            @answer.Text
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <h6>@Resources.Resource.AddAnswer</h6>
+                            <div>
+                            @using (Html.BeginForm("AddAnswer", "Exercise"))
+                            {
+                                <input value="@exersise.Id" hidden="true">
+                                <input type="text" placeholder="" id="search-text" name="answer" />
+                                <input type="submit" id="answer" value="Add answer" />
+                            }
+                                </div>
+                            <h5>@Resources.Resource.Tags</h5>
+                            <div class="row">
+                                @foreach (var tag in exersise.Tags)
                                 {
-                                    <li>
-                                        @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-                                    </li>
+                                    <div class="col-md-5">
+                                        @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
+                                    </div>
                                 }
-                            </ul>
-                        }
-                        else
-                        {
-                            @Resources.Resource.NoRightAnsweredUsers
-                        }
+                            </div>
+                            <h5>@Resources.Resource.Category @exersise.Category.Text</h5>
+                            <h5>@Resources.Resource.TriesOfAnswers @exersise.TriesOfAnswers</h5>
+                            <h5>@Resources.Resource.RightAnsweredUsers</h5>
+                            <div>
+                                @if (@exersise.RightAnsweredUsers.Count != 0)
+                                {
+                                    <ul>
+                                        @foreach (var user in exersise.RightAnsweredUsers)
+                                        {
+                                            <li>
+                                                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    @Resources.Resource.NoRightAnsweredUsers
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
 
+                </div>
 
             }
 
