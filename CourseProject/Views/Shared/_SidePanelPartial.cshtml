@@ -11,7 +11,7 @@
             @for (int i = 0; i < 5 && i < mostPopularExercises.Count(); i++)
             {
                 <li>
-                    @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id }, null)
+                    @Html.ActionLink(mostPopularExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:snow;" })
                 </li>
             }
         </ul>
@@ -33,7 +33,7 @@
             @for (int i = 0; i < 5 && i < lastAddedExercises.Count(); i++)
             {
                 <li>
-                    @Html.ActionLink(lastAddedExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = lastAddedExercises.ElementAt(i).Id }, null)
+                    @Html.ActionLink(lastAddedExercises.ElementAt(i).Name, "ShowExercise", "Exercise", new { id = lastAddedExercises.ElementAt(i).Id }, new { @style = "color:snow;" })
                 </li>
             }
         </ul>

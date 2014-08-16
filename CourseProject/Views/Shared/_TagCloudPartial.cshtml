@@ -8,7 +8,7 @@
             @foreach (Tag tag in Model)
             {
                 <li>
-                    @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
+                    @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, new { @style = "color:snow;" })
                 </li>
             }
         </ul>
