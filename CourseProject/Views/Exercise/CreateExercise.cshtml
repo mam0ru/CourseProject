@@ -16,10 +16,12 @@
 @Scripts.Render("~/bundles/exercise/create/image")
 @Scripts.Render("~/bundles/exercise/create/fillcategories")
 
-
-
 @Scripts.Render("~/bundles/exercise/taginput")
 @Styles.Render("~/Content/taginput")
+
+@Styles.Render("~/Content/Graphs")
+@Scripts.Render("~/byndles/Graphs")
+<script src="~/Scripts/Exercise/Create/Graph.js"></script>
 
 <script src="~/Scripts/Exercise/Create/setting.js"></script>
 @using (Html.BeginForm("CreateExercise", "Exercise", FormMethod.Post))
@@ -46,8 +48,8 @@
         </div>
         <textarea id="inputAnswers" rows="1" cols="100"></textarea>
         <br />
-        <div class = "markdownpanel">
-        @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
+        <div class="markdownpanel">
+            @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
         </div>
         <div class="jumbotron" id="listOfPictures">
             <form>
@@ -84,6 +86,50 @@
             <div id="listOfFormulas">
 
             </div>
+        </div>
+        <div id="listOfGraphs">
+            <div>
+                <div class="row">
+                    <div class="col-md-1">
+                        @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextArea("GraphFormula", new {rows = "1", cols = "25"})
+                    </div>
+                    <div class="col-md-1">
+                        <p id="inputFormulaHelp">?</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphLabelRange</p>
+                    </div>
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextArea("RangeFrom", new {rows = "1", cols = "5"})
+                    </div>
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphLabelRangeTo</p>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>@Resources.Resource.labelGraphStep</p>
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextArea("Step", new { rows = "1", cols = "5" })
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn-default" id="addGraph">Add Graph</button>
+                    </div>
+                </div>
+            </div>
+            <div id="chart3"></div>
         </div>
         <div id="listOfVideos">
             <div class="row">

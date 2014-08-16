@@ -385,6 +385,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Formula.
+        /// </summary>
+        public static string labelGraphFormula {
+            get {
+                return ResourceManager.GetString("labelGraphFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range.
+        /// </summary>
+        public static string labelGraphLabelRange {
+            get {
+                return ResourceManager.GetString("labelGraphLabelRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to from.
+        /// </summary>
+        public static string labelGraphLabelRangeFrom {
+            get {
+                return ResourceManager.GetString("labelGraphLabelRangeFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to.
+        /// </summary>
+        public static string labelGraphLabelRangeTo {
+            get {
+                return ResourceManager.GetString("labelGraphLabelRangeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step.
+        /// </summary>
+        public static string labelGraphStep {
+            get {
+                return ResourceManager.GetString("labelGraphStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last added exercises.
         /// </summary>
         public static string LastAddedExercises {

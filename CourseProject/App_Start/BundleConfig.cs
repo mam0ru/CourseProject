@@ -96,9 +96,16 @@ namespace CourseProject
 
             bundles.Add(new StyleBundle("~/Content/equationEditor").Include(
                 "~/Content/EquationEditor/equation-embed.css"));
+
+            bundles.Add(new ScriptBundle("~/byndles/Graphs").Include("~/Scripts/Exercise/Graph/parser.js",
+                "~/Scripts/Exercise/Graph/jqplot/jquery.jqplot.js",
+                "~/Scripts/Exercise/Graph/jqplot/plugins/jqplot.canvasTextRenderer.min.js",
+                "~/Scripts/Exercise/Graph/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/Graphs").Include("~/Сontent/Graph/jquery.jqplot.css"));
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

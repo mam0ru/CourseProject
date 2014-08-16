@@ -411,4 +411,19 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="labelGraphFormula" xml:space="preserve">
+    <value>Formula</value>
+  </data>
+  <data name="labelGraphLabelRange" xml:space="preserve">
+    <value>Range</value>
+  </data>
+  <data name="labelGraphLabelRangeFrom" xml:space="preserve">
+    <value>from</value>
+  </data>
+  <data name="labelGraphLabelRangeTo" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="labelGraphStep" xml:space="preserve">
+    <value>Step</value>
+  </data>
 </root>
