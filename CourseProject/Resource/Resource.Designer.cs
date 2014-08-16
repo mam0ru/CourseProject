@@ -232,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit exercise.
+        /// </summary>
+        public static string EditExercise {
+            get {
+                return ResourceManager.GetString("EditExercise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -867,6 +876,15 @@ namespace Resources {
         public static string SetPasswordButtonSubmitText {
             get {
                 return ResourceManager.GetString("SetPasswordButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show exercise.
+        /// </summary>
+        public static string ShowExercise {
+            get {
+                return ResourceManager.GetString("ShowExercise", resourceCulture);
             }
         }
         

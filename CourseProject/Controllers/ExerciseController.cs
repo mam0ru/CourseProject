@@ -167,7 +167,7 @@ namespace CourseProject.Controllers
             var user = userManager.FindById(User.Identity.GetUserId());
             user.Exercises.Add(exercise);
             userManager.UpdateAsync(user);
-            return RedirectToAction("ShowExercise", exercise.Id);
+            return RedirectToAction("MyProfile", "Profile");
         }
 
         private Exercise InitializExercise(ExerciseCreateViewModel model)

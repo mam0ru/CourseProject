@@ -426,4 +426,10 @@
   <data name="labelGraphStep" xml:space="preserve">
     <value>Step</value>
   </data>
+  <data name="EditExercise" xml:space="preserve">
+    <value>Edit exercise</value>
+  </data>
+  <data name="ShowExercise" xml:space="preserve">
+    <value>Show exercise</value>
+  </data>
 </root>
