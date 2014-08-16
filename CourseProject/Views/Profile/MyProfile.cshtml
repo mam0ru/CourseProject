@@ -16,98 +16,89 @@
 </script>
 
 <div class="myexercises">
-    <div class="container">
-        <div class="userinfo">
-            <h4>
-                @Model.Email
-                <span class="badge">
-                    @ViewBag.Rating
-                </span>
-            </h4>
-        </div>
-        <br>
-        <h4> @Resources.Resource.MyExercises</h4>
-        <br>
-        @if (Model.Exercises.Count != 0)
-        {
-            <div id="accordion" style="width:88%">
-                @foreach (var exersise in Model.Exercises)
-                {
-                    string activeAction = "";
-                    if (exersise.Active)
-                    {
-                        activeAction = @Resources.Resource.MakeUnactive.ToString();
-                    }
-                    else
-                    {
-                        activeAction = @Resources.Resource.MakeActive.ToString();
-                    }
-
-                    <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
-                    <div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                            </div>
-                            <div class="col-md-2">
-                                @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                            </div>
-                            <div class="col-md-2">
-                                @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
-                            </div>
-                        </div>
-                        <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
-                        <h5>
-                            @Resources.Resource.TriesOfAnswers:
-                            <span class="badge" style="background-color: cornsilk; color: black">
-                                @exersise.TriesOfAnswers
-                            </span>
-                        </h5>
-                        <h5>
-                            @Resources.Resource.RightAnsweredUsers:
-                            <span class="badge" style="background-color: cornsilk; color: black ">
-                                @exersise.RightAnsweredUsers.Count
-                            </span>
-                        </h5>
-                        <ul>
-                            @foreach (var user in exersise.RightAnsweredUsers)
-                            {
-                                <li>
-                                    @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-                                </li>
-                            }
-                        </ul>
-                        }
-                    </div>
-                }
-            </div>
-        }
-        else
-        {
-            @Resources.Resource.NoExercises
-        }
+    <div class="userinfo">
+        <h4>
+            @Model.Email
+            <span class="badge">
+                @ViewBag.Rating
+            </span>
+        </h4>
     </div>
+    <h4> @Resources.Resource.MyExercises</h4>
+    @if (Model.Exercises.Count != 0)
+    {
+        <div id="accordion" style="color:inherit; background-color: inherit">
+            @foreach (var exersise in Model.Exercises)
+            {
+                string activeAction = "";
+                if (exersise.Active)
+                {
+                    activeAction = @Resources.Resource.MakeUnactive.ToString();
+                }
+                else
+                {
+                    activeAction = @Resources.Resource.MakeActive.ToString();
+                }
+
+                <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
+                <div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
+                        </div>
+                    </div>
+                    <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
+                    <h5>
+                        @Resources.Resource.TriesOfAnswers:
+                        <span class="badge" style="background-color: cornsilk; color: black">
+                            @exersise.TriesOfAnswers
+                        </span>
+                    </h5>
+                    <h5>
+                        @Resources.Resource.RightAnsweredUsers:
+                        <span class="badge" style="background-color: cornsilk; color: black ">
+                            @exersise.RightAnsweredUsers.Count
+                        </span>
+                    </h5>
+                    <ul>
+                        @foreach (var user in exersise.RightAnsweredUsers)
+                        {
+                            <li>
+                                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        @Resources.Resource.NoExercises
+    }
 </div>
 
 <div class="solvedexercises">
-    <div class="container">
-        <br />
-        <h4> @Resources.Resource.SolvedExercises</h4>
-
-        @if (Model.RightAnswers.Count != 0)
-        {
-            <ul>
-                @foreach (var exersise in Model.RightAnswers)
-                {
-                    <li>
-                        <a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a>
-                    </li>
-                }
-            </ul>
-        }
-        else
-        {
-            @Resources.Resource.NoRightAnsweredExercises
-        }
-    </div>
+    <h4> @Resources.Resource.SolvedExercises</h4>
+    @if (Model.RightAnswers.Count != 0)
+    {
+        <ul>
+            @foreach (var exersise in Model.RightAnswers)
+            {
+                <li>
+                    <a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        @Resources.Resource.NoRightAnsweredExercises
+    }
 </div>

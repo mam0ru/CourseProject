@@ -72,19 +72,26 @@ div.home {
 
 
 div.myexercises {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color:darkslategray;
     border-radius: 10px;
     border-color: #FF1493;
     background: rgba(255, 0, 100, .1);
 }
 
 div.solvedexercises {
-    color: slategrey;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-radius: 10px;
     border-color: #DC143C;
     background: rgba(255, 0, 50, .1);
 }
 div.userinfo {
-    width: 88%;
     border-radius: 10px;
     border-color: #FF69B4;
     background: rgba(255, 0, 255, .1);
@@ -92,7 +99,7 @@ div.userinfo {
 div.rating {
     padding-left: 20px;
     border-radius: 10px;
-    color:slategrey;
+    color:darkslategray;
     border-color: #FA8072;
     background: rgba(255, 50, 50, .1);
 }
