@@ -74,7 +74,7 @@
       var elements;
       elements = $('iframe');
       $.each(elements, function(e, value) {
-        return $videos.push(value);
+        return $videos.push(value.src);
       });
       return $videos;
     };
@@ -139,6 +139,7 @@
       });
       $("#Submit").on('click', function(e) {
         var answers, equation, graphs, tags, videos;
+        e.preventDefault();
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         equation = getFormulas();
