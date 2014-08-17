@@ -6,8 +6,9 @@
 }
 <h1>Show exercise with tag</h1>
 <div class="jumbotron">
-    <div class="container">
-        @{ bool active = true;}
+    @{
+        bool active = true;
+        bool author = false;
         <br />
         <h4>
             @Model.Name
@@ -36,6 +37,10 @@
                             </div>
                         }
                     }
+                    else
+                    {
+                        author = true;
+                    }
                 }
                 else
                 {
@@ -45,17 +50,18 @@
                 )
             </h5>
         </h4>
-        <div id="accordion">
-            Author: <a href="~/Profile/ShowProfile/@Model.Author.Id">@Model.Author.UserName</a>
-            @Resources.Resource.NotifyAboutMistake
-            <div>
-                @using (Html.BeginForm("WriteToAuthor", "Exercise"))
+        <div >
+            Author: <a href = "~/Profile/ShowProfile/@Model.Author.Id"> @Model.Author.UserName </a>
+                @if(!author){
+                @Resources.Resource.NotifyAboutMistake
+
+                using (Html.BeginForm("WriteToAuthor", "Exercise"))
                 {
                     <input value="@Model.Id" hidden="true">
                     <input type="text" placeholder="" id="input-text" name="text" />
                     <input type="submit" id="text" value="Send" />
                 }
-            </div>
+            }
             <h4>@Resources.Resource.Tags</h4>
             <div class="row">
                 @foreach (var tag in Model.Tags)
@@ -123,19 +129,14 @@
                     }
                 </div>
             }
-            @if (active && Model.Author.Id != User.Identity.GetUserId())
-            {
-                using (Html.BeginForm("AddEvaluation", "Exercise"))
-                 {
-                     <input value="@Model.Id" hidden="true">
-                     <input type="button" id="input-text" value="like" name="evaluationButton" src="~/Content/like.png" width="20" alt=@Model.Evaluations.Select(ev => ev.Type == true).Count().ToString()" likes">
-                     @Model.Evaluations.Select(ev => ev.Type == true).Count()
-                     <input type="button" id="input-text" value="dislike" name="evaluationButton" src="~/Content/dislike.png" width="20" alt=@Model.Evaluations.Select(ev => ev.Type == false).Count().ToString()" dislikes">
-                     @Model.Evaluations.Select(ev => ev.Type == true).Count()
-                 }
-            }
             @if (active)
             {
+                using (Html.BeginForm("AddEvaluation", "Exercise"))
+                {
+                    <input value="@Model.Id" hidden="true">
+                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
+                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
+                }
                 using (Html.BeginForm("AddComment", "Exercise"))
                 {
                     <input value="@Model.Id" hidden="true">
@@ -150,7 +151,7 @@
                         @foreach (var comment in Model.Comments)
                         {
                             <a href="~/Profile/ShowProfile/@comment.Author.Id">@comment.Author.UserName</a>
-                            <br/>
+                            <br />
                             <p> @comment.Text</p>
                         }
                     </div>
@@ -158,5 +159,5 @@
                 }
             </div>
         </div>
-    </div>
+    }
 </div>

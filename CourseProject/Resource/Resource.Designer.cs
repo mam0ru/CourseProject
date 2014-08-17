@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add comment.
+        /// </summary>
+        public static string AddComment {
+            get {
+                return ResourceManager.GetString("AddComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administrator.
         /// </summary>
         public static string Administrator {

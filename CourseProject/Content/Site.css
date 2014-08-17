@@ -92,6 +92,10 @@ div.solvedexercises {
     background: rgba(255, 0, 50, .1);
 }
 div.userinfo {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-radius: 10px;
     border-color: #FF69B4;
     background: rgba(255, 0, 255, .1);
@@ -108,3 +112,15 @@ div.rating {
     height: 40px;
 }
 
+.btn.btn-primary {
+    color: #ffffff;
+    background-color: #428BCA;
+    background-image: linear-gradient(to bottom, #008cff, #2D6CA2);
+    border-color: #2B669A #2B669A #2B669A;
+}
+.btn.btn-primary:hover {
+    color: #ffffff;
+    background-color: #2D6CA2;
+    background-image: linear-gradient(to bottom, #2D6CA2, #2D6CA2);
+    border-color: #2B669A #2B669A #2B669A;
+}

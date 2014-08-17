@@ -432,4 +432,7 @@
   <data name="ShowExercise" xml:space="preserve">
     <value>Show exercise</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
 </root>

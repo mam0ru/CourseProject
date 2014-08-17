@@ -91,19 +91,21 @@ namespace CourseProject.Controllers
         {
             //все , что закомменчено - второй способ
             var user = userManager.FindById(User.Identity.GetUserId());
-            var previousEvaluation = evaluationRepository.Get().First(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
-            /*var exercise = exerciseRepository.GetByID(id);
-            var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);*/
-            if (previousEvaluation != null)
+            var exercise = exerciseRepository.GetByID(id);
+            if (exercise.Author.Id != user.Id)
             {
-                bool type = previousEvaluation.Type;
-                switch (evaluationButton)
+                var previousEvaluation = evaluationRepository.Get().First(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
+                //var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);
+                if (previousEvaluation != null)
                 {
-                    case "like":
-                        if (!type)
-                        {
-                            previousEvaluation.Type = true;
-                            /*var newEvaluation = previousEvaluation;
+                    bool type = previousEvaluation.Type;
+                    switch (evaluationButton)
+                    {
+                        case "like":
+                            if (!type)
+                            {
+                                previousEvaluation.Type = true;
+                                /*var newEvaluation = previousEvaluation;
                         newEvaluation.Type = true;
                         user.Exercises.Remove(exercise);
                         exercise.Evaluations.Remove(previousEvaluation);
@@ -112,14 +114,14 @@ namespace CourseProject.Controllers
                         user.Exercises.Add(exercise);  
                         userManager.UpdateAsync(user);
                         */
-                            evaluationRepository.Update(previousEvaluation);
-                        }
-                        return RedirectToAction("ShowExercise", id);
-                    case "dislike":
-                        if (type)
-                        {
-                            previousEvaluation.Type = false;
-                            /*var newEvaluation = previousEvaluation;
+                                evaluationRepository.Update(previousEvaluation);
+                            }
+                            return RedirectToAction("ShowExercise", id);
+                        case "dislike":
+                            if (type)
+                            {
+                                previousEvaluation.Type = false;
+                                /*var newEvaluation = previousEvaluation;
                         newEvaluation.Type = false;
                         user.Exercises.Remove(exercise);
                         exercise.Evaluations.Remove(previousEvaluation);
@@ -128,11 +130,12 @@ namespace CourseProject.Controllers
                         user.Exercises.Add(exercise);  
                         userManager.UpdateAsync(user);
                         */
-                            evaluationRepository.Update(previousEvaluation);
-                        }
-                        return RedirectToAction("ShowExercise", id);
-                    default:
-                        return RedirectToAction("ShowExercise", id);
+                                evaluationRepository.Update(previousEvaluation);
+                            }
+                            return RedirectToAction("ShowExercise", id);
+                        default:
+                            return RedirectToAction("ShowExercise", id);
+                    }
                 }
             }
             return RedirectToAction("ShowExercise", id);
