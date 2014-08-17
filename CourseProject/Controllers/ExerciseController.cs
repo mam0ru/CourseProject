@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-//using System.ServiceModel.Description;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -190,7 +189,8 @@ namespace CourseProject.Controllers
             exerciseRepository.Update(exercise);
             var user = userManager.FindById(User.Identity.GetUserId());
             user.Exercises.Add(exercise);
-            userManager.UpdateAsync(user);
+            userManager.Update(user);
+            exerciseRepository.Update(exercise);
             return RedirectToAction("MyProfile", "Profile");
         }
 
