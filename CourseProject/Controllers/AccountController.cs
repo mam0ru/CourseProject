@@ -24,7 +24,11 @@ namespace CourseProject.Controllers
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                var result = await userManager.AddToRoleAsync(user.Id, role);
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+                var role3 = new IdentityRole { Name = role };
+                roleManager.Create(role3);
+               // var result = await userManager.AddToRoleAsync(user.Id, role);
+                userManager.AddToRole(user.Id, role3.Name);
             }
         }
 
@@ -108,17 +112,18 @@ namespace CourseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // если создание прошло успешно, то добавляем роль пользователя
                     await AddUserToRoleAsync(user, "user");
                     await SignInAsync(user, isPersistent: false);
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
+                    //TODO
+                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    //ViewBag.Link = callbackUrl;
                     //return View("DisplayEmail");
                     
                     return RedirectToAction("Index", "Home");

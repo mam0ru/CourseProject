@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -11,6 +12,8 @@ namespace CourseProject.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public String ImagePath { get; set; }
+
         public virtual ICollection<Exercise> Exercises { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
@@ -49,7 +52,7 @@ namespace CourseProject.Models
         public DbSet<Category> Categories { get; set; }
         
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")//, throwIfV1Schema: false
         {
         }
 

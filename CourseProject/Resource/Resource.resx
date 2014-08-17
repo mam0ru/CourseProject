@@ -435,4 +435,7 @@
   <data name="AddComment" xml:space="preserve">
     <value>Add comment</value>
   </data>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>Username required</value>
+  </data>
 </root>

@@ -57,6 +57,11 @@ namespace CourseProject.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                  ErrorMessageResourceName = "UsernameRequired")]
+        [Display(Name = "Username", ResourceType = typeof(Resources.Resource))]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
                   ErrorMessageResourceName = "EmailRequired")]
         [EmailAddress]
         [Display(Name = "Email", ResourceType = typeof(Resources.Resource))]
