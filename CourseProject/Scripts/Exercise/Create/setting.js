@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, getFormulas, getGraphs, getVideos, initFileUpload;
+    var $equations, $graphs, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, createVideoContainer, getFormulas, getGraphs, getVideos, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -39,6 +39,19 @@
       childButton = createButton("delete", "Delete");
       childDivForButton.appendChild(childButton);
       parent.appendChild(childDivForImage);
+      parent.appendChild(childDivForButton);
+      return parent;
+    };
+    createVideoContainer = function(src) {
+      var childButton, childDivForButton, childDivForVideo, parent;
+      parent = createParentDiv();
+      childDivForVideo = createChildDiv();
+      childDivForVideo.className = "col-md-7";
+      childDivForButton = createChildDiv();
+      childDivForVideo.innerHTML = src;
+      childButton = createButton("delete", "Delete");
+      childDivForButton.appendChild(childButton);
+      parent.appendChild(childDivForVideo);
       parent.appendChild(childDivForButton);
       return parent;
     };
@@ -132,8 +145,7 @@
       $("#addVideo").on('click', function(e) {
         var parent;
         e.preventDefault();
-        parent = createParentDiv();
-        parent.innerHTML = $("#video").val();
+        parent = createVideoContainer($("#video").val());
         $("#listOfVideos").append(parent);
         return $("#video").val("");
       });

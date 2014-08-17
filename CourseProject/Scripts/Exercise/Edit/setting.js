@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $images, $jqXHRData, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getGraphs, initFileUpload;
+    var $equations, $graphs, $images, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, getFormulas, getGraphs, getVideos, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -28,21 +28,6 @@
       return button;
     };
     $jqXHRData = null;
-    createImageElement = function(src) {
-      var childButton, childDivForButton, childDivForImage, childImage, parent;
-      parent = createParentDiv();
-      childImage = document.createElement('img');
-      childImage.src = src;
-      childDivForImage = createChildDiv();
-      childDivForImage.className = "col-md-4 thumbnail";
-      childDivForButton = createChildDiv();
-      childDivForImage.appendChild(childImage);
-      childButton = createButton("delete", "Delete");
-      childDivForButton.appendChild(childButton);
-      parent.appendChild(childDivForImage);
-      parent.appendChild(childDivForButton);
-      return parent;
-    };
     createFormulaElement = function(formula) {
       var childButton, childDivForButton, childDivForImage, parent;
       parent = createParentDiv();
@@ -85,6 +70,15 @@
     $equations = [];
     $images = [];
     $graphs = [];
+    $videos = [];
+    getVideos = function() {
+      var elements;
+      elements = $('iframe');
+      $.each(elements, function(e, value) {
+        return $videos.push(value.src);
+      });
+      return $videos;
+    };
     getFormulas = function() {
       var elements;
       elements = $("[name='AddEquation']");
@@ -122,11 +116,13 @@
         }
         return null;
       });
-      $(document).on('click', '#addAnswer', function(e) {
-        e.stopPropagation();
+      $("#addVideo").on('click', function(e) {
+        var parent;
         e.preventDefault();
-        createAnswerInput();
-        return null;
+        parent = createParentDiv();
+        parent.innerHTML = $("#video").val();
+        $("#listOfVideos").append(parent);
+        return $("#video").val("");
       });
       $(document).on('click', "[name='delete']", function(e) {
         var parent1, parent2;
@@ -149,19 +145,22 @@
         return false;
       });
       $("#Submit").on('click', function(e) {
-        var answers, equation, graphs, tags;
+        var answers, equation, graphs, tags, videos;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         equation = getFormulas();
         equation = JSON.stringify(equation);
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         graphs = getGraphs();
         graphs = JSON.stringify(graphs);
+        videos = getVideos();
+        videos = JSON.stringify(videos);
         $('input#Graphs').val(graphs);
         $('input#Answers')[0].value = answers;
         $('input#Tags')[0].value = tags;
         $('input#Equations').val(equation);
         $("input#Name")[0].value = $("#Exercise_Name").val();
-        return $("input#Text")[0].value = $("[name='Exercise.Text']").val();
+        $("input#Text")[0].value = $("[name='Exercise.Text']").val();
+        return $('input#Videos').val(videos);
       });
       return null;
     });

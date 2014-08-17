@@ -36,6 +36,19 @@
         parent.appendChild childDivForButton        
         return parent   
 
+    createVideoContainer = (src)->
+        parent = createParentDiv()
+        childDivForVideo = createChildDiv()
+        childDivForVideo.className = "col-md-7"
+        childDivForButton = createChildDiv()    
+        childDivForVideo.innerHTML = src
+        childButton = createButton("delete","Delete")
+        childDivForButton.appendChild childButton
+        parent.appendChild childDivForVideo
+        parent.appendChild childDivForButton        
+        return parent   
+        
+
     initFileUpload = () ->
       $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
@@ -110,8 +123,7 @@
             return false
         $("#addVideo").on 'click', (e) ->
             e.preventDefault()
-            parent = createParentDiv()
-            parent.innerHTML =  $("#video").val()
+            parent = createVideoContainer($("#video").val())
             $("#listOfVideos").append parent
             $("#video").val("")
         $("#Submit").on 'click', (e) ->

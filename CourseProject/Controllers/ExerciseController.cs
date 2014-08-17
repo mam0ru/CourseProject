@@ -432,6 +432,45 @@ namespace CourseProject.Controllers
                 }
             }
 
+            if (model.Videos != null)
+            {
+                ICollection<Video> videos = new Collection<Video>();
+                List<String> oldVideos = exercise.Videos.Select(v => v.Path).ToList();
+                List<String> newVideos = System.Web.Helpers.Json.Decode<List<String>>(model.Videos);
+
+                foreach (String oldVideo in oldVideos)
+                {
+                    if (!newVideos.Contains(oldVideo))
+                    {
+                        Video video = exercise.Videos.First(v => v.Path == oldVideo);
+                        exercise.Videos.Remove(video);
+                        videoRepository.Delete(video);
+                    }
+                }
+
+                foreach (String newVideo in newVideos)
+                {
+                    if (!oldVideos.Contains(newVideo))
+                    {
+                        Video video = new Video();
+                        video.Path = newVideo;
+                        video.Task = exercise;
+                        videoRepository.Insert(video);
+                    }
+                }
+            }
+            else
+            {
+                ICollection<Video> videos = exercise.Videos;
+                if (videos != null)
+                {
+                    foreach (var video in videos)
+                    {
+                        exercise.Videos.Remove(video);
+                        videoRepository.Delete(video);
+                    }   
+                }
+            }
             exerciseRepository.Update(exercise);
             return RedirectToAction("Index", "Home");
         }

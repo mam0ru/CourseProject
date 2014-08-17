@@ -23,20 +23,6 @@
 
     $jqXHRData = null
 
-    createImageElement = (src) ->
-        parent = createParentDiv()
-        childImage = document.createElement('img')
-        childImage.src = src
-        childDivForImage = createChildDiv()
-        childDivForImage.className = "col-md-4 thumbnail"
-        childDivForButton = createChildDiv()    
-        childDivForImage.appendChild childImage
-        childButton = createButton("delete","Delete")
-        childDivForButton.appendChild childButton
-        parent.appendChild childDivForImage
-        parent.appendChild childDivForButton
-        return parent
-
     createFormulaElement = (formula) ->
         parent = createParentDiv()
         childDivForImage = createChildDiv()
@@ -75,7 +61,15 @@
     $images = []
 
     $graphs = []
+
+    $videos = []
     
+    getVideos = ()->
+        elements = $('iframe')
+        $.each elements, (e,value) ->
+            $videos.push(value.src)
+        return $videos    
+            
     getFormulas = () ->
       elements = $("[name='AddEquation']")
       $.each elements, (e,value) ->
@@ -105,11 +99,12 @@
                 $('#equationInput')[0].value = ""
                 list.appendChild(child)
             return null
-        $(document).on 'click', '#addAnswer', (e)->
-            e.stopPropagation()
+        $("#addVideo").on 'click', (e) ->
             e.preventDefault()
-            createAnswerInput()
-            return null
+            parent = createParentDiv()
+            parent.innerHTML =  $("#video").val()
+            $("#listOfVideos").append parent
+            $("#video").val("")
         $(document).on 'click', "[name='delete']", (e) ->
             e.stopPropagation()
             e.preventDefault()
@@ -133,10 +128,13 @@
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             graphs = getGraphs()
             graphs = JSON.stringify(graphs)
+            videos = getVideos()
+            videos = JSON.stringify(videos)            
             $('input#Graphs').val(graphs)
             $('input#Answers')[0].value = answers
             $('input#Tags')[0].value = tags
             $('input#Equations').val(equation)    
             $("input#Name")[0].value = $("#Exercise_Name").val()
             $("input#Text")[0].value = $("[name='Exercise.Text']").val()
+            $('input#Videos').val(videos)
         return null

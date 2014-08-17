@@ -137,7 +137,7 @@
                 @foreach (var graph in Model.Exercise.Graphs)
                 {
                     <div class="row">
-                        @Html.Hidden("GraphInfo",graph.Path)
+                        @Html.Hidden("GraphInfo", graph.Path)
                         <div class="col-md-4 thumbnail">
 
                         </div>
@@ -146,6 +146,29 @@
                         </div>
                     </div>
                 }
+                <div id="listOfVideos">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>VIDEO HTML-CODE</label>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.Editor("video")
+                        </div>
+                    </div>
+                    <button id="addVideo">Add Video</button>
+                    <br />
+                    @foreach (var video in Model.Exercise.Videos)
+                    {
+                        <div class="row">
+                            <div class="col-md-7">
+                                <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="com-md-4">
+                                <button name="delete">Delete</button>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
         @Html.HiddenFor(model => model.Answers)
@@ -155,7 +178,7 @@
         @Html.HiddenFor(model => model.Name)
         @Html.HiddenFor(model => model.Text)
         @Html.HiddenFor(model => model.Category)
-        @*@Html.HiddenFor(model => model.Videos)*@
+        @Html.HiddenFor(model => model.Videos)
         <input type="submit" id="Submit" value="Submit" />
     </div>
 }
