@@ -475,6 +475,20 @@ namespace CourseProject.Controllers
             return RedirectToAction("MyProfile", "Profile");
         }
 
+        [HttpPost]
+        public ActionResult AddComment(int id, string comment)
+        {
+            var user = userManager.FindById(User.Identity.GetUserId());
+            var exercise = exerciseRepository.GetByID(id);
+            var newComment = new Comment();
+            newComment.Target = exercise;
+            newComment.Text = comment;
+            newComment.Author = user;
+            commentRepository.Insert(newComment);
+            exercise.Comments.Add(newComment);
+            exerciseRepository.Update(exercise);
+            return RedirectToAction("MyProfile", "Profile");
+        }
 
         [HttpPost]
         public ActionResult WriteToAuthor(int id, string text)
