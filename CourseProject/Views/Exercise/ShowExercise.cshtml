@@ -57,9 +57,10 @@
                 )
             </h5>
         </h4>
-        <div >
-            Author: <a href = "~/Profile/ShowProfile/@Model.Author.Id"> @Model.Author.UserName </a>
-                @if(!author){
+        <div>
+            Author: <a href="~/Profile/ShowProfile/@Model.Author.Id"> @Model.Author.UserName </a>
+            @if (!author)
+            {
                 @Resources.Resource.NotifyAboutMistake
 
                 using (Html.BeginForm("WriteToAuthor", "Exercise"))
@@ -128,7 +129,7 @@
                 <div>
                     @foreach (var video in Model.Videos)
                     {
-                        @video.Path
+                        <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
                     }
                 </div>
             }
