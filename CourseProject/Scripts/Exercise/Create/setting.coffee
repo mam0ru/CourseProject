@@ -115,7 +115,6 @@
             $("#listOfVideos").append parent
             $("#video").val("")
         $("#Submit").on 'click', (e) ->
-            e.preventDefault()
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             equation = getFormulas()

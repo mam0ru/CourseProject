@@ -139,7 +139,6 @@
       });
       $("#Submit").on('click', function(e) {
         var answers, equation, graphs, tags, videos;
-        e.preventDefault();
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         equation = getFormulas();
