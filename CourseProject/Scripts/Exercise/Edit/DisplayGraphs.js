@@ -44,12 +44,8 @@
           }
         ],
         axes: {
-          xaxis: {
-            label: 'X'
-          },
-          yaxis: {
-            label: 'Y'
-          }
+          xaxis: {},
+          yaxis: {}
         }
       });
     };

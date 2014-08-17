@@ -40,6 +40,8 @@ namespace CourseProject.Controllers
 
         private readonly IGraphRepository graphRepository;
 
+        private readonly IVideoRepository videoRepository;
+
         private ApplicationUserManager userManager;
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
@@ -53,7 +55,8 @@ namespace CourseProject.Controllers
             IEvaluationRepository evaluationRepository,
             IEquationRepository equationRepository,
             ApplicationUserManager userManager,
-            IGraphRepository graphRepository)
+            IGraphRepository graphRepository,
+            IVideoRepository videoRepository)
         {
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
@@ -65,6 +68,7 @@ namespace CourseProject.Controllers
             this.userManager = userManager;
             this.equationRepository = equationRepository;
             this.graphRepository = graphRepository;
+            this.videoRepository = videoRepository;
         }
 
         public ApplicationUserManager UserManager
@@ -257,8 +261,20 @@ namespace CourseProject.Controllers
                 }
                 exercise.Equations = equations;
             }
-            //exercise.Graphs = model.Graphs;
-            //exercise.Videos = model.Videos;
+            if (model.Videos != null)
+            {
+                ICollection<Video> videos = new Collection<Video>();
+                List<String> modelVideos = System.Web.Helpers.Json.Decode<List<String>>(model.Videos);
+                foreach (var modelVideo in modelVideos)
+                {
+                    Video video = new Video();
+                    video.Path = modelVideo;
+                    video.Task = exercise;
+                    videos.Add(video);
+                    videoRepository.Insert(video);
+                }
+                exercise.Videos = videos;
+            }
             return exercise;
         }
 
@@ -474,7 +490,19 @@ namespace CourseProject.Controllers
             };
 
             var uploadResult = cloudinary.Upload(param);
-            var uplPath = uploadResult.Uri.AbsoluteUri;
+            string uplPath;
+            if (uploadResult.Width > 880)
+            {
+                uplPath = uploadResult.Uri.AbsoluteUri;
+                string label = "upload/";
+                int insertIndex = uplPath.IndexOf(label) + label.Length;
+                string setImageSize = "c_scale,w_880/";
+                uplPath = uplPath.Insert(insertIndex,setImageSize);
+            }
+            else
+            {
+                uplPath = uploadResult.Uri.AbsoluteUri;
+            }
             var uploadedPicture = new Picture();
             uploadedPicture.Path = uplPath;
             uploadedPicture.Name = uploadResult.PublicId;

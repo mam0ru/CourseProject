@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $jqXHRData, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, getFormulas, getGraphs, initFileUpload;
+    var $equations, $graphs, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, getFormulas, getGraphs, getVideos, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -69,6 +69,15 @@
     };
     $equations = [];
     $graphs = [];
+    $videos = [];
+    getVideos = function() {
+      var elements;
+      elements = $('iframe');
+      $.each(elements, function(e, value) {
+        return $videos.push(value);
+      });
+      return $videos;
+    };
     getFormulas = function() {
       var elements;
       elements = $("[name='AddEquation']");
@@ -129,18 +138,21 @@
         return $("#video").val("");
       });
       $("#Submit").on('click', function(e) {
-        var answers, equation, graphs, tags;
+        var answers, equation, graphs, tags, videos;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         equation = getFormulas();
         equation = JSON.stringify(equation);
+        videos = getVideos();
+        videos = JSON.stringify(videos);
         graphs = getGraphs();
         graphs = JSON.stringify(graphs);
         $('input#Graphs').val(graphs);
         $('input#Category').val($("select#Category").val());
         $('input#Answers').val(answers);
         $('input#Formulas').val(equation);
-        return $('input#Tags').val(tags);
+        $('input#Tags').val(tags);
+        return $('input#Videos').val(videos);
       });
       return null;
     });

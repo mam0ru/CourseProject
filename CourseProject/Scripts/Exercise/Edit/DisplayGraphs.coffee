@@ -30,10 +30,8 @@
             series:[{showMarker:false}],
             axes:{
             xaxis:{
-                label:'X'
             },
             yaxis:{
-                label:'Y'
             }
             }
             })      

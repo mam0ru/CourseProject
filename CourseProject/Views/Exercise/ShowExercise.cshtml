@@ -4,6 +4,13 @@
 @{
     ViewBag.Title = Model.Name;
 }
+<head>
+    @Styles.Render("~/Content/Graphs")
+    @Scripts.Render("~/byndles/Graphs")
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+    <script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
+</head>
+
 <h1>Show exercise with tag</h1>
 <div class="jumbotron">
     <div class="container">
@@ -82,16 +89,17 @@
                 }
             </div>
             <br>
-            @Model.Text
+            @Html.Markdown(Model.Text)
             @if (Model.Equations.Count != 0)
             {
                 @Resources.Resource.Formulas
-                <div>
-                    @foreach (var equation in Model.Equations)
-                    {
-                        @equation.Path
-                    }
-                </div>
+                foreach (var equation in Model.Equations)
+                {
+                    <div>
+                        <img src="@equation.Path">
+                    </div>
+                }
+
             }
             @if (Model.Graphs.Count != 0)
             {
@@ -99,17 +107,12 @@
                 <div>
                     @foreach (var graph in Model.Graphs)
                     {
-                        @graph.Path
-                    }
-                </div>
-            }
-            @if (Model.Pictures.Count != 0)
-            {
-                @Resources.Resource.Pictures
-                <div>
-                    @foreach (var picture in Model.Pictures)
-                    {
-                        @picture.Path
+                        <div class="row">
+                            @Html.Hidden("GraphInfo", graph.Path)
+                            <div class="col-md-4 thumbnail">
+
+                            </div>
+                        </div>
                     }
                 </div>
             }
@@ -126,13 +129,13 @@
             @if (active && Model.Author.Id != User.Identity.GetUserId())
             {
                 using (Html.BeginForm("AddEvaluation", "Exercise"))
-                 {
-                     <input value="@Model.Id" hidden="true">
-                     <input type="button" id="input-text" value="like" name="evaluationButton" src="~/Content/like.png" width="20" alt=@Model.Evaluations.Select(ev => ev.Type == true).Count().ToString()" likes">
-                     @Model.Evaluations.Select(ev => ev.Type == true).Count()
-                     <input type="button" id="input-text" value="dislike" name="evaluationButton" src="~/Content/dislike.png" width="20" alt=@Model.Evaluations.Select(ev => ev.Type == false).Count().ToString()" dislikes">
-                     @Model.Evaluations.Select(ev => ev.Type == true).Count()
-                 }
+                {
+                    <input value="@Model.Id" hidden="true">
+                    <input type="button" id="input-text" value="like" name="evaluationButton" src="~/Content/like.png" width="20" alt=@Model.Evaluations.Select(ev => ev.Type == true).Count().ToString()" likes">
+                    @Model.Evaluations.Select(ev => ev.Type == true).Count()
+                    <input type="button" id="input-text" value="dislike" name="evaluationButton" src="~/Content/dislike.png" width="20" alt=@Model.Evaluations.Select(ev => ev.Type == false).Count().ToString()" dislikes">
+                    @Model.Evaluations.Select(ev => ev.Type == true).Count()
+                }
             }
             @if (active)
             {
@@ -150,7 +153,7 @@
                         @foreach (var comment in Model.Comments)
                         {
                             <a href="~/Profile/ShowProfile/@comment.Author.Id">@comment.Author.UserName</a>
-                            <br/>
+                            <br />
                             <p> @comment.Text</p>
                         }
                     </div>

@@ -60,6 +60,14 @@
 
     $graphs = []
 
+    $videos = []
+    
+    getVideos = ()->
+        elements = $('iframe')
+        $.each elements, (e,value) ->
+            $videos.push(value)
+        return $videos
+
     getFormulas = () ->
       elements = $("[name='AddEquation']")
       $.each elements, (e,value) ->
@@ -111,11 +119,14 @@
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             equation = getFormulas()
             equation = JSON.stringify(equation)
+            videos = getVideos()
+            videos = JSON.stringify(videos)
             graphs = getGraphs()
             graphs = JSON.stringify(graphs)
             $('input#Graphs').val(graphs)            
             $('input#Category').val($("select#Category").val())    
             $('input#Answers').val(answers)
             $('input#Formulas').val(equation)
-            $('input#Tags').val(tags)             
+            $('input#Tags').val(tags)
+            $('input#Videos').val(videos)
         return null
