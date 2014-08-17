@@ -162,6 +162,8 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult SendAnswer(int id, string answer)
         {
+            //simplify
+            var user = userManager.FindById(User.Identity.GetUserId());
             var exercise = exerciseRepository.GetByID(id);
             var answers = answerRepository.Get().Select(localAnswer => localAnswer.Text);
             bool answerFound = false;
@@ -170,9 +172,10 @@ namespace CourseProject.Controllers
                 if (answers.ElementAt(i) == answer)
                 {
                     answerFound = true;
-                    exercise.RightAnsweredUsers.Add(userManager.FindById(User.Identity.GetUserId()));
-                    userManager.FindById(User.Identity.GetUserId()).RightAnswers.Add(exercise);
+                    exercise.RightAnsweredUsers.Add(user);
                     exerciseRepository.Update(exercise);
+                    user.RightAnswers.Add(exercise);
+                    userManager.UpdateAsync(user);
                     TempData["alertMessage"] = "You answered right!";
                 }
             }

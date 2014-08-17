@@ -9,9 +9,19 @@
     @Scripts.Render("~/byndles/Graphs")
     <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
     <script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                collapsible: true
+            });
+        });
+    </script>
 </head>
 
-<h1>Show exercise with tag</h1>
 <div class="jumbotron">
     @{
         bool active = true;
@@ -33,14 +43,16 @@
                         }
                         else
                         {
-                            @Resources.Resource.SendAnswer
-                            <div>
-                                @using (Html.BeginForm("SendAnswer", "Exercise"))
-                                {
-                                    <input value="@Model.Id" hidden="true">
-                                    <input type="text" placeholder="" id="input-text" name="text" />
-                                    <input type="submit" id="text" value="Send" />
-                                }
+                            <div id="accordion">
+                                @Resources.Resource.SendAnswer
+                                <div>
+                                    @using (Html.BeginForm("SendAnswer", "Exercise"))
+                                    {
+                                        <input value="@Model.Id" hidden="true">
+                                        <input type="text" placeholder="" id="input-text" name="text" />
+                                        <input type="submit" id="text" value="Send" />
+                                    }
+                                </div>
                             </div>
                         }
                     }
@@ -61,14 +73,17 @@
             Author: <a href="~/Profile/ShowProfile/@Model.Author.Id"> @Model.Author.UserName </a>
             @if (!author)
             {
+                <div id="accordion">
                 @Resources.Resource.NotifyAboutMistake
-
-                using (Html.BeginForm("WriteToAuthor", "Exercise"))
-                {
-                    <input value="@Model.Id" hidden="true">
-                    <input type="text" placeholder="" id="input-text" name="text" />
-                    <input type="submit" id="text" value="Send" />
-                }
+                    <div>
+                        using (Html.BeginForm("WriteToAuthor", "Exercise"))
+                        {
+                        <input value="@Model.Id" hidden="true">
+                        <input type="text" placeholder="" id="input-text" name="text" />
+                        <input type="submit" id="text" value="Send" />
+                        }
+                    </div>
+                </div>
             }
             <h4>@Resources.Resource.Tags</h4>
             <div class="row">
@@ -79,9 +94,9 @@
                     </div>
                 }
             </div>
-            <h4>@Resources.Resource.Category @Model.Category.Text</h4>
-            <h4>@Resources.Resource.TriesOfAnswers @Model.TriesOfAnswers</h4>
-            <h4>@Resources.Resource.RightAnsweredUsers</h4>
+            <h4>@Resources.Resource.Category: @Model.Category.Text</h4>
+            <h4>@Resources.Resource.TriesOfAnswers: @Model.TriesOfAnswers</h4>
+            <h4>@Resources.Resource.RightAnsweredUsers: </h4>
             <div>
                 @if (@Model.RightAnsweredUsers.Count != 0)
                 {
@@ -138,15 +153,15 @@
             {
                 using (Html.BeginForm("AddEvaluation", "Exercise"))
                 {
-                    <input value="@Model.Id" hidden="true">
+                    <input value="@Model.Id" hidden="true" name="id">
                     <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
                     <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
                 }
                 using (Html.BeginForm("AddComment", "Exercise"))
                 {
-                    <input value="@Model.Id" hidden="true">
-                    <input type="text" placeholder="" id="input-text" name="text" />
-                    <input type="submit" id="text" value="Send" />
+                    <input value="@Model.Id" hidden="true" name="id">
+                    <input type="text" placeholder="" id="input-text" name="comment" />
+                    <input type="submit" id="comment" value=@Resources.Resource.AddComment />
                 }
             }
             <div class="comments">
