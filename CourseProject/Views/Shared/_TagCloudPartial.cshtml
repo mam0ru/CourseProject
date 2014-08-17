@@ -1,17 +1,53 @@
 ﻿@using CourseProject.Models
 @model IEnumerable<CourseProject.Models.Tag>
-<h3 style="color:#87CEFA">@Resources.Resource.Tags</h3>
+<h3 style="color:#ffffff">@Resources.Resource.Tags</h3>
+<head>
+    <script src="~/Scripts/jquery.tagcanvas.js"></script>
+</head>
 <div>
     @if (Model.Count() != 0)
     {
-        <ul>
-            @foreach (Tag tag in Model)
-            {
-                <li>
-                    @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, new { @style = "color:snow;" })
-                </li>
+        <div id="myCanvasContainer">
+            <canvas width="240" height="300" id="myCanvas"></canvas>
+        </div>
+        <div id="tags" style="font-size: 50%">
+            @{
+                double size = 20;
+                int count = Model.Count();
+                double step = size/count;
+        foreach (var tag in Model)
+        {
+            string link = "/Exercise/ShowExercisesWithTag?tag=" + tag.Text;
+            string style = String.Format("font-size: {0}ex", size);
+            size -= step;    
+            <a href="@link" style=@style>@tag.Text</a>
+        }
             }
-        </ul>
+        </div>
+        <script>
+            $(document).ready(function () {
+                if (!$('#myCanvas').tagcanvas({
+                    //textColour: '#ff0000',
+                    outlineColour: '#ff00ff',
+                    reverse: true,
+                    depth: 0.8,
+                    maxSpeed: 0.05,
+                    textFont: null,
+                    textColour: null,
+                    weightMode: 'both',
+                    weight: true,
+                    weightGradient: {
+                   0: '#f00', // red
+                    //0.33: '#ff0', // yellow
+                    //0.66: '#0f0', // green
+                   1: '#0f0'  // blue
+                }
+                }, 'tags')) {
+                    // something went wrong, hide the canvas container
+                    $('#myCanvasContainer').hide();
+                }
+            });
+        </script>
     }
     else
     {

@@ -93,11 +93,11 @@ namespace CourseProject.Controllers
         public ActionResult AddEvaluation(int id, string evaluationButton)
         {
             //все , что закомменчено - второй способ
-            var user = userManager.FindById(User.Identity.GetUserId());
-            var exercise = exerciseRepository.GetByID(id);
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Exercise exercise = exerciseRepository.GetByID(id);
             if (exercise.Author.Id != user.Id)
             {
-                var previousEvaluation = evaluationRepository.Get().First(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
+                Evaluation previousEvaluation = evaluationRepository.Get().First(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
                 //var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);
                 if (previousEvaluation != null)
                 {
@@ -146,9 +146,9 @@ namespace CourseProject.Controllers
 
         public ActionResult AddComment(int id, string comment)
         {
-            var user = userManager.FindById(User.Identity.GetUserId());
-            var exercise = exerciseRepository.GetByID(id);
-            var newComment = new Comment();
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Exercise exercise = exerciseRepository.GetByID(id);
+            Comment newComment = new Comment();
             newComment.Target = exercise;
             newComment.Text = comment;
             newComment.Author = user;
@@ -162,9 +162,9 @@ namespace CourseProject.Controllers
         public ActionResult SendAnswer(int id, string answer)
         {
             //simplify
-            var user = userManager.FindById(User.Identity.GetUserId());
-            var exercise = exerciseRepository.GetByID(id);
-            var answers = answerRepository.Get().Select(localAnswer => localAnswer.Text);
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Exercise exercise = exerciseRepository.GetByID(id);
+            IEnumerable<string> answers = answerRepository.Get().Select(localAnswer => localAnswer.Text);
             bool answerFound = false;
             for (int i = 0; i < answers.Count() || !answerFound; i++)
             {
@@ -185,9 +185,9 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult CreateExercise(ExerciseCreateViewModel model)
         {
-            var exercise = InitializExercise(model);
+            Exercise exercise = InitializExercise(model);
             exerciseRepository.Update(exercise);
-            var user = userManager.FindById(User.Identity.GetUserId());
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
             user.Exercises.Add(exercise);
             userManager.Update(user);
             exerciseRepository.Update(exercise);
@@ -196,10 +196,10 @@ namespace CourseProject.Controllers
 
         private Exercise InitializExercise(ExerciseCreateViewModel model)
         {
-            var exercise = new Exercise();
+            Exercise exercise = new Exercise();
             exercise.Active = true;
             exercise.Author = userManager.FindById(User.Identity.GetUserId());
-            var categ = categoryRepository.Get(category => category.Text == model.Category).First();
+            Category categ = categoryRepository.Get(category => category.Text == model.Category).First();
             exercise.Category = categ;
             exercise.Name = model.Name;
             exercise.Text = model.Text;
@@ -285,7 +285,7 @@ namespace CourseProject.Controllers
             {
                 ICollection<Video> videos = new Collection<Video>();
                 List<String> modelVideos = System.Web.Helpers.Json.Decode<List<String>>(model.Videos);
-                foreach (var modelVideo in modelVideos)
+                foreach (string modelVideo in modelVideos)
                 {
                     Video video = new Video();
                     video.Path = modelVideo;
@@ -301,7 +301,7 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult ShowExercise(int id)
         {
-            var exercise = exerciseRepository.GetByID(id);
+            Exercise exercise = exerciseRepository.GetByID(id);
             ViewBag.IsRightAnweredUser = true;
             if (exercise.RightAnsweredUsers.Contains(userManager.FindById(User.Identity.GetUserId())))
             {
@@ -317,7 +317,7 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult EditExercise(int id)
         {
-            var exercise = exerciseRepository.GetByID(id);
+            Exercise exercise = exerciseRepository.GetByID(id);
             EditExerciseViewModel model = new EditExerciseViewModel();
             model.Exercise = exercise;
             return View(model);
@@ -425,7 +425,7 @@ namespace CourseProject.Controllers
             else
             {
                 ICollection<Graph> graphs = exercise.Graphs;
-                foreach (var graph in graphs)
+                foreach (Graph graph in graphs)
                 {
                     exercise.Graphs.Remove(graph);
                     graphRepository.Delete(graph);
@@ -464,7 +464,7 @@ namespace CourseProject.Controllers
                 ICollection<Video> videos = exercise.Videos;
                 if (videos != null)
                 {
-                    foreach (var video in videos)
+                    foreach (Video video in videos)
                     {
                         exercise.Videos.Remove(video);
                         videoRepository.Delete(video);
@@ -478,24 +478,25 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult DeleteExercise(int id)
         {
-            var exercise = exerciseRepository.GetByID(id);
+            Exercise exercise = exerciseRepository.GetByID(id);
             exerciseRepository.Delete(exercise);
             return RedirectToAction("AdministratorMain", "Administrator");
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult ShowExercisesWithTag(string tag)
         {
             ViewBag.Tag = tag;
-            var exercises = tagRepository.Get().First(localTag => localTag.Text == tag).Task;
-            return View("ShowExercisesWithTag", exercises);
+            var targetTag = tagRepository.Get().First(localTag => localTag.Text == tag);
+            IEnumerable<Exercise> exercises = targetTag.Task.Select(exercise => exercise);
+            return View(exercises);
         }
 
-        [HttpGet]
-        public ActionResult ShowExercisesWithTag()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult ShowExercisesWithTag()
+        //{
+        //    return View();
+        //}
 
         [HttpGet]
         public ActionResult AddAnswer()
@@ -508,8 +509,8 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult AddAnswer(int id, string answer)
         {
-            var exercise = exerciseRepository.GetByID(id);
-            var newAnswer = new Answer();
+            Exercise exercise = exerciseRepository.GetByID(id);
+            Answer newAnswer = new Answer();
             newAnswer.Task = exercise;
             newAnswer.Text = answer;
             answerRepository.Update(newAnswer);
@@ -520,7 +521,7 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult WriteToAuthor(int id, string text)
         {
-            var exercise = exerciseRepository.GetByID(id);
+            Exercise exercise = exerciseRepository.GetByID(id);
             //TODO: email
             return RedirectToAction("MyProfile", "Profile");
         }
@@ -528,14 +529,14 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult UploadImage()
         {
-            var cloudinary = new Cloudinary(account);
-            var image = Request.Files["imageupload"];
-            var param = new ImageUploadParams()
+            Cloudinary cloudinary = new Cloudinary(account);
+            HttpPostedFileBase image = Request.Files["imageupload"];
+            ImageUploadParams param = new ImageUploadParams()
             {
                 File = new FileDescription(image.FileName, image.InputStream)
             };
 
-            var uploadResult = cloudinary.Upload(param);
+            ImageUploadResult uploadResult = cloudinary.Upload(param);
             string uplPath;
             if (uploadResult.Width > 880)
             {
@@ -549,7 +550,7 @@ namespace CourseProject.Controllers
             {
                 uplPath = uploadResult.Uri.AbsoluteUri;
             }
-            var uploadedPicture = new Picture();
+            Picture uploadedPicture = new Picture();
             uploadedPicture.Path = uplPath;
             uploadedPicture.Name = uploadResult.PublicId;
             pictureRepository.Insert(uploadedPicture);

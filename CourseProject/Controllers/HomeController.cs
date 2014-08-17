@@ -71,7 +71,7 @@ namespace CourseProject.Controllers
 
         public ActionResult TagsOutput()
         {
-            return PartialView("_TagCloudPartial",tagRepository.Get());
+            return PartialView("_TagCloudPartial",tagRepository.Get().OrderByDescending(tag => tag.Task.Count()));
         }
     }
 }

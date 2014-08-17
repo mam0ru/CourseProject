@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<CourseProject.Models.Exercise>
-{
-}   
 <br />
 <div class="jumbotron">
     <div class="container">
         <br />
         <h4> @Resources.Resource.ExercisesWithTag @ViewBag.Tag</h4>
-        <ul>
-            @foreach (var exercise in Model)
-            {
-                <li>
-                    @Html.ActionLink(exercise.Text, "ShowExercise", "Exercise", new { id = exercise.Id }, null)
-                </li>
-            }
-        </ul>
+        @if (Model != null)
+        {
+            <ul>
+                @foreach (var exercise in Model)
+                {
+                    <li>
+                        @Html.ActionLink(exercise.Name, "ShowExercise", "Exercise", new { id = exercise.Id }, null)
+                    </li>
+                }
+            </ul>
+        }
     </div>
 </div>
