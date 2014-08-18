@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@Resources.Resource.LayoutTitle</title>
     <style type="text/css">
     </style>
@@ -37,10 +37,10 @@
                         @if (Request.IsAuthenticated)
                         {
                             <li>@Html.ActionLink(Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
-                           // if (User.IsInRole("user"))
-                           // {
-                                <li>@Html.ActionLink(Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
-                           // }
+                            // if (User.IsInRole("user"))
+                            // {
+                            <li>@Html.ActionLink(Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                            // }
                         }
                         @if (User.IsInRole("admin"))
                         {
@@ -52,8 +52,8 @@
                 </div>
             </div>
         </div>
-        
-        @Html.Action("SidePanel","Home")
+
+        @Html.Action("SidePanel", "Home")
 
         <div class="container body-content">
             <div id='search-box'>
@@ -68,22 +68,23 @@
                     </form>*@
             </div>
             @RenderBody()
-            <hr />
-            <footer>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        @Resources.Resource.LayoutSelectThemeText
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="theme-selector">
-                        <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
-                        <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
-                    </ul>
-                </div>
-                <center>&copy; @DateTime.Now.Year - Course Project</center>
-                <br>
-            </footer>
+
         </div>
     </div>
+    <hr />
+    <footer>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                @Resources.Resource.LayoutSelectThemeText
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="theme-selector">
+                <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
+                <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
+            </ul>
+        </div>
+        <center>&copy; @DateTime.Now.Year - Course Project</center>
+        <br />
+    </footer>
 </body>
 </html>
