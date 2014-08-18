@@ -34,7 +34,7 @@
       parent = createParentDiv();
       GraphInfo = createInfoElement(graph);
       childDivForGraph = createChildDiv();
-      childDivForGraph.className = "col-md-4 thumbnail";
+      childDivForGraph.className = "col-md-5 thumbnail";
       childDivForGraph.id = "currentDiv";
       childDivForButton = createChildDiv();
       childButton = createButton("delete", "Delete");

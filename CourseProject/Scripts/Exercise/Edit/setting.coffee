@@ -85,8 +85,6 @@
         return $graphs    
           
     $(document).ready () ->
-        $(".md-header").css('height', '35px')
-        $(".jumbotron")[0].style.setProperty("height","250px")
         $(document).on 'click', '#addFormula', (e)->
             e.stopPropagation()
             e.preventDefault()

@@ -99,8 +99,6 @@
       return $graphs;
     };
     return $(document).ready(function() {
-      $(".md-header").css('height', '35px');
-      $(".jumbotron")[0].style.setProperty("height", "250px");
       $(document).on('click', '#addFormula', function(e) {
         var child, img, list;
         e.stopPropagation();

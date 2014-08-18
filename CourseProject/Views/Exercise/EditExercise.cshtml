@@ -23,17 +23,10 @@
 @Scripts.Render("~/bundles/exercise/edit/taginput")
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-<script>
-    $(function () {
-        $("#accordion").accordion({
-            collapsible: true
-        });
-    });
-</script>
+
 <br>
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
-    <div class="jumbotron" >
         <div id="accordion">
             <h3> @Resources.Resource.Step1</h3>
             <div>
@@ -132,8 +125,8 @@
             <div>
                 <h4>@Resources.Resource.AddGraphs</h4>
                 <br>
-                <div id="listOfGraphs">
-                    <div>
+                <div>
+                    <div id="listOfGraphs">
                         <div class="row">
                             <div class="col-md-1">
                                 @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
@@ -177,7 +170,7 @@
                         {
                             <div class="row">
                                 @Html.Hidden("GraphInfo", graph.Path)
-                                <div class="col-md-4 thumbnail">
+                                <div class="col-md-5 thumbnail">
 
                                 </div>
                                 <div class="col-md-4">
@@ -186,6 +179,7 @@
                             </div>
                         }
                     </div>
+
                 </div>
             </div>
             <h3>@Resources.Resource.Step5</h3>
@@ -232,5 +226,4 @@
                 <input type="submit" id="Submit" value="Submit" />
             </div>
         </div>
-    </div>
 }

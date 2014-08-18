@@ -25,7 +25,7 @@
             points.push(point) 
             variable = variable + step    
     
-    draw = () ->
+    draw = () -> 
         $.jqplot('currentDiv', [points], {  
             series:[{showMarker:false}],
             axes:{
@@ -39,3 +39,6 @@
     $(document).ready ()->
         existingGraphs = $("[name='GraphInfo']")
         drawGraphs(existingGraphs)
+        $("#accordion").accordion({
+            collapsible: true
+        })
