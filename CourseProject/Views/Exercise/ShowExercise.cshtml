@@ -4,74 +4,71 @@
 @{
     ViewBag.Title = Model.Name;
 }
-<head>
-    @Styles.Render("~/Content/Graphs")
-    @Scripts.Render("~/byndles/Graphs")
-    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
-    <script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script>
-        $(function () {
-            $("#accordion").accordion({
-                collapsible: true
-            });
+
+@Styles.Render("~/Content/Graphs")
+@Scripts.Render("~/byndles/Graphs")
+<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+<script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script>
+    $(function () {
+        $("#accordion").accordion({
+            collapsible: true
         });
-    </script>
-</head>
+    });
+</script>
 
 <div class="jumbotron">
     @{
         bool active = true;
         bool author = false;
-        <br />
-        <h4>
+        <h3>
             @Model.Name
-            <h5>
-                (
-                @if (Model.Active)
+            @if (Model.Active)
+            {
+                active = true;
+                <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Active</button>
+                if (Model.Author.Id != User.Identity.GetUserId())
                 {
-                    active = true;
-                    @Resources.Resource.Active
-                    if (Model.Author.Id != User.Identity.GetUserId())
-                    {
-                        if (ViewBag.IsRightAnsweredUser)
-                        {
-                            @Resources.Resource.Answered
-                        }
-                        else
-                        {
-                            <div id="accordion">
-                                @Resources.Resource.SendAnswer
-                                <div>
-                                    @using (Html.BeginForm("SendAnswer", "Exercise"))
-                                    {
-                                        <input value="@Model.Id" hidden="true">
-                                        <input type="text" placeholder="" id="input-text" name="text" />
-                                        <input type="submit" id="text" value="Send" />
-                                    }
-                                </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        author = true;
-                    }
+                    //var b = ViewBag.IsRightAnsweredUser;
+                    //bool a = ViewBag.IsRightAnsweredUser;
+                    //if (@ViewBag.IsRightAnsweredUser)
+                    //if (Model.RightAnsweredUsers.First(user=>user.Id == User.Identity.GetUserId()) !=null)
+                    // {
+                    //     @Resources.Resource.Answered
+                    //}
+                    // else
+                    // {
+                    <div id="accordion">
+                        @Resources.Resource.SendAnswer
+                        <div>
+                            @using (Html.BeginForm("SendAnswer", "Exercise"))
+                            {
+                                <input value="@Model.Id" hidden="true">
+                                <input type="text" placeholder="" id="input-text" name="text" />
+                                <input type="submit" id="text" value="Send" />
+                            }
+                        </div>
+                    </div>
+                    // }
                 }
                 else
                 {
-                    @Resources.Resource.Unactive
-                    active = false;
+                    author = true;
                 }
-                )
-            </h5>
-        </h4>
+            }
+            else
+            {
+                <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Inactive</button>
+                active = false;
+            }
+        </h3>
         <div>
-            Author: <a href="~/Profile/ShowProfile/@Model.Author.Id"> @Model.Author.UserName </a>
+            Author: <a href="~/Profile/ShowProfile/@Model.Author.Id" style="color:darkslategrey"> @Model.Author.UserName </a>
             @if (!author)
             {
                 <div id="accordion">
-                @Resources.Resource.NotifyAboutMistake
+                    @Resources.Resource.NotifyAboutMistake
                     <div>
                         using (Html.BeginForm("WriteToAuthor", "Exercise"))
                         {
@@ -82,99 +79,126 @@
                     </div>
                 </div>
             }
-            <h4>@Resources.Resource.Tags</h4>
-            <div class="row">
-                @foreach (var tag in Model.Tags)
-                {
-                    <div class="col-md-5">
-                        @Html.ActionLink(tag.Text, "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
-                    </div>
-                }
-            </div>
-            <h4>@Resources.Resource.Category: @Model.Category.Text</h4>
-            <h4>@Resources.Resource.TriesOfAnswers: @Model.TriesOfAnswers</h4>
-            <h4>@Resources.Resource.RightAnsweredUsers: </h4>
+            <h5>
+                @Resources.Resource.Tags:
+            @foreach (var tag in Model.Tags)
+            {
+                @Html.ActionLink("#" + tag.Text + "  ", "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
+            }
+        </h5>
+        <h5>@Resources.Resource.Category: @Model.Category.Text</h5>
+        <h5>@Resources.Resource.TriesOfAnswers: @Model.TriesOfAnswers</h5>
+        <h5>
+            @Resources.Resource.RightAnsweredUsers:
+        @if (@Model.RightAnsweredUsers.Count != 0)
+        {
+            foreach (var user in Model.RightAnsweredUsers)
+            {
+                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+            }
+        }
+        else
+        {
+            @Resources.Resource.NoRightAnsweredUsers
+        }
+    </h5>
+    <br>
+    <br>
+    <h4>@Resources.Resource.Task: </h4>
+    @Html.Markdown(Model.Text)
+    <br>
+    <div id="accordion">
+        @if (Model.Pictures.Count != 0)
+        {
+            <h5>@Resources.Resource.Pictures</h5>
             <div>
-                @if (@Model.RightAnsweredUsers.Count != 0)
+                @foreach (var picture in Model.Pictures)
                 {
-                    foreach (var user in Model.RightAnsweredUsers)
-                    {
-                        @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-                    }
-                }
-                else
-                {
-                    @Resources.Resource.NoRightAnsweredUsers
+                    <img src="@picture.Path" alt="@picture.Name" width="560" height="315">
                 }
             </div>
-            <br>
-            @Html.Markdown(Model.Text)
-            @if (Model.Equations.Count != 0)
+        }
+        @if (Model.Equations.Count != 0)
+        {
+            <h5>@Resources.Resource.Formulas</h5>
+            foreach (var equation in Model.Equations)
             {
-                @Resources.Resource.Formulas
-                foreach (var equation in Model.Equations)
-                {
-                    <div>
-                        <img src="@equation.Path">
-                    </div>
-                }
-
-            }
-            @if (Model.Graphs.Count != 0)
-            {
-                @Resources.Resource.Graphs
                 <div>
-                    @foreach (var graph in Model.Graphs)
-                    {
-                        <div class="row">
-                            @Html.Hidden("GraphInfo", graph.Path)
-                            <div class="col-md-4 thumbnail">
+                    <img src="@equation.Path">
+                </div>
+            }
 
-                            </div>
+        }
+        @if (Model.Graphs.Count != 0)
+        {
+            <h5>@Resources.Resource.Graphs</h5>
+            <div>
+                @foreach (var graph in Model.Graphs)
+                {
+                    <div class="row">
+                        @Html.Hidden("GraphInfo", graph.Path)
+                        <div class="col-md-4 thumbnail">
+
                         </div>
-                    }
-                </div>
-            }
-            @if (Model.Videos.Count != 0)
-            {
-                @Resources.Resource.Videos
-                <div>
-                    @foreach (var video in Model.Videos)
-                    {
-                        <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
-                    }
-                </div>
-            }
-
-            @if (active)
-            {
-                using (Html.BeginForm("AddEvaluation", "Exercise"))
-                {
-                    <input value="@Model.Id" hidden="true" name="id">
-                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
-                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
-                }
-                using (Html.BeginForm("AddComment", "Exercise"))
-                {
-                    <input value="@Model.Id" hidden="true" name="id">
-                    <input type="text" placeholder="" id="input-text" name="comment" />
-                    <input type="submit" id="comment" value=@Resources.Resource.AddComment />
-                }
-            }
-            <div class="comments">
-                @if (Model.Comments.Count != 0)
-                {
-                    <div>
-                        @foreach (var comment in Model.Comments)
-                        {
-                            <a href="~/Profile/ShowProfile/@comment.Author.Id">@comment.Author.UserName</a>
-                            <br />
-                            <p> @comment.Text</p>
-                        }
                     </div>
-                    <hr>
                 }
+            </div>
+        }
+        @if (Model.Videos.Count != 0)
+        {
+            <h5>@Resources.Resource.Videos</h5>
+            <div>
+                @foreach (var video in Model.Videos)
+                {
+                    <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
+                }
+            </div>
+        }
+    </div>
+    <hr style="border-color: black" />
+    @if (active)
+    {
+        using (Html.BeginForm("AddEvaluation", "Exercise"))
+        {
+            <input value="@Model.Id" hidden="true" name="id">
+            <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
+            <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
+        }
+        <br>
+        using (Html.BeginForm("AddComment", "Exercise"))
+        {
+            <input value="@Model.Id" hidden="true" name="id">
+            <input type="text" placeholder="" id="input-text" name="comment" />
+            <input type="submit" id="comment" value=@Resources.Resource.AddComment />
+        }
+        <br>
+    }
+    <div class="comments">
+        @if (Model.Comments.Count != 0)
+        {
+            foreach (var comment in Model.Comments)
+            {
+                <div class="media">
+                    <a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">
+                        <img class="media-object" src = @Model.Author.ImagePath alt = @comment.Author.UserName>
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">@comment.Author.UserName</h4>
+                        @comment.Text
+                    </div>
+                </div>
+            }
+        }
+        <div class="media">
+            <a class="pull-left" href="~/Profile/ShowProfile/@Model.Author">
+                <img class="media-object" src="~/Content/like.png" />@*>@Model.Author.ImagePath >*@
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">@Model.Author.UserName</h4>
+                @Model.Text
             </div>
         </div>
+    </div>
+</div>
     }
 </div>

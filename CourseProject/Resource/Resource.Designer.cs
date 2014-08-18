@@ -88,6 +88,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add formulas.
+        /// </summary>
+        public static string AddFormulas {
+            get {
+                return ResourceManager.GetString("AddFormulas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add graphs.
+        /// </summary>
+        public static string AddGraphs {
+            get {
+                return ResourceManager.GetString("AddGraphs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add main information and content.
+        /// </summary>
+        public static string AddMainInfoAndContent {
+            get {
+                return ResourceManager.GetString("AddMainInfoAndContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add pictures.
+        /// </summary>
+        public static string AddPictures {
+            get {
+                return ResourceManager.GetString("AddPictures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add video.
+        /// </summary>
+        public static string AddVideo {
+            get {
+                return ResourceManager.GetString("AddVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administrator.
         /// </summary>
         public static string Administrator {
@@ -138,6 +183,15 @@ namespace Resources {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change avatar.
+        /// </summary>
+        public static string ChangeAvatar {
+            get {
+                return ResourceManager.GetString("ChangeAvatar", resourceCulture);
             }
         }
         
@@ -394,6 +448,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string Inactive {
+            get {
+                return ResourceManager.GetString("Inactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home Page.
         /// </summary>
         public static string IndexTitleText {
@@ -403,7 +466,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Formula.
+        ///   Looks up a localized string similar to f(x) = .
         /// </summary>
         public static string labelGraphFormula {
             get {
@@ -754,6 +817,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string Preview {
+            get {
+                return ResourceManager.GetString("Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rating.
         /// </summary>
         public static string Rating {
@@ -916,6 +988,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step 1.
+        /// </summary>
+        public static string Step1 {
+            get {
+                return ResourceManager.GetString("Step1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 2.
+        /// </summary>
+        public static string Step2 {
+            get {
+                return ResourceManager.GetString("Step2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 3.
+        /// </summary>
+        public static string Step3 {
+            get {
+                return ResourceManager.GetString("Step3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 4.
+        /// </summary>
+        public static string Step4 {
+            get {
+                return ResourceManager.GetString("Step4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 5.
+        /// </summary>
+        public static string Step5 {
+            get {
+                return ResourceManager.GetString("Step5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 6.
+        /// </summary>
+        public static string Step6 {
+            get {
+                return ResourceManager.GetString("Step6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tags.
         /// </summary>
         public static string Tags {
@@ -934,6 +1060,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        public static string Task {
+            get {
+                return ResourceManager.GetString("Task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The external login was removed..
         /// </summary>
         public static string TheExternalLoginWasRemoved {
@@ -948,15 +1083,6 @@ namespace Resources {
         public static string TriesOfAnswers {
             get {
                 return ResourceManager.GetString("TriesOfAnswers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unactive.
-        /// </summary>
-        public static string Unactive {
-            get {
-                return ResourceManager.GetString("Unactive", resourceCulture);
             }
         }
         

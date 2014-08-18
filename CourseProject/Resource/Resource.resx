@@ -339,8 +339,8 @@
   <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="Unactive" xml:space="preserve">
-    <value>Unactive</value>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
   </data>
   <data name="Formulas" xml:space="preserve">
     <value>Formulas</value>
@@ -412,7 +412,7 @@
     <value>Name</value>
   </data>
   <data name="labelGraphFormula" xml:space="preserve">
-    <value>Formula</value>
+    <value>f(x) = </value>
   </data>
   <data name="labelGraphLabelRange" xml:space="preserve">
     <value>Range</value>
@@ -437,5 +437,47 @@
   </data>
   <data name="UsernameRequired" xml:space="preserve">
     <value>Username required</value>
+  </data>
+  <data name="Step1" xml:space="preserve">
+    <value>Step 1</value>
+  </data>
+  <data name="Step2" xml:space="preserve">
+    <value>Step 2</value>
+  </data>
+  <data name="Step3" xml:space="preserve">
+    <value>Step 3</value>
+  </data>
+  <data name="Step4" xml:space="preserve">
+    <value>Step 4</value>
+  </data>
+  <data name="Step5" xml:space="preserve">
+    <value>Step 5</value>
+  </data>
+  <data name="AddMainInfoAndContent" xml:space="preserve">
+    <value>Add main information and content</value>
+  </data>
+  <data name="AddFormulas" xml:space="preserve">
+    <value>Add formulas</value>
+  </data>
+  <data name="AddGraphs" xml:space="preserve">
+    <value>Add graphs</value>
+  </data>
+  <data name="AddVideo" xml:space="preserve">
+    <value>Add video</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Step6" xml:space="preserve">
+    <value>Step 6</value>
+  </data>
+  <data name="AddPictures" xml:space="preserve">
+    <value>Add pictures</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="ChangeAvatar" xml:space="preserve">
+    <value>Change avatar</value>
   </data>
 </root>

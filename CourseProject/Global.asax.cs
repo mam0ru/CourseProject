@@ -22,7 +22,8 @@ namespace CourseProject
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer(new ApplicationUserRepository(new ApplicationDbContext())));
+           //TODO: initializer must work!!!!!!IMPORTANT 
+           // Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer(new ApplicationUserRepository(new ApplicationDbContext())));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

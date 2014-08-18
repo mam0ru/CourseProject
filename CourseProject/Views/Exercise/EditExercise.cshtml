@@ -11,6 +11,7 @@
 @Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
 @Scripts.Render("~/bundles/exercise/create/image")
+@Scripts.Render("~/bundles/exercise/create/fillcategories")
 <script src="~/Scripts/Exercise/Edit/setting.js"></script>
 
 @Styles.Render("~/Content/Graphs")
@@ -21,131 +22,176 @@
 @Styles.Render("~/Content/taginput")
 @Scripts.Render("~/bundles/exercise/edit/taginput")
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script>
+    $(function () {
+        $("#accordion").accordion({
+            collapsible: true
+        });
+    });
+</script>
+<br>
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
-    <br />
-    <div class="row">
-        <div class="jumbotron">
-            @Html.HiddenFor(exercise => exercise.Exercise.Id)
-            @Html.LabelFor(model => model.Exercise.Name)
-            @Html.EditorFor(exercise => exercise.Exercise.Name)
-            <div class="row">
-                @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
-            </div>
-        </div>
-        <div class="jumbotron">
-            <div id="tag">
-                <textarea id="inputTags" rows="1" cols="100"></textarea>
-            </div>
-            <textarea id="inputAnswers" rows="1" cols="100"></textarea>
-        </div>
-        <div>
-            @foreach (var tag in Model.Exercise.Tags)
-            {
-                @Html.Hidden("currTag", tag.Text)
-            }
-        </div>
-        <div>
-            @foreach (var answer in Model.Exercise.Answers)
-            {
-                @Html.Hidden("currAnswer", answer.Text)
-            }
-        </div>
-        <div class="jumbotron" id="listOfFormulas">
-            <div class="col-md-12">
-
-                <style type="text/css">
-                    #EqnEditor {
-                        text-align: left;
-                    }
-                </style>
-
-                <div id="toolbar"></div>
-                <textarea id="equationInput" rows="3" cols="40"></textarea>
-                <img id="equation" />
-                <textarea id="equationToImg" readonly="" hidden=""></textarea>
-                <script type="text/javascript">
-                    EqEditor.embed('toolbar', '');
-                    var a = new EqTextArea('equation', 'equationInput');
-                    EqEditor.add(a, false);
-                    a.addExportArea('equationToImg', 'html');
-                </script>
-
-            </div>
-            <button id="addFormula" class="btn btn-default">Add Formula</button>
-            <h3>Formulas</h3>
-            @foreach (var equation in Model.Exercise.Equations)
-            {
-                <div class="row">
-                    <div class="col-md-4" name="AddEquation">
-                        <img src="@equation.Path">
-                    </div>
-                    <div class="col-md-4">
-                        <button name="delete">Delete</button>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="jumbotron">
-            <form>
-                <input id="imageupload" type="file" name="imageupload">
-                <br />
-                <button id="Upload" class="btn-default">Upload</button>
-            </form>
-        </div>
-        <div id="listOfGraphs">
+    <div class="jumbotron" >
+        <div id="accordion">
+            <h3> @Resources.Resource.Step1</h3>
             <div>
+                <h4>@Resources.Resource.AddMainInfoAndContent</h4>
+                <br>
+                @Html.HiddenFor(exercise => exercise.Exercise.Id)
+                <table width="64%">
+                    <col width="25%">
+                    <col width="75%">
+                    <tr>
+                        <td>
+                            <label>@Resources.Resource.Name</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(exercise => exercise.Exercise.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>@Resources.Resource.Category</label></td>
+                        <td><select id="Category"><option selected="selected">@Model.Category</option></select></td>
+                    </tr>
+                </table>
                 <div class="row">
-                    <div class="col-md-1">
-                        @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.TextArea("GraphFormula", new { rows = "1", cols = "25" })
-                    </div>
-                    <div class="col-md-1">
-                        <p id="inputFormulaHelp">?</p>
-                    </div>
+                    @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
                 </div>
-                <div class="row">
-                    <div class="col-md-1">
-                        <p>@Resources.Resource.labelGraphLabelRange</p>
-                    </div>
-                    <div class="col-md-1">
-                        <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
-                    </div>
-                    <div class="col-md-1">
-                        @Html.TextArea("RangeFrom", new { rows = "1", cols = "5" })
-                    </div>
-                    <div class="col-md-1">
-                        <p>@Resources.Resource.labelGraphLabelRangeTo</p>
-                    </div>
-                    <div class="col-md-1">
-                        @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-1">
-                        <p>@Resources.Resource.labelGraphStep</p>
-                    </div>
-                    <div class="col-md-1">
-                        @Html.TextArea("Step", new { rows = "1", cols = "5" })
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn-default" id="addGraph">Add Graph</button>
-                    </div>
-                </div>
-                @foreach (var graph in Model.Exercise.Graphs)
-                {
-                    <div class="row">
-                        @Html.Hidden("GraphInfo", graph.Path)
-                        <div class="col-md-4 thumbnail">
 
+                <br>
+                <div id="tag">
+                    <textarea id="inputTags" rows="1" cols="100"></textarea>
+                </div>
+                <textarea id="inputAnswers" rows="1" cols="100"></textarea>
+
+                <div>
+                    @foreach (var tag in Model.Exercise.Tags)
+                    {
+                    @Html.Hidden("currTag", tag.Text)
+                    }
+                </div>
+                <div>
+                    @foreach (var answer in Model.Exercise.Answers)
+                    {
+                    @Html.Hidden("currAnswer", answer.Text)
+                    }
+                </div>
+            </div>
+            <h3>@Resources.Resource.Step2</h3>
+            <div>
+                <h4>@Resources.Resource.AddPictures</h4>
+                <br>
+                <form>
+                    <input id="imageupload" type="file" name="imageupload">
+                    <button id="Upload" class="btn-default">Upload</button>
+                </form>
+            </div>
+            <h3>@Resources.Resource.Step3</h3>
+            <div>
+                <h4>@Resources.Resource.AddFormulas</h4>
+                <br>
+                <div id="listOfFormulas">
+                    <div class="col-md-12">
+
+                        <style type="text/css">
+                            #EqnEditor {
+                                text-align: left;
+                            }
+                        </style>
+
+                        <div id="toolbar"></div>
+                        <textarea id="equationInput" rows="3" cols="40"></textarea>
+                        <img id="equation" />
+                        <textarea id="equationToImg" readonly="" hidden=""></textarea>
+                        <script type="text/javascript">
+                            EqEditor.embed('toolbar', '');
+                            var a = new EqTextArea('equation', 'equationInput');
+                            EqEditor.add(a, false);
+                            a.addExportArea('equationToImg', 'html');
+                        </script>
+
+                    </div>
+                    <button id="addFormula" class="btn btn-default">Add Formula</button>
+                    <h3>Formulas</h3>
+                    @foreach (var equation in Model.Exercise.Equations)
+                    {
+                    <div class="row">
+                        <div class="col-md-4" name="AddEquation">
+                            <img src="@equation.Path">
                         </div>
                         <div class="col-md-4">
                             <button name="delete">Delete</button>
                         </div>
                     </div>
-                }
+                    }
+                </div>
+            </div>
+            <h3>@Resources.Resource.Step4</h3>
+            <div>
+                <h4>@Resources.Resource.AddGraphs</h4>
+                <br>
+                <div id="listOfGraphs">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextArea("GraphFormula", new { rows = "1", cols = "25" })
+                            </div>
+                            <div class="col-md-1">
+                                <p id="inputFormulaHelp">?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <p>@Resources.Resource.labelGraphLabelRange</p>
+                            </div>
+                            <div class="col-md-1">
+                                <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextArea("RangeFrom", new { rows = "1", cols = "5" })
+                            </div>
+                            <div class="col-md-1">
+                                <p>@Resources.Resource.labelGraphLabelRangeTo</p>
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <p>@Resources.Resource.labelGraphStep</p>
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextArea("Step", new { rows = "1", cols = "5" })
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-default" id="addGraph">Add Graph</button>
+                            </div>
+                        </div>
+                        @foreach (var graph in Model.Exercise.Graphs)
+                        {
+                            <div class="row">
+                                @Html.Hidden("GraphInfo", graph.Path)
+                                <div class="col-md-4 thumbnail">
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button name="delete">Delete</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <h3>@Resources.Resource.Step5</h3>
+            <div>
+                <h4> @Resources.Resource.AddVideo</h4>
+                <br>
                 <div id="listOfVideos">
                     <div class="row">
                         <div class="col-md-3">
@@ -170,15 +216,21 @@
                     }
                 </div>
             </div>
+
+            @Html.HiddenFor(model => model.Answers)
+            @Html.HiddenFor(model => model.Equations)
+            @Html.HiddenFor(model => model.Graphs)
+            @Html.HiddenFor(model => model.Tags)
+            @Html.HiddenFor(model => model.Name)
+            @Html.HiddenFor(model => model.Text)
+            @Html.HiddenFor(model => model.Category)
+            @Html.HiddenFor(model => model.Videos)
+            <h3>@Resources.Resource.Step6</h3>
+            <div>
+                <h4>@Resources.Resource.Preview</h4>
+                <br>
+                <input type="submit" id="Submit" value="Submit" />
+            </div>
         </div>
-        @Html.HiddenFor(model => model.Answers)
-        @Html.HiddenFor(model => model.Equations)
-        @Html.HiddenFor(model => model.Graphs)
-        @Html.HiddenFor(model => model.Tags)
-        @Html.HiddenFor(model => model.Name)
-        @Html.HiddenFor(model => model.Text)
-        @Html.HiddenFor(model => model.Category)
-        @Html.HiddenFor(model => model.Videos)
-        <input type="submit" id="Submit" value="Submit" />
     </div>
 }

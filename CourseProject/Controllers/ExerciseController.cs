@@ -307,10 +307,10 @@ namespace CourseProject.Controllers
             {
                 ViewBag.IsRightAnweredUser = true;
             }
-            else
-            {
-                ViewBag.IsRightAnweredUser = false;
-            }
+            //else
+            //{
+               // ViewBag.IsRightAnweredUser = false;
+           // }
             return View(exercise);
         }
 

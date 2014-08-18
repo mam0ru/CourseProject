@@ -55,7 +55,7 @@ div.body-content {
 }
 
 div.left-col {
-    background: rgba(50, 90, 135, .8);
+    background: rgba(50, 90, 135, .75);
     width: 280px;
     padding-top: 50px;
     padding-left: 20px;
@@ -101,11 +101,14 @@ div.userinfo {
     background: rgba(255, 0, 255, .1);
 }
 div.rating {
-    padding-left: 20px;
+     padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-radius: 10px;
     color:darkslategray;
     border-color: #FA8072;
-    background: rgba(255, 50, 50, .1);
+    background: rgba(75, 205, 255, .1);
 }
 
 .md-header {
@@ -117,10 +120,38 @@ div.rating {
     background-color: #428BCA;
     background-image: linear-gradient(to bottom, #008cff, #2D6CA2);
     border-color: #2B669A #2B669A #2B669A;
+    float: right;
 }
 .btn.btn-primary:hover {
     color: #ffffff;
     background-color: #2D6CA2;
     background-image: linear-gradient(to bottom, #2D6CA2, #2D6CA2);
     border-color: #2B669A #2B669A #2B669A;
+    float: right;
+}
+
+.markdownpanel {
+    width:64%;
+    height: 50%;
+}
+
+.btn.btn-default.disabled, 
+.btn.btn-default.disabled:hover {
+    color: #0a0a0a;
+    background-color: #91b8aa;
+    background-image: linear-gradient(to bottom, #b1e8d8, #7ea899);
+    background-position: 0 0;
+    border-color: #4f634e #4f634e #4f634e;
+}
+
+div.comments {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color:darkslategray;
+    border-radius: 15px;
+    border: 1px;
+    border-color: dodgerblue;
+    background: rgba(70, 150,250, 0.1);
 }

@@ -33,7 +33,7 @@ namespace CourseProject.Models
             roleManager.Create(role2);
  
             // создаем пользователей
-            var admin = new ApplicationUser { UserName = "administrator@admin.com", Email = "administrator@admin.com" };
+            var admin = new ApplicationUser { UserName = "Administrator", Email = "administrator@admin.com" };
             string password = "123456789";
             var result = userManager.Create(admin, password);
  

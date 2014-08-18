@@ -14,12 +14,37 @@
 
 <div class="myexercises">
     <div class="userinfo">
-        <h4>
-            @Model.Email
-            <span class="badge">
-                @ViewBag.Rating
-            </span>
-        </h4>
+        <div class="row">
+            <div class="col-md-3">
+                @if (Model.ImagePath == null)
+                {
+                    @*@<img src="C:/Users/Natik/Documents/Visual Studio 2013/Projects/CourseProject/CourseProject/Content/user.jpg" alt=@Model.UserName>
+                    *@
+                    <span class="glyphicon glyphicon-user"style="width: 200px; height: 200px"></span>
+                }
+                else
+                {
+                    <img src = @Model.ImagePath alt=@Model.UserName>
+                }
+            </div>
+            <div class="col-md-3">
+                <h3>
+                    @Model.UserName
+                    <span class="badge">
+                        @ViewBag.Rating
+                    </span>
+                </h3>
+                <h4>
+                    @Resources.Resource.Email: @Model.Email
+                </h4>
+            </div>
+            <div class="col-md-3">
+                <form>
+                    <input id="imageupload" type="file" name="imageupload">
+                    <button id="Upload" class="btn-default">@Resources.Resource.ChangeAvatar</button>
+                </form>
+            </div>
+        </div>
     </div>
     <h4> @Resources.Resource.MyExercises</h4>
     @if (Model.Exercises.Count != 0)
