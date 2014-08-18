@@ -18,13 +18,11 @@
             <div class="col-md-3">
                 @if (Model.ImagePath == null)
                 {
-                    <img src="C:\\Users\\Natik\\Documents\\Visual Studio 2013\\Projects\\CourseProject\\CourseProject\\Content\\user.jpg" alt=@Model.UserName>
-
-                     @*<span class="glyphicon glyphicon-user"style="width: 200px; height: 200px"></span> *@
+                    <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
                 }
                 else
                 {
-                    <img src = @Model.ImagePath alt=@Model.UserName>
+                    <img src=@Model.ImagePath alt=@Model.UserName width="130">
                 }
             </div>
             <div class="col-md-3">

@@ -19,13 +19,11 @@
             <div class="col-md-3">
                 @if (Model.ImagePath == null)
                 {
-                    <img src="C:\\Users\\Natik\\Documents\\Visual Studio 2013\\Projects\\CourseProject\\CourseProject\\Content\\user.jpg" alt=@Model.UserName>
-
-                    @*<span class="glyphicon glyphicon-user"style="width: 200px; height: 200px"></span> *@
+                    <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
                 }
                 else
                 {
-                    <img src=@Model.ImagePath alt=@Model.UserName>
+                    <img src=@Model.ImagePath alt=@Model.UserName width="130">
                 }
             </div>
             <div class="col-md-3">
@@ -39,43 +37,19 @@
                     @Resources.Resource.Email: @Model.Email
                 </h4>
             </div>
-            <div class="col-md-3">
-                <form>
-                    <input id="imageupload" type="file" name="imageupload">
-                    <button id="Upload" class="btn-default">@Resources.Resource.ChangeAvatar</button>
-                </form>
-            </div>
         </div>
     </div>
-    <h4> @Resources.Resource.MyExercises</h4>
+    <h4> @Resources.Resource.Exercises</h4>
     @if (Model.Exercises.Count != 0)
     {
         <div id="accordion" style="color:inherit; background-color: inherit">
             @foreach (var exersise in Model.Exercises)
             {
-                string activeAction = "";
-                if (exersise.Active)
-                {
-                    activeAction = @Resources.Resource.MakeUnactive.ToString();
-                }
-                else
-                {
-                    activeAction = @Resources.Resource.MakeActive.ToString();
-                }
-
-                <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
-                <div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                        </div>
-                        <div class="col-md-2">
-                            @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                        </div>
-                        <div class="col-md-2">
-                            @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
-                        </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
                     </div>
+
                     <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
                     <h5>
                         @Resources.Resource.TriesOfAnswers:
@@ -125,5 +99,3 @@
         @Resources.Resource.NoRightAnsweredExercises
     }
 </div>
-
-
