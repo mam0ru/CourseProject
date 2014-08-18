@@ -13,6 +13,12 @@ namespace CourseProject
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.IgnoreRoute("Exercise/EditExercise");
+
+            routes.IgnoreRoute("Exercise/ShowExercise");
+
+            routes.IgnoreRoute("Exercise/ShowExercisesWithTag");
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
