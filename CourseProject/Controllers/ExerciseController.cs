@@ -10,6 +10,7 @@ using CourseProject.Models;
 using CourseProject.Repository;
 using CourseProject.Repository.Implementation;
 using CourseProject.Repository.Interfaces;
+using CourseProject.ViewModels;
 using CourseProject.View_Models;
 using CloudinaryDotNet;
 using Microsoft.AspNet.Identity;
@@ -144,18 +145,31 @@ namespace CourseProject.Controllers
             return RedirectToAction("ShowExercise", id);
         }
 
-        public ActionResult AddComment(int id, string comment)
+        [HttpPost]
+        public ActionResult AddComment(AddCommentViewModel model)
         {
-            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
-            Exercise exercise = exerciseRepository.GetByID(id);
+            ApplicationUser user = userManager.FindById(model.UserId);
+            Exercise exercise = exerciseRepository.GetByID(model.ExerciseId);
             Comment newComment = new Comment();
             newComment.Target = exercise;
-            newComment.Text = comment;
+            newComment.Text = model.Text;
             newComment.Author = user;
             commentRepository.Insert(newComment);
             exercise.Comments.Add(newComment);
             exerciseRepository.Update(exercise);
-            return RedirectToAction("MyProfile", "Profile");
+            return RedirectToAction("ShowExercise", "Exercise", model.ExerciseId);
+        }
+
+        [HttpGet]
+        public ActionResult AddComment(int id)
+        {
+            var user = userManager.FindById(User.Identity.GetUserId());
+            AddCommentViewModel model = new AddCommentViewModel();
+            model.ExerciseId = id;
+            model.ImagePath = user.ImagePath;
+            model.UserId = user.Id;
+            model.UserName = user.UserName;
+            return PartialView("_AddCommentPartial", model);
         }
 
         [HttpPost]

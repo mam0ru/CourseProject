@@ -74,138 +74,124 @@
             }
             <h5>
                 @Resources.Resource.Tags:
-            @foreach (var tag in Model.Tags)
-            {
-                @Html.ActionLink("#" + tag.Text + "  ", "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
-            }
-        </h5>
-        <h5>@Resources.Resource.Category: @Model.Category.Text</h5>
-        <h5>@Resources.Resource.TriesOfAnswers: @Model.TriesOfAnswers</h5>
-        <h5>
-            @Resources.Resource.RightAnsweredUsers:
-        @if (@Model.RightAnsweredUsers.Count != 0)
-        {
-            foreach (var user in Model.RightAnsweredUsers)
-            {
-                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-            }
-        }
-        else
-        {
-            @Resources.Resource.NoRightAnsweredUsers
-        }
-    </h5>
-    <br>
-    <br>
-    <h4>@Resources.Resource.Task: </h4>
-    @Html.Markdown(Model.Text)
-    <br>
-    <div id="accordion">
-        @if (Model.Pictures.Count != 0)
-        {
-            <h5>@Resources.Resource.Pictures</h5>
-            <div>
-                @foreach (var picture in Model.Pictures)
+                @foreach (var tag in Model.Tags)
                 {
-                    <img src="@picture.Path" alt="@picture.Name" width="560" height="315">
+                    @Html.ActionLink("#" + tag.Text + "  ", "ShowExercisesWithTag", "Exercise", new { tag = tag.Text }, null)
                 }
-            </div>
-        }
-        @if (Model.Equations.Count != 0)
-        {
-            <h5>@Resources.Resource.Formulas</h5>
-            foreach (var equation in Model.Equations)
-            {
-                <div>
-                    <img src="@equation.Path">
-                </div>
-            }
-
-        }
-        @if (Model.Graphs.Count != 0)
-        {
-            <h5>@Resources.Resource.Graphs</h5>
-            <div>
-                @foreach (var graph in Model.Graphs)
+            </h5>
+            <h5>@Resources.Resource.Category: @Model.Category.Text</h5>
+            <h5>@Resources.Resource.TriesOfAnswers: @Model.TriesOfAnswers</h5>
+            <h5>
+                @Resources.Resource.RightAnsweredUsers:
+                @if (@Model.RightAnsweredUsers.Count != 0)
                 {
-                    <div class="row">
-                        @Html.Hidden("GraphInfo", graph.Path)
-                        <div class="col-md-4 thumbnail">
-
+                    foreach (var user in Model.RightAnsweredUsers)
+                    {
+                        @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                    }
+                }
+                else
+                {
+                    @Resources.Resource.NoRightAnsweredUsers
+                }
+            </h5>
+            <br>
+            <br>
+            <h4>@Resources.Resource.Task: </h4>
+            @Html.Markdown(Model.Text)
+            <br>
+            <div id="accordion">
+                @if (Model.Pictures.Count != 0)
+                {
+                    <h5>@Resources.Resource.Pictures</h5>
+                    <div>
+                        @foreach (var picture in Model.Pictures)
+                        {
+                            <img src="@picture.Path" alt="@picture.Name" width="560" height="315">
+                        }
+                    </div>
+                }
+                @if (Model.Equations.Count != 0)
+                {
+                    <h5>@Resources.Resource.Formulas</h5>
+                    foreach (var equation in Model.Equations)
+                    {
+                        <div>
+                            <img src="@equation.Path">
                         </div>
-                    </div>
+                    }
+
                 }
-            </div>
-        }
-        @if (Model.Videos.Count != 0)
-        {
-            <h5>@Resources.Resource.Videos</h5>
-            <div>
-                @foreach (var video in Model.Videos)
+                @if (Model.Graphs.Count != 0)
                 {
-                    <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
+                    <h5>@Resources.Resource.Graphs</h5>
+                    <div>
+                        @foreach (var graph in Model.Graphs)
+                        {
+                            <div class="row">
+                                @Html.Hidden("GraphInfo", graph.Path)
+                                <div class="col-md-4 thumbnail">
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                @if (Model.Videos.Count != 0)
+                {
+                    <h5>@Resources.Resource.Videos</h5>
+                    <div>
+                        @foreach (var video in Model.Videos)
+                        {
+                            <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
+                        }
+                    </div>
                 }
             </div>
-        }
-    </div>
-    <hr style="border-color: black" />
-    @if (active)
-    {
-        using (Html.BeginForm("AddEvaluation", "Exercise"))
-        {
-            <input value="@Model.Id" hidden="true" name="id">
-            <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
-            <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
-        }
-        <br>
-        @*using (Html.BeginForm("AddComment", "Exercise"))
-        {
-            <input value="@Model.Id" hidden="true" name="id">
-            <input type="text" placeholder="" id="input-text" name="comment" />
-            <input type="submit" id="comment" value=@Resources.Resource.AddComment />
-        }*@
-        
-        <div class="comments">
-            @using (Html.BeginForm("AddComment", "Exercise")){
-                <div class="media">
-                    <a class="pull-left" href="~/Profile/ShowProfile/@User.Identity.GetUserId()">
-                       @* <img class="media-object" src=@User.Identity.alt=@User.Identity.GetUserName()>*@
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">@comment.Author.UserName</h4>
-                        @comment.Text
-                    </div>
-                </div>
-            }
-        </div>
-        <br>
-    }
-    <div class="comments">
-        @if (Model.Comments.Count != 0)
-        {
-            foreach (var comment in Model.Comments)
+            <hr style="border-color: black" />
+            @if (active)
             {
+                using (Html.BeginForm("AddEvaluation", "Exercise"))
+                {
+                    <input value="@Model.Id" hidden="true" name="id">
+                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
+                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
+                }
+                <br>
+                <div class="comments">
+                    @Html.Action("AddComment", "Exercise", Model.Id)
+                </div>
+                @* <div class="addcomment">
+                        @Html.Action("AddComment","Exercise",Model.Id)
+                    </div>*@
+                <br>
+            }
+            <div class="comments">
+                @if (Model.Comments.Count != 0)
+                {
+                    foreach (var comment in Model.Comments)
+                    {
+                        <div class="media">
+                            <a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">
+                                <img class="media-object" src=@Model.Author.ImagePath alt=@comment.Author.UserName>
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">@comment.Author.UserName</h4>
+                                @comment.Text
+                            </div>
+                        </div>
+                    }
+                }
                 <div class="media">
-                    <a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">
-                        <img class="media-object" src = @Model.Author.ImagePath alt = @comment.Author.UserName>
+                    <a class="pull-left" href="~/Profile/ShowProfile/@Model.Author">
+                        <img class="media-object" src="~/Content/like.png" />@*>@Model.Author.ImagePath >*@
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">@comment.Author.UserName</h4>
-                        @comment.Text
+                        <h4 class="media-heading">@Model.Author.UserName</h4>
+                        @Model.Text
                     </div>
                 </div>
-            }
-        }
-        <div class="media">
-            <a class="pull-left" href="~/Profile/ShowProfile/@Model.Author">
-                <img class="media-object" src="~/Content/like.png" />@*>@Model.Author.ImagePath >*@
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">@Model.Author.UserName</h4>
-                @Model.Text
             </div>
         </div>
-    </div>
-</div>
     }
 </div>

@@ -1,0 +1,23 @@
+﻿@model CourseProject.ViewModels.AddCommentViewModel
+@{
+}
+<div>
+    @using (Html.BeginForm("AddComment", "Exercise"))
+    {
+        <div class="media">
+            <a class="pull-left" href="~/Profile/ShowProfile/@Model.UserId">
+                <img class="media-object" src=@Model.ImagePath alt=@Model.UserName>
+            </a>
+            <div class="media-body">
+            <h4 class="media-heading">@Model.UserName</h4>
+            @using (Html.BeginForm("AddComment", "Exercise"))
+             {
+                @Html.TextBoxFor(model => model.ExerciseId, new { @class = "hidden" });  
+                @Html.TextBoxFor(model => model.UserId, new { @class = "hidden" });
+                @Html.TextBoxFor(model => model.Text);             
+                <input type="submit" id="comment" value=@Resources.Resource.AddComment />
+            }
+            </div>
+        </div>
+    }
+</div>
