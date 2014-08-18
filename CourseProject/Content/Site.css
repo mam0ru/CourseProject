@@ -1,28 +1,16 @@
-﻿div.register-form {
-    height: 150px;
-    background-color: greenyellow;
-}
-#search-box {
+﻿#search-box {
     position: relative;
     padding-top: 0px;
     width: 100%;
-    margin: 0;
 }
 
 #search-form {
     padding-top: 0px;
     height: 40px;
-    border: 1px solid #999;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
 }
 
 #search-text {
     padding-top: 0px;
-    font-size: 14px;
-    color: #ddd;
-    background: transparent;
     width: 100%;
 }
 
@@ -37,13 +25,9 @@
     position: absolute;
     height: 40px;
     width: 105px;
-    font-size: 14px;
     color: #fff;
-    text-align: center;
     line-height: 40px;
     background-color: #4d90fe;
-    border-radius: 0px 5px 5px 0px;
-    cursor: pointer;
 }
 
 div.body-content {
@@ -79,7 +63,7 @@ div.myexercises {
     color:darkslategray;
     border-radius: 10px;
     border-color: #FF1493;
-    background: rgba(255, 0, 100, .1);
+
 }
 
 div.solvedexercises {
@@ -89,7 +73,7 @@ div.solvedexercises {
     padding-bottom: 15px;
     border-radius: 10px;
     border-color: #DC143C;
-    background: rgba(255, 0, 50, .1);
+
 }
 div.userinfo {
     padding-left: 15px;
@@ -98,7 +82,7 @@ div.userinfo {
     padding-bottom: 15px;
     border-radius: 10px;
     border-color: #FF69B4;
-    background: rgba(255, 0, 255, .1);
+
 }
 div.rating {
     padding-left: 15px;
@@ -108,7 +92,7 @@ div.rating {
     border-radius: 10px;
     color:darkslategray;
     border-color: #FA8072;
-    background: rgba(75, 205, 255, .1);
+
 }
 
 .md-header {

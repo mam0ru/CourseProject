@@ -3,54 +3,127 @@
     ViewBag.Title = Model.UserName + "Profile";
 }
 
-<div class="jumbotron">
-    <div class="container">
-        <br />
-        @if (Model.Exercises != null)
-        {
-            <h4> @Resources.Resource.Exercises</h4>
-            <ul>
-                @foreach (var exersise in Model.Exercises)
-                {
-                    <li>
-                        @Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new { id = exersise.Id }, null)
-                    </li>
-                }
-            </ul>
-        }
-        else
-        {
-            @Resources.Resource.NoCurrentUserExercises
-        }
-    </div>
-</div>
+<br>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script>
+    $(function () {
+        $("#accordion").accordion({
+            collapsible: true
+        });
+    });
+</script>
 
-<div class="jumbotron">
-    <div class="container">
-        <br />
-        <table class="table table-striped table-hover ">
-            <thead>
-                <h3> @Resources.Resource.SolvedExercises</h3>
-            </thead>
-            <tbody>
-                @if (Model.RightAnswers != null)
+<div class="myexercises">
+    <div class="userinfo">
+        <div class="row">
+            <div class="col-md-3">
+                @if (Model.ImagePath == null)
                 {
-                    foreach (var exersise in Model.RightAnswers)
-                    {
-                        <tr>
-                            <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                        </tr>
-                    }
+                    <img src="C:\\Users\\Natik\\Documents\\Visual Studio 2013\\Projects\\CourseProject\\CourseProject\\Content\\user.jpg" alt=@Model.UserName>
+
+                    @*<span class="glyphicon glyphicon-user"style="width: 200px; height: 200px"></span> *@
                 }
                 else
                 {
-                    <br />
-                <thead>
-                    @Resources.Resource.NoCurrentUserRightAnsweredExercises
-                </thead>
+                    <img src=@Model.ImagePath alt=@Model.UserName>
                 }
-                </tbody>
-            </table>
+            </div>
+            <div class="col-md-3">
+                <h3>
+                    @Model.UserName
+                    <span class="badge">
+                        @ViewBag.Rating
+                    </span>
+                </h3>
+                <h4>
+                    @Resources.Resource.Email: @Model.Email
+                </h4>
+            </div>
+            <div class="col-md-3">
+                <form>
+                    <input id="imageupload" type="file" name="imageupload">
+                    <button id="Upload" class="btn-default">@Resources.Resource.ChangeAvatar</button>
+                </form>
+            </div>
         </div>
     </div>
+    <h4> @Resources.Resource.MyExercises</h4>
+    @if (Model.Exercises.Count != 0)
+    {
+        <div id="accordion" style="color:inherit; background-color: inherit">
+            @foreach (var exersise in Model.Exercises)
+            {
+                string activeAction = "";
+                if (exersise.Active)
+                {
+                    activeAction = @Resources.Resource.MakeUnactive.ToString();
+                }
+                else
+                {
+                    activeAction = @Resources.Resource.MakeActive.ToString();
+                }
+
+                <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
+                <div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
+                        </div>
+                    </div>
+                    <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
+                    <h5>
+                        @Resources.Resource.TriesOfAnswers:
+                        <span class="badge" style="background-color: cornsilk; color: black">
+                            @exersise.TriesOfAnswers
+                        </span>
+                    </h5>
+                    <h5>
+                        @Resources.Resource.RightAnsweredUsers:
+                        <span class="badge" style="background-color: cornsilk; color: black ">
+                            @exersise.RightAnsweredUsers.Count
+                        </span>
+                    </h5>
+                    <ul>
+                        @foreach (var user in exersise.RightAnsweredUsers)
+                        {
+                            <li>
+                                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        @Resources.Resource.NoExercises
+    }
+</div>
+
+<div class="solvedexercises">
+    <h4> @Resources.Resource.SolvedExercises</h4>
+    @if (Model.RightAnswers.Count != 0)
+    {
+        <ul>
+            @foreach (var exersise in Model.RightAnswers)
+            {
+                <li>
+                    <a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        @Resources.Resource.NoRightAnsweredExercises
+    }
+</div>
+
 
