@@ -158,12 +158,26 @@
             <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
         }
         <br>
-        using (Html.BeginForm("AddComment", "Exercise"))
+        @*using (Html.BeginForm("AddComment", "Exercise"))
         {
             <input value="@Model.Id" hidden="true" name="id">
             <input type="text" placeholder="" id="input-text" name="comment" />
             <input type="submit" id="comment" value=@Resources.Resource.AddComment />
-        }
+        }*@
+        
+        <div class="comments">
+            @using (Html.BeginForm("AddComment", "Exercise")){
+                <div class="media">
+                    <a class="pull-left" href="~/Profile/ShowProfile/@User.Identity.GetUserId()">
+                       @* <img class="media-object" src=@User.Identity.alt=@User.Identity.GetUserName()>*@
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">@comment.Author.UserName</h4>
+                        @comment.Text
+                    </div>
+                </div>
+            }
+        </div>
         <br>
     }
     <div class="comments">
