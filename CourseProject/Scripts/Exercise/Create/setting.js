@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, createVideoContainer, getFormulas, getGraphs, getVideos, initFileUpload;
+    var $equations, $graphs, $images, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, createVideoContainer, getFormulas, getGraphs, getImages, getVideos, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -28,6 +28,21 @@
       return button;
     };
     $jqXHRData = null;
+    createImageElement = function(src) {
+      var childButton, childDivForButton, childDivForImage, childImage, parent;
+      parent = createParentDiv();
+      childImage = document.createElement('img');
+      childImage.src = src;
+      childDivForImage = createChildDiv();
+      childDivForImage.className = "col-md-8 thumbnail";
+      childDivForButton = createChildDiv();
+      childDivForImage.appendChild(childImage);
+      childButton = createButton("delete", "Delete");
+      childDivForButton.appendChild(childButton);
+      parent.appendChild(childDivForImage);
+      parent.appendChild(childDivForButton);
+      return parent;
+    };
     createFormulaElement = function(formula) {
       var childButton, childDivForButton, childDivForImage, parent;
       parent = createParentDiv();
@@ -60,29 +75,40 @@
         url: '/Exercise/UploadImage',
         dataType: 'json',
         add: function(e, data) {
-          return $jqXHRData = data;
+          $jqXHRData = data;
+          return $jqXHRData.submit();
         },
         done: function(event, data) {
-          var img, img1, img2, img3, input;
-          alert("file uploaded");
-          input = $("[name='Text']")[0];
-          img1 = "![]( ";
-          img2 = data.result.path;
-          img3 = " \"\")";
-          img = img1 + img2 + img3;
-          return input.value = input.value + img;
+          var jsItem;
+          jsItem = createImageElement(data.result.path);
+          $('#listOfPictures').append(jsItem);
+          return $('.progress > .progress-bar').css('width', 0 + '%');
         },
         fail: function(event, data) {
           alert("ERROR");
           if (data.files[0].error) {
             return alert(data.files[0].error);
           }
+        },
+        progressall: function(e, data) {
+          var progress;
+          progress = parseInt(data.loaded / data.total * 100, 10);
+          return $('.progress > .progress-bar').css('width', progress + '%');
         }
       });
     };
     $equations = [];
     $graphs = [];
     $videos = [];
+    $images = [];
+    getImages = function() {
+      var im;
+      im = $("#listOfPictures > .row > .thumbnail > img");
+      $.each(im, function(e, val) {
+        return $images.push(val.src);
+      });
+      return $images;
+    };
     getVideos = function() {
       var elements;
       elements = $('iframe');
@@ -134,14 +160,6 @@
         return null;
       });
       initFileUpload();
-      $(document).on('click', '#Upload', function(e) {
-        e.preventDefault();
-        if ($jqXHRData) {
-          alert("upload");
-          $jqXHRData.submit();
-        }
-        return false;
-      });
       $("#addVideo").on('click', function(e) {
         var parent;
         e.preventDefault();
@@ -150,11 +168,13 @@
         return $("#video").val("");
       });
       $("#Submit").on('click', function(e) {
-        var answers, equation, graphs, tags, videos;
+        var answers, equation, graphs, images, tags, videos;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         tags = $("#inputTags").textext()[0].hiddenInput().val();
         equation = getFormulas();
         equation = JSON.stringify(equation);
+        images = getImages();
+        images = JSON.stringify(images);
         videos = getVideos();
         videos = JSON.stringify(videos);
         graphs = getGraphs();
@@ -164,6 +184,7 @@
         $('input#Answers').val(answers);
         $('input#Formulas').val(equation);
         $('input#Tags').val(tags);
+        $('input#Pictures').val(images);
         return $('input#Videos').val(videos);
       });
       return null;

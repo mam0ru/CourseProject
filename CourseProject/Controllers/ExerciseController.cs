@@ -238,10 +238,11 @@ namespace CourseProject.Controllers
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
-                foreach (String imageSource in model.Pictures.Split(','))
+                List <String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures); 
+                foreach (String pictureSource in pictureSources)
                 {
                     Picture picture = new Picture();
-                    picture.Path = imageSource;
+                    picture.Path = pictureSource;
                     picture.Task = exercise;
                     pictures.Add(picture);
                     pictureRepository.Insert(picture);
@@ -469,6 +470,45 @@ namespace CourseProject.Controllers
                         exercise.Videos.Remove(video);
                         videoRepository.Delete(video);
                     }   
+                }
+            }
+            if (model.Pictures != null)
+            {
+                ICollection<Picture> pictures = new Collection<Picture>();
+                List<String> oldPictures= exercise.Pictures.Select(p => p.Path).ToList();
+                List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
+
+                foreach (String oldPicture in oldPictures)
+                {
+                    if (!newPictures.Contains(oldPicture))
+                    {
+                        Picture picture = exercise.Pictures.First(p => p.Path == oldPicture);
+                        exercise.Pictures.Remove(picture);
+                        pictureRepository.Delete(picture);
+                    }
+                }
+
+                foreach (String newPicture in newPictures)
+                {
+                    if (!oldPictures.Contains(newPicture))
+                    {
+                        Picture picture = new Picture();
+                        picture.Path = newPicture;
+                        picture.Task = exercise;
+                        pictureRepository.Insert(picture);
+                    }
+                }
+            }
+            else
+            {
+                var pictures = exercise.Pictures;
+                if (pictures != null)
+                {
+                    foreach (var picture in pictures)
+                    {
+                        exercise.Pictures.Remove(picture);
+                        pictureRepository.Delete(picture);
+                    }                    
                 }
             }
             exerciseRepository.Update(exercise);

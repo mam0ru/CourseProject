@@ -52,7 +52,7 @@
                         <td><label>@Resources.Resource.Category</label></td>
                         <td><select id="Category"></select></td>
                     </tr>
-                </table>     
+                </table>
                 <div class="markdownpanel">
                     @Html.TextAreaFor(model => model.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
                 </div>
@@ -67,10 +67,20 @@
             <div>
                 <h4>@Resources.Resource.AddPictures</h4>
                 <br>
-                <form>
-                    <input id="imageupload" type="file" name="imageupload">
-                    <button id="Upload" class="btn-default">Upload</button>
-                </form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input id="imageupload" type="file" name="imageupload">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div id="listOfPictures">
+
+                </div>
             </div>
 
             <h3>@Resources.Resource.Step3</h3>
@@ -167,25 +177,17 @@
                 <br />
                 <label>Videos</label>
             </div>
-            @Html.HiddenFor(model => model.Answers)
-            @Html.HiddenFor(model => model.Category)
-            @Html.HiddenFor(model => model.Formulas)
-            @Html.HiddenFor(model => model.Tags)
-            @Html.HiddenFor(model => model.Graphs)
-            @Html.HiddenFor(model => model.Videos)
-
             <h3>@Resources.Resource.Step6</h3>
             <div>
                 <h4>@Resources.Resource.Preview</h4>
                 <br>
-
-                
-                
-                
-                
-                
-                
-
+                @Html.HiddenFor(model => model.Answers)
+                @Html.HiddenFor(model => model.Category)
+                @Html.HiddenFor(model => model.Formulas)
+                @Html.HiddenFor(model => model.Tags)
+                @Html.HiddenFor(model => model.Graphs)
+                @Html.HiddenFor(model => model.Videos)
+                @Html.HiddenFor(model => model.Pictures)
                 <button type="submit" class="btn" id="Submit">Submit</button>
             </div>
         </div>

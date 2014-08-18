@@ -36,34 +36,56 @@
         parent.appendChild childDivForButton        
         return parent    
 
+    createImageElement = (src) ->
+        parent = createParentDiv()
+        childImage = document.createElement('img')
+        childImage.src = src
+        childDivForImage = createChildDiv()
+        childDivForImage.className = "col-md-8 thumbnail"
+        childDivForButton = createChildDiv()    
+        childDivForImage.appendChild childImage
+        childButton = createButton("delete","Delete")
+        childDivForButton.appendChild childButton
+        parent.appendChild childDivForImage
+        parent.appendChild childDivForButton
+        return parent
+
     initFileUpload = () ->
       $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
         dataType: 'json',
         add: (e, data) -> 
             $jqXHRData = data
+            $jqXHRData.submit()
         done: (event, data) -> 
-            alert "file uploaded"
-            input = $("[name='Exercise.Text']")[0]
-            img1 = "![]( "
-            img2 = data.result.path 
-            img3 = " \"\")"
-            img = img1 + img2 + img3
-            input.value = input.value + img
+            jsItem = createImageElement(data.result.path)
+            $('#listOfPictures').append(jsItem)
+            $('.progress > .progress-bar').css('width',0 + '%')            
         fail: (event, data) ->
             alert "ERROR"
             if data.files[0].error
               alert data.files[0].error
+        progressall: (e, data) ->
+            progress = parseInt(data.loaded / data.total * 100, 10)
+            $('.progress > .progress-bar').css(
+                'width',
+                progress + '%')
       })
 
     $equations = []
-
-    $images = []
-
+    
     $graphs = []
 
     $videos = []
-    
+
+    $images = []    
+
+    getImages = () ->
+      im = $("#listOfPictures > .row > .thumbnail > img") 
+      $.each im, (e,val) ->
+        $images.push(val.src)
+      $images         
+            
     getVideos = ()->
         elements = $('iframe')
         $.each elements, (e,value) ->
@@ -81,7 +103,6 @@
         elements = $("[name='GraphInfo']")
         $.each elements, (e,graph) ->
             $graphs.push(graph.value)
-        alert ($graphs)
         return $graphs    
           
     $(document).ready () ->
@@ -112,13 +133,6 @@
             parent2.remove()
             return null
         initFileUpload()
-        $(document).on 'click', '#Upload', (e) ->
-            e.stopPropagation()
-            e.preventDefault()
-            if $jqXHRData
-                alert "upload"
-                $jqXHRData.submit()
-            return false
         $("#Submit").on 'click', (e) ->
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
             equation = getFormulas()
@@ -127,7 +141,9 @@
             graphs = getGraphs()
             graphs = JSON.stringify(graphs)
             videos = getVideos()
-            videos = JSON.stringify(videos)            
+            videos = JSON.stringify(videos)
+            images = getImages()            
+            images = JSON.stringify(images)
             $('input#Graphs').val(graphs)
             $('input#Answers')[0].value = answers
             $('input#Tags')[0].value = tags
@@ -135,4 +151,5 @@
             $("input#Name")[0].value = $("#Exercise_Name").val()
             $("input#Text")[0].value = $("[name='Exercise.Text']").val()
             $('input#Videos').val(videos)
+            $('input#Pictures').val(images)
         return null

@@ -76,10 +76,29 @@
             <div>
                 <h4>@Resources.Resource.AddPictures</h4>
                 <br>
-                <form>
-                    <input id="imageupload" type="file" name="imageupload">
-                    <button id="Upload" class="btn-default">Upload</button>
-                </form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input id="imageupload" type="file" name="imageupload">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="listOfPictures">
+                    @foreach (var img in Model.Exercise.Pictures)
+                    {
+                        <div class="row">
+                            <div class="col-md-8 thumbnail">
+                                <img src="@img.Path"/>
+                            </div>
+                            <div class="col-md-4">
+                                <button name="delete">Delete</button>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
             <h3>@Resources.Resource.Step3</h3>
             <div>
@@ -210,19 +229,19 @@
                     }
                 </div>
             </div>
-
-            @Html.HiddenFor(model => model.Answers)
-            @Html.HiddenFor(model => model.Equations)
-            @Html.HiddenFor(model => model.Graphs)
-            @Html.HiddenFor(model => model.Tags)
-            @Html.HiddenFor(model => model.Name)
-            @Html.HiddenFor(model => model.Text)
-            @Html.HiddenFor(model => model.Category)
-            @Html.HiddenFor(model => model.Videos)
             <h3>@Resources.Resource.Step6</h3>
             <div>
                 <h4>@Resources.Resource.Preview</h4>
                 <br>
+                @Html.HiddenFor(model => model.Answers)
+                @Html.HiddenFor(model => model.Equations)
+                @Html.HiddenFor(model => model.Graphs)
+                @Html.HiddenFor(model => model.Tags)
+                @Html.HiddenFor(model => model.Name)
+                @Html.HiddenFor(model => model.Text)
+                @Html.HiddenFor(model => model.Category)
+                @Html.HiddenFor(model => model.Videos)
+                @Html.HiddenFor(model => model.Pictures)
                 <input type="submit" id="Submit" value="Submit" />
             </div>
         </div>

@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $images, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createInput, createParentDiv, getFormulas, getGraphs, getVideos, initFileUpload;
+    var $equations, $graphs, $images, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getGraphs, getImages, getVideos, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -42,35 +42,60 @@
       parent.appendChild(childDivForButton);
       return parent;
     };
+    createImageElement = function(src) {
+      var childButton, childDivForButton, childDivForImage, childImage, parent;
+      parent = createParentDiv();
+      childImage = document.createElement('img');
+      childImage.src = src;
+      childDivForImage = createChildDiv();
+      childDivForImage.className = "col-md-8 thumbnail";
+      childDivForButton = createChildDiv();
+      childDivForImage.appendChild(childImage);
+      childButton = createButton("delete", "Delete");
+      childDivForButton.appendChild(childButton);
+      parent.appendChild(childDivForImage);
+      parent.appendChild(childDivForButton);
+      return parent;
+    };
     initFileUpload = function() {
       return $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
         dataType: 'json',
         add: function(e, data) {
-          return $jqXHRData = data;
+          $jqXHRData = data;
+          return $jqXHRData.submit();
         },
         done: function(event, data) {
-          var img, img1, img2, img3, input;
-          alert("file uploaded");
-          input = $("[name='Exercise.Text']")[0];
-          img1 = "![]( ";
-          img2 = data.result.path;
-          img3 = " \"\")";
-          img = img1 + img2 + img3;
-          return input.value = input.value + img;
+          var jsItem;
+          jsItem = createImageElement(data.result.path);
+          $('#listOfPictures').append(jsItem);
+          return $('.progress > .progress-bar').css('width', 0 + '%');
         },
         fail: function(event, data) {
           alert("ERROR");
           if (data.files[0].error) {
             return alert(data.files[0].error);
           }
+        },
+        progressall: function(e, data) {
+          var progress;
+          progress = parseInt(data.loaded / data.total * 100, 10);
+          return $('.progress > .progress-bar').css('width', progress + '%');
         }
       });
     };
     $equations = [];
-    $images = [];
     $graphs = [];
     $videos = [];
+    $images = [];
+    getImages = function() {
+      var im;
+      im = $("#listOfPictures > .row > .thumbnail > img");
+      $.each(im, function(e, val) {
+        return $images.push(val.src);
+      });
+      return $images;
+    };
     getVideos = function() {
       var elements;
       elements = $('iframe');
@@ -95,7 +120,6 @@
       $.each(elements, function(e, graph) {
         return $graphs.push(graph.value);
       });
-      alert($graphs);
       return $graphs;
     };
     return $(document).ready(function() {
@@ -133,17 +157,8 @@
         return null;
       });
       initFileUpload();
-      $(document).on('click', '#Upload', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if ($jqXHRData) {
-          alert("upload");
-          $jqXHRData.submit();
-        }
-        return false;
-      });
       $("#Submit").on('click', function(e) {
-        var answers, equation, graphs, tags, videos;
+        var answers, equation, graphs, images, tags, videos;
         answers = $("#inputAnswers").textext()[0].hiddenInput().val();
         equation = getFormulas();
         equation = JSON.stringify(equation);
@@ -152,13 +167,16 @@
         graphs = JSON.stringify(graphs);
         videos = getVideos();
         videos = JSON.stringify(videos);
+        images = getImages();
+        images = JSON.stringify(images);
         $('input#Graphs').val(graphs);
         $('input#Answers')[0].value = answers;
         $('input#Tags')[0].value = tags;
         $('input#Equations').val(equation);
         $("input#Name")[0].value = $("#Exercise_Name").val();
         $("input#Text")[0].value = $("[name='Exercise.Text']").val();
-        return $('input#Videos').val(videos);
+        $('input#Videos').val(videos);
+        return $('input#Pictures').val(images);
       });
       return null;
     });

@@ -23,6 +23,20 @@
 
     $jqXHRData = null
 
+    createImageElement = (src) ->
+        parent = createParentDiv()
+        childImage = document.createElement('img')
+        childImage.src = src
+        childDivForImage = createChildDiv()
+        childDivForImage.className = "col-md-8 thumbnail"
+        childDivForButton = createChildDiv()    
+        childDivForImage.appendChild childImage
+        childButton = createButton("delete","Delete")
+        childDivForButton.appendChild childButton
+        parent.appendChild childDivForImage
+        parent.appendChild childDivForButton
+        return parent
+
     createFormulaElement = (formula) ->
         parent = createParentDiv()
         childDivForImage = createChildDiv()
@@ -55,18 +69,20 @@
         dataType: 'json',
         add: (e, data) -> 
             $jqXHRData = data
+            $jqXHRData.submit()
         done: (event, data) -> 
-            alert "file uploaded"
-            input = $("[name='Text']")[0]
-            img1 = "![]( "
-            img2 = data.result.path 
-            img3 = " \"\")"
-            img = img1 + img2 + img3
-            input.value = input.value + img
+            jsItem = createImageElement(data.result.path)
+            $('#listOfPictures').append(jsItem)
+            $('.progress > .progress-bar').css('width',0 + '%')            
         fail: (event, data) ->
             alert "ERROR"
             if data.files[0].error
               alert data.files[0].error
+        progressall: (e, data) ->
+            progress = parseInt(data.loaded / data.total * 100, 10)
+            $('.progress > .progress-bar').css(
+                'width',
+                progress + '%')
       })
 
     $equations = []
@@ -75,6 +91,14 @@
 
     $videos = []
     
+    $images = []    
+
+    getImages = () ->
+      im = $("#listOfPictures > .row > .thumbnail > img") 
+      $.each im, (e,val) ->
+        $images.push(val.src)
+      $images      
+            
     getVideos = ()->
         elements = $('iframe')
         $.each elements, (e,value) ->
@@ -115,12 +139,6 @@
             parent2.remove()
             return null
         initFileUpload()
-        $(document).on 'click', '#Upload', (e) ->
-            e.preventDefault()
-            if $jqXHRData
-                alert "upload"
-                $jqXHRData.submit()
-            return false
         $("#addVideo").on 'click', (e) ->
             e.preventDefault()
             parent = createVideoContainer($("#video").val())
@@ -131,6 +149,8 @@
             tags = $("#inputTags").textext()[0].hiddenInput().val()
             equation = getFormulas()
             equation = JSON.stringify(equation)
+            images = getImages()
+            images = JSON.stringify(images)
             videos = getVideos()
             videos = JSON.stringify(videos)
             graphs = getGraphs()
@@ -140,5 +160,6 @@
             $('input#Answers').val(answers)
             $('input#Formulas').val(equation)
             $('input#Tags').val(tags)
+            $('input#Pictures').val(images)
             $('input#Videos').val(videos)
         return null
