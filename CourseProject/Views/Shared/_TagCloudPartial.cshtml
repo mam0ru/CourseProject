@@ -12,15 +12,15 @@
         </div>
         <div id="tags" style="font-size: 50%">
             @{
-                double size = 20;
+                double size = 1000;
                 int count = Model.Count();
-                double step = size/count;
+                int step = (int)(size - size/20)/count;
         foreach (var tag in Model)
         {
             string link = "/Exercise/ShowExercisesWithTag?tag=" + tag.Text;
-            string style = String.Format("font-size: {0}ex", size);
+            string style = String.Format("font-size: {0}%", size);
             size -= step;    
-            <a href="@link" style=@style>@tag.Text</a>
+            <a href="@link" style="@style">@tag.Text</a>
         }
             }
         </div>
