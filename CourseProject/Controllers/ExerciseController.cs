@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using CloudinaryDotNet.Actions;
 using CourseProject.Models;
 using CourseProject.Repository;
@@ -157,7 +158,7 @@ namespace CourseProject.Controllers
             commentRepository.Insert(newComment);
             exercise.Comments.Add(newComment);
             exerciseRepository.Update(exercise);
-            return RedirectToAction("ShowExercise", "Exercise", model.ExerciseId);
+            return RedirectToAction("ShowExercise", "Exercise",new {id = model.ExerciseId});
         }
 
         [HttpGet]
