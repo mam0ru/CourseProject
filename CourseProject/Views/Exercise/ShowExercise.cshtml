@@ -158,12 +158,10 @@
                     <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
                 }
                 <br>
+                <br>
                 <div class="comments">
                     @Html.Action("AddComment", "Exercise", Model.Id)
                 </div>
-                @* <div class="addcomment">
-                        @Html.Action("AddComment","Exercise",Model.Id)
-                    </div>*@
                 <br>
             }
             <div class="comments">
@@ -173,24 +171,24 @@
                     {
                         <div class="media">
                             <a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">
-                                <img class="media-object" src=@Model.Author.ImagePath alt=@comment.Author.UserName>
+                                @if (@Model.Author.ImagePath == null)
+                                {
+                                    <img class="media-object" src="~/Content/user.jpg" width="70px" alt=@comment.Author.UserName>
+                                }
+                                else
+                                {
+                                    <img class="media-object" src=@Model.Author.ImagePath width="70px" alt=@comment.Author.UserName>
+                                }
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading">@comment.Author.UserName</h4>
+                                <h4 class="media-heading"><a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">@comment.Author.UserName</a> </h4>
+                                <br>
                                 @comment.Text
                             </div>
                         </div>
+                        <hr>
                     }
                 }
-                <div class="media">
-                    <a class="pull-left" href="~/Profile/ShowProfile/@Model.Author">
-                        <img class="media-object" src="~/Content/like.png" />@*>@Model.Author.ImagePath >*@
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">@Model.Author.UserName</h4>
-                        @Model.Text
-                    </div>
-                </div>
             </div>
         </div>
     }

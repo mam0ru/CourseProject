@@ -101,7 +101,7 @@ div.userinfo {
     background: rgba(255, 0, 255, .1);
 }
 div.rating {
-     padding-left: 15px;
+    padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -167,3 +167,17 @@ div.addcomment {
     border-color: dodgerblue;
     background: rgba(70, 150,250, 0.1);
 }
+
+#comment-button {
+    position: absolute;
+    height: 45px;
+    width: 85px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    background-color: #4d90ff;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
