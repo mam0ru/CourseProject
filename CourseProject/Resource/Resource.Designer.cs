@@ -682,11 +682,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make Unactive.
+        ///   Looks up a localized string similar to Make Inactive.
         /// </summary>
-        public static string MakeUnactive {
+        public static string MakeInactive {
             get {
-                return ResourceManager.GetString("MakeUnactive", resourceCulture);
+                return ResourceManager.GetString("MakeInactive", resourceCulture);
             }
         }
         
@@ -817,7 +817,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pistures.
+        ///   Looks up a localized string similar to Pictures.
         /// </summary>
         public static string Pictures {
             get {

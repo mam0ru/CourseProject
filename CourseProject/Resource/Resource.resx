@@ -309,8 +309,8 @@
   <data name="MakeActive" xml:space="preserve">
     <value>Make Active</value>
   </data>
-  <data name="MakeUnactive" xml:space="preserve">
-    <value>Make Unactive</value>
+  <data name="MakeInactive" xml:space="preserve">
+    <value>Make Inactive</value>
   </data>
   <data name="AddAnswer" xml:space="preserve">
     <value>Add answer</value>
@@ -349,7 +349,7 @@
     <value>Graphs</value>
   </data>
   <data name="Pictures" xml:space="preserve">
-    <value>Pistures</value>
+    <value>Pictures</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Videos</value>

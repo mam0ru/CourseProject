@@ -17,7 +17,7 @@
 <div class="myexercises">
     <div class="userinfo">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 @if (Model.ImagePath == null)
                 {
                     <img id="avatar" src="~/Content/user.jpg" alt=@Model.UserName width="130">
@@ -27,7 +27,7 @@
                     <img id="avatar" src=@Model.ImagePath alt=@Model.UserName width="130">
                 }
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <h3>
                     @Model.UserName
                     <span class="badge">
@@ -38,16 +38,17 @@
                     @Resources.Resource.Email: @Model.Email
                 </h4>
             </div>
-            <div class="col-md-3">
+        </div>
+            <div class="col-md-2">
                 <input id="changeAvatar" type="file" name="imageupload">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
                 </div>
             </div>
         </div>
-    </div>
+
     <h4> @Resources.Resource.MyExercises</h4>
     @if (Model.Exercises.Count != 0)
     {
@@ -57,7 +58,7 @@
                 string activeAction = "";
                 if (exersise.Active)
                 {
-                    activeAction = @Resources.Resource.MakeUnactive.ToString();
+                    activeAction = @Resources.Resource.MakeInactive.ToString();
                 }
                 else
                 {

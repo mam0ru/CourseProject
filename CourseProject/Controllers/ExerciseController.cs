@@ -101,7 +101,7 @@ namespace CourseProject.Controllers
             Exercise exercise = exerciseRepository.GetByID(id);
             if (exercise.Author.Id != user.Id && Request.IsAuthenticated && exercise.Active)
             {
-                Evaluation previousEvaluation = evaluationRepository.Get().First(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
+                Evaluation previousEvaluation = evaluationRepository.Get().FirstOrDefault(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
                 //var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);
                 if (previousEvaluation != null)
                 {
@@ -112,37 +112,67 @@ namespace CourseProject.Controllers
                             if (!type)
                             {
                                 previousEvaluation.Type = true;
-                                /*var newEvaluation = previousEvaluation;
-                        newEvaluation.Type = true;
-                        user.Exercises.Remove(exercise);
-                        exercise.Evaluations.Remove(previousEvaluation);
-                        exercise.Evaluations.Add(newEvaluation);
-                        exerciseRepository.Update(exercise);
-                        user.Exercises.Add(exercise);  
-                        userManager.UpdateAsync(user);
-                        */
-                                evaluationRepository.Update(previousEvaluation);
+                                var newEvaluation = previousEvaluation;
+                                newEvaluation.Type = true;
+                                user.Exercises.Remove(exercise);
+                                exercise.Evaluations.Remove(previousEvaluation);
+                                exercise.Evaluations.Add(newEvaluation);
+                                exerciseRepository.Update(exercise);
+                                user.Exercises.Add(exercise);
+                                userManager.UpdateAsync(user);
+
                             }
-                            return RedirectToAction("ShowExercise", new { id = id });
+                            break;
                         case "dislike":
                             if (type)
                             {
                                 previousEvaluation.Type = false;
-                                /*var newEvaluation = previousEvaluation;
-                        newEvaluation.Type = false;
-                        user.Exercises.Remove(exercise);
-                        exercise.Evaluations.Remove(previousEvaluation);
-                        exercise.Evaluations.Add(newEvaluation);
-                        exerciseRepository.Update(exercise);
-                        user.Exercises.Add(exercise);  
-                        userManager.UpdateAsync(user);
-                        */
-                                evaluationRepository.Update(previousEvaluation);
+                                var newEvaluation = previousEvaluation;
+                                newEvaluation.Type = false;
+                                user.Exercises.Remove(exercise);
+                                exercise.Evaluations.Remove(previousEvaluation);
+                                exercise.Evaluations.Add(newEvaluation);
+                                exerciseRepository.Update(exercise);
+                                user.Exercises.Add(exercise);
+                                userManager.UpdateAsync(user);
                             }
-                            return RedirectToAction("ShowExercise", new { id = id });
+                            break;
                         default:
                             return RedirectToAction("ShowExercise", new { id = id });
                     }
+                    evaluationRepository.Update(previousEvaluation);
+                    return RedirectToAction("ShowExercise", new { id = id });
+                }
+                else
+                {
+                    Evaluation newEvaluation = new Evaluation();
+                    newEvaluation.Target = exercise;
+                    newEvaluation.User = user;
+                    switch (evaluationButton)
+                    {
+                        case "like":
+                            newEvaluation.Type = true;
+                            user.Exercises.Remove(exercise);
+                            exercise.Evaluations.Remove(previousEvaluation);
+                            exercise.Evaluations.Add(newEvaluation);
+                            exerciseRepository.Update(exercise);
+                            user.Exercises.Add(exercise);
+                            userManager.UpdateAsync(user);
+                            break;
+                        case "dislike":
+                            newEvaluation.Type = false;
+                            user.Exercises.Remove(exercise);
+                            exercise.Evaluations.Remove(previousEvaluation);
+                            exercise.Evaluations.Add(newEvaluation);
+                            exerciseRepository.Update(exercise);
+                            user.Exercises.Add(exercise);
+                            userManager.UpdateAsync(user);
+                            break;
+                        default:
+                            return RedirectToAction("ShowExercise", new { id = id });
+                    }
+                    evaluationRepository.Insert(newEvaluation);
+                    return RedirectToAction("ShowExercise", new { id = id });
                 }
             }
             return RedirectToAction("ShowExercise", new { id = id });
@@ -161,7 +191,7 @@ namespace CourseProject.Controllers
             commentRepository.Insert(newComment);
             exercise.Comments.Add(newComment);
             exerciseRepository.Update(exercise);
-            return RedirectToAction("ShowExercise", "Exercise",new {id = model.ExerciseId});
+            return RedirectToAction("ShowExercise", "Exercise", new { id = model.ExerciseId });
         }
 
         [Authorize]
@@ -259,7 +289,7 @@ namespace CourseProject.Controllers
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
-                List <String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures); 
+                List<String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
                 foreach (String pictureSource in pictureSources)
                 {
                     Picture picture = new Picture();
@@ -331,8 +361,8 @@ namespace CourseProject.Controllers
             }
             //else
             //{
-               // ViewBag.IsRightAnweredUser = false;
-           // }
+            // ViewBag.IsRightAnweredUser = false;
+            // }
             return View(exercise);
         }
 
@@ -492,13 +522,13 @@ namespace CourseProject.Controllers
                     {
                         exercise.Videos.Remove(video);
                         videoRepository.Delete(video);
-                    }   
+                    }
                 }
             }
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
-                List<String> oldPictures= exercise.Pictures.Select(p => p.Path).ToList();
+                List<String> oldPictures = exercise.Pictures.Select(p => p.Path).ToList();
                 List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
 
                 foreach (String oldPicture in oldPictures)
@@ -531,7 +561,7 @@ namespace CourseProject.Controllers
                     {
                         exercise.Pictures.Remove(picture);
                         pictureRepository.Delete(picture);
-                    }                    
+                    }
                 }
             }
             exerciseRepository.Update(exercise);
@@ -612,7 +642,7 @@ namespace CourseProject.Controllers
                 string label = "upload/";
                 int insertIndex = uplPath.IndexOf(label) + label.Length;
                 string setImageSize = "c_scale,w_880/";
-                uplPath = uplPath.Insert(insertIndex,setImageSize);
+                uplPath = uplPath.Insert(insertIndex, setImageSize);
             }
             else
             {

@@ -22,7 +22,6 @@
 }
 
 #search-button {
-    position: absolute;
     height: 40px;
     width: 105px;
     color: #fff;
@@ -48,6 +47,7 @@ div.left-col {
     border-radius: 10px;
     color:#f0f8ff;
     border-color: #00008B;
+    z-index: -1000;
 }
 
 div.home {

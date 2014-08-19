@@ -49,7 +49,7 @@
                     <div id="accordion">
                         @Resources.Resource.SendAnswer
                         <div>
-                            @using (Html.BeginForm("SendAnswer", "Exercise"))
+                            using (Html.BeginForm("SendAnswer", "Exercise"))
                             {
                                 <input value="@Model.Id" hidden="true">
                                 <input type="text" placeholder="" id="input-text" name="text" />
@@ -104,7 +104,6 @@
             <br>
             <h4>@Resources.Resource.Task: </h4>
             @Html.Markdown(Model.Text)
-            <br>
             <div id="accordion">
                 @if (Model.Pictures.Count != 0)
                 {
@@ -157,8 +156,8 @@
             @using (Html.BeginForm("AddEvaluation", "Exercise"))
             {
                 <input value="@Model.Id" hidden="true" name="id">
-                <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
-                <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
+                <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Where(ev => ev.Type == true).Count()</button>
+                <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Where(ev => ev.Type == false).Count()</button>
             }
             <br>
             <br>
