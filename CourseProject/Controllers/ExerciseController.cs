@@ -622,7 +622,7 @@ namespace CourseProject.Controllers
             uploadedPicture.Path = uplPath;
             uploadedPicture.Name = uploadResult.PublicId;
             pictureRepository.Insert(uploadedPicture);
-            return Json(new { path = uplPath, });
+            return Json(new { path = uplPath });
         }
 
         public ActionResult TagAutocompliteSearch(string term)

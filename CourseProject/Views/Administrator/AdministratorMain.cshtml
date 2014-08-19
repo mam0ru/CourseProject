@@ -2,22 +2,7 @@
 @using System.Web.UI.WebControls
 @model List<CourseProject.View_Models.UserForAdministratorMainViewModel>
 <br>
-<style>
-    th {
-        background-color: SlateBlue;
-        text-align: center;
-        border: 1px solid black;
-        color:white;
-    }
-     table, td {
-         border: 1px solid black;
-         background-color:lavender;
-     }
-     div.left {
-         padding-left: 800px; 
-     }
 
-</style>
 <div class="jumbotron">
     <div class="container">
         @using (Html.BeginForm("AdministratorMain", "Administrator"))

@@ -3,7 +3,9 @@
     ViewBag.Title = "My Profile";
 }
 <br>
+@Scripts.Render("~/bundles/exercise/create/image")
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="~/Scripts/Profile/MyProfile/avatar.js"></script>
 <script>
     $(function () {
         $("#accordion").accordion({
@@ -18,11 +20,11 @@
             <div class="col-md-2">
                 @if (Model.ImagePath == null)
                 {
-                    <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
+                    <img id="avatar" src="~/Content/user.jpg" alt=@Model.UserName width="130">
                 }
                 else
                 {
-                    <img src=@Model.ImagePath alt=@Model.UserName width="130">
+                    <img id="avatar" src=@Model.ImagePath alt=@Model.UserName width="130">
                 }
             </div>
             <div class="col-md-2">
@@ -37,7 +39,7 @@
                 </h4>
             </div>
             <div class="col-md-3">
-                <input id="imageupload" type="file" name="imageupload">
+                <input id="changeAvatar" type="file" name="imageupload">
             </div>
             <div class="col-md-4">
                 <div class="progress">
