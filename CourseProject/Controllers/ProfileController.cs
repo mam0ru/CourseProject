@@ -20,9 +20,8 @@ namespace CourseProject.Controllers
 
         private readonly IExerciseRepository exerciseRepository;
 
-        public ProfileController(ApplicationUserManager userManager, IExerciseRepository exerciseRepository)
+        public ProfileController(IExerciseRepository exerciseRepository)
         {
-            this.userManager = userManager;
             this.exerciseRepository = exerciseRepository;
         }
 
@@ -59,9 +58,10 @@ namespace CourseProject.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowProfile(int id)
+        public ActionResult ShowProfile(string id)
         {
-            return View(UserManager.FindById(User.Identity.GetUserId()));
+            var user = UserManager.FindById(id);
+            return View(user);
         }
 
         public ActionResult Rating()

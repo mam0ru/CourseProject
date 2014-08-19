@@ -1,6 +1,6 @@
 ﻿@model CourseProject.Models.ApplicationUser
 @{
-    ViewBag.Title = Model.UserName + "Profile";
+
 }
 
 <br>
@@ -17,13 +17,13 @@
     <div class="userinfo">
         <div class="row">
             <div class="col-md-3">
-                @if (Model.ImagePath == null)
+                @if (Model.ImagePath != null)
                 {
-                    <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
+                    <img src=@Model.ImagePath alt=@Model.UserName width="130">
                 }
                 else
                 {
-                    <img src=@Model.ImagePath alt=@Model.UserName width="130">
+                    <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
                 }
             </div>
             <div class="col-md-3">
