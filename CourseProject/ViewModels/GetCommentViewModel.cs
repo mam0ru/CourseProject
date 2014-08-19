@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CourseProject.ViewModels
 {
-    public class GetCommentPartialView
+    public class GetCommentViewModel
     {
         public String Text { get; set; }
 

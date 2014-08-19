@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CourseProject.ViewModels.GetCommentPartialView>
+﻿@model IEnumerable<CourseProject.ViewModels.GetCommentViewModel>
 
 @foreach (var comment in Model)
 {
@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <img src="@comment.AuthorAvatar"/>
+                <img src="@comment.AuthorAvatar" />
             </div>
             <div class="col-md-8">
                 <p>@comment.Text</p>

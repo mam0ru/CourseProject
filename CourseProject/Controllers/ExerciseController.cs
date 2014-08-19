@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -161,7 +162,7 @@ namespace CourseProject.Controllers
             commentRepository.Insert(newComment);
             exercise.Comments.Add(newComment);
             exerciseRepository.Update(exercise);
-            return RedirectToAction("ShowExercise", "Exercise",new {id = model.ExerciseId});
+            return RedirectToAction("ShowExercise", "Exercise", new { id = model.ExerciseId });
         }
 
         [Authorize]
@@ -259,7 +260,7 @@ namespace CourseProject.Controllers
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
-                List <String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures); 
+                List<String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
                 foreach (String pictureSource in pictureSources)
                 {
                     Picture picture = new Picture();
@@ -331,8 +332,8 @@ namespace CourseProject.Controllers
             }
             //else
             //{
-               // ViewBag.IsRightAnweredUser = false;
-           // }
+            // ViewBag.IsRightAnweredUser = false;
+            // }
             return View(exercise);
         }
 
@@ -492,13 +493,13 @@ namespace CourseProject.Controllers
                     {
                         exercise.Videos.Remove(video);
                         videoRepository.Delete(video);
-                    }   
+                    }
                 }
             }
             if (model.Pictures != null)
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
-                List<String> oldPictures= exercise.Pictures.Select(p => p.Path).ToList();
+                List<String> oldPictures = exercise.Pictures.Select(p => p.Path).ToList();
                 List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
 
                 foreach (String oldPicture in oldPictures)
@@ -531,7 +532,7 @@ namespace CourseProject.Controllers
                     {
                         exercise.Pictures.Remove(picture);
                         pictureRepository.Delete(picture);
-                    }                    
+                    }
                 }
             }
             exerciseRepository.Update(exercise);
@@ -612,7 +613,7 @@ namespace CourseProject.Controllers
                 string label = "upload/";
                 int insertIndex = uplPath.IndexOf(label) + label.Length;
                 string setImageSize = "c_scale,w_880/";
-                uplPath = uplPath.Insert(insertIndex,setImageSize);
+                uplPath = uplPath.Insert(insertIndex, setImageSize);
             }
             else
             {
@@ -642,9 +643,64 @@ namespace CourseProject.Controllers
             return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
+        private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize)
+        {
+            int startIndex = (BlockNumber - 1) * BlockSize;
+            var comments = commentRepository.Get().Skip(startIndex).Take(BlockSize);
+            List<GetCommentViewModel> model = new List<GetCommentViewModel>();
+            foreach (var comment in comments)
+            {
+                GetCommentViewModel element = new GetCommentViewModel();
+                element.AuthorId = comment.Author.Id;
+                element.AuthorAvatar = comment.Author.ImagePath;
+                element.AuthorName = comment.Author.UserName;
+                element.Text = comment.Text;
+                model.Add(element);
+            }
+            return model;
+        }
+
         public ActionResult GetComments()
         {
-            return PartialView("_GetComments");
+            IEnumerable<GetCommentViewModel> model = getCommentViewModels(0, 5);
+            return PartialView(model);
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult InfinateScroll(int blockNumber)
+        {
+            string html;
+            bool noMoreData = false;
+            const int BlockSize = 5;
+            var comments = getCommentViewModels(blockNumber, BlockSize);
+            if (!comments.Any())
+            {
+                noMoreData = true;
+                html = "";
+            }
+            else
+            {
+                html = RenderPartialViewToString("GetComment", comments);
+            }
+
+            return Json(new { NoMoreData = noMoreData, HTMLString = html });
         }
     }
 }

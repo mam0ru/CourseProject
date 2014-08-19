@@ -17,8 +17,6 @@ namespace CourseProject
 
             routes.IgnoreRoute("Exercise/ShowExercise");
 
-            routes.IgnoreRoute("Exercise/ShowExercisesWithTag");
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
