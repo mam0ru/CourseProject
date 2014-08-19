@@ -54,14 +54,13 @@ namespace CourseProject.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public ActionResult MakeActiveUnactive(int id, bool isActive)
         {
             var exercise = exerciseRepository.GetByID(id);
             exercise.Active = !isActive;
             exerciseRepository.Update(exercise);
-            //UserManager.FindById(User.Identity.GetUserId()).Exercises.Remove()
-            return View("MyProfile", UserManager.FindById(User.Identity.GetUserId()));
+            return View("MyProfile", UserManager.FindById(User.Identity.GetUserId()));//redirect in case admin 
         }
 
         [HttpGet]

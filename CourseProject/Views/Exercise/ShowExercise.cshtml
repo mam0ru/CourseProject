@@ -13,7 +13,6 @@
 
 <div class="jumbotron">
     @{
-        bool active = true;
         bool author = false;
         bool authenticated = false;
         <h3>
@@ -21,12 +20,22 @@
             @if (Request.IsAuthenticated)
             {
                 authenticated = true;
+                if (Model.Author.Id == User.Identity.GetUserId())
+                {
+                    author = true;
+                }
             }
-            @if (Model.Active && authenticated)
+            @if (authenticated)
             {
-                active = true;
-                <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Active</button>
-                if (Model.Author.Id != User.Identity.GetUserId())
+                if (Model.Active)
+                {
+                    <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Active</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Inactive</button>
+                }
+                if (!author)
                 {
                     //var b = ViewBag.IsRightAnsweredUser;
                     //bool a = ViewBag.IsRightAnsweredUser;
@@ -48,18 +57,9 @@
                             }
                         </div>
                     </div>
-                    // }
-                }
-                else
-                {
-                    author = true;
                 }
             }
-            else
-            {
-                <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Inactive</button>
-                active = false;
-            }
+
         </h3>
         <div>
             Author: <a href="~/Profile/ShowProfile/@Model.Author.Id" style="color:darkslategrey"> @Model.Author.UserName </a>
@@ -154,16 +154,16 @@
                 }
             </div>
             <hr style="border-color: black" />
-            @if (active && authenticated)
+            @using (Html.BeginForm("AddEvaluation", "Exercise"))
             {
-                using (Html.BeginForm("AddEvaluation", "Exercise"))
-                {
-                    <input value="@Model.Id" hidden="true" name="id">
-                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
-                    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
-                }
-                <br>
-                <br>
+                <input value="@Model.Id" hidden="true" name="id">
+                <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Select(ev => ev.Type == true).Count()</button>
+                <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Select(ev => ev.Type == false).Count()</button>
+            }
+            <br>
+            <br>
+            @if (Model.Active && authenticated)
+            {
                 <div class="comments">
                     @Html.Action("AddComment", "Exercise", Model.Id)
                 </div>
