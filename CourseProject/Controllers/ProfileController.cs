@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace CourseProject.Controllers
 {
     // [Authorize(Roles = "user")]
-    [Authorize]
+  
     public class ProfileController : Controller
     {
         private ApplicationUserManager userManager;
@@ -38,6 +38,7 @@ namespace CourseProject.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult MyProfile()
         {
@@ -46,6 +47,7 @@ namespace CourseProject.Controllers
             return View(currentUser);//applicationUserRepository.GetByID(User.Identity.GetUserId()));
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult MakeActiveUnactive(int id, bool isActive)
         {

@@ -15,7 +15,7 @@
 <div class="myexercises">
     <div class="userinfo">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 @if (Model.ImagePath == null)
                 {
                     <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
@@ -25,7 +25,7 @@
                     <img src=@Model.ImagePath alt=@Model.UserName width="130">
                 }
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <h3>
                     @Model.UserName
                     <span class="badge">
@@ -37,10 +37,12 @@
                 </h4>
             </div>
             <div class="col-md-3">
-                <form>
-                    <input id="imageupload" type="file" name="imageupload">
-                    <button id="Upload" class="btn-default">@Resources.Resource.ChangeAvatar</button>
-                </form>
+                <input id="imageupload" type="file" name="imageupload">
+            </div>
+            <div class="col-md-4">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                </div>
             </div>
         </div>
     </div>

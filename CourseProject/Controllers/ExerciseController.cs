@@ -20,7 +20,7 @@ using Ninject;
 
 namespace CourseProject.Controllers
 {
-    [Authorize]
+
     public class ExerciseController : Controller
     {
         private readonly IExerciseRepository exerciseRepository;
@@ -84,6 +84,7 @@ namespace CourseProject.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult CreateExercise()
         {
@@ -91,6 +92,7 @@ namespace CourseProject.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult AddEvaluation(int id, string evaluationButton)
         {
@@ -146,6 +148,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("ShowExercise", id);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AddComment(AddCommentViewModel model)
         {
@@ -161,6 +164,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("ShowExercise", "Exercise",new {id = model.ExerciseId});
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult AddComment(int id)
         {
@@ -173,6 +177,7 @@ namespace CourseProject.Controllers
             return PartialView("_AddCommentPartial", model);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult SendAnswer(int id, string answer)
         {
@@ -197,6 +202,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("ShowExercise", id);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult CreateExercise(ExerciseCreateViewModel model)
         {
@@ -330,6 +336,7 @@ namespace CourseProject.Controllers
             return View(exercise);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult EditExercise(int id)
         {
@@ -339,6 +346,7 @@ namespace CourseProject.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult EditExercise(EditExerciseViewModel model)
         {
@@ -530,6 +538,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult DeleteExercise(int id)
         {
@@ -553,6 +562,7 @@ namespace CourseProject.Controllers
         //    return View();
         //}
 
+        [Authorize]
         [HttpGet]
         public ActionResult AddAnswer()
         {
@@ -561,6 +571,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("MyProfile", "Profile");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AddAnswer(int id, string answer)
         {
@@ -573,6 +584,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("MyProfile", "Profile");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult WriteToAuthor(int id, string text)
         {
@@ -581,6 +593,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("MyProfile", "Profile");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult UploadImage()
         {
