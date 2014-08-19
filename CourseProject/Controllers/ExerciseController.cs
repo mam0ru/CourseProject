@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -672,5 +673,64 @@ namespace CourseProject.Controllers
             return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
+        private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize)
+        {
+            int startIndex = (BlockNumber - 1) * BlockSize;
+            var comments = commentRepository.Get().Skip(startIndex).Take(BlockSize);
+            List<GetCommentViewModel> model = new List<GetCommentViewModel>();
+            foreach (var comment in comments)
+            {
+                GetCommentViewModel element = new GetCommentViewModel();
+                element.AuthorId = comment.Author.Id;
+                element.AuthorAvatar = comment.Author.ImagePath;
+                element.AuthorName = comment.Author.UserName;
+                element.Text = comment.Text;
+                model.Add(element);
+            }
+            return model;
+        }
+
+        public ActionResult GetComments()
+        {
+            IEnumerable<GetCommentViewModel> model = getCommentViewModels(0, 5);
+            return PartialView(model);
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult InfinateScroll(int blockNumber)
+        {
+            string html;
+            bool noMoreData = false;
+            const int BlockSize = 5;
+            var comments = getCommentViewModels(blockNumber, BlockSize);
+            if (!comments.Any())
+            {
+                noMoreData = true;
+                html = "";
+            }
+            else
+            {
+                html = RenderPartialViewToString("GetComment", comments);
+            }
+
+            return Json(new { NoMoreData = noMoreData, HTMLString = html });
+        }
     }
 }

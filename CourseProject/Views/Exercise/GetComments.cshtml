@@ -1,0 +1,18 @@
+﻿@model IEnumerable<CourseProject.ViewModels.GetCommentViewModel>
+
+@foreach (var comment in Model)
+{
+    <div class="row" title="comment">
+        <div class="row">
+            <p>@Html.ActionLink(comment.AuthorName, "ShowProfile", "Profile", new { id = comment.AuthorId }, null)</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@comment.AuthorAvatar" />
+            </div>
+            <div class="col-md-8">
+                <p>@comment.Text</p>
+            </div>
+        </div>
+    </div>
+}

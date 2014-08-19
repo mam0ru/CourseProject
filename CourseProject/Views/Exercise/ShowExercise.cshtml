@@ -168,32 +168,71 @@
                 </div>
                 <br>
             }
-            <div class="comments">
-                @if (Model.Comments.Count != 0)
-                {
-                    foreach (var comment in Model.Comments)
+            @*<div class="comments">
+                    @if (Model.Comments.Count != 0)
                     {
-                        <div class="media">
-                            <a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">
-                                @if (@Model.Author.ImagePath == null)
-                                {
-                                    <img class="media-object" src="~/Content/user.jpg" width="70px" alt=@comment.Author.UserName>
-                                }
-                                else
-                                {
-                                    <img class="media-object" src=@Model.Author.ImagePath width="70px" alt=@comment.Author.UserName>
-                                }
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading"><a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">@comment.Author.UserName</a> </h4>
-                                <br>
-                                @comment.Text
+                        foreach (var comment in Model.Comments)
+                        {
+                            <div class="media">
+                                <a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">
+                                    @if (@Model.Author.ImagePath == null)
+                                    {
+                                        <img class="media-object" src="~/Content/user.jpg" width="70px" alt=@comment.Author.UserName>
+                                    }
+                                    else
+                                    {
+                                        <img class="media-object" src=@Model.Author.ImagePath width="70px" alt=@comment.Author.UserName>
+                                    }
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a class="pull-left" href="~/Profile/ShowProfile/@comment.Author.Id">@comment.Author.UserName</a> </h4>
+                                    <br>
+                                    @comment.Text
+                                </div>
                             </div>
-                        </div>
-                        <hr>
+                            <hr>
+                        }
                     }
-                }
+                </div>*@
+            <div id="bookListDiv">
+                @Html.Action("GetComments", "Exercise")
             </div>
+
+            <div id="loadingDiv" style="text-align: center; display: none; margin-bottom: 20px;">
+
+                <img alt="Loading"
+                     src="@Url.Content("~/Content/ajax-loader.gif")" />
+            </div>
+            <script type="text/javascript">
+                var blockNumber = 2;  //Infinate Scroll starts from second block
+                var NoMoreData = false;
+                var inProgress = false;
+
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() == $(document).height() -
+                    $(window).height() && !NoMoreData && !inProgress) {
+
+                        inProgress = true;
+                        $("#loadingDiv").show();
+
+                        $.post("/Exercise/InfinateScroll", {"blockNumber": blockNumber},
+                                function (data) {
+                                    alert("1");
+                                    BlockNumber = BlockNumber + 1;
+                                    alert("2");
+                                    NoMoreData = data.NoMoreData;
+                                    alert("3");
+                                    $("#bookListDiv").append(data.HTMLString);
+                                    alert("4");
+                                    $("#loadingDiv").hide();
+                                    alert("5");
+                                    inProgress = false;
+                                })};
+                    });
+            </script>
+
+
+
         </div>
     }
 </div>
