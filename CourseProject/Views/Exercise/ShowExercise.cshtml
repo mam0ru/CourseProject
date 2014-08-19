@@ -15,9 +15,14 @@
     @{
         bool active = true;
         bool author = false;
+        bool authenticated = false;
         <h3>
             @Model.Name
-            @if (Model.Active)
+            @if (Request.IsAuthenticated)
+            {
+                authenticated = true;
+            }
+            @if (Model.Active && authenticated)
             {
                 active = true;
                 <button type="button" class="btn btn-default btn-xs disabled">@Resources.Resource.Active</button>
@@ -58,7 +63,7 @@
         </h3>
         <div>
             Author: <a href="~/Profile/ShowProfile/@Model.Author.Id" style="color:darkslategrey"> @Model.Author.UserName </a>
-            @if (!author)
+            @if (!author && authenticated)
             {
                 <div id="accordion">
                     @Resources.Resource.NotifyAboutMistake
@@ -149,7 +154,7 @@
                 }
             </div>
             <hr style="border-color: black" />
-            @if (active)
+            @if (active && authenticated)
             {
                 using (Html.BeginForm("AddEvaluation", "Exercise"))
                 {
