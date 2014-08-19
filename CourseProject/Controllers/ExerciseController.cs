@@ -113,29 +113,12 @@ namespace CourseProject.Controllers
                             if (!type)
                             {
                                 previousEvaluation.Type = true;
-                                var newEvaluation = previousEvaluation;
-                                newEvaluation.Type = true;
-                                user.Exercises.Remove(exercise);
-                                exercise.Evaluations.Remove(previousEvaluation);
-                                exercise.Evaluations.Add(newEvaluation);
-                                exerciseRepository.Update(exercise);
-                                user.Exercises.Add(exercise);
-                                userManager.UpdateAsync(user);
-
                             }
                             break;
                         case "dislike":
                             if (type)
                             {
                                 previousEvaluation.Type = false;
-                                var newEvaluation = previousEvaluation;
-                                newEvaluation.Type = false;
-                                user.Exercises.Remove(exercise);
-                                exercise.Evaluations.Remove(previousEvaluation);
-                                exercise.Evaluations.Add(newEvaluation);
-                                exerciseRepository.Update(exercise);
-                                user.Exercises.Add(exercise);
-                                userManager.UpdateAsync(user);
                             }
                             break;
                         default:
@@ -153,21 +136,9 @@ namespace CourseProject.Controllers
                     {
                         case "like":
                             newEvaluation.Type = true;
-                            user.Exercises.Remove(exercise);
-                            exercise.Evaluations.Remove(previousEvaluation);
-                            exercise.Evaluations.Add(newEvaluation);
-                            exerciseRepository.Update(exercise);
-                            user.Exercises.Add(exercise);
-                            userManager.UpdateAsync(user);
                             break;
                         case "dislike":
                             newEvaluation.Type = false;
-                            user.Exercises.Remove(exercise);
-                            exercise.Evaluations.Remove(previousEvaluation);
-                            exercise.Evaluations.Add(newEvaluation);
-                            exerciseRepository.Update(exercise);
-                            user.Exercises.Add(exercise);
-                            userManager.UpdateAsync(user);
                             break;
                         default:
                             return RedirectToAction("ShowExercise", new { id = id });
