@@ -642,5 +642,9 @@ namespace CourseProject.Controllers
             return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetComments()
+        {
+            return PartialView("_GetComments");
+        }
     }
 }
