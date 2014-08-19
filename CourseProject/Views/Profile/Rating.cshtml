@@ -1,15 +1,15 @@
-﻿@model IOrderedQueryable<CourseProject.Models.ApplicationUser>
+﻿@model System.Linq.IOrderedQueryable<CourseProject.Models.ApplicationUser>
 @{
-    ViewBag.Title = "Rating";
+    
 }
 <div class="rating">
-    <h4> @Resources.Resource.Rating</h4>
-    @{ int i = 1;}
-    @foreach (var user in Model)
-    {
-        <span class="badge">@i </span>
-        @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-        i = i + 1;
-        <br>
-    }
+<h4> @Resources.Resource.Rating</h4>
+        @{ int i = 1;}
+        @foreach (var user in Model)
+        {
+            <span class="badge">@i </span>
+            @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+            i = i + 1;
+            <br>
+        }
 </div>

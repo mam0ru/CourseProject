@@ -480,4 +480,7 @@
   <data name="ChangeAvatar" xml:space="preserve">
     <value>Change avatar</value>
   </data>
+  <data name="HighRatingUsers" xml:space="preserve">
+    <value>Users with high rating</value>
+  </data>
 </root>

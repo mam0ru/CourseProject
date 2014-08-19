@@ -67,7 +67,13 @@ namespace CourseProject.Controllers
         public ActionResult Rating()
         {
             var users = UserManager.Users.OrderByDescending(user => user.RightAnswers.Count());
-            return View(users);//applicationUserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+            return View(users);
+        }
+
+        public ActionResult HighRatingUsers()
+        {
+            var users = UserManager.Users.OrderByDescending(user => user.RightAnswers.Count());
+            return PartialView("_HighRatingUsersPartial", users.ToList());
         }
         /*
        [HttpPost]
