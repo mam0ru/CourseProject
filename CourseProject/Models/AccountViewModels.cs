@@ -39,10 +39,9 @@ namespace CourseProject.Models
     public class LoginViewModel
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
-                  ErrorMessageResourceName = "EmailRequired")]
-        [EmailAddress]
-        [Display(Name = "Email", ResourceType = typeof(Resources.Resource))]
-        public string Email { get; set; }
+                  ErrorMessageResourceName = "UsernameRequired")]
+        [Display(Name = "Username", ResourceType = typeof(Resources.Resource))]
+        public string UserName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
                   ErrorMessageResourceName = "PasswordRequired")]
