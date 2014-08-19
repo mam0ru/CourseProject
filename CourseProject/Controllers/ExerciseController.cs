@@ -680,12 +680,15 @@ namespace CourseProject.Controllers
             List<GetCommentViewModel> model = new List<GetCommentViewModel>();
             foreach (var comment in comments)
             {
-                GetCommentViewModel element = new GetCommentViewModel();
-                element.AuthorId = comment.Author.Id;
-                element.AuthorAvatar = comment.Author.ImagePath;
-                element.AuthorName = comment.Author.UserName;
-                element.Text = comment.Text;
-                model.Add(element);
+                if (comment != null)
+                {
+                    GetCommentViewModel element = new GetCommentViewModel();
+                    element.AuthorId = comment.Author.Id;
+                    element.AuthorAvatar = comment.Author.ImagePath;
+                    element.AuthorName = comment.Author.UserName;
+                    element.Text = comment.Text;
+                    model.Add(element);                    
+                }
             }
             return model;
         }
