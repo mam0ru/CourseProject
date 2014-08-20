@@ -1,0 +1,9 @@
+﻿@model CourseProject.ViewModels.SendAnswerPartialViewModel
+<div id='search-box'>
+    @using (Html.BeginForm("SendAnswer", "Exercise", Model))
+    {
+        @Html.HiddenFor(model => model.TaskId)
+        @Html.EditorFor(model => model.Answer)
+        <input type="submit" id="text" value="Send" />
+    }
+</div>

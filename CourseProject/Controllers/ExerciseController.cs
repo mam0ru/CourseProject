@@ -211,29 +211,27 @@ namespace CourseProject.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult SendAnswer()
+        public ActionResult SendAnswer(SendAnswerPartialViewModel model)
         {
             //simplify
-            int id = 0;
-            string answer = "";
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
-            Exercise exercise = exerciseRepository.GetByID(id);
-            IEnumerable<string> answers = answerRepository.Get().Select(localAnswer => localAnswer.Text);
+            Exercise exercise = exerciseRepository.GetByID(model.TaskId);
+            List<string> answers = exerciseRepository.GetByID(model.TaskId).Answers.Select(localAnswer => localAnswer.Text).ToList();
             bool answerFound = false;
-            for (int i = 0; i < answers.Count() || !answerFound; i++)
+            for (int i = 0; i < answers.Count() && !answerFound; i++)
             {
-                if (answers.ElementAt(i) == answer)
+                if (answers[i] == model.Answer)
                 {
                     answerFound = true;
                     exercise.RightAnsweredUsers.Add(user);
                     exerciseRepository.Update(exercise);
                     user.RightAnswers.Add(exercise);
-                    userManager.UpdateAsync(user);
+                    userManager.Update(user);
                     TempData["alertMessage"] = "You answered right!";
                 }
             }
 
-            return RedirectToAction("ShowExercise", id);
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         [Authorize]
@@ -608,12 +606,12 @@ namespace CourseProject.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddAnswer(int id, string answer)
+        public ActionResult AddAnswer(SendAnswerPartialViewModel model)
         {
-            Exercise exercise = exerciseRepository.GetByID(id);
+            Exercise exercise = exerciseRepository.GetByID(model.TaskId);
             Answer newAnswer = new Answer();
             newAnswer.Task = exercise;
-            newAnswer.Text = answer;
+            newAnswer.Text = model.Answer;
             answerRepository.Update(newAnswer);
             exerciseRepository.Update(exercise);
             return RedirectToAction("MyProfile", "Profile");
@@ -753,6 +751,13 @@ namespace CourseProject.Controllers
             LuceneSearch luceneSearch = new LuceneSearch(exerciseRepository);
             var exercises = luceneSearch.SearchExercise(search).Distinct();
             return View("SearchResults",exercises);//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+        }
+
+        public ActionResult SendAnswerPartialView(int id)
+        {
+            SendAnswerPartialViewModel model = new SendAnswerPartialViewModel();
+            model.TaskId = id;
+            return PartialView("_SendAnswer",model);
         }
     }
 }
