@@ -503,6 +503,7 @@
   </data>
   <data name="CategoryWorld" xml:space="preserve">
     <value>World</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>Your search returned no results</value>
   </data>
