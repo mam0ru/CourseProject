@@ -213,7 +213,6 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult SendAnswer(SendAnswerPartialViewModel model)
         {
-            //simplify
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
             Exercise exercise = exerciseRepository.GetByID(model.TaskId);
             List<string> answers = exerciseRepository.GetByID(model.TaskId).Answers.Select(localAnswer => localAnswer.Text).ToList();
