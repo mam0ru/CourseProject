@@ -46,17 +46,15 @@
                     //}
                     // else
                     // {
-                    <div id="accordion">
                         <h3>@Resources.Resource.SendAnswer</h3> 
-                        <div>
+                        <div id='search-box'>
                             @using (Html.BeginForm("SendAnswer", "Exercise"))
                             {
                                 <input value="@Model.Id" hidden="true">
-                                <input type="text" placeholder="" id="input-text" name="text" />
-                                <input type="submit" id="text" value="Send" />
+                                <input type="text" placeholder="" id="search-text" name="text" />
+                                <input type="submit" id="search-button" value="Send" />
                             }
                         </div>
-                    </div>
                 }
             }
 
