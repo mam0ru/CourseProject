@@ -217,15 +217,10 @@
 
                         $.post("/Exercise/InfinateScroll", {"blockNumber": blockNumber},
                                 function (data) {
-                                    alert("1");
-                                    BlockNumber = BlockNumber + 1;
-                                    alert("2");
+                                    blockNumber = blockNumber + 1;
                                     NoMoreData = data.NoMoreData;
-                                    alert("3");
                                     $("#bookListDiv").append(data.HTMLString);
-                                    alert("4");
                                     $("#loadingDiv").hide();
-                                    alert("5");
                                     inProgress = false;
                                 })};
                     });

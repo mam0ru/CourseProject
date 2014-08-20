@@ -160,6 +160,8 @@ namespace CourseProject.Controllers
             newComment.Target = exercise;
             newComment.Text = model.Text;
             newComment.Author = user;
+            newComment.Target = exercise;
+            newComment.AuthorId = user.Id;
             commentRepository.Insert(newComment);
             exercise.Comments.Add(newComment);
             exerciseRepository.Update(exercise);
@@ -647,16 +649,17 @@ namespace CourseProject.Controllers
         private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize)
         {
             int startIndex = (BlockNumber - 1) * BlockSize;
-            var comments = commentRepository.Get().Skip(startIndex).Take(BlockSize);
+            var comments = commentRepository.Get().Skip(startIndex).Take(BlockSize).ToList();
             List<GetCommentViewModel> model = new List<GetCommentViewModel>();
             foreach (var comment in comments)
             {
                 if (comment != null)
                 {
                     GetCommentViewModel element = new GetCommentViewModel();
-                    element.AuthorId = comment.Author.Id;
-                    element.AuthorAvatar = comment.Author.ImagePath;
-                    element.AuthorName = comment.Author.UserName;
+                    element.AuthorId = comment.AuthorId;
+                    ApplicationUser author = UserManager.FindById(comment.AuthorId);
+                    element.AuthorAvatar = author.ImagePath;
+                    element.AuthorName = author.UserName;
                     element.Text = comment.Text;
                     model.Add(element);                    
                 }
@@ -666,7 +669,7 @@ namespace CourseProject.Controllers
 
         public ActionResult GetComments()
         {
-            IEnumerable<GetCommentViewModel> model = getCommentViewModels(0, 5);
+            IEnumerable<GetCommentViewModel> model = getCommentViewModels(1, 5);
             return PartialView(model);
         }
 
@@ -694,14 +697,14 @@ namespace CourseProject.Controllers
             bool noMoreData = false;
             const int BlockSize = 5;
             var comments = getCommentViewModels(blockNumber, BlockSize);
-            if (!comments.Any())
+            if (comments.Count() == 0)
             {
                 noMoreData = true;
                 html = "";
             }
             else
             {
-                html = RenderPartialViewToString("GetComment", comments);
+                html = RenderPartialViewToString("GetComments", comments);
             }
 
             return Json(new { NoMoreData = noMoreData, HTMLString = html });
