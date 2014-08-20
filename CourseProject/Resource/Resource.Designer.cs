@@ -187,6 +187,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Art.
+        /// </summary>
+        public static string CategoryArt {
+            get {
+                return ResourceManager.GetString("CategoryArt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Culture.
+        /// </summary>
+        public static string CategoryCulture {
+            get {
+                return ResourceManager.GetString("CategoryCulture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change avatar.
         /// </summary>
         public static string ChangeAvatar {

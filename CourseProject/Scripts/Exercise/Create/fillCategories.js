@@ -5,7 +5,7 @@
       return $.each(data, function(key, val) {
         var item;
         item = document.createElement('option');
-        item.text = val.value;
+        item.text = val;
         return $('#Category').append(item);
       });
     });

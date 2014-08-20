@@ -48,6 +48,10 @@ namespace CourseProject.Controllers
 
         private Account account = new Account("dkfntkp0r", "284111675587747", "shagM6LcW1MFmkWU60j2L9FWPps");
 
+        Dictionary<int, String> categoriesIdToString = new Dictionary<int, string>();
+
+        Dictionary<String, int> categoriesStringToId = new Dictionary<String, int>();
+
         public ExerciseController(IExerciseRepository exerciseRepository,
             ICategoryRepository categoryRepository,
             IPictureRepository pictureRepository,
@@ -60,6 +64,8 @@ namespace CourseProject.Controllers
             IGraphRepository graphRepository,
             IVideoRepository videoRepository)
         {
+            InitCategoriesIdToString();
+            InitCategoriesStringToId();
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
             this.pictureRepository = pictureRepository;
@@ -71,6 +77,18 @@ namespace CourseProject.Controllers
             this.equationRepository = equationRepository;
             this.graphRepository = graphRepository;
             this.videoRepository = videoRepository;
+        }
+
+        private void InitCategoriesIdToString()
+        {
+            categoriesIdToString.Add(5, Resources.Resource.CategoryCulture);
+            categoriesIdToString.Add(6, Resources.Resource.CategoryArt);
+        }
+
+        private void InitCategoriesStringToId()
+        {       
+            categoriesStringToId.Add(Resources.Resource.CategoryCulture, 5);
+            categoriesStringToId.Add(Resources.Resource.CategoryArt, 6);
         }
 
         public ApplicationUserManager UserManager
@@ -224,7 +242,8 @@ namespace CourseProject.Controllers
             Exercise exercise = new Exercise();
             exercise.Active = true;
             exercise.Author = userManager.FindById(User.Identity.GetUserId());
-            Category categ = categoryRepository.Get(category => category.Text == model.Category).First();
+            int id = categoriesStringToId[model.Category];
+            Category categ = categoryRepository.GetByID(id);
             exercise.Category = categ;
             exercise.Name = model.Name;
             exercise.Text = model.Text;
@@ -642,8 +661,14 @@ namespace CourseProject.Controllers
 
         public ActionResult GetCategoties()
         {
-            var categories = categoryRepository.Get().Select(category => new { value = category.Text });
-            return Json(categories, JsonRequestBehavior.AllowGet);
+            var categories = categoryRepository.Get();
+            List<String> categoriesText = new List<string>();
+            foreach (var category in categories)
+            {
+                int id = category.Id;
+                categoriesText.Add(categoriesIdToString[id]);
+            }
+            return Json(categoriesText, JsonRequestBehavior.AllowGet);
         }
 
         private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize)
@@ -661,7 +686,7 @@ namespace CourseProject.Controllers
                     element.AuthorAvatar = author.ImagePath;
                     element.AuthorName = author.UserName;
                     element.Text = comment.Text;
-                    model.Add(element);                    
+                    model.Add(element);
                 }
             }
             return model;

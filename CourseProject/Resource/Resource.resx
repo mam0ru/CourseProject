@@ -483,4 +483,10 @@
   <data name="HighRatingUsers" xml:space="preserve">
     <value>Users with high rating</value>
   </data>
+  <data name="CategoryArt" xml:space="preserve">
+    <value>Art</value>
+  </data>
+  <data name="CategoryCulture" xml:space="preserve">
+    <value>Culture</value>
+  </data>
 </root>

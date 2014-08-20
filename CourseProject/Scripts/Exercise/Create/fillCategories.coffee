@@ -2,6 +2,6 @@
   data = $.getJSON("/Exercise/GetCategoties", (data, textStatus, jqXHR) ->
     $.each data, (key, val) ->
       item = document.createElement 'option'
-      item.text = val.value 
+      item.text = val
       $('#Category').append(item)
   )
