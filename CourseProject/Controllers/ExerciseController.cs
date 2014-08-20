@@ -746,5 +746,13 @@ namespace CourseProject.Controllers
 
             return Json(new { NoMoreData = noMoreData, HTMLString = html });
         }
+
+        [HttpPost]
+        public ActionResult Search(string search)
+        {
+            LuceneSearch luceneSearch = new LuceneSearch(exerciseRepository);
+            var exercises = luceneSearch.SearchExercise(search).Distinct();
+            return View("SearchResults",exercises);//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+        }
     }
 }
