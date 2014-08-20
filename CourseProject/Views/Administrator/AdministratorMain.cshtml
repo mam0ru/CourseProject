@@ -4,7 +4,6 @@
 <br>
 
 <div class="jumbotron">
-    <div class="container">
         @using (Html.BeginForm("AdministratorMain", "Administrator"))
         {
             <table>
@@ -37,11 +36,11 @@
                 {
                     <tr>
                         
-                        @Html.TextBoxFor(x => x[i].Id, new{@class="hidden"});                       
-                        @Html.TextBoxFor(x => x[i].Email, new { @class = "hidden" });
-                        @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" });
-                        @Html.TextBoxFor(x => x[i].SolvedExercises, new { @class = "hidden" });
-                        @Html.TextBoxFor(x => x[i].UsersExercises, new { @class = "hidden" });
+                        @Html.TextBoxFor(x => x[i].Id, new{@class="hidden"})                      
+                        @Html.TextBoxFor(x => x[i].Email, new { @class = "hidden" })
+                        @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" })
+                        @Html.TextBoxFor(x => x[i].SolvedExercises, new { @class = "hidden" })
+                        @Html.TextBoxFor(x => x[i].UsersExercises, new { @class = "hidden" })
                         <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
                         <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
                         <td>
@@ -80,5 +79,4 @@
                 <input type="submit" id="search-button" value="Submit"/>
             </div>
         }
-    </div>
 </div>

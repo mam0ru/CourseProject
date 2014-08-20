@@ -507,4 +507,7 @@
   <data name="NotFound" xml:space="preserve">
     <value>Your search returned no results</value>
   </data>
+  <data name="CourseProject" xml:space="preserve">
+    <value>CourseProject</value>
+  </data>
 </root>

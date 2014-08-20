@@ -28,48 +28,53 @@
 
 </head>
 <body>
-    <div id="block">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink(Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
-                        @if (Request.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink(Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
-                            // if (User.IsInRole("user"))
-                            // {
-                            <li>@Html.ActionLink(Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
-                            // }
-                        }
-                        @if (User.IsInRole("admin"))
-                        {
-                            <li>@Html.ActionLink(Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
-                        }
-                        <li>@Html.ActionLink(Resources.Resource.LayoutRatingLinkText, "Rating", "Profile")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(Resources.Resource.CourseProject, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(Resources.Resource.LayoutHomeLinkText, "Index", "Home")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(Resources.Resource.LayoutAddExerciseLinkText, "CreateExercise", "Exercise")</li>
+                        <li>@Html.ActionLink(Resources.Resource.LayoutMyProfileLinkText, "MyProfile", "Profile")</li>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li>@Html.ActionLink(Resources.Resource.LayoutUsersAndExercisesLinkText, "AdministratorMain", "Administrator")</li>
+                    }
+                    <li>@Html.ActionLink(Resources.Resource.LayoutRatingLinkText, "Rating", "Profile")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container-body-content">
+        <table width:100%>
+            <col width="25%" />
+            <col width="75%" />
+            <td>
+                @Html.Action("SidePanel", "Home")
+            </td>
+            <td>
+                <div id='search-box'>
+                    @using (Html.BeginForm("Search", "Exercise"))
+                    {
+                        <input type="text" placeholder="Search on Site" id="search-text" name="search" />
+                        <input type="submit" id="search-button" value="Search" />
+                    }
                 </div>
-            </div>
-        </div>
-
-        @Html.Action("SidePanel", "Home")
-
-        <div class="container body-content">
-            <div id='search-box'>
-                @using (Html.BeginForm("Search", "Exercise"))
-                {
-                    <input type="text" placeholder="Search on Site" id="search-text" name="search" />
-                    <input type="submit" id="search-button" value="Search" />
-                }
-                @* <form action='~/Controllers/Home/Search' id='search-form' method='get' target='_top'>
-                        <input id='search-text' name='search' placeholder='Search on Site' type='text' />
-                        <button id='search-button' type='submit'>Search</button>
-                    </form>*@
-            </div>
-            @RenderBody()
-
-        </div>
+                @RenderBody()
+            </td>
+        </table>
     </div>
     <hr />
     <footer>

@@ -304,6 +304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CourseProject.
+        /// </summary>
+        public static string CourseProject {
+            get {
+                return ResourceManager.GetString("CourseProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Exercise.
         /// </summary>
         public static string CreateExerciseTitleText {

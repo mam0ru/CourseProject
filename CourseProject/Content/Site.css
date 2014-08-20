@@ -1,4 +1,23 @@
-﻿#search-box {
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.body-content {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.table {
+    width: 100%;
+}
+    
+div.tbody {
+     width: 100%;
+}
+
+#search-box {
     position: relative;
     padding-top: 0px;
     width: 100%;
@@ -22,6 +41,7 @@
 }
 
 #search-button {
+    position: absolute;
     height: 40px;
     width: 105px;
     color: #fff;
@@ -29,25 +49,14 @@
     background-color: #4d90fe;
 }
 
-div.body-content {
-    width: 100%;
-    padding-top: 60px;
-    padding-left: 300px;
-    padding-bottom: 10px;
-    padding-right: 15px;
-}
-
 div.left-col {
     background: rgba(50, 90, 135, .75);
-    width: 280px;
-    padding-top: 50px;
-    padding-left: 20px;
-    padding-bottom: 10px;
-    float: left;
     border-radius: 10px;
     color:#f0f8ff;
-    border-color: #00008B;
-    z-index: -1000;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 div.home {
@@ -165,3 +174,7 @@ div.addcomment {
     cursor: pointer;
 }
 
+div.container-body-content {
+    padding-left: 0px;
+    padding-right: 0px;
+}
