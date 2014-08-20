@@ -46,17 +46,21 @@
                     //}
                     // else
                     // {
-                    <div id="accordion">
-                        <h3>@Resources.Resource.SendAnswer</h3> 
-                        <div>
-                            @using (Html.BeginForm("SendAnswer", "Exercise"))
-                            {
-                                <input value="@Model.Id" hidden="true">
-                                <input type="text" placeholder="" id="input-text" name="text" />
-                                <input type="submit" id="text" value="Send" />
-                            }
+                    bool isAnswered = false;
+                    foreach (var rightAnsweredUser in Model.RightAnsweredUsers)
+                    {
+                        if (rightAnsweredUser.Id == User.Identity.GetUserId())
+                        {
+                            isAnswered = true;
+                        }
+                    }
+                    if (!isAnswered)
+                    {
+                        <div id="accordion">
+                            <h3>@Resources.Resource.SendAnswer</h3>
+                            @Html.Action("SendAnswerPartialView", "Exercise", Model.Id)
                         </div>
-                    </div>
+                    }
                 }
             }
 
@@ -66,7 +70,7 @@
             @if (!author && authenticated)
             {
                 <div id="accordion">
-                    @Resources.Resource.NotifyAboutMistake
+                    <h3>@Resources.Resource.NotifyAboutMistake</h3>
                     <div>
                         @using (Html.BeginForm("WriteToAuthor", "Exercise"))
                         {
@@ -93,6 +97,7 @@
                     foreach (var user in Model.RightAnsweredUsers)
                     {
                         @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                    <br/>
                     }
                 }
                 else
