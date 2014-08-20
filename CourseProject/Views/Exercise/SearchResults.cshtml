@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CourseProject.Models.Exercise>
+@{
+}
+<br>
+@if (Model.Count() != 0)
+{
+    foreach (var exersise in Model)
+     {
+         @Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new {id = exersise.Id}, new {@style = "color:dodgerblue;"})
+         <br>
+     }
+}
+else
+{
+    @Resources.Resource.NotFound
+}

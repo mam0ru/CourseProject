@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CourseProject.Models;
 using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
 
@@ -49,20 +50,6 @@ namespace CourseProject.Controllers
             String redirectTo = Request.UrlReferrer.AbsolutePath;
             return Redirect(redirectTo);
         }
-
-        [HttpPost]
-        public ActionResult Search(string search)
-        {
-            int i = 0;
-            i++;
-            return View("Index");//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
-        }
-
-        /*[HttPost]
-        public ActionResult Search()
-        {
-            return View("Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
-        }*/
 
         public ActionResult SidePanel()
         {
