@@ -205,6 +205,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Math.
+        /// </summary>
+        public static string CategoryMath {
+            get {
+                return ResourceManager.GetString("CategoryMath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to People.
+        /// </summary>
+        public static string CategoryPeople {
+            get {
+                return ResourceManager.GetString("CategoryPeople", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Physics.
+        /// </summary>
+        public static string CategoryPhysics {
+            get {
+                return ResourceManager.GetString("CategoryPhysics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Science.
+        /// </summary>
+        public static string CategoryScience {
+            get {
+                return ResourceManager.GetString("CategoryScience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to World.
+        /// </summary>
+        public static string CategoryWorld {
+            get {
+                return ResourceManager.GetString("CategoryWorld", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change avatar.
         /// </summary>
         public static string ChangeAvatar {

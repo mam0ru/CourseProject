@@ -489,4 +489,19 @@
   <data name="CategoryCulture" xml:space="preserve">
     <value>Culture</value>
   </data>
+  <data name="CategoryMath" xml:space="preserve">
+    <value>Math</value>
+  </data>
+  <data name="CategoryPeople" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="CategoryPhysics" xml:space="preserve">
+    <value>Physics</value>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Science</value>
+  </data>
+  <data name="CategoryWorld" xml:space="preserve">
+    <value>World</value>
+  </data>
 </root>
