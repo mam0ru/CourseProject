@@ -394,6 +394,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exercises.
         /// </summary>
         public static string Exercises {
@@ -612,9 +621,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
-        public static string LayoutDrakThemeText {
+        public static string LayoutDarkThemeText {
             get {
-                return ResourceManager.GetString("LayoutDrakThemeText", resourceCulture);
+                return ResourceManager.GetString("LayoutDarkThemeText", resourceCulture);
             }
         }
         
@@ -642,6 +651,15 @@ namespace Resources {
         public static string LayoutRatingLinkText {
             get {
                 return ResourceManager.GetString("LayoutRatingLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select language.
+        /// </summary>
+        public static string LayoutSelectLanguageText {
+            get {
+                return ResourceManager.GetString("LayoutSelectLanguageText", resourceCulture);
             }
         }
         
@@ -1033,6 +1051,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Russian.
+        /// </summary>
+        public static string Russian {
+            get {
+                return ResourceManager.GetString("Russian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search on site ....
+        /// </summary>
+        public static string SearchOnSite {
+            get {
+                return ResourceManager.GetString("SearchOnSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send answer.
         /// </summary>
         public static string SendAnswer {
@@ -1128,6 +1173,15 @@ namespace Resources {
         public static string Step6 {
             get {
                 return ResourceManager.GetString("Step6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         

@@ -58,7 +58,7 @@
     </div>
 
     <div class="container-body-content">
-        <table width:100%>
+        <table>
             <col width="25%" />
             <col width="75%" />
             <td>
@@ -68,8 +68,8 @@
                 <div id='search-box'>
                     @using (Html.BeginForm("Search", "Exercise"))
                     {
-                        <input type="text" placeholder="Search on Site" id="search-text" name="search" />
-                        <input type="submit" id="search-button" value="Search" />
+                        <input type="text" placeholder=@Resources.Resource.SearchOnSite id="search-text" name="search" />
+                        <input type="submit" id="search-button" value=@Resources.Resource.Search />
                     }
                 </div>
                 @RenderBody()
@@ -78,15 +78,31 @@
     </div>
     <hr />
     <footer>
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                @Resources.Resource.LayoutSelectThemeText
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="theme-selector">
-                <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutDrakThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
-                <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
-            </ul>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        @Resources.Resource.LayoutSelectThemeText
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="theme-selector">
+                        <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutDarkThemeText, "SetTheme", "Home", new { theme = "dark" }, null)</li>
+                        <li role="presentation">@Html.ActionLink(Resources.Resource.LayoutWhiteThemeText, "SetTheme", "Home", new { theme = "white" }, null)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                        @Resources.Resource.LayoutSelectLanguageText
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="language-selector">
+                        <li role="presentation">@Html.ActionLink(Resources.Resource.English, "ChangeCulture", "Home", new { lang = "en" }, null)</li>
+                        <li role="presentation">@Html.ActionLink(Resources.Resource.Russian, "ChangeCulture", "Home", new { lang = "ru" }, null)</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <center>&copy; @DateTime.Now.Year - Course Project</center>
         <br />

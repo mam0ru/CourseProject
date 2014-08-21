@@ -118,414 +118,414 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangePasswordButtonSubmitText" xml:space="preserve">
-    <value>Change password</value>
+    <value>Сменить пароль</value>
   </data>
   <data name="CompareError" xml:space="preserve">
-    <value>The password and confirmation password do not match.</value>
+    <value>Пароль и подтверждение пароля не совпадают</value>
   </data>
   <data name="ConfirmEmailLoginLinkText" xml:space="preserve">
-    <value>click here to log in</value>
+    <value>Щелкните сюда, чтобы залогиниться </value>
   </data>
   <data name="ConfirmEmailMessage" xml:space="preserve">
-    <value>Thank you for confirming your account. Please</value>
+    <value>Спасибо за подтверждение вашего аккаунта. Пожалуйста </value>
   </data>
   <data name="ConfirmNewPasswordName" xml:space="preserve">
-    <value>Confirm New Password</value>
+    <value>Подтвердите новый пароль</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
-    <value>Old Password</value>
+    <value>Старый пароль</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Эмэйл</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>Email is required</value>
+    <value>Эмэйл - обязательное поле</value>
   </data>
   <data name="ExternalLoginConfirmationButtonSubmitText" xml:space="preserve">
-    <value>Register</value>
+    <value>Залогиниться</value>
   </data>
   <data name="ExternalLoginConfirmationMessage" xml:space="preserve">
-    <value>You've successfully authenticated with {0}. Please enter a user name for this site below and click the Register button to finish logging in.</value>
+    <value>Вы успешно авторизировались с {0}. Пожалуйста введите ваше Имя Пользователя для этого сайта и нажмите кнопку зарегистрироваться чтобы закончить вход</value>
   </data>
   <data name="ExternalLoginFailureMessage" xml:space="preserve">
-    <value>Unsuccessful login with service.</value>
+    <value>Не удалось залогиниться на сервере</value>
   </data>
   <data name="ExternalLoginFailureTitleText" xml:space="preserve">
-    <value>Login Failure</value>
+    <value>Ошибка входа</value>
   </data>
   <data name="forgotPasswordButtonSubmitText" xml:space="preserve">
-    <value>Email Link</value>
+    <value>Забыли пароль?</value>
   </data>
   <data name="ForgotPasswordConfirmationMessage" xml:space="preserve">
-    <value>Please check your email to reset your password.</value>
+    <value>Пожалуйста зайдите на вашу почту, чтобы подтвердить смену вашего пароля</value>
   </data>
   <data name="ForgotPasswordConfirmationTitleText" xml:space="preserve">
-    <value>Forgot Password Confirmation</value>
+    <value>Забыли пароль?</value>
   </data>
   <data name="ForgotPasswordMessage" xml:space="preserve">
-    <value>Enter your email.</value>
+    <value>Введите ваш эмэйл</value>
   </data>
   <data name="ForgotPasswordTitleText" xml:space="preserve">
-    <value>Forgot your password?</value>
+    <value>Забыли пароль?</value>
   </data>
   <data name="LayoutHomeLinkText" xml:space="preserve">
-    <value>Home</value>
+    <value>Домашняя</value>
   </data>
   <data name="LayoutTitle" xml:space="preserve">
-    <value>Course Project</value>
+    <value>Курсовой проект</value>
   </data>
   <data name="LoginMessage" xml:space="preserve">
-    <value>Use a local account to log in.</value>
+    <value>Залогиниться с помощью аккаунта соцсетей.</value>
   </data>
   <data name="LoginPartialAuthorizedUserWelcomeMessage" xml:space="preserve">
-    <value>Hello {0}!</value>
+    <value>Добро пажаловать,  {0}!</value>
   </data>
   <data name="LoginPartialLogInLinkText" xml:space="preserve">
-    <value>Log In</value>
+    <value>Войти</value>
   </data>
   <data name="LoginPartialLogOffText" xml:space="preserve">
-    <value>Log off</value>
+    <value>Выйти</value>
   </data>
   <data name="LoginPartialRegisterLinkText" xml:space="preserve">
-    <value>Register</value>
+    <value>Зарегистрироваться</value>
   </data>
   <data name="LoginRegisterNewUserLinkText" xml:space="preserve">
-    <value>Register as a new user</value>
+    <value>Зарегистрироваться как новый пользователь</value>
   </data>
   <data name="LoginTitleText" xml:space="preserve">
-    <value>Log In</value>
+    <value>Войти</value>
   </data>
   <data name="ManageTitleText" xml:space="preserve">
-    <value>Manage Account</value>
+    <value>Управление аккаунтом</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>The password must be at least 6 characters long.</value>
+    <value>Длина пароля должна быть не менее 6 символов</value>
   </data>
   <data name="NewPasswordName" xml:space="preserve">
-    <value>New Password</value>
+    <value>Новый пароль</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
   </data>
   <data name="PasswordRequired" xml:space="preserve">
-    <value>Passwored is required</value>
+    <value>Пароль - обязательное поле</value>
   </data>
   <data name="RegisterButtonSubmitText" xml:space="preserve">
-    <value>Register</value>
+    <value>Зарегистрироваться</value>
   </data>
   <data name="RegisterMessage" xml:space="preserve">
-    <value>Create a new account.</value>
+    <value>Создать новый аккаунт</value>
   </data>
   <data name="RegisterTitleText" xml:space="preserve">
-    <value>Register</value>
+    <value>Зарегистрироваться</value>
   </data>
   <data name="Rememberme" xml:space="preserve">
-    <value>Remember me?</value>
+    <value>Запомнить?</value>
   </data>
   <data name="ResetPasswordButtonSubmitText" xml:space="preserve">
-    <value>Reset</value>
+    <value>Изменить</value>
   </data>
   <data name="ResetPasswordConfirmationLinkText" xml:space="preserve">
-    <value>Click here to log in</value>
+    <value>Щелкните сюда, чтобы войти</value>
   </data>
   <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
-    <value>Your password has been reset. Please </value>
+    <value>Ваш пароль был изменен. Пожалуста</value>
   </data>
   <data name="ResetPasswordConfirmationTitleText" xml:space="preserve">
-    <value>Reset password confirmation</value>
+    <value>Ваш пароль был изменен</value>
   </data>
   <data name="ResetPasswordMessage" xml:space="preserve">
-    <value>Reset your password</value>
+    <value>Изменить  пароль</value>
   </data>
   <data name="ResetPasswordTitleText" xml:space="preserve">
-    <value>Reset password</value>
+    <value>Изменить пароль</value>
   </data>
   <data name="SetPasswordButtonSubmitText" xml:space="preserve">
-    <value>Set password</value>
+    <value>Изменит пароль</value>
   </data>
   <data name="IndexTitleText" xml:space="preserve">
-    <value>Home Page</value>
+    <value>Домашняя страница</value>
   </data>
   <data name="LayoutDarkThemeText" xml:space="preserve">
-    <value>Dark</value>
+    <value>Черный</value>
   </data>
   <data name="LayoutWhiteThemeText" xml:space="preserve">
-    <value>White</value>
+    <value>Белый</value>
   </data>
   <data name="CreateExerciseTitleText" xml:space="preserve">
-    <value>Create Exercise</value>
+    <value>Создать задачу</value>
   </data>
   <data name="LayoutAddExerciseLinkText" xml:space="preserve">
-    <value>Add Exercise</value>
+    <value>Добавить задачу</value>
   </data>
   <data name="LayoutSelectThemeText" xml:space="preserve">
-    <value>Select theme</value>
+    <value>Выбрать тему</value>
   </data>
   <data name="LayoutMyProfileLinkText" xml:space="preserve">
-    <value>My Profile</value>
+    <value>Мой профиль</value>
   </data>
   <data name="MyExercises" xml:space="preserve">
-    <value>My Exercises</value>
+    <value>Мои задачи</value>
   </data>
   <data name="NoExercises" xml:space="preserve">
-    <value>You haven`t  created  exercises. </value>
+    <value>У Вас нет задач</value>
   </data>
   <data name="NoRightAnsweredExercises" xml:space="preserve">
-    <value>You haven`t right answered exercises</value>
+    <value>У Вас нет правильно отвеченных задач</value>
   </data>
   <data name="SolvedExercises" xml:space="preserve">
-    <value>Solved Exercises</value>
+    <value>Решенные задачи</value>
   </data>
   <data name="ExercisesListIsEmpty" xml:space="preserve">
-    <value>Exercise`s list  is empty</value>
+    <value>Список задач пустой</value>
   </data>
   <data name="LastAddedExercises" xml:space="preserve">
-    <value>Last added exercises</value>
+    <value>Последние добавленные задачи</value>
   </data>
   <data name="LayoutRatingLinkText" xml:space="preserve">
-    <value>Rating</value>
+    <value>Рейтинг</value>
   </data>
   <data name="LayoutUsersAndExercisesLinkText" xml:space="preserve">
-    <value>Users and Exercises</value>
+    <value>Пользователи и Задачи</value>
   </data>
   <data name="MostPopularExercises" xml:space="preserve">
-    <value>Most Popular Exercises</value>
+    <value>Самые популярные задачи</value>
   </data>
   <data name="NoRightAnsweredUsers" xml:space="preserve">
-    <value>No right answered users</value>
+    <value>Нет правильно ответивших пользователей</value>
   </data>
   <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
+    <value>Теги</value>
   </data>
   <data name="TagsListIsEmpty" xml:space="preserve">
-    <value>Tag`s list is empty</value>
+    <value>Список тегов пустой</value>
   </data>
   <data name="NoCurrentUserExercises" xml:space="preserve">
-    <value>User don`t have exercises</value>
+    <value>У этого пользователя нет задач</value>
   </data>
   <data name="NoCurrentUserRightAnsweredExercises" xml:space="preserve">
-    <value>User don`t have right answered exercises</value>
+    <value>У этого пользователя нет правильно отвеченных задач</value>
   </data>
   <data name="MakeActive" xml:space="preserve">
-    <value>Make Active</value>
+    <value>Сделать активной</value>
   </data>
   <data name="MakeInactive" xml:space="preserve">
-    <value>Make Inactive</value>
+    <value>Сделать неактивной</value>
   </data>
   <data name="AddAnswer" xml:space="preserve">
-    <value>Add answer</value>
+    <value>Добавить ответ</value>
   </data>
   <data name="Answers" xml:space="preserve">
-    <value>Answers</value>
+    <value>Ответы</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>Категория</value>
   </data>
   <data name="RightAnsweredUsers" xml:space="preserve">
-    <value>Right answered users</value>
+    <value>Правильно ответившие пользователи</value>
   </data>
   <data name="TriesOfAnswers" xml:space="preserve">
-    <value>Number of tries to answer </value>
+    <value>Количество попыток ответить</value>
   </data>
   <data name="SidePanel" xml:space="preserve">
-    <value>Side Panel</value>
+    <value>Боковая панель</value>
   </data>
   <data name="Exercises" xml:space="preserve">
-    <value>Exercises</value>
+    <value>Задачи</value>
   </data>
   <data name="NotifyAboutMistake" xml:space="preserve">
-    <value>Notify author about mistakes</value>
+    <value>Сообщить автору об ошибке</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Active</value>
+    <value>Активная</value>
   </data>
   <data name="Inactive" xml:space="preserve">
-    <value>Inactive</value>
+    <value>Неактивная</value>
   </data>
   <data name="Formulas" xml:space="preserve">
-    <value>Formulas</value>
+    <value>Формулы</value>
   </data>
   <data name="Graphs" xml:space="preserve">
-    <value>Graphs</value>
+    <value>Графики</value>
   </data>
   <data name="Pictures" xml:space="preserve">
-    <value>Pictures</value>
+    <value>Картинки</value>
   </data>
   <data name="Videos" xml:space="preserve">
-    <value>Videos</value>
+    <value>Видео</value>
   </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
-    <value>An error has occurred.</value>
+    <value>Произошла ошибка</value>
   </data>
   <data name="TheExternalLoginWasRemoved" xml:space="preserve">
-    <value>The external login was removed.</value>
+    <value>Авторизация через сторонние сервисы была удалена</value>
   </data>
   <data name="YourPasswordHasBeenChanged" xml:space="preserve">
-    <value>Your password has been changed.</value>
+    <value>Ваш пароль был изменен</value>
   </data>
   <data name="YourPasswordHasBeenSet" xml:space="preserve">
-    <value>Your password has been set.</value>
+    <value>Ваш пароль установлен</value>
   </data>
   <data name="BlockUser" xml:space="preserve">
-    <value>Block user</value>
+    <value>Заблокировать пользователя</value>
   </data>
   <data name="DeleteUser" xml:space="preserve">
-    <value>Delete user</value>
+    <value>Удалить пользователя</value>
   </data>
   <data name="DropUserPassword" xml:space="preserve">
-    <value>Drop user`s password</value>
+    <value>Сбросить пароль пользователя</value>
   </data>
   <data name="Rating" xml:space="preserve">
-    <value>Rating</value>
+    <value>Рейтинг</value>
   </data>
   <data name="RightAnsweredExercises" xml:space="preserve">
-    <value>Right answered exercises</value>
+    <value>Правильно отвеченные задачи</value>
   </data>
   <data name="Users" xml:space="preserve">
-    <value>Users</value>
+    <value>Пользователи</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя Пользователя</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Редактировать</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>View</value>
+    <value>Просмотреть</value>
   </data>
   <data name="Administrator" xml:space="preserve">
-    <value>Administrator</value>
+    <value>Администратор</value>
   </data>
   <data name="ExercisesWithTag" xml:space="preserve">
-    <value>Exercises with tag</value>
+    <value>Задачи с тегом</value>
   </data>
   <data name="SendAnswer" xml:space="preserve">
-    <value>Send answer</value>
+    <value>Послать ответ</value>
   </data>
   <data name="Answered" xml:space="preserve">
-    <value>Answered</value>
+    <value>Решенная</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Имя</value>
   </data>
   <data name="labelGraphFormula" xml:space="preserve">
     <value>f(x) = </value>
   </data>
   <data name="labelGraphLabelRange" xml:space="preserve">
-    <value>Range</value>
+    <value>Интервал</value>
   </data>
   <data name="labelGraphLabelRangeFrom" xml:space="preserve">
-    <value>from</value>
+    <value>от</value>
   </data>
   <data name="labelGraphLabelRangeTo" xml:space="preserve">
-    <value>to</value>
+    <value>до</value>
   </data>
   <data name="labelGraphStep" xml:space="preserve">
-    <value>Step</value>
+    <value>шаг</value>
   </data>
   <data name="EditExercise" xml:space="preserve">
-    <value>Edit exercise</value>
+    <value>Редактировать задачу</value>
   </data>
   <data name="ShowExercise" xml:space="preserve">
-    <value>Show exercise</value>
+    <value>Просмотреть задачу</value>
   </data>
   <data name="AddComment" xml:space="preserve">
-    <value>Add comment</value>
+    <value>Отправить</value>
   </data>
   <data name="UsernameRequired" xml:space="preserve">
-    <value>Username required</value>
+    <value>Имя Пользователя - обязательное поле</value>
   </data>
   <data name="Step1" xml:space="preserve">
-    <value>Step 1</value>
+    <value>Шаг 1</value>
   </data>
   <data name="Step2" xml:space="preserve">
-    <value>Step 2</value>
+    <value>Шаг 2</value>
   </data>
   <data name="Step3" xml:space="preserve">
-    <value>Step 3</value>
+    <value>Шаг 3</value>
   </data>
   <data name="Step4" xml:space="preserve">
-    <value>Step 4</value>
+    <value>Шаг 4 </value>
   </data>
   <data name="Step5" xml:space="preserve">
-    <value>Step 5</value>
+    <value>Шаг 5 </value>
   </data>
   <data name="AddMainInfoAndContent" xml:space="preserve">
-    <value>Add main information and content</value>
+    <value>Добавить основную информацию и контент</value>
   </data>
   <data name="AddFormulas" xml:space="preserve">
-    <value>Add formulas</value>
+    <value>Добавить формулы</value>
   </data>
   <data name="AddGraphs" xml:space="preserve">
-    <value>Add graphs</value>
+    <value>Добавить графики</value>
   </data>
   <data name="AddVideo" xml:space="preserve">
-    <value>Add video</value>
+    <value>Добавить видео</value>
   </data>
   <data name="Preview" xml:space="preserve">
     <value>Preview</value>
   </data>
   <data name="Step6" xml:space="preserve">
-    <value>Step 6</value>
+    <value>Шаг 6</value>
   </data>
   <data name="AddPictures" xml:space="preserve">
-    <value>Add pictures</value>
+    <value>Добавить картинки</value>
   </data>
   <data name="Task" xml:space="preserve">
-    <value>Task</value>
+    <value>Задача</value>
   </data>
   <data name="ChangeAvatar" xml:space="preserve">
-    <value>Change avatar</value>
+    <value>Загрузить новую фотографию</value>
   </data>
   <data name="HighRatingUsers" xml:space="preserve">
-    <value>Users with high rating</value>
+    <value>Пользователи с самым высоким рейтингом</value>
   </data>
   <data name="CategoryArt" xml:space="preserve">
-    <value>Art</value>
+    <value>Искусство</value>
   </data>
   <data name="CategoryCulture" xml:space="preserve">
-    <value>Culture</value>
+    <value>Культура</value>
   </data>
   <data name="CategoryMath" xml:space="preserve">
-    <value>Math</value>
+    <value>Математика</value>
   </data>
   <data name="CategoryPeople" xml:space="preserve">
-    <value>People</value>
+    <value>Люди</value>
   </data>
   <data name="CategoryPhysics" xml:space="preserve">
-    <value>Physics</value>
+    <value>Физика</value>
   </data>
   <data name="CategoryScience" xml:space="preserve">
-    <value>Science</value>
+    <value>Наука</value>
   </data>
   <data name="CategoryWorld" xml:space="preserve">
-    <value>World</value>
+    <value>Мир</value>
   </data>
   <data name="NotFound" xml:space="preserve">
-    <value>Your search returned no results</value>
+    <value>Ваш запрос не дал результатов</value>
   </data>
   <data name="CourseProject" xml:space="preserve">
-    <value>CourseProject</value>
+    <value>Курсовой проект</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Поиск</value>
   </data>
   <data name="SearchOnSite" xml:space="preserve">
-    <value>Search on site ...</value>
+    <value>Поиск по сайту  ... </value>
   </data>
   <data name="LayoutSelectLanguageText" xml:space="preserve">
-    <value>Select language</value>
+    <value>Выберите язык</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value>English</value>
+    <value>Английский</value>
   </data>
   <data name="Russian" xml:space="preserve">
-    <value>Russian</value>
+    <value>Русский</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
+    <value>Отправить</value>
   </data>
 </root>

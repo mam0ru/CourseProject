@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using System.Web.UI.WebControls
+@using CourseProject.Models
 @model List<CourseProject.View_Models.UserForAdministratorMainViewModel>
 <br>
 
@@ -47,9 +48,9 @@
                             @foreach (var exersise in Model.ElementAt(i).UsersExercises)
                             {
                                 @exersise.Name
-                                @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })
-                                @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })
-                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })
+                                @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                                @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
 
                             }
                         </td>
@@ -76,7 +77,7 @@
                 }
             </table>
             <div class="left">
-                <input type="submit" id="search-button" value="Submit"/>
+                <input type="submit" id="search-button" value=@Resources.Resource.Submit>
             </div>
         }
 </div>

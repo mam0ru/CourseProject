@@ -16,17 +16,17 @@
 <div class="myexercises">
     <div class="userinfo">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @if (Model.ImagePath != null)
                 {
-                    <img src=@Model.ImagePath alt=@Model.UserName width="130">
+                    <img src=@Model.ImagePath alt=@Model.UserName width="150">
                 }
                 else
                 {
-                    <img src="~/Content/user.jpg" alt=@Model.UserName width="130">
+                    <img src="~/Content/user.jpg" alt=@Model.UserName width="150">
                 }
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <h3>
                     @Model.UserName
                     <span class="badge">
@@ -45,11 +45,12 @@
         <div id="accordion" style="color:inherit; background-color: inherit">
             @foreach (var exersise in Model.Exercises)
             {
+                <h4>@exersise.Name</h4>
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
                     </div>
-
+                    <br>
                     <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
                     <h5>
                         @Resources.Resource.TriesOfAnswers:

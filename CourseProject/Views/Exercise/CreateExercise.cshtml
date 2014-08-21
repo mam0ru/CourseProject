@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                    
+
                 <div id="listOfPictures">
 
                 </div>
@@ -175,19 +175,18 @@
                 <br />
                 <label>Videos</label>
             </div>
-            <h3>@Resources.Resource.Step6</h3>
-            <div>
-                <h4>@Resources.Resource.Preview</h4>
-                <br>
-                @Html.HiddenFor(model => model.Answers)
-                @Html.HiddenFor(model => model.Category)
-                @Html.HiddenFor(model => model.Formulas)
-                @Html.HiddenFor(model => model.Tags)
-                @Html.HiddenFor(model => model.Graphs)
-                @Html.HiddenFor(model => model.Videos)
-                @Html.HiddenFor(model => model.Pictures)
-                <button type="submit" class="btn" id="Submit">Submit</button>
-            </div>
+            <br>
         </div>
     </div>
+    <div>
+        @Html.HiddenFor(model => model.Answers)
+        @Html.HiddenFor(model => model.Category)
+        @Html.HiddenFor(model => model.Formulas)
+        @Html.HiddenFor(model => model.Tags)
+        @Html.HiddenFor(model => model.Graphs)
+        @Html.HiddenFor(model => model.Videos)
+        @Html.HiddenFor(model => model.Pictures)
+        <button type="submit" class="btn" id="Submit"> value=@Resources.Resource.Submit</button>
+    </div>
+
 }

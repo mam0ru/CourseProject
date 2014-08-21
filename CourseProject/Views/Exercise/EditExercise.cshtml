@@ -27,108 +27,108 @@
 <br>
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
-        <div id="accordion">
-            <h3> @Resources.Resource.Step1</h3>
+    <div id="accordion">
+        <h3> @Resources.Resource.Step1</h3>
+        <div>
+            <h4>@Resources.Resource.AddMainInfoAndContent</h4>
+            <br>
+            @Html.HiddenFor(exercise => exercise.Exercise.Id)
+            <table width="64%">
+                <col width="25%">
+                <col width="75%">
+                <tr>
+                    <td>
+                        <label>@Resources.Resource.Name</label>
+                    </td>
+                    <td>
+                        @Html.EditorFor(exercise => exercise.Exercise.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>@Resources.Resource.Category</label></td>
+                    <td><select id="Category"><option selected="selected">@Model.Category</option></select></td>
+                </tr>
+            </table>
+            <div class="row">
+                @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
+            </div>
+
+            <br>
+            <div id="tag">
+                <textarea id="inputTags" rows="1" cols="100"></textarea>
+            </div>
+            <textarea id="inputAnswers" rows="1" cols="100"></textarea>
+
             <div>
-                <h4>@Resources.Resource.AddMainInfoAndContent</h4>
-                <br>
-                @Html.HiddenFor(exercise => exercise.Exercise.Id)
-                <table width="64%">
-                    <col width="25%">
-                    <col width="75%">
-                    <tr>
-                        <td>
-                            <label>@Resources.Resource.Name</label>
-                        </td>
-                        <td>
-                            @Html.EditorFor(exercise => exercise.Exercise.Name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>@Resources.Resource.Category</label></td>
-                        <td><select id="Category"><option selected="selected">@Model.Category</option></select></td>
-                    </tr>
-                </table>
-                <div class="row">
-                    @Html.TextAreaFor(exercise => exercise.Exercise.Text, 5, 63, new { id = "content", data_provide = "markdown", rows = "10", cols = "10" })
-                </div>
-
-                <br>
-                <div id="tag">
-                    <textarea id="inputTags" rows="1" cols="100"></textarea>
-                </div>
-                <textarea id="inputAnswers" rows="1" cols="100"></textarea>
-
-                <div>
-                    @foreach (var tag in Model.Exercise.Tags)
-                    {
+                @foreach (var tag in Model.Exercise.Tags)
+                {
                     @Html.Hidden("currTag", tag.Text)
-                    }
-                </div>
-                <div>
-                    @foreach (var answer in Model.Exercise.Answers)
-                    {
+                }
+            </div>
+            <div>
+                @foreach (var answer in Model.Exercise.Answers)
+                {
                     @Html.Hidden("currAnswer", answer.Text)
-                    }
+                }
+            </div>
+        </div>
+        <h3>@Resources.Resource.Step2</h3>
+        <div>
+            <h4>@Resources.Resource.AddPictures</h4>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="imageupload" type="file" name="imageupload">
+                </div>
+                <div class="col-md-6">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                    </div>
                 </div>
             </div>
-            <h3>@Resources.Resource.Step2</h3>
-            <div>
-                <h4>@Resources.Resource.AddPictures</h4>
-                <br>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input id="imageupload" type="file" name="imageupload">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+            <div id="listOfPictures">
+                @foreach (var img in Model.Exercise.Pictures)
+                {
+                    <div class="row">
+                        <div class="col-md-8 thumbnail">
+                            <img src="@img.Path" />
+                        </div>
+                        <div class="col-md-4">
+                            <button name="delete">Delete</button>
                         </div>
                     </div>
-                </div>
-                <div id="listOfPictures">
-                    @foreach (var img in Model.Exercise.Pictures)
-                    {
-                        <div class="row">
-                            <div class="col-md-8 thumbnail">
-                                <img src="@img.Path"/>
-                            </div>
-                            <div class="col-md-4">
-                                <button name="delete">Delete</button>
-                            </div>
-                        </div>
-                    }
-                </div>
+                }
             </div>
-            <h3>@Resources.Resource.Step3</h3>
-            <div>
-                <h4>@Resources.Resource.AddFormulas</h4>
-                <br>
-                <div id="listOfFormulas">
-                    <div class="col-md-12">
+        </div>
+        <h3>@Resources.Resource.Step3</h3>
+        <div>
+            <h4>@Resources.Resource.AddFormulas</h4>
+            <br>
+            <div id="listOfFormulas">
+                <div class="col-md-12">
 
-                        <style type="text/css">
-                            #EqnEditor {
-                                text-align: left;
-                            }
-                        </style>
+                    <style type="text/css">
+                        #EqnEditor {
+                            text-align: left;
+                        }
+                    </style>
 
-                        <div id="toolbar"></div>
-                        <textarea id="equationInput" rows="3" cols="40"></textarea>
-                        <img id="equation" />
-                        <textarea id="equationToImg" readonly="" hidden=""></textarea>
-                        <script type="text/javascript">
-                            EqEditor.embed('toolbar', '');
-                            var a = new EqTextArea('equation', 'equationInput');
-                            EqEditor.add(a, false);
-                            a.addExportArea('equationToImg', 'html');
-                        </script>
+                    <div id="toolbar"></div>
+                    <textarea id="equationInput" rows="3" cols="40"></textarea>
+                    <img id="equation" />
+                    <textarea id="equationToImg" readonly="" hidden=""></textarea>
+                    <script type="text/javascript">
+                        EqEditor.embed('toolbar', '');
+                        var a = new EqTextArea('equation', 'equationInput');
+                        EqEditor.add(a, false);
+                        a.addExportArea('equationToImg', 'html');
+                    </script>
 
-                    </div>
-                    <button id="addFormula" class="btn btn-default">Add Formula</button>
-                    <h3>Formulas</h3>
-                    @foreach (var equation in Model.Exercise.Equations)
-                    {
+                </div>
+                <button id="addFormula" class="btn btn-default">Add Formula</button>
+                <h3>Formulas</h3>
+                @foreach (var equation in Model.Exercise.Equations)
+                {
                     <div class="row">
                         <div class="col-md-4" name="AddEquation">
                             <img src="@equation.Path">
@@ -137,112 +137,110 @@
                             <button name="delete">Delete</button>
                         </div>
                     </div>
-                    }
-                </div>
+                }
             </div>
-            <h3>@Resources.Resource.Step4</h3>
+        </div>
+        <h3>@Resources.Resource.Step4</h3>
+        <div>
+            <h4>@Resources.Resource.AddGraphs</h4>
+            <br>
             <div>
-                <h4>@Resources.Resource.AddGraphs</h4>
-                <br>
-                <div>
-                    <div id="listOfGraphs">
-                        <div class="row">
-                            <div class="col-md-1">
-                                @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
-                            </div>
-                            <div class="col-md-3">
-                                @Html.TextArea("GraphFormula", new { rows = "1", cols = "25" })
-                            </div>
-                            <div class="col-md-1">
-                                <p id="inputFormulaHelp">?</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-1">
-                                <p>@Resources.Resource.labelGraphLabelRange</p>
-                            </div>
-                            <div class="col-md-1">
-                                <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
-                            </div>
-                            <div class="col-md-1">
-                                @Html.TextArea("RangeFrom", new { rows = "1", cols = "5" })
-                            </div>
-                            <div class="col-md-1">
-                                <p>@Resources.Resource.labelGraphLabelRangeTo</p>
-                            </div>
-                            <div class="col-md-1">
-                                @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-1">
-                                <p>@Resources.Resource.labelGraphStep</p>
-                            </div>
-                            <div class="col-md-1">
-                                @Html.TextArea("Step", new { rows = "1", cols = "5" })
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn-default" id="addGraph">Add Graph</button>
-                            </div>
-                        </div>
-                        @foreach (var graph in Model.Exercise.Graphs)
-                        {
-                            <div class="row">
-                                @Html.Hidden("GraphInfo", graph.Path)
-                                <div class="col-md-5 thumbnail">
-
-                                </div>
-                                <div class="col-md-4">
-                                    <button name="delete">Delete</button>
-                                </div>
-                            </div>
-                        }
-                    </div>
-
-                </div>
-            </div>
-            <h3>@Resources.Resource.Step5</h3>
-            <div>
-                <h4> @Resources.Resource.AddVideo</h4>
-                <br>
-                <div id="listOfVideos">
+                <div id="listOfGraphs">
                     <div class="row">
-                        <div class="col-md-3">
-                            <label>VIDEO HTML-CODE</label>
+                        <div class="col-md-1">
+                            @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
                         </div>
-                        <div class="col-md-9">
-                            @Html.Editor("video")
+                        <div class="col-md-3">
+                            @Html.TextArea("GraphFormula", new { rows = "1", cols = "25" })
+                        </div>
+                        <div class="col-md-1">
+                            <p id="inputFormulaHelp">?</p>
                         </div>
                     </div>
-                    <button id="addVideo">Add Video</button>
-                    <br />
-                    @foreach (var video in Model.Exercise.Videos)
+                    <div class="row">
+                        <div class="col-md-1">
+                            <p>@Resources.Resource.labelGraphLabelRange</p>
+                        </div>
+                        <div class="col-md-1">
+                            <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextArea("RangeFrom", new { rows = "1", cols = "5" })
+                        </div>
+                        <div class="col-md-1">
+                            <p>@Resources.Resource.labelGraphLabelRangeTo</p>
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <p>@Resources.Resource.labelGraphStep</p>
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextArea("Step", new { rows = "1", cols = "5" })
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn-default" id="addGraph">Add Graph</button>
+                        </div>
+                    </div>
+                    @foreach (var graph in Model.Exercise.Graphs)
                     {
                         <div class="row">
-                            <div class="col-md-7">
-                                <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
+                            @Html.Hidden("GraphInfo", graph.Path)
+                            <div class="col-md-5 thumbnail">
+
                             </div>
-                            <div class="com-md-4">
+                            <div class="col-md-4">
                                 <button name="delete">Delete</button>
                             </div>
                         </div>
                     }
                 </div>
-            </div>
-            <h3>@Resources.Resource.Step6</h3>
-            <div>
-                <h4>@Resources.Resource.Preview</h4>
-                <br>
-                @Html.HiddenFor(model => model.Answers)
-                @Html.HiddenFor(model => model.Equations)
-                @Html.HiddenFor(model => model.Graphs)
-                @Html.HiddenFor(model => model.Tags)
-                @Html.HiddenFor(model => model.Name)
-                @Html.HiddenFor(model => model.Text)
-                @Html.HiddenFor(model => model.Category)
-                @Html.HiddenFor(model => model.Videos)
-                @Html.HiddenFor(model => model.Pictures)
-                <input type="submit" id="Submit" value="Submit" />
+
             </div>
         </div>
+        <h3>@Resources.Resource.Step5</h3>
+        <div>
+            <h4> @Resources.Resource.AddVideo</h4>
+            <br>
+            <div id="listOfVideos">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>VIDEO HTML-CODE</label>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.Editor("video")
+                    </div>
+                </div>
+                <button id="addVideo">Add Video</button>
+                <br />
+                @foreach (var video in Model.Exercise.Videos)
+                {
+                    <div class="row">
+                        <div class="col-md-7">
+                            <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div class="com-md-4">
+                            <button name="delete">Delete</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <br>
+    </div>
+    <div>
+        @Html.HiddenFor(model => model.Answers)
+        @Html.HiddenFor(model => model.Equations)
+        @Html.HiddenFor(model => model.Graphs)
+        @Html.HiddenFor(model => model.Tags)
+        @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.Text)
+        @Html.HiddenFor(model => model.Category)
+        @Html.HiddenFor(model => model.Videos)
+        @Html.HiddenFor(model => model.Pictures)
+        <input type="submit" id="Submit" value=@Resources.Resource.Submit />
+    </div>
 }

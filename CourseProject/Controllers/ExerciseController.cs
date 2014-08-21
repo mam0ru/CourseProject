@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Services.Description;
+using System.Web.UI;
 using CloudinaryDotNet.Actions;
 using CourseProject.Models;
 using CourseProject.Repository;
@@ -81,24 +83,24 @@ namespace CourseProject.Controllers
 
         private void InitCategoriesIdToString()
         {
-            categoriesIdToString.Add(5, Resources.Resource.CategoryCulture);
-            categoriesIdToString.Add(6, Resources.Resource.CategoryMath);
-            categoriesIdToString.Add(7, Resources.Resource.CategoryArt);
-            categoriesIdToString.Add(8, Resources.Resource.CategoryPhysics);
-            categoriesIdToString.Add(9, Resources.Resource.CategoryPeople);
-            categoriesIdToString.Add(10, Resources.Resource.CategoryWorld);
-            categoriesIdToString.Add(11, Resources.Resource.CategoryScience);
+            categoriesIdToString.Add(1, Resources.Resource.CategoryCulture);
+            categoriesIdToString.Add(2, Resources.Resource.CategoryMath);
+            categoriesIdToString.Add(3, Resources.Resource.CategoryArt);
+            categoriesIdToString.Add(4, Resources.Resource.CategoryPhysics);
+            categoriesIdToString.Add(5, Resources.Resource.CategoryPeople);
+            categoriesIdToString.Add(6, Resources.Resource.CategoryWorld);
+            categoriesIdToString.Add(7, Resources.Resource.CategoryScience);
         }
 
         private void InitCategoriesStringToId()
         {       
-            categoriesStringToId.Add(Resources.Resource.CategoryCulture, 5);
-            categoriesStringToId.Add(Resources.Resource.CategoryMath, 6);
-            categoriesStringToId.Add(Resources.Resource.CategoryArt, 7);
-            categoriesStringToId.Add(Resources.Resource.CategoryPhysics, 8);
-            categoriesStringToId.Add(Resources.Resource.CategoryPeople, 9);
-            categoriesStringToId.Add(Resources.Resource.CategoryWorld, 10);
-            categoriesStringToId.Add(Resources.Resource.CategoryScience, 11);
+            categoriesStringToId.Add(Resources.Resource.CategoryCulture, 1);
+            categoriesStringToId.Add(Resources.Resource.CategoryMath, 2);
+            categoriesStringToId.Add(Resources.Resource.CategoryArt, 3);
+            categoriesStringToId.Add(Resources.Resource.CategoryPhysics, 4);
+            categoriesStringToId.Add(Resources.Resource.CategoryPeople, 5);
+            categoriesStringToId.Add(Resources.Resource.CategoryWorld, 6);
+            categoriesStringToId.Add(Resources.Resource.CategoryScience, 7);
         }
 
         public ApplicationUserManager UserManager
@@ -223,13 +225,19 @@ namespace CourseProject.Controllers
                 {
                     answerFound = true;
                     exercise.RightAnsweredUsers.Add(user);
+                    exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
                     exerciseRepository.Update(exercise);
                     user.RightAnswers.Add(exercise);
                     userManager.Update(user);
+                    ///////////////////////////
+
                     TempData["alertMessage"] = "You answered right!";
                 }
             }
-
+            if (!answerFound) { 
+            exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
+            exerciseRepository.Update(exercise);
+            }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 

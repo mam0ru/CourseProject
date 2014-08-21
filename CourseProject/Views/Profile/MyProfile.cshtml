@@ -17,17 +17,23 @@
 <div class="myexercises">
     <div class="userinfo">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @if (Model.ImagePath == null)
                 {
-                    <img id="avatar" src="~/Content/user.jpg" alt=@Model.UserName width="130">
+                    <img id="avatar" src="~/Content/user.jpg" alt=@Model.UserName width="150">
                 }
                 else
                 {
-                    <img id="avatar" src=@Model.ImagePath alt=@Model.UserName width="130">
+                    <img id="avatar" src=@Model.ImagePath alt=@Model.UserName width="150">
                 }
+                <br>
+                <br>
+                <input id="changeAvatar" type="file" name="imageupload">           
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar"></div>
+                </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <h3>
                     @Model.UserName
                     <span class="badge">
@@ -39,15 +45,7 @@
                 </h4>
             </div>
         </div>
-            <div class="col-md-2">
-                <input id="changeAvatar" type="file" name="imageupload">
-            </div>
-            <div class="col-md-2">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
-                </div>
-            </div>
-        </div>
+    </div>
 
     <h4> @Resources.Resource.MyExercises</h4>
     @if (Model.Exercises.Count != 0)
@@ -68,13 +66,13 @@
                 <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
                 <div>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
                         </div>
                     </div>
