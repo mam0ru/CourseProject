@@ -29,8 +29,6 @@ namespace CourseProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //ExerciseBuildIndex(exerciseRepository.Get());
-            //CommentsBuildIndex(commentRepository.Get());
         }
 
         public void ExerciseBuildIndex(IEnumerable<Exercise> exercises)
