@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using CourseProject.Migrations;
+using CourseProject.Models;
 using CourseProject.View_Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using CourseProject.View_Models;
 using MultilingualSite.Filters;
@@ -18,7 +21,7 @@ namespace CourseProject.Controllers
     {
         private ApplicationUserManager userManager;
 
-          public AdministratorController(ApplicationUserManager userManager)
+        public AdministratorController(ApplicationUserManager userManager)
         {
             this.UserManager = userManager;
         }
@@ -75,16 +78,20 @@ namespace CourseProject.Controllers
                         if (user.Blocked)
                         {
                             DateTime date = DateTime.Now;
-                            DateTime blockEndDate = new DateTime(date.Year,date.Month + 1,date.Day);
-                            UserManager.SetLockoutEndDate(applicationUser.Id,blockEndDate);
+                            DateTime blockEndDate = new DateTime(date.Year, date.Month + 1, date.Day);
+                            UserManager.SetLockoutEndDate(applicationUser.Id, blockEndDate);
                         }
                         isUserChanged = true;
                     }
                     if (user.DroppedPassword)
                     {
-                        //TODO 
-                        UserManager.ResetPassword(applicationUser.Id, "code", "123456");                   
-                        UserManager.SendEmail(applicationUser.Id, "Your password was dropped and replaced", "Your new password is 123456");
+                        String newPassword = "123456";
+                        ApplicationUser cUser = UserManager.FindById(applicationUser.Id);
+                        String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+                        UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
+                        store.SetPasswordHashAsync(cUser, hashedNewPassword);
+                        //UserManager.SendEmail(applicationUser.Id, "Your password was dropped and replaced", "Your new password is 123456");
+                        isUserChanged = true;
                     }
                     if ((UserManager.IsInRole(applicationUser.Id, "admin") != user.Admin))
                     {
@@ -102,11 +109,25 @@ namespace CourseProject.Controllers
                     {
                         UserManager.Update(applicationUser);
                     }
+                    user.DroppedPassword = false;
                 }
             }
-            return View(users);
+            List<UserForAdministratorMainViewModel> newUsers = new List<UserForAdministratorMainViewModel>();
+            foreach (var user in UserManager.Users)
+            {
+                UserForAdministratorMainViewModel userForAdmin = new UserForAdministratorMainViewModel();
+                userForAdmin.Admin = UserManager.IsInRole(user.Id, "admin");
+                userForAdmin.Blocked = user.LockoutEnabled;
+                userForAdmin.Deleted = false;
+                userForAdmin.DroppedPassword = false;
+                userForAdmin.Email = user.Email;
+                userForAdmin.Name = user.UserName;
+                userForAdmin.SolvedExercises = user.RightAnswers;
+                userForAdmin.UsersExercises = user.Exercises;
+                userForAdmin.Id = user.Id;
+                newUsers.Add(userForAdmin);
+            }
+            return View(newUsers);
         }
-
-       
     }
 }
