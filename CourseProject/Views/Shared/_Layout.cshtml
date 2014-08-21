@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap1.css" />
     <title>@Resources.Resource.LayoutTitle</title>
     <style type="text/css">
     </style>
@@ -36,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(Resources.Resource.CourseProject, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+             
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -57,24 +59,22 @@
         </div>
     </div>
 
-    <div class="container-body-content">
-        <table>
-            <col width="25%" />
-            <col width="75%" />
-            <td>
-                @Html.Action("SidePanel", "Home")
-            </td>
-            <td>
-                <div id='search-box'>
-                    @using (Html.BeginForm("Search", "Exercise"))
-                    {
-                        <input type="text" placeholder=@Resources.Resource.SearchOnSite id="search-text" name="search" />
-                        <input type="submit" id="search-button" value=@Resources.Resource.Search />
-                    }
-                </div>
-                @RenderBody()
-            </td>
-        </table>
+    <div class="row-fluid">
+
+        <div class="span3">
+            @Html.Action("SidePanel", "Home")
+        </div>
+        <div class="span9">
+            <div id='search-box'>
+                @using (Html.BeginForm("Search", "Exercise"))
+                {
+                    <input type="text" placeholder="Search on Site" id="search-text" name="search" />
+                    <input type="submit" id="search-button" value="Search" />
+                }
+            </div>
+            @RenderBody()
+        </div>
+
     </div>
     <hr />
     <footer>
