@@ -33,7 +33,7 @@ namespace CourseProject.Models
                 {
                     UserName = "administrator",
                     Email = "administrator@admin.com",
-                    ImagePath = "~/Content/user.jpg"
+                    ImagePath = "http://localhost:50048/Content/user.jpg"
                 };
                 string password = "123456789";
                 var result = userManager.Create(admin, password);
