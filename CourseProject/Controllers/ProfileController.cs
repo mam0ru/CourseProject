@@ -68,6 +68,10 @@ namespace CourseProject.Controllers
         public ActionResult ShowProfile(string id)
         {
             var user = UserManager.FindById(id);
+           var index = UserManager.Users.OrderByDescending(localUser => user.RightAnswers.Count())
+                .ToList()
+                .FindIndex(applicationUser => applicationUser==user) + 1;
+            ViewBag.Rating = index;
             return View(user);
         }
 
