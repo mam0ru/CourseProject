@@ -42,16 +42,26 @@
                         @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" })
                         @Html.TextBoxFor(x => x[i].SolvedExercises, new { @class = "hidden" })
                         @Html.TextBoxFor(x => x[i].UsersExercises, new { @class = "hidden" })
-                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
+                        <td> @Html.ActionLink(Model.ElementAt(i).Name, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
                         <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
                         <td>
                             @foreach (var exersise in Model.ElementAt(i).UsersExercises)
                             {
+                                string activeAction = "";
+                                if (exersise.Active)
+                                {
+                                    activeAction = @Resources.Resource.MakeInactive.ToString();
+                                }
+                                else
+                                {
+                                    activeAction = @Resources.Resource.MakeActive.ToString();
+                                }
                                 @exersise.Name
                                 @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
                                 @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                                @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
                                 @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-
+                                <br>
                             }
                         </td>
                         <td>

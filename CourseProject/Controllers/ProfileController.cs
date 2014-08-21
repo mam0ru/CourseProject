@@ -60,7 +60,8 @@ namespace CourseProject.Controllers
             var exercise = exerciseRepository.GetByID(id);
             exercise.Active = !isActive;
             exerciseRepository.Update(exercise);
-            return View("MyProfile", UserManager.FindById(User.Identity.GetUserId()));//redirect in case admin 
+            string returnUrl = Request.UrlReferrer.AbsolutePath;
+            return Redirect(returnUrl);
         }
 
         [HttpGet]
