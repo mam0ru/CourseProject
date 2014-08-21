@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
@@ -41,7 +42,7 @@ namespace CourseProject.Controllers
             {
                 UserForAdministratorMainViewModel userForAdmin = new UserForAdministratorMainViewModel();
                 userForAdmin.Admin = userManager.IsInRole(user.Id, "admin");
-                userForAdmin.Blocked = false;
+                userForAdmin.Blocked = user.LockoutEnabled;
                 userForAdmin.Deleted = false;
                 userForAdmin.DroppedPassword = false;
                 userForAdmin.Email = user.Email;
@@ -70,20 +71,19 @@ namespace CourseProject.Controllers
                     bool a = UserManager.IsLockedOut(applicationUser.Id);
                     if (UserManager.IsLockedOut(applicationUser.Id) != user.Blocked)
                     {
+                        UserManager.SetLockoutEnabled(applicationUser.Id, user.Blocked);
                         if (user.Blocked)
                         {
-                            UserManager.SetLockoutEnabled(applicationUser.Id, true);
-                        }
-                        else
-                        {
-                            UserManager.SetLockoutEnabled(applicationUser.Id, false);
+                            DateTime date = DateTime.Now;
+                            DateTime blockEndDate = new DateTime(date.Year,date.Month + 1,date.Day);
+                            UserManager.SetLockoutEndDate(applicationUser.Id,blockEndDate);
                         }
                         isUserChanged = true;
                     }
                     if (user.DroppedPassword)
                     {
                         //TODO 
-                        UserManager.ResetPasswordAsync(applicationUser.Id, "code", "123456");                   
+                        UserManager.ResetPassword(applicationUser.Id, "code", "123456");                   
                         UserManager.SendEmail(applicationUser.Id, "Your password was dropped and replaced", "Your new password is 123456");
                     }
                     if ((UserManager.IsInRole(applicationUser.Id, "admin") != user.Admin))

@@ -85,8 +85,16 @@ namespace CourseProject.Controllers
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    if (user.LockoutEnabled)
+                    {
+                        String message = String.Format("You are blocked till {0}", user.LockoutEndDateUtc);
+                        ModelState.AddModelError("", message);
+                    }
+                    else
+                    {
+                        await SignInAsync(user, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                    }
                 }
                 else
                 {
