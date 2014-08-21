@@ -11,7 +11,7 @@ using MultilingualSite.Filters;
 
 namespace CourseProject.Controllers
 {
-     [Culture]
+    [Culture]
     [Authorize(Roles = "admin")]
     public class AdministratorController : Controller
     {
