@@ -19,11 +19,12 @@ using CourseProject.View_Models;
 using CloudinaryDotNet;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using MultilingualSite.Filters;
 using Ninject;
 
 namespace CourseProject.Controllers
 {
-
+     [Culture]
     public class ExerciseController : Controller
     {
         private readonly IExerciseRepository exerciseRepository;

@@ -6,10 +6,12 @@ using CourseProject.View_Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using CourseProject.View_Models;
+using MultilingualSite.Filters;
 
 
 namespace CourseProject.Controllers
 {
+     [Culture]
     [Authorize(Roles = "admin")]
     public class AdministratorController : Controller
     {

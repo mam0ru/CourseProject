@@ -11,11 +11,11 @@ using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using MultilingualSite.Filters;
 
 namespace CourseProject.Controllers
 {
-    // [Authorize(Roles = "user")]
-
+     [Culture]
     public class ProfileController : Controller
     {
         private ApplicationUserManager userManager;

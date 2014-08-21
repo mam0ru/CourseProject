@@ -9,11 +9,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MultilingualSite.Filters;
 using Owin;
 using CourseProject.Models;
 
 namespace CourseProject.Controllers
 {
+    [Culture]
     [Authorize]
     public class AccountController : Controller
     {

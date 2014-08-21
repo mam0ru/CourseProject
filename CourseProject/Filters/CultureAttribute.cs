@@ -17,13 +17,13 @@ namespace MultilingualSite.Filters
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
-                cultureName = "ru";
+                cultureName = "en";
 
             // Список культур
             List<string> cultures = new List<string>() { "ru", "en"};
             if (!cultures.Contains(cultureName))
             {
-                cultureName = "ru";
+                cultureName = "en";
             }
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
