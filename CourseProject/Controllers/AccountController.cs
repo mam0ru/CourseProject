@@ -113,7 +113,7 @@ namespace CourseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ImagePath = "~/Content/user.jpg" };
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, ImagePath = "http://localhost:50048/Content/user.jpg" };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

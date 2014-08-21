@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using CourseProject.Models;
@@ -60,7 +62,41 @@ namespace CourseProject.Controllers
 
         public ActionResult TagsOutput()
         {
-            return PartialView("_TagCloudPartial",tagRepository.Get().OrderByDescending(tag => tag.Task.Count()));
+            return PartialView("_TagCloudPartial", tagRepository.Get().OrderByDescending(tag => tag.Task.Count()));
+        }
+
+        [HttpPost]
+        public ActionResult SendMail(string SenderAddress, string Message)
+        {
+            string username = "course.project.itr@gmail.com";
+            string password = "project123456";
+            NetworkCredential loginInfo = new NetworkCredential(username, password);
+            MailMessage msg = new MailMessage();
+
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 25);
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.Credentials = loginInfo;
+
+            string message = " (" + SenderAddress + ") has a message for you:<br /><br />" + Message;
+
+            try
+            {
+                msg.From = new MailAddress("course.project.itr@gmail.com");
+                msg.To.Add(new MailAddress(SenderAddress));
+                msg.Subject = "Web Message";
+                msg.Sender = new MailAddress("course.project.itr@gmail.com");
+                msg.Body = message;
+                msg.IsBodyHtml = true;
+
+                smtpClient.Send(msg);
+                return Content("Your message was sent successfully!");
+            }
+            catch (Exception)
+            {
+                return Content("There was an error... please try again.");
+            }
         }
 
          public ActionResult ChangeCulture(string lang)

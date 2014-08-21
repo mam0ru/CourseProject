@@ -688,10 +688,11 @@ namespace CourseProject.Controllers
             return Json(categoriesText, JsonRequestBehavior.AllowGet);
         }
 
-        private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize)
+        private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize,int id)
         {
             int startIndex = (BlockNumber - 1) * BlockSize;
-            var comments = commentRepository.Get().Skip(startIndex).Take(BlockSize).ToList();
+            var allComments = commentRepository.Get().Where(comment => comment.Target.Id == id);
+            var comments = allComments.Skip(startIndex).Take(BlockSize).ToList();
             List<GetCommentViewModel> model = new List<GetCommentViewModel>();
             foreach (var comment in comments)
             {
@@ -709,9 +710,9 @@ namespace CourseProject.Controllers
             return model;
         }
 
-        public ActionResult GetComments()
+        public ActionResult GetComments(int id)
         {
-            IEnumerable<GetCommentViewModel> model = getCommentViewModels(1, 5);
+            IEnumerable<GetCommentViewModel> model = getCommentViewModels(1, 5, id);
             return PartialView(model);
         }
 
@@ -733,12 +734,12 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult InfinateScroll(int blockNumber)
+        public ActionResult InfinateScroll(int blockNumber, int id)
         {
             string html;
             bool noMoreData = false;
             const int BlockSize = 5;
-            var comments = getCommentViewModels(blockNumber, BlockSize);
+            var comments = getCommentViewModels(blockNumber, BlockSize, id);
             if (comments.Count() == 0)
             {
                 noMoreData = true;
