@@ -3,89 +3,116 @@
 <br>
 
 <div class="jumbotron">
-        @using (Html.BeginForm("AdministratorMain", "Administrator"))
-        {
-            <table class="table">
-                <th>
-                    @Resources.Resource.Username
-                </th>
-                <th>
-                    @Resources.Resource.Email
-                </th>
-                <th>
-                    @Resources.Resource.Exercises
-                </th>
-                <th>
-                    @Resources.Resource.RightAnsweredExercises
-                </th>
-                <th>
-                    @Resources.Resource.Administrator
-                </th>
-                <th>
-                    @Resources.Resource.BlockUser
-                </th>
-                <th>
-                    @Resources.Resource.DropUserPassword
-                </th>
-                <th>
-                    @Resources.Resource.DeleteUser
-                </th>
+    <h3><center>@Resources.Resource.Users</center></h3>
+    @using (Html.BeginForm("AdministratorMain", "Administrator"))
+    {
+        <table class="table">
+            <th>
+                @Resources.Resource.Username
+            </th>
+            <th>
+                @Resources.Resource.Email
+            </th>
+            <th>
+                @Resources.Resource.RightAnsweredExercises
+            </th>
+            <th>
+                @Resources.Resource.Administrator
+            </th>
+            <th>
+                @Resources.Resource.BlockUser
+            </th>
+            <th>
+                @Resources.Resource.DropUserPassword
+            </th>
+            <th>
+                @Resources.Resource.DeleteUser
+            </th>
 
-                @for (int i = 0; i < Model.Count(); i++)
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+
+                    @Html.TextBoxFor(x => x[i].Id, new { @class = "hidden" })
+                    @Html.TextBoxFor(x => x[i].Email, new { @class = "hidden" })
+                    @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" })
+                    @Html.TextBoxFor(x => x[i].SolvedExercises, new { @class = "hidden" })
+                    @Html.TextBoxFor(x => x[i].UsersExercises, new { @class = "hidden" })
+                    <td> @Html.ActionLink(Model.ElementAt(i).Name, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
+                    <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
+                    <td>
+                        @if (Model.ElementAt(i).SolvedExercises != null)
+                        {
+                            foreach (var exersise in Model.ElementAt(i).SolvedExercises)
+                            {
+                                <tr>
+                                    <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            @Resources.Resource.NoCurrentUserRightAnsweredExercises
+                        }
+                    </td>
+                    <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
+                    <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
+                    <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
+                    <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
+                </tr>
+            }
+        </table>
+        <div class="left">
+            <input type="submit" id="search-button" value=@Resources.Resource.Submit>
+        </div>
+    }
+
+    <br>
+    <br>
+    <h3><center>@Resources.Resource.Exercises</center></h3>
+    <table class="table">
+        <th>
+            @Resources.Resource.Username
+        </th>
+        <th>
+            @Resources.Resource.ExerciseName
+        </th>
+        <th>
+            @Resources.Resource.ShowExercise
+        </th>
+        <th>
+            @Resources.Resource.EditExercise
+        </th>
+        <th>
+            @Resources.Resource.MakeActiveInactive
+        </th>
+        <th>
+            @Resources.Resource.DeleteExercise
+        </th>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                @foreach (var exersise in Model.ElementAt(i).UsersExercises)
                 {
-                    <tr>
-                        
-                        @Html.TextBoxFor(x => x[i].Id, new{@class="hidden"})                      
-                        @Html.TextBoxFor(x => x[i].Email, new { @class = "hidden" })
-                        @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" })
-                        @Html.TextBoxFor(x => x[i].SolvedExercises, new { @class = "hidden" })
-                        @Html.TextBoxFor(x => x[i].UsersExercises, new { @class = "hidden" })
-                        <td> @Html.ActionLink(Model.ElementAt(i).Name, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
-                        <td> @Html.ActionLink(Model.ElementAt(i).Email, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
-                        <td>
-                            @foreach (var exersise in Model.ElementAt(i).UsersExercises)
-                            {
-                                string activeAction = "";
-                                if (exersise.Active)
-                                {
-                                    activeAction = @Resources.Resource.MakeInactive.ToString();
-                                }
-                                else
-                                {
-                                    activeAction = @Resources.Resource.MakeActive.ToString();
-                                }
-                                @exersise.Name
-                                @Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                                @Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                                @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
-                                @Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                                <br>
-                            }
-                        </td>
-                        <td>
-                            @if (Model.ElementAt(i).SolvedExercises != null)
-                            {
-                                foreach (var exersise in Model.ElementAt(i).SolvedExercises)
-                                {
-                                    <tr>
-                                        <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                                    </tr>
-                                }
-                            }
-                            else
-                            {
-                                @Resources.Resource.NoCurrentUserRightAnsweredExercises
-                            }
-                        </td>
-                        <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
-                        <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
-                        <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
-                        <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
-                    </tr>
+
+                    <td> @Html.ActionLink(Model.ElementAt(i).Name, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
+                    string activeAction = "";
+                    if (exersise.Active)
+                    {
+                        activeAction = @Resources.Resource.MakeInactive.ToString();
+                    }
+                    else
+                    {
+                        activeAction = @Resources.Resource.MakeActive.ToString();
+                    }
+                    <td>@exersise.Name</td>
+                    <td>@Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
+                    <td>@Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
+                    <td>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })</td>
+                    <td>@Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
                 }
-            </table>
-            <div class="left">
-                <input type="submit" id="search-button" value=@Resources.Resource.Submit>
-            </div>
+            </tr>
         }
+    </table>
 </div>

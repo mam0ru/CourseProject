@@ -286,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm email.
+        /// </summary>
+        public static string ConfirmEmail {
+            get {
+                return ResourceManager.GetString("ConfirmEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to click here to log in.
         /// </summary>
         public static string ConfirmEmailLoginLinkText {
@@ -349,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete exercise.
+        /// </summary>
+        public static string DeleteExercise {
+            get {
+                return ResourceManager.GetString("DeleteExercise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete user.
         /// </summary>
         public static string DeleteUser {
@@ -408,6 +426,24 @@ namespace Resources {
         public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exercise`s name.
+        /// </summary>
+        public static string ExerciseName {
+            get {
+                return ResourceManager.GetString("ExerciseName", resourceCulture);
             }
         }
         
@@ -561,6 +597,15 @@ namespace Resources {
         public static string IndexTitleText {
             get {
                 return ResourceManager.GetString("IndexTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid username or password..
+        /// </summary>
+        public static string InvalidUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
             }
         }
         
@@ -790,6 +835,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make аctive/ inactive.
+        /// </summary>
+        public static string MakeActiveInactive {
+            get {
+                return ResourceManager.GetString("MakeActiveInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make Inactive.
         /// </summary>
         public static string MakeInactive {
@@ -912,6 +966,15 @@ namespace Resources {
         public static string NotifyAboutMistake {
             get {
                 return ResourceManager.GetString("NotifyAboutMistake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No user found..
+        /// </summary>
+        public static string NoUserFound {
+            get {
+                return ResourceManager.GetString("NoUserFound", resourceCulture);
             }
         }
         
@@ -1249,6 +1312,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user either does not exist or is not confirmed..
+        /// </summary>
+        public static string TheUserEitherDoesNot {
+            get {
+                return ResourceManager.GetString("TheUserEitherDoesNot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of tries to answer .
         /// </summary>
         public static string TriesOfAnswers {
@@ -1308,6 +1380,15 @@ namespace Resources {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are blocked till {0}.
+        /// </summary>
+        public static string YouAreBlockedTill {
+            get {
+                return ResourceManager.GetString("YouAreBlockedTill", resourceCulture);
             }
         }
         

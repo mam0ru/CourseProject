@@ -57,8 +57,8 @@
             <div id='search-box'>
                 @using (Html.BeginForm("Search", "Exercise"))
                 {
-                    <input type="text" placeholder="Search on Site" id="search-text" name="search" />
-                    <input type="submit" id="search-button" value="Search" />
+                    <input type="text" placeholder=@Resources.Resource.SearchOnSite id="search-text" name="search" />
+                    <input type="submit" id="search-button" value=@Resources.Resource.Search />
                 }
             </div>
             @RenderBody()

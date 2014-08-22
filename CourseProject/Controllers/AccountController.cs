@@ -83,7 +83,7 @@ namespace CourseProject.Controllers
                 {
                     if (user.LockoutEnabled)
                     {
-                        String message = String.Format("You are blocked till {0}", user.LockoutEndDateUtc);
+                        String message = String.Format(Resources.Resource.YouAreBlockedTill, user.LockoutEndDateUtc);
                         ModelState.AddModelError("", message);
                     }
                     else
@@ -94,7 +94,7 @@ namespace CourseProject.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", Resources.Resource.InvalidUsernameOrPassword);
                 }
             }
 
@@ -161,7 +161,7 @@ namespace CourseProject.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return View(result.Succeeded ? Resources.Resource.ConfirmEmailMessage : Resources.Resource.Error);
         }
 
         //
@@ -184,7 +184,7 @@ namespace CourseProject.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    ModelState.AddModelError("", "The user either does not exist or is not confirmed.");
+                    ModelState.AddModelError("", Resources.Resource.TheUserEitherDoesNot);
                     return View();
                 }
 
@@ -232,7 +232,7 @@ namespace CourseProject.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "No user found.");
+                    ModelState.AddModelError("",  Resources.Resource.NoUserFound);
                     return View();
                 }
                 IdentityResult result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);

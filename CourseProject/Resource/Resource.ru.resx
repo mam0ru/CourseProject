@@ -514,7 +514,7 @@
     <value>Поиск</value>
   </data>
   <data name="SearchOnSite" xml:space="preserve">
-    <value>Поиск по сайту  ... </value>
+    <value>Поиск по сайту ...</value>
   </data>
   <data name="LayoutSelectLanguageText" xml:space="preserve">
     <value>Выберите язык</value>
@@ -539,5 +539,32 @@
   </data>
   <data name="UseAnotherServiceToLogIn" xml:space="preserve">
     <value>Использовать другие сервисы для входа.</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Подтвердите эмэйл</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ExerciseName" xml:space="preserve">
+    <value>Название задачи</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Невалидный пароль или имя пользователя.</value>
+  </data>
+  <data name="NoUserFound" xml:space="preserve">
+    <value>Юзер не найден</value>
+  </data>
+  <data name="TheUserEitherDoesNot" xml:space="preserve">
+    <value>Пользователь или не существует или не подтвердил аккаунт.</value>
+  </data>
+  <data name="YouAreBlockedTill" xml:space="preserve">
+    <value>Вы заблокированы до {0}</value>
+  </data>
+  <data name="MakeActiveInactive" xml:space="preserve">
+    <value>Сделать активной/ неактивной</value>
+  </data>
+  <data name="DeleteExercise" xml:space="preserve">
+    <value>Удалить задачу</value>
   </data>
 </root>

@@ -540,4 +540,31 @@
   <data name="UseAnotherServiceToLogIn" xml:space="preserve">
     <value>Use another service to log in.</value>
   </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Confirm email</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ExerciseName" xml:space="preserve">
+    <value>Exercise`s name</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Invalid username or password.</value>
+  </data>
+  <data name="NoUserFound" xml:space="preserve">
+    <value>No user found.</value>
+  </data>
+  <data name="TheUserEitherDoesNot" xml:space="preserve">
+    <value>The user either does not exist or is not confirmed.</value>
+  </data>
+  <data name="YouAreBlockedTill" xml:space="preserve">
+    <value>You are blocked till {0}</value>
+  </data>
+  <data name="MakeActiveInactive" xml:space="preserve">
+    <value>Make аctive/ inactive</value>
+  </data>
+  <data name="DeleteExercise" xml:space="preserve">
+    <value>Delete exercise</value>
+  </data>
 </root>
