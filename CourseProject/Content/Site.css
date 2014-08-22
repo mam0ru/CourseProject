@@ -9,18 +9,6 @@
     padding-right: 15px;
 }
 
-.table {
-    width: 100%;
-}
-
-td {
-    padding-top: 0px;
-}
-    
-div.tbody {
-     width: 100%;
-}
-
 #search-box {
     position: relative;
     margin-left: 0.3em;
@@ -110,10 +98,6 @@ div.rating {
 
 }
 
-.md-header {
-    height: 40px;
-}
-
 .btn.btn-primary {
     color: #ffffff;
     background-color: #428BCA;
@@ -127,11 +111,6 @@ div.rating {
     background-image: linear-gradient(to bottom, #2D6CA2, #2D6CA2);
     border-color: #2B669A #2B669A #2B669A;
     float: right;
-}
-
-.markdownpanel {
-    width:64%;
-    height: 50%;
 }
 
 .btn.btn-default.disabled, 
@@ -184,5 +163,3 @@ div.container-body-content {
     padding-left: 0px;
     padding-right: 0px;
 }
-
-table, tr, td,th { border: 1px solid black;}
