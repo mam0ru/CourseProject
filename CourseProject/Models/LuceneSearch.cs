@@ -36,12 +36,11 @@ namespace CourseProject.Models
         {
             var doc = new Document();
             var commentsArray = String.Join(" ", exerciseData.Comments.Select(x => x.Text).ToArray());
-            var tagsArray = String.Join(" ", exerciseData.Comments.Select(x => x.Text).ToArray());
+            var tagsArray = String.Join(" ", exerciseData.Tags.Select(x => x.Text).ToArray());
             // add lucene fields mapped to db fields
             doc.Add(new Field("Id", exerciseData.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("ExerciseName", exerciseData.Name, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("ExerciseText", exerciseData.Text, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("UserName", exerciseData.Author.UserName, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Category", exerciseData.Category.Text, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Comments", commentsArray, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Tags", tagsArray, Field.Store.YES, Field.Index.ANALYZED));
@@ -63,6 +62,7 @@ namespace CourseProject.Models
                 writer.Dispose();
             }
         }
+
 
         public List<Exercise> SearchExerciseField(String field, String search, List<Exercise> exercises)
         {
@@ -103,15 +103,12 @@ namespace CourseProject.Models
         public List<Exercise> SearchExercise(String search)
         {
             var exercises = new List<Exercise>();
-            SearchExerciseField("ExerciseName",search, exercises);
+            SearchExerciseField("ExerciseName", search, exercises);
             SearchExerciseField("ExerciseText", search, exercises);
-            SearchExerciseField("UserName", search, exercises);
             SearchExerciseField("Category", search, exercises);
             SearchExerciseField("Comments", search, exercises);
             SearchExerciseField("Tags", search, exercises);
             return exercises;
         }
-
-     
+    }
 }
-}  

@@ -757,9 +757,13 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult Search(string search)
         {
+            var searchReturn = new SearchReturnModel();
             LuceneSearch luceneSearch = new LuceneSearch(exerciseRepository);
-            var exercises = luceneSearch.SearchExercise(search).Distinct();
-            return View("SearchResults", exercises);//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+            searchReturn.Exercises = luceneSearch.SearchExercise(search).Distinct();
+            LuceneSearchUserName luceneSearchUserName = new LuceneSearchUserName(userManager);
+            searchReturn.Users = luceneSearchUserName.SearchUser(search).Distinct();
+
+            return View("SearchResults", searchReturn);//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
         }
 
         public ActionResult SendAnswerPartialView(int id)
