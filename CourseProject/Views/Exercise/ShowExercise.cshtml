@@ -8,17 +8,14 @@
 @Scripts.Render("~/byndles/Graphs")
 <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 <script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <script src="~/Scripts/Exercise/Show/SendEmail.js"></script>
+<script src="~/Scripts/Exercise/Show/InfiniteScrolling.js"></script>
 @Html.HiddenFor(exercise => exercise.Id)
 @{
     bool author = false;
     bool authenticated = false;
     bool isAnswered = false;
-    <table width="100%">
-        <col width="33%" />
-        <col width="33%" />
-        <col width="33%" />
+    <table class="table">
         <td>
             <h3>
                 @Model.Name
@@ -63,17 +60,10 @@
             @if (!author && authenticated && Model.Active)
             {
                 <h3>@Resources.Resource.NotifyAboutMistake</h3>
-                @*using (Html.BeginForm("WriteToAuthor", "Exercise"))
-                    {
-                        <input value="@Model.Id" hidden="true">
-                        <input type="text" placeholder="" id="input-text" name="text" />
-                        <input type="submit" id="text" value="Send" />
-                    }*@
-
                 <div id="form-container">
                     @using (Html.BeginForm("SendMail", "Home", FormMethod.Post, new { id = "email-form" }))
                     {
-                        <input type="email" name="SenderAddress" id="sender-address" placeholder="Email" required hidden="" value="@Model.Author.Email"/>
+                        <input type="email" name="SenderAddress" id="sender-address" placeholder="Email" required hidden="" value="@Model.Author.Email" />
                         <textarea name="Message" id="message" placeholder="Message" required></textarea>
                         <input type="submit" id="send-button" value="Send" />
                     }
@@ -172,39 +162,16 @@
             @Html.Action("AddComment", "Exercise", Model.Id)
         </div>
         <br>
-    }
-    <div class="comments">
-        <div id="bookListDiv">
-            @Html.Action("GetComments", "Exercise", Model.Id)
+        <div class="comments">
+            <div id="bookListDiv">
+                @Html.Action("GetComments", "Exercise", Model.Id)
+            </div>
         </div>
-    </div>
-    <div id="loadingDiv" style="text-align: center; display: none; margin-bottom: 20px;">
+        <div id="loadingDiv" style="text-align: center; display: none; margin-bottom: 20px;">
 
-        <img alt="Loading"
-             src="@Url.Content("~/Content/ajax-loader.gif")" />
-    </div>
-    <script type="text/javascript">
-        var blockNumber = 2;
-        var NoMoreData = false;
-        var inProgress = false;
-
-        $(window).scroll(function () {
-            if ($(window).scrollTop() == $(document).height() -
-                $(window).height() && !NoMoreData && !inProgress) {
-
-                inProgress = true;
-                $("#loadingDiv").show();
-
-                $.post("/Exercise/InfinateScroll", { "blockNumber": blockNumber, "id": $('#Id')[0].value},
-                    function (data) {
-                        blockNumber = blockNumber + 1;
-                        NoMoreData = data.NoMoreData;
-                        $("#bookListDiv").append(data.HTMLString);
-                        $("#loadingDiv").hide();
-                        inProgress = false;
-                    })
-            };
-        });
-    </script>
+            <img alt="Loading"
+                 src="@Url.Content("~/Content/ajax-loader.gif")" />
+        </div>
+    }
 }
 

@@ -6,13 +6,6 @@
 @Scripts.Render("~/bundles/exercise/create/image")
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <script src="~/Scripts/Profile/MyProfile/avatar.js"></script>
-<script>
-    $(function () {
-        $("#accordion").accordion({
-            collapsible: true
-        });
-    });
-</script>
 
 <div class="myexercises">
     <div class="userinfo">
@@ -27,8 +20,7 @@
                     <img id="avatar" src=@Model.ImagePath alt=@Model.UserName width="150">
                 }
                 <br>
-                <br>
-                <input id="changeAvatar" type="file" name="imageupload">           
+                <input id="changeAvatar" type="file" name="imageupload">
                 <div class="progress">
                     <div class="progress-bar" role="progressbar"></div>
                 </div>
@@ -50,53 +42,70 @@
     <h4> @Resources.Resource.MyExercises</h4>
     @if (Model.Exercises.Count != 0)
     {
+        String collapseNumber = "collapse";
+        int i = 0;
         <div id="accordion" style="color:inherit; background-color: inherit">
             @foreach (var exersise in Model.Exercises)
             {
-                string activeAction = "";
-                if (exersise.Active)
-                {
-                    activeAction = @Resources.Resource.MakeInactive.ToString();
-                }
-                else
-                {
-                    activeAction = @Resources.Resource.MakeActive.ToString();
-                }
-
-                <h5><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></h5>
-                <div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                        </div>
-                        <div class="col-md-3">
-                            @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
-                        </div>
-                        <div class="col-md-3">
-                            @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
+                String current = @String.Format("{0}{1}", collapseNumber, i);
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#@current">
+                                @exersise.Name
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="@current" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            @{
+                                string activeAction = "";
+                                if (exersise.Active)
+                                {
+                                    activeAction = @Resources.Resource.MakeInactive.ToString();
+                                }
+                                else
+                                {
+                                    activeAction = @Resources.Resource.MakeActive.ToString();
+                                }
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.ActionLink(@Resources.Resource.EditExercise, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })
+                                        </div>
+                                    </div>
+                                    <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
+                                    <h5>
+                                        @Resources.Resource.TriesOfAnswers:
+                                        <span class="badge" style="background-color: cornsilk; color: black">
+                                            @exersise.TriesOfAnswers
+                                        </span>
+                                    </h5>
+                                    <h5>
+                                        @Resources.Resource.RightAnsweredUsers:
+                                        <span class="badge" style="background-color: cornsilk; color: black ">
+                                            @exersise.RightAnsweredUsers.Count
+                                        </span>
+                                    </h5>
+                                    <ul>
+                                        @foreach (var user in exersise.RightAnsweredUsers)
+                                        {
+                                            <li>
+                                                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                i++;
+                            }
                         </div>
                     </div>
-                    <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
-                    <h5>
-                        @Resources.Resource.TriesOfAnswers:
-                        <span class="badge" style="background-color: cornsilk; color: black">
-                            @exersise.TriesOfAnswers
-                        </span>
-                    </h5>
-                    <h5>
-                        @Resources.Resource.RightAnsweredUsers:
-                        <span class="badge" style="background-color: cornsilk; color: black ">
-                            @exersise.RightAnsweredUsers.Count
-                        </span>
-                    </h5>
-                    <ul>
-                        @foreach (var user in exersise.RightAnsweredUsers)
-                        {
-                            <li>
-                                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-                            </li>
-                        }
-                    </ul>
                 </div>
             }
         </div>

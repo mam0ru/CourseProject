@@ -3,16 +3,6 @@
 
 }
 
-<br>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-<script>
-    $(function () {
-        $("#accordion").accordion({
-            collapsible: true
-        });
-    });
-</script>
-
 <div class="myexercises">
     <div class="userinfo">
         <div class="row">
@@ -42,37 +32,53 @@
     <h4> @Resources.Resource.Exercises</h4>
     @if (Model.Exercises.Count != 0)
     {
-        <div id="accordion" style="color:inherit; background-color: inherit">
+        String collapseNumber = "collapse";
+        int i = 0;
+        <div class="panel-group" id="accordion">
             @foreach (var exersise in Model.Exercises)
             {
-                <h4>@exersise.Name</h4>
-                <div class="row">
-                    <div class="col-md-3">
-                        @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                String current = @String.Format("{0}{1}", collapseNumber, i);
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#@current">
+                                @exersise.Name
+                            </a>
+                        </h4>
                     </div>
-                    <br>
-                    <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
-                    <h5>
-                        @Resources.Resource.TriesOfAnswers:
-                        <span class="badge" style="background-color: cornsilk; color: black">
-                            @exersise.TriesOfAnswers
-                        </span>
-                    </h5>
-                    <h5>
-                        @Resources.Resource.RightAnsweredUsers:
-                        <span class="badge" style="background-color: cornsilk; color: black ">
-                            @exersise.RightAnsweredUsers.Count
-                        </span>
-                    </h5>
-                    <ul>
-                        @foreach (var user in exersise.RightAnsweredUsers)
-                        {
-                            <li>
-                                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-                            </li>
-                        }
-                    </ul>
+                    <div id="@current" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    @Html.ActionLink(@Resources.Resource.ShowExercise, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })
+                                </div>
+                                <br>
+                                <h5>@Resources.Resource.Category: @exersise.Category.Text</h5>
+                                <h5>
+                                    @Resources.Resource.TriesOfAnswers:
+                                    <span class="badge" style="background-color: cornsilk; color: black">
+                                        @exersise.TriesOfAnswers
+                                    </span>
+                                </h5>
+                                <h5>
+                                    @Resources.Resource.RightAnsweredUsers:
+                                    <span class="badge" style="background-color: cornsilk; color: black ">
+                                        @exersise.RightAnsweredUsers.Count
+                                    </span>
+                                </h5>
+                                <ul>
+                                    @foreach (var user in exersise.RightAnsweredUsers)
+                                    {
+                                        <li>
+                                            @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                i++;
             }
         </div>
     }
