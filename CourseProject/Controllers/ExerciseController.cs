@@ -705,6 +705,7 @@ namespace CourseProject.Controllers
                     element.AuthorAvatar = author.ImagePath;
                     element.AuthorName = author.UserName;
                     element.Text = comment.Text;
+                    element.Id = comment.Id;
                     model.Add(element);
                 }
             }
@@ -771,6 +772,12 @@ namespace CourseProject.Controllers
             SendAnswerPartialViewModel model = new SendAnswerPartialViewModel();
             model.TaskId = id;
             return PartialView("_SendAnswer", model);
+        }
+
+        public ActionResult DeleteComment(int id)
+        {
+            commentRepository.Delete(id);
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
     }
 }

@@ -6,8 +6,8 @@
 <div>
     @if (Model.Count() != 0)
     {
-        <div id="myCanvasContainer">
-            <canvas width="240" height="300" id="myCanvas"></canvas>
+        <div id="myCanvasContainer" width = "90%">
+            <canvas width="270%" height="220%" id="myCanvas"></canvas>
         </div>
         <div id="tags" style="font-size: 50%">
             @{
@@ -28,7 +28,7 @@
                 if (!$('#myCanvas').tagcanvas({
                     //textColour: '#ff0000',
                     outlineColour: '#ff00ff',
-                    reverse: true,
+                        reverse: true,
                     depth: 0.8,
                     maxSpeed: 0.05,
                     textFont: null,
