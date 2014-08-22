@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using CourseProject.Migrations;
 using CourseProject.Models;
 using CourseProject.View_Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using CourseProject.View_Models;
 using MultilingualSite.Filters;
 
 

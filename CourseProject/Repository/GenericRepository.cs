@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 using CourseProject.Models;
-using Ninject;
 
 namespace CourseProject.Repository
 {

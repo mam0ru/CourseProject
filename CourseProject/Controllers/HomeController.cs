@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
-using CourseProject.Models;
 using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
 using MultilingualSite.Filters;

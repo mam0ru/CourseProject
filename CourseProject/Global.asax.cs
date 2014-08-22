@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using CourseProject.Models;
-using CourseProject.Repository;
-using CourseProject.Repository.Implementation;
-using CourseProject.Repository.Interfaces;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
 using Lucene.Net.Store;
-using Ninject;
-using Ninject.Modules;
 
 namespace CourseProject
 {

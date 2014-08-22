@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using CourseProject.Repository;
-using CourseProject.Repository.Implementation;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
@@ -12,7 +11,6 @@ using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
-using Microsoft.Ajax.Utilities;
 using Version = Lucene.Net.Util.Version;
 
 namespace CourseProject.Models

@@ -4,15 +4,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Services.Description;
-using System.Web.UI;
 using CloudinaryDotNet.Actions;
 using CourseProject.Models;
 using CourseProject.Repository;
-using CourseProject.Repository.Implementation;
 using CourseProject.Repository.Interfaces;
 using CourseProject.ViewModels;
 using CourseProject.View_Models;
@@ -20,11 +15,10 @@ using CloudinaryDotNet;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MultilingualSite.Filters;
-using Ninject;
 
 namespace CourseProject.Controllers
 {
-     [Culture]
+    [Culture]
     public class ExerciseController : Controller
     {
         private readonly IExerciseRepository exerciseRepository;
@@ -67,8 +61,6 @@ namespace CourseProject.Controllers
             IGraphRepository graphRepository,
             IVideoRepository videoRepository)
         {
-            InitCategoriesIdToString();
-            InitCategoriesStringToId();
             this.exerciseRepository = exerciseRepository;
             this.categoryRepository = categoryRepository;
             this.pictureRepository = pictureRepository;
@@ -94,7 +86,7 @@ namespace CourseProject.Controllers
         }
 
         private void InitCategoriesStringToId()
-        {       
+        {
             categoriesStringToId.Add(Resources.Resource.CategoryCulture, 1);
             categoriesStringToId.Add(Resources.Resource.CategoryMath, 2);
             categoriesStringToId.Add(Resources.Resource.CategoryArt, 3);
@@ -235,9 +227,10 @@ namespace CourseProject.Controllers
                     TempData["alertMessage"] = "You answered right!";
                 }
             }
-            if (!answerFound) { 
-            exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
-            exerciseRepository.Update(exercise);
+            if (!answerFound)
+            {
+                exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
+                exerciseRepository.Update(exercise);
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
@@ -679,6 +672,8 @@ namespace CourseProject.Controllers
 
         public ActionResult GetCategoties()
         {
+            InitCategoriesIdToString();
+            InitCategoriesStringToId();
             var categories = categoryRepository.Get();
             List<String> categoriesText = new List<string>();
             foreach (var category in categories)
@@ -689,7 +684,7 @@ namespace CourseProject.Controllers
             return Json(categoriesText, JsonRequestBehavior.AllowGet);
         }
 
-        private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize,int id)
+        private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize, int id)
         {
             int startIndex = (BlockNumber - 1) * BlockSize;
             var allComments = commentRepository.Get().Where(comment => comment.Target.Id == id);
@@ -759,14 +754,14 @@ namespace CourseProject.Controllers
         {
             LuceneSearch luceneSearch = new LuceneSearch(exerciseRepository);
             var exercises = luceneSearch.SearchExercise(search).Distinct();
-            return View("SearchResults",exercises);//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
+            return View("SearchResults", exercises);//"Rating", MvcApplication.dataBase.UserRepository.Get().OrderBy(user => user.RightAnswers.Count()));
         }
 
         public ActionResult SendAnswerPartialView(int id)
         {
             SendAnswerPartialViewModel model = new SendAnswerPartialViewModel();
             model.TaskId = id;
-            return PartialView("_SendAnswer",model);
+            return PartialView("_SendAnswer", model);
         }
     }
 }
