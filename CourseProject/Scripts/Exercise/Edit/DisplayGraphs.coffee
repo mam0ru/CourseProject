@@ -39,6 +39,3 @@
     $(document).ready ()->
         existingGraphs = $("[name='GraphInfo']")
         drawGraphs(existingGraphs)
-        $("#accordion").accordion({
-            collapsible: true
-        })

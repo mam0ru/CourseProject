@@ -52,10 +52,7 @@
     return $(document).ready(function() {
       var existingGraphs;
       existingGraphs = $("[name='GraphInfo']");
-      drawGraphs(existingGraphs);
-      return $("#accordion").accordion({
-        collapsible: true
-      });
+      return drawGraphs(existingGraphs);
     });
   });
 
