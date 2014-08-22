@@ -66,10 +66,14 @@
                 @using (Html.BeginForm("Search", "Exercise"))
                 {
                     <input type="text" placeholder="Search on Site" id="search-text" name="search" />
-                    <input type="submit" id="search-button" value="Search" />
+                    <button type="submit" id="search-button" class="btn btn-default" data-toggle="popover" title="Popover title" data-placement="top" data-content="Search message" value="Search" />
                 }
             </div>
             @RenderBody()
+
+            <a href="#" role="button" class="btn popovers-to-be-activated" title="Title" data-content="And here's some amazing content."
+               data-original-title="A Title">button</a>
+
         </div>
 
     </div>
@@ -106,3 +110,5 @@
     </footer>
 </body>
 </html>
+
+$('.popovers-to-be-activated').popover();
