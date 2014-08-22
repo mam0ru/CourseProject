@@ -30,7 +30,22 @@ namespace MultilingualSite.Filters
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //не реализован
+            string cultureName = null;
+            // Получаем куки из контекста, которые могут содержать установленную культуру
+            HttpCookie cultureCookie = filterContext.HttpContext.Request.Cookies["lang"];
+            if (cultureCookie != null)
+                cultureName = cultureCookie.Value;
+            else
+                cultureName = "en";
+
+            // Список культур
+            List<string> cultures = new List<string>() { "ru", "en" };
+            if (!cultures.Contains(cultureName))
+            {
+                cultureName = "en";
+            }
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
         }
     }
 }
