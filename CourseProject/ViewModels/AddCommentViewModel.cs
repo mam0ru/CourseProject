@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CourseProject.ViewModels
 {
@@ -10,6 +11,7 @@ namespace CourseProject.ViewModels
 
         public String ImagePath { get; set; }
 
+        [Required]
         public String Text { get; set; }
 
         public int ExerciseId { get; set; }

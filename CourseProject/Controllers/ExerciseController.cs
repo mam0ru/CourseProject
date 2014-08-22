@@ -76,24 +76,26 @@ namespace CourseProject.Controllers
 
         private void InitCategoriesIdToString()
         {
-            categoriesIdToString.Add(1, Resources.Resource.CategoryCulture);
-            categoriesIdToString.Add(2, Resources.Resource.CategoryMath);
-            categoriesIdToString.Add(3, Resources.Resource.CategoryArt);
-            categoriesIdToString.Add(4, Resources.Resource.CategoryPhysics);
-            categoriesIdToString.Add(5, Resources.Resource.CategoryPeople);
-            categoriesIdToString.Add(6, Resources.Resource.CategoryWorld);
-            categoriesIdToString.Add(7, Resources.Resource.CategoryScience);
+            categoriesIdToString.Clear();
+            categoriesIdToString.Add(1, Resources.Resource.CategoryCulture.ToString());
+            categoriesIdToString.Add(2, Resources.Resource.CategoryMath.ToString());
+            categoriesIdToString.Add(3, Resources.Resource.CategoryArt.ToString());
+            categoriesIdToString.Add(4, Resources.Resource.CategoryPhysics.ToString());
+            categoriesIdToString.Add(5, Resources.Resource.CategoryPeople.ToString());
+            categoriesIdToString.Add(6, Resources.Resource.CategoryWorld.ToString());
+            categoriesIdToString.Add(7, Resources.Resource.CategoryScience.ToString());
         }
 
         private void InitCategoriesStringToId()
         {
-            categoriesStringToId.Add(Resources.Resource.CategoryCulture, 1);
-            categoriesStringToId.Add(Resources.Resource.CategoryMath, 2);
-            categoriesStringToId.Add(Resources.Resource.CategoryArt, 3);
-            categoriesStringToId.Add(Resources.Resource.CategoryPhysics, 4);
-            categoriesStringToId.Add(Resources.Resource.CategoryPeople, 5);
-            categoriesStringToId.Add(Resources.Resource.CategoryWorld, 6);
-            categoriesStringToId.Add(Resources.Resource.CategoryScience, 7);
+            categoriesStringToId.Clear();
+            categoriesStringToId.Add(Resources.Resource.CategoryCulture.ToString(), 1);
+            categoriesStringToId.Add(Resources.Resource.CategoryMath.ToString(), 2);
+            categoriesStringToId.Add(Resources.Resource.CategoryArt.ToString(), 3);
+            categoriesStringToId.Add(Resources.Resource.CategoryPhysics.ToString(), 4);
+            categoriesStringToId.Add(Resources.Resource.CategoryPeople.ToString(), 5);
+            categoriesStringToId.Add(Resources.Resource.CategoryWorld.ToString(), 6);
+            categoriesStringToId.Add(Resources.Resource.CategoryScience.ToString(), 7);
         }
 
         public ApplicationUserManager UserManager
@@ -250,6 +252,8 @@ namespace CourseProject.Controllers
 
         private Exercise InitializExercise(ExerciseCreateViewModel model)
         {
+            InitCategoriesIdToString();
+            InitCategoriesStringToId();
             Exercise exercise = new Exercise();
             exercise.Active = true;
             exercise.Author = userManager.FindById(User.Identity.GetUserId());

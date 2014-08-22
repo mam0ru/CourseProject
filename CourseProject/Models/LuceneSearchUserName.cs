@@ -17,6 +17,7 @@ using Version = Lucene.Net.Util.Version;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
+
 namespace CourseProject.Models
 {
     public class LuceneSearchUserName
@@ -39,28 +40,28 @@ namespace CourseProject.Models
                 if (File.Exists(lockFilePath)) File.Delete(lockFilePath);
                 return _directoryTemp;
             }
-        }  
+        }
 
-        public LuceneSearchUserName( ApplicationUserManager userManager)
+        public LuceneSearchUserName(ApplicationUserManager userManager)
         {
             _directoryTemp = FSDirectory.Open(new DirectoryInfo(_luceneDir));
-            this.userManager = userManager;
+            UserManager = userManager;
             AddLuceneIndex(exerciseRepository.Get());
         }
 
-        /*
+
         public ApplicationUserManager UserManager
         {
             get
             {
-                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return userManager;
             }
             private set
             {
                 userManager = value;
             }
         }
-        */
+
         private static void _addToLuceneIndex(Exercise exerciseData, IndexWriter writer)
         {
             var doc = new Document();
@@ -132,7 +133,7 @@ namespace CourseProject.Models
         public List<Exercise> SearchExercise(String search)
         {
             var exercises = new List<Exercise>();
-            SearchExerciseField("ExerciseName",search, exercises);
+            SearchExerciseField("ExerciseName", search, exercises);
             SearchExerciseField("ExerciseText", search, exercises);
             SearchExerciseField("UserName", search, exercises);
             SearchExerciseField("Category", search, exercises);
@@ -140,7 +141,5 @@ namespace CourseProject.Models
             SearchExerciseField("Tags", search, exercises);
             return exercises;
         }
-
-     
+    }
 }
-}  
