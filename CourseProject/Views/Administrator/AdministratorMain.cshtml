@@ -1,8 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @model List<CourseProject.View_Models.UserForAdministratorMainViewModel>
-<br>
 
-<div class="jumbotron">
     <h3><center>@Resources.Resource.Users</center></h3>
     @using (Html.BeginForm("AdministratorMain", "Administrator"))
     {
@@ -45,21 +43,21 @@
                         {
                             foreach (var exersise in Model.ElementAt(i).SolvedExercises)
                             {
-                                <tr>
-                                    <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
-                                </tr>
+                        <tr>
+                            <td><a href="~/Profile/MyProfile/@exersise.Id">@exersise.Name</a></td>
+                        </tr>
                             }
                         }
                         else
                         {
                             @Resources.Resource.NoCurrentUserRightAnsweredExercises
                         }
-                    </td>
-                    <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
-                    <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
-                    <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
-                    <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
-                </tr>
+                        </td>
+                        <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
+                        <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
+                        <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
+                        <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
+                        </tr>
             }
         </table>
         <div class="left">
@@ -92,27 +90,29 @@
 
         @for (int i = 0; i < Model.Count(); i++)
         {
-            <tr>
-                @foreach (var exersise in Model.ElementAt(i).UsersExercises)
-                {
 
-                    <td> @Html.ActionLink(Model.ElementAt(i).Name, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
-                    string activeAction = "";
-                    if (exersise.Active)
-                    {
-                        activeAction = @Resources.Resource.MakeInactive.ToString();
-                    }
-                    else
-                    {
-                        activeAction = @Resources.Resource.MakeActive.ToString();
-                    }
-                    <td>@exersise.Name</td>
-                    <td>@Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
-                    <td>@Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
-                    <td>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })</td>
-                    <td>@Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
+            foreach (var exersise in Model.ElementAt(i).UsersExercises)
+            {
+                <tr>
+                    @{
+                        <td> @Html.ActionLink(Model.ElementAt(i).Name, "ShowProfile", "Profile", new { id = Model.ElementAt(i).Id }, new { @style = "color:dodgerblue;" })</td>
+                string activeAction = "";
+                if (exersise.Active)
+                {
+                    activeAction = @Resources.Resource.MakeInactive.ToString();
                 }
-            </tr>
+                else
+                {
+                    activeAction = @Resources.Resource.MakeActive.ToString();
+                }
+                <td>@exersise.Name</td>
+                        <td>@Html.ActionLink(@Resources.Resource.View, "ShowExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
+                        <td>@Html.ActionLink(@Resources.Resource.Edit, "EditExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
+                        <td>@Html.ActionLink(activeAction, "MakeActiveUnactive", "Profile", new { id = exersise.Id, isActive = exersise.Active }, new { @style = "color:dodgerblue;" })</td>
+                        <td>@Html.ActionLink(@Resources.Resource.Delete, "DeleteExercise", "Exercise", new { id = exersise.Id }, new { @style = "color:dodgerblue;" })</td>
+
+                    }
+                </tr>
+            }
         }
     </table>
-</div>

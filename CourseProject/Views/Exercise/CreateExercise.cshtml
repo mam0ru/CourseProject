@@ -49,7 +49,7 @@
                             </tr>
                             <tr>
                                 <td><label>@Resources.Resource.Category</label></td>
-                                <td><select id="Category"></select></td>
+                                <td><select id="Category" style="color: black"></select></td>
                             </tr>
                         </table>
                         <div class="markdownpanel">
@@ -76,8 +76,8 @@
                             <input id="imageupload" type="file" name="imageupload">
                         </div>
                         <div class="col-md-6">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                            <div class="progress" hidden="">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: 0%;"></div>
                             </div>
                         </div>
                     </div>
@@ -105,8 +105,8 @@
                                 text-align: left;
                             }
                         </style>
-                        <div id="toolbar"></div>
-                        <textarea id="equationInput" rows="3" cols="40"></textarea>
+                        <div id="toolbar" style="color: black"></div>
+                        <textarea id="equationInput" rows="3" style=" resize: none; width: 500px" cols="40"></textarea>
                         <img id="equation" />
                         <textarea id="equationToImg" readonly="" hidden="" style=" resize: none; width: 500px"></textarea>
                         <script type="text/javascript">
@@ -146,8 +146,11 @@
                                 <div class="col-md-1">
                                     @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-7">
                                     @Html.TextArea("GraphFormula", null, 1, 60, new { style = "resize: none; max-width: 1000px; width: 500px" })
+                                </div>
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="@Resources.Resource.TooltipFormulaGraphExapmle"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -158,13 +161,13 @@
                                     <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("RangeFrom", new { rows = "1", cols = "2", style = "resize: none;width: 50px" })
+                                    @Html.TextArea("RangeFrom", new { rows = "1", cols = "2", style = "resize: none;width: 50px", data_toggle="tooltip", data_placement="right", title=Resources.Resource.TooltipStartPoint})
                                 </div>
                                 <div class="col-md-1">
                                     <p>@Resources.Resource.labelGraphLabelRangeTo</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("RangeTo", new { rows = "1", cols = "2", style = "resize: none;width: 50px" })
+                                    @Html.TextArea("RangeTo", new { rows = "1", cols = "2", style = "resize: none;width: 50px", data_toggle = "tooltip", data_placement = "right", title = Resources.Resource.TooltipEndPoint})
                                 </div>
                             </div>
                             <div class="row">
@@ -172,7 +175,7 @@
                                     <p>@Resources.Resource.labelGraphStep</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("Step", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
+                                    @Html.TextArea("Step", new { rows = "1", cols = "5", style = " resize: none;width: 50px", data_toggle = "tooltip", data_placement = "right", title = Resources.Resource.TooltipStep })
                                 </div>
                                 <div class="col-md-2">
                                     <button class="btn-default" id="addGraph">Add Graph</button>
@@ -215,9 +218,9 @@
         </div>
     </div>
     <div id="tag">
-        <textarea id="inputTags" rows="1" cols="100" style="width: 500px"></textarea>
+        <textarea id="inputTags" rows="1" cols="100" style="width: 500px; color: black"></textarea>
     </div>
-    <textarea id="inputAnswers" rows="1" cols="100" style="width: 500px"></textarea>
+    <textarea id="inputAnswers" rows="1" cols="100" style="width: 500px; color: black"></textarea>
     <div>
         @Html.HiddenFor(model => model.Answers)
         @Html.HiddenFor(model => model.Category)
@@ -226,7 +229,7 @@
         @Html.HiddenFor(model => model.Graphs)
         @Html.HiddenFor(model => model.Videos)
         @Html.HiddenFor(model => model.Pictures)
-        <button type="submit" class="btn" id="Submit">@Resources.Resource.Submit</button>
+        <button type="submit" class="btn btn-success" id="Submit">@Resources.Resource.Submit</button>
     </div>
 
 }

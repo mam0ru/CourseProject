@@ -24,6 +24,7 @@
       var button;
       button = document.createElement('button');
       button.name = name;
+      button.className = "btn btn-default";
       button.innerText = text;
       return button;
     };
@@ -76,13 +77,14 @@
         dataType: 'json',
         add: function(e, data) {
           $jqXHRData = data;
+          $('.progress')[0].hidden = false;
           return $jqXHRData.submit();
         },
         done: function(event, data) {
           var jsItem;
           jsItem = createImageElement(data.result.path);
           $('#listOfPictures').append(jsItem);
-          return $('.progress > .progress-bar').css('width', 0 + '%');
+          return $('.progress')[0].hidden = true;
         },
         fail: function(event, data) {
           alert("ERROR");
@@ -93,7 +95,7 @@
         progressall: function(e, data) {
           var progress;
           progress = parseInt(data.loaded / data.total * 100, 10);
-          return $('.progress > .progress-bar').css('width', progress + '%');
+          return $('.progress > .progress-bar')[0].style.width = progress + '%';
         }
       });
     };

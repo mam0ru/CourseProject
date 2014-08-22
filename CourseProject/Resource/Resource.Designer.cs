@@ -1321,6 +1321,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End point.
+        /// </summary>
+        public static string TooltipEndPoint {
+            get {
+                return ResourceManager.GetString("TooltipEndPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter here your function depending on x. Example: x^2*sin(x). Correct expressions: sin(x), cos(x),tan(x),asin(x),acos(x),atan(x),sqrt(x),log(x),abs(x),ceil(x),floor(x),round(x),exp(x),+,-,*,/,^..
+        /// </summary>
+        public static string TooltipFormulaGraphExapmle {
+            get {
+                return ResourceManager.GetString("TooltipFormulaGraphExapmle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start point.
+        /// </summary>
+        public static string TooltipStartPoint {
+            get {
+                return ResourceManager.GetString("TooltipStartPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step change the function.
+        /// </summary>
+        public static string TooltipStep {
+            get {
+                return ResourceManager.GetString("TooltipStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of tries to answer .
         /// </summary>
         public static string TriesOfAnswers {

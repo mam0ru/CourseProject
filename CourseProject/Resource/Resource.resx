@@ -567,4 +567,16 @@
   <data name="DeleteExercise" xml:space="preserve">
     <value>Delete exercise</value>
   </data>
+  <data name="TooltipEndPoint" xml:space="preserve">
+    <value>End point</value>
+  </data>
+  <data name="TooltipFormulaGraphExapmle" xml:space="preserve">
+    <value>Enter here your function depending on x. Example: x^2*sin(x). Correct expressions: sin(x), cos(x),tan(x),asin(x),acos(x),atan(x),sqrt(x),log(x),abs(x),ceil(x),floor(x),round(x),exp(x),+,-,*,/,^.</value>
+  </data>
+  <data name="TooltipStartPoint" xml:space="preserve">
+    <value>Start point</value>
+  </data>
+  <data name="TooltipStep" xml:space="preserve">
+    <value>Step change the function</value>
+  </data>
 </root>

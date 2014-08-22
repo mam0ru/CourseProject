@@ -567,4 +567,16 @@
   <data name="DeleteExercise" xml:space="preserve">
     <value>Удалить задачу</value>
   </data>
+  <data name="TooltipEndPoint" xml:space="preserve">
+    <value> Конечная точка</value>
+  </data>
+  <data name="TooltipFormulaGraphExapmle" xml:space="preserve">
+    <value>Введите функцию зависящую от  x. Например: x^2*sin(x). Корректные выражения: sin(x), cos(x),tan(x),asin(x),acos(x),atan(x),sqrt(x),log(x),abs(x),ceil(x),floor(x),round(x),exp(x),+,-,*,/,^.</value>
+  </data>
+  <data name="TooltipStartPoint" xml:space="preserve">
+    <value>Начальная точка</value>
+  </data>
+  <data name="TooltipStep" xml:space="preserve">
+    <value>Шаг изменения функции</value>
+  </data>
 </root>

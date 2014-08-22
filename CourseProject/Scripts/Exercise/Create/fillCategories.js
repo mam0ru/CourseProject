@@ -6,6 +6,7 @@
         var item;
         item = document.createElement('option');
         item.text = val;
+        item.style.color = "black";
         return $('#Category').append(item);
       });
     });
