@@ -11,14 +11,11 @@ namespace MultilingualSite.Filters
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             string cultureName = null;
-            // Получаем куки из контекста, которые могут содержать установленную культуру
             HttpCookie cultureCookie = filterContext.HttpContext.Request.Cookies["lang"];
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
                 cultureName = "en";
-
-            // Список культур
             List<string> cultures = new List<string>() { "ru", "en"};
             if (!cultures.Contains(cultureName))
             {
@@ -31,14 +28,11 @@ namespace MultilingualSite.Filters
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             string cultureName = null;
-            // Получаем куки из контекста, которые могут содержать установленную культуру
             HttpCookie cultureCookie = filterContext.HttpContext.Request.Cookies["lang"];
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
                 cultureName = "en";
-
-            // Список культур
             List<string> cultures = new List<string>() { "ru", "en" };
             if (!cultures.Contains(cultureName))
             {

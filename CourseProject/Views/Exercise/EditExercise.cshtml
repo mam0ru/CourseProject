@@ -182,7 +182,7 @@
                                     @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
                                 </div>
                                 <div class="col-md-3">
-                                    @Html.TextArea("GraphFormula", new { rows = "1", cols = "25" })
+                                    @Html.TextArea("GraphFormula", null, 1, 60, new { style = "resize: none; max-width: 1000px; width: 500px" })
                                 </div>
                                 <div class="col-md-1">
                                     <p id="inputFormulaHelp">?</p>
@@ -196,13 +196,13 @@
                                     <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("RangeFrom", new { rows = "1", cols = "5" })
+                                    @Html.TextArea("RangeFrom", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
                                 </div>
                                 <div class="col-md-1">
                                     <p>@Resources.Resource.labelGraphLabelRangeTo</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("RangeTo", new { rows = "1", cols = "5" })
+                                    @Html.TextArea("RangeTo", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
                                 </div>
                             </div>
                             <div class="row">
@@ -210,7 +210,7 @@
                                     <p>@Resources.Resource.labelGraphStep</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("Step", new { rows = "1", cols = "5" })
+                                    @Html.TextArea("Step", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
                                 </div>
                                 <div class="col-md-2">
                                     <button class="btn-default" id="addGraph">Add Graph</button>
