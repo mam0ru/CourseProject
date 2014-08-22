@@ -528,4 +528,16 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="ChangePasswordForm" xml:space="preserve">
+    <value>Change Password Form</value>
+  </data>
+  <data name="LoginUsingYourAccount" xml:space="preserve">
+    <value>Log in using your  {0} account</value>
+  </data>
+  <data name="RemoveThisLogin" xml:space="preserve">
+    <value>Remove this {0} login from your account</value>
+  </data>
+  <data name="UseAnotherServiceToLogIn" xml:space="preserve">
+    <value>Use another service to log in.</value>
+  </data>
 </root>

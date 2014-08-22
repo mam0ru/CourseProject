@@ -169,13 +169,13 @@
     <value>Забыли пароль?</value>
   </data>
   <data name="LayoutHomeLinkText" xml:space="preserve">
-    <value>Домашняя</value>
+    <value>Главная</value>
   </data>
   <data name="LayoutTitle" xml:space="preserve">
     <value>Курсовой проект</value>
   </data>
   <data name="LoginMessage" xml:space="preserve">
-    <value>Залогиниться с помощью аккаунта соцсетей.</value>
+    <value>Залогиниться с помощью локального аккаунта.</value>
   </data>
   <data name="LoginPartialAuthorizedUserWelcomeMessage" xml:space="preserve">
     <value>Добро пажаловать,  {0}!</value>
@@ -527,5 +527,17 @@
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Отправить</value>
+  </data>
+  <data name="ChangePasswordForm" xml:space="preserve">
+    <value>Форма изменения пароля</value>
+  </data>
+  <data name="LoginUsingYourAccount" xml:space="preserve">
+    <value>Залогиньтесь используя Ваш  {0}  аккаунт</value>
+  </data>
+  <data name="RemoveThisLogin" xml:space="preserve">
+    <value>Удалите этот {0} логин из Вашего аккаунта</value>
+  </data>
+  <data name="UseAnotherServiceToLogIn" xml:space="preserve">
+    <value>Использовать другие сервисы для входа.</value>
   </data>
 </root>

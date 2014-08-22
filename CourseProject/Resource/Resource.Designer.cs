@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -261,6 +264,15 @@ namespace Resources {
         public static string ChangePasswordButtonSubmitText {
             get {
                 return ResourceManager.GetString("ChangePasswordButtonSubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password Form.
+        /// </summary>
+        public static string ChangePasswordForm {
+            get {
+                return ResourceManager.GetString("ChangePasswordForm", resourceCulture);
             }
         }
         
@@ -760,6 +772,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in using your  {0} account.
+        /// </summary>
+        public static string LoginUsingYourAccount {
+            get {
+                return ResourceManager.GetString("LoginUsingYourAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make Active.
         /// </summary>
         public static string MakeActive {
@@ -972,6 +993,15 @@ namespace Resources {
         public static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this {0} login from your account.
+        /// </summary>
+        public static string RemoveThisLogin {
+            get {
+                return ResourceManager.GetString("RemoveThisLogin", resourceCulture);
             }
         }
         
@@ -1224,6 +1254,15 @@ namespace Resources {
         public static string TriesOfAnswers {
             get {
                 return ResourceManager.GetString("TriesOfAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use another service to log in..
+        /// </summary>
+        public static string UseAnotherServiceToLogIn {
+            get {
+                return ResourceManager.GetString("UseAnotherServiceToLogIn", resourceCulture);
             }
         }
         
