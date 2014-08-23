@@ -50,6 +50,18 @@ namespace CourseProject.Controllers
 
         Dictionary<String, int> categoriesStringToId = new Dictionary<String, int>();
 
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                userManager = value;
+            }
+        }
+
         public ExerciseController(IExerciseRepository exerciseRepository,
             ICategoryRepository categoryRepository,
             IPictureRepository pictureRepository,
@@ -99,143 +111,12 @@ namespace CourseProject.Controllers
             categoriesStringToId.Add(Resources.Resource.CategoryScience, 7);
         }
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                userManager = value;
-            }
-        }
-
         [Authorize]
         [HttpGet]
         public ActionResult CreateExercise()
         {
             ViewBag.categories = categoryRepository.Get().Select(category => category.Text);
             return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult AddEvaluation(int id, string evaluationButton)
-        {
-            //все , что закомменчено - второй способ
-            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
-            Exercise exercise = exerciseRepository.GetByID(id);
-            if (exercise.Author.Id != user.Id && Request.IsAuthenticated && exercise.Active)
-            {
-                Evaluation previousEvaluation = evaluationRepository.Get().FirstOrDefault(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
-                //var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);
-                if (previousEvaluation != null)
-                {
-                    bool type = previousEvaluation.Type;
-                    switch (evaluationButton)
-                    {
-                        case "like":
-                            if (!type)
-                            {
-                                previousEvaluation.Type = true;
-                            }
-                            break;
-                        case "dislike":
-                            if (type)
-                            {
-                                previousEvaluation.Type = false;
-                            }
-                            break;
-                        default:
-                            return RedirectToAction("ShowExercise", new { id = id });
-                    }
-                    evaluationRepository.Update(previousEvaluation);
-                    return RedirectToAction("ShowExercise", new { id = id });
-                }
-                else
-                {
-                    Evaluation newEvaluation = new Evaluation();
-                    newEvaluation.Target = exercise;
-                    newEvaluation.User = user;
-                    switch (evaluationButton)
-                    {
-                        case "like":
-                            newEvaluation.Type = true;
-                            break;
-                        case "dislike":
-                            newEvaluation.Type = false;
-                            break;
-                        default:
-                            return RedirectToAction("ShowExercise", new { id = id });
-                    }
-                    evaluationRepository.Insert(newEvaluation);
-                    return RedirectToAction("ShowExercise", new { id = id });
-                }
-            }
-            return RedirectToAction("ShowExercise", new { id = id });
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult AddComment(AddCommentViewModel model)
-        {
-            ApplicationUser user = userManager.FindById(model.UserId);
-            Exercise exercise = exerciseRepository.GetByID(model.ExerciseId);
-            Comment newComment = new Comment();
-            newComment.Target = exercise;
-            newComment.Text = model.Text;
-            newComment.Author = user;
-            newComment.Target = exercise;
-            newComment.AuthorId = user.Id;
-            commentRepository.Insert(newComment);
-            exercise.Comments.Add(newComment);
-            exerciseRepository.Update(exercise);
-            return RedirectToAction("ShowExercise", "Exercise", new { id = model.ExerciseId });
-        }
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult AddComment(int id)
-        {
-            var user = userManager.FindById(User.Identity.GetUserId());
-            AddCommentViewModel model = new AddCommentViewModel();
-            model.ExerciseId = id;
-            model.ImagePath = user.ImagePath;
-            model.UserId = user.Id;
-            model.UserName = user.UserName;
-            return PartialView("_AddCommentPartial", model);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult SendAnswer(SendAnswerPartialViewModel model)
-        {
-            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
-            Exercise exercise = exerciseRepository.GetByID(model.TaskId);
-            List<string> answers = exerciseRepository.GetByID(model.TaskId).Answers.Select(localAnswer => localAnswer.Text).ToList();
-            bool answerFound = false;
-            for (int i = 0; i < answers.Count() && !answerFound; i++)
-            {
-                if (answers[i] == model.Answer)
-                {
-                    answerFound = true;
-                    exercise.RightAnsweredUsers.Add(user);
-                    exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
-                    exerciseRepository.Update(exercise);
-                    user.RightAnswers.Add(exercise);
-                    userManager.Update(user);
-                    ///////////////////////////
-
-                    TempData["alertMessage"] = "You answered right!";
-                }
-            }
-            if (!answerFound)
-            {
-                exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
-                exerciseRepository.Update(exercise);
-            }
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         [Authorize]
@@ -267,16 +148,7 @@ namespace CourseProject.Controllers
             exerciseRepository.Insert(exercise);
             if (model.Answers != null)
             {
-                ICollection<Answer> answers = new Collection<Answer>();
-                List<String> modelAnswers = System.Web.Helpers.Json.Decode<List<String>>(model.Answers);
-                foreach (String ans in modelAnswers)
-                {
-                    Answer answer = new Answer();
-                    answer.Text = ans;
-                    answer.Task = exercise;
-                    answers.Add(answer);
-                    answerRepository.Insert(answer);
-                }
+                var answers = GetAnswersForCreateExercise(model.Answers, exercise);
                 exercise.Answers = answers;
             }
 
@@ -357,6 +229,141 @@ namespace CourseProject.Controllers
                 exercise.Videos = videos;
             }
             return exercise;
+        }
+
+        private ICollection<Answer> GetAnswersForCreateExercise(String encodedAnswers, Exercise exercise)
+        {
+            ICollection<Answer> answers = new Collection<Answer>();
+            List<String> modelAnswers = System.Web.Helpers.Json.Decode<List<String>>(encodedAnswers);
+            foreach (String ans in modelAnswers)
+            {
+                Answer answer = new Answer();
+                answer.Text = ans;
+                answer.Task = exercise;
+                answers.Add(answer);
+                answerRepository.Insert(answer);
+            }
+            return answers;
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddEvaluation(int id, string evaluationButton)
+        {
+            //все , что закомменчено - второй способ
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Exercise exercise = exerciseRepository.GetByID(id);
+            if (exercise.Author.Id != user.Id && Request.IsAuthenticated && exercise.Active)
+            {
+                Evaluation previousEvaluation = evaluationRepository.Get().FirstOrDefault(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
+                //var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);
+                if (previousEvaluation != null)
+                {
+                    bool type = previousEvaluation.Type;
+                    switch (evaluationButton)
+                    {
+                        case "like":
+                            if (!type)
+                            {
+                                previousEvaluation.Type = true;
+                            }
+                            break;
+                        case "dislike":
+                            if (type)
+                            {
+                                previousEvaluation.Type = false;
+                            }
+                            break;
+                        default:
+                            return RedirectToAction("ShowExercise", new { id = id });
+                    }
+                    evaluationRepository.Update(previousEvaluation);
+                    return RedirectToAction("ShowExercise", new { id = id });
+                }
+                else
+                {
+                    Evaluation newEvaluation = new Evaluation();
+                    newEvaluation.Target = exercise;
+                    newEvaluation.User = user;
+                    switch (evaluationButton)
+                    {
+                        case "like":
+                            newEvaluation.Type = true;
+                            break;
+                        case "dislike":
+                            newEvaluation.Type = false;
+                            break;
+                        default:
+                            return RedirectToAction("ShowExercise", new { id = id });
+                    }
+                    evaluationRepository.Insert(newEvaluation);
+                    return RedirectToAction("ShowExercise", new { id = id });
+                }
+            }
+            return RedirectToAction("ShowExercise", new { id = id });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult AddComment(int id)
+        {
+            var user = userManager.FindById(User.Identity.GetUserId());
+            AddCommentViewModel model = new AddCommentViewModel();
+            model.ExerciseId = id;
+            model.ImagePath = user.ImagePath;
+            model.UserId = user.Id;
+            model.UserName = user.UserName;
+            return PartialView("_AddCommentPartial", model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddComment(AddCommentViewModel model)
+        {
+            ApplicationUser user = userManager.FindById(model.UserId);
+            Exercise exercise = exerciseRepository.GetByID(model.ExerciseId);
+            Comment newComment = new Comment();
+            newComment.Target = exercise;
+            newComment.Text = model.Text;
+            newComment.Author = user;
+            newComment.Target = exercise;
+            newComment.AuthorId = user.Id;
+            commentRepository.Insert(newComment);
+            exercise.Comments.Add(newComment);
+            exerciseRepository.Update(exercise);
+            return RedirectToAction("ShowExercise", "Exercise", new { id = model.ExerciseId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult SendAnswer(SendAnswerPartialViewModel model)
+        {
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Exercise exercise = exerciseRepository.GetByID(model.TaskId);
+            List<string> answers = exerciseRepository.GetByID(model.TaskId).Answers.Select(localAnswer => localAnswer.Text).ToList();
+            bool answerFound = false;
+            for (int i = 0; i < answers.Count() && !answerFound; i++)
+            {
+                if (answers[i] == model.Answer)
+                {
+                    answerFound = true;
+                    exercise.RightAnsweredUsers.Add(user);
+                    exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
+                    exerciseRepository.Update(exercise);
+                    user.RightAnswers.Add(exercise);
+                    userManager.Update(user);
+                    ///////////////////////////
+
+                    TempData["alertMessage"] = "You answered right!";
+                }
+            }
+            if (!answerFound)
+            {
+                exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
+                exerciseRepository.Update(exercise);
+            }
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         [HttpGet]
@@ -689,10 +696,17 @@ namespace CourseProject.Controllers
             return Json(categoriesText, JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult GetComments(int id)
+        {
+            IEnumerable<GetCommentViewModel> model = getCommentViewModels(1, 5, id);
+            return PartialView(model);
+        }
+
         private List<GetCommentViewModel> getCommentViewModels(int BlockNumber, int BlockSize, int id)
         {
             int startIndex = (BlockNumber - 1) * BlockSize;
-            var allComments = commentRepository.Get().Where(comment => comment.Target.Id == id);
+            var allComments = commentRepository.Get().Where(comment => comment.Target.Id == id).OrderByDescending(comment => comment.Id);
             var comments = allComments.Skip(startIndex).Take(BlockSize).ToList();
             List<GetCommentViewModel> model = new List<GetCommentViewModel>();
             foreach (var comment in comments)
@@ -710,29 +724,6 @@ namespace CourseProject.Controllers
                 }
             }
             return model;
-        }
-
-        public ActionResult GetComments(int id)
-        {
-            IEnumerable<GetCommentViewModel> model = getCommentViewModels(1, 5, id);
-            return PartialView(model);
-        }
-
-        protected string RenderPartialViewToString(string viewName, object model)
-        {
-            if (string.IsNullOrEmpty(viewName))
-                viewName = ControllerContext.RouteData.GetRequiredString("action");
-
-            ViewData.Model = model;
-
-            using (StringWriter sw = new StringWriter())
-            {
-                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-                viewResult.View.Render(viewContext, sw);
-
-                return sw.GetStringBuilder().ToString();
-            }
         }
 
         [HttpPost]
@@ -753,6 +744,23 @@ namespace CourseProject.Controllers
             }
 
             return Json(new { NoMoreData = noMoreData, HTMLString = html });
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
         }
 
         [HttpPost]

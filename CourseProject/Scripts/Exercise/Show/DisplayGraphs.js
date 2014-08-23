@@ -52,9 +52,7 @@
     return $(document).ready(function() {
       var existingGraphs;
       existingGraphs = $("[name='GraphInfo']");
-      drawGraphs(existingGraphs);
-      $("#collapseFour")[0].className = 'panel-collapse collapse';
-      return $("[name='target']")[0].setAttribute("data-toggle", "collapse");
+      return drawGraphs(existingGraphs);
     });
   });
 

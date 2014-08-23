@@ -39,5 +39,3 @@
     $(document).ready ()->
         existingGraphs = $("[name='GraphInfo']")
         drawGraphs(existingGraphs)
-        $("#collapseFour")[0].className = 'panel-collapse collapse'        
-        $("[name='target']")[0].setAttribute("data-toggle","collapse")

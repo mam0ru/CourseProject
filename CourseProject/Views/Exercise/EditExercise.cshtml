@@ -1,24 +1,24 @@
 ﻿@model CourseProject.View_Models.EditExerciseViewModel
 
+@section scripts
+{
+    <script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
+    <script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
+    <script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-15.js"></script>
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/exercise/create/markdown")
+    @Scripts.Render("~/bundles/exercise/create/image")
+    @Scripts.Render("~/bundles/exercise/create/fillcategories")
+    <script src="~/Scripts/Exercise/Edit/setting.js"></script>
+    @Scripts.Render("~/byndles/Graphs")
+    <script src="~/Scripts/Exercise/Edit/Graph.js"></script>
+    @Scripts.Render("~/bundles/exercise/edit/taginput")
+}
 <link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
-<script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
-<script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-15.js"></script>
-<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
-
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/exercise/create/markdown")
-@Styles.Render("~/Content/markdown/css")
-@Scripts.Render("~/bundles/exercise/create/image")
-@Scripts.Render("~/bundles/exercise/create/fillcategories")
-<script src="~/Scripts/Exercise/Edit/setting.js"></script>
-
-@Styles.Render("~/Content/Graphs")
-@Scripts.Render("~/byndles/Graphs")
-<script src="~/Scripts/Exercise/Edit/Graph.js"></script>
-<script src="~/Scripts/Exercise/Edit/DisplayGraphs.js"></script>
-
 @Styles.Render("~/Content/taginput")
-@Scripts.Render("~/bundles/exercise/edit/taginput")
+@Styles.Render("~/Content/Graphs")
+@Styles.Render("~/Content/markdown/css")
 
 @using (Html.BeginForm("EditExercise", "Exercise", FormMethod.Post))
 {
@@ -88,8 +88,8 @@
                             <input id="imageupload" type="file" name="imageupload">
                         </div>
                         <div class="col-md-6">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                            <div class="progress" hidden="">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: 0%;"></div>
                             </div>
                         </div>
                     </div>
@@ -109,8 +109,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -132,10 +132,10 @@
                                 }
                             </style>
 
-                            <div id="toolbar"></div>
-                            <textarea id="equationInput" rows="3" cols="40"></textarea>
+                            <div id="toolbar" style="color: black"></div>
+                            <textarea id="equationInput" rows="3" style=" resize: none; width: 500px" cols="40"></textarea>
                             <img id="equation" />
-                            <textarea id="equationToImg" readonly="" hidden=""></textarea>
+                            <textarea id="equationToImg" readonly="" hidden="" style=" resize: none; width: 500px"></textarea>
                             <script type="text/javascript">
                                 EqEditor.embed('toolbar', '');
                                 var a = new EqTextArea('equation', 'equationInput');
@@ -162,16 +162,16 @@
             </div>
         </div>
 
-        
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    <a data-toggle="" name="target" data-parent="#accordion" href="#collapseFour">
                         @Resources.Resource.Step4
                     </a>
                 </h4>
             </div>
-            <div id="collapseFour" class="panel-collapse collapse">
+            <div id="collapseFour" class="">
                 <div class="panel-body">
                     <h4>@Resources.Resource.AddGraphs</h4>
                     <br>
@@ -181,11 +181,11 @@
                                 <div class="col-md-1">
                                     @Html.Label("labelGraphFormula", @Resources.Resource.labelGraphFormula)
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-7">
                                     @Html.TextArea("GraphFormula", null, 1, 60, new { style = "resize: none; max-width: 1000px; width: 500px" })
                                 </div>
                                 <div class="col-md-1">
-                                    <p id="inputFormulaHelp">?</p>
+                                    <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="@Resources.Resource.TooltipFormulaGraphExapmle"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -196,13 +196,13 @@
                                     <p>@Resources.Resource.labelGraphLabelRangeFrom</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("RangeFrom", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
+                                    @Html.TextArea("RangeFrom", new { rows = "1", cols = "2", style = "resize: none;width: 50px", data_toggle = "tooltip", data_placement = "right", title = Resources.Resource.TooltipStartPoint })
                                 </div>
                                 <div class="col-md-1">
                                     <p>@Resources.Resource.labelGraphLabelRangeTo</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("RangeTo", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
+                                    @Html.TextArea("RangeTo", new { rows = "1", cols = "2", style = "resize: none;width: 50px", data_toggle = "tooltip", data_placement = "right", title = Resources.Resource.TooltipEndPoint })
                                 </div>
                             </div>
                             <div class="row">
@@ -210,7 +210,7 @@
                                     <p>@Resources.Resource.labelGraphStep</p>
                                 </div>
                                 <div class="col-md-1">
-                                    @Html.TextArea("Step", new { rows = "1", cols = "5", style = " resize: none;width: 50px" })
+                                    @Html.TextArea("Step", new { rows = "1", cols = "5", style = " resize: none;width: 50px", data_toggle = "tooltip", data_placement = "right", title = Resources.Resource.TooltipStep })
                                 </div>
                                 <div class="col-md-2">
                                     <button class="btn-default" id="addGraph">Add Graph</button>
@@ -234,7 +234,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
