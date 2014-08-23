@@ -2,7 +2,7 @@
 @{
 }
 <br>
-@if (Model != null)
+@if ((Model.Users.Count() + Model.Exercises.Count()) >0)
 {
     if (Model.Users != null)
     {
