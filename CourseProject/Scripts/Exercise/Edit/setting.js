@@ -1,6 +1,6 @@
 ﻿(function() {
   $(function() {
-    var $equations, $graphs, $images, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, getFormulas, getGraphs, getImages, getVideos, initFileUpload;
+    var $equations, $graphs, $images, $jqXHRData, $videos, createButton, createChildDiv, createFormulaElement, createImageElement, createInput, createParentDiv, createVideoContainer, getFormulas, getGraphs, getImages, getVideos, initFileUpload;
     createParentDiv = function() {
       var parent;
       parent = document.createElement('div');
@@ -24,6 +24,7 @@
       var button;
       button = document.createElement('button');
       button.name = name;
+      button.className = "btn btn-danger";
       button.innerText = text;
       return button;
     };
@@ -57,19 +58,33 @@
       parent.appendChild(childDivForButton);
       return parent;
     };
+    createVideoContainer = function(src) {
+      var childButton, childDivForButton, childDivForVideo, parent;
+      parent = createParentDiv();
+      childDivForVideo = createChildDiv();
+      childDivForVideo.className = "col-md-8";
+      childDivForButton = createChildDiv();
+      childDivForVideo.innerHTML = src;
+      childButton = createButton("delete", "Delete");
+      childDivForButton.appendChild(childButton);
+      parent.appendChild(childDivForVideo);
+      parent.appendChild(childDivForButton);
+      return parent;
+    };
     initFileUpload = function() {
       return $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
         dataType: 'json',
         add: function(e, data) {
           $jqXHRData = data;
+          $('.progress')[0].hidden = false;
           return $jqXHRData.submit();
         },
         done: function(event, data) {
           var jsItem;
           jsItem = createImageElement(data.result.path);
           $('#listOfPictures').append(jsItem);
-          return $('.progress > .progress-bar').css('width', 0 + '%');
+          return $('.progress')[0].hidden = true;
         },
         fail: function(event, data) {
           alert("ERROR");
@@ -80,7 +95,7 @@
         progressall: function(e, data) {
           var progress;
           progress = parseInt(data.loaded / data.total * 100, 10);
-          return $('.progress > .progress-bar').css('width', progress + '%');
+          return $('.progress > .progress-bar')[0].style.width = progress + '%';
         }
       });
     };
@@ -141,10 +156,11 @@
       $("#addVideo").on('click', function(e) {
         var parent;
         e.preventDefault();
-        parent = createParentDiv();
-        parent.innerHTML = $("#video").val();
-        $("#listOfVideos").append(parent);
-        return $("#video").val("");
+        if ($("#video").val()) {
+          parent = createVideoContainer($("#video").val());
+          $("#listOfVideos").append(parent);
+          return $("#video").val("");
+        }
       });
       $(document).on('click', "[name='delete']", function(e) {
         var parent1, parent2;

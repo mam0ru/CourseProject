@@ -18,8 +18,9 @@
     createButton = (name,text) ->   
         button = document.createElement('button')
         button.name = name
+        button.className = "btn btn-danger"
         button.innerText = text           
-        return button         
+        return button           
 
     $jqXHRData = null
 
@@ -50,26 +51,37 @@
         parent.appendChild childDivForButton
         return parent
 
+    createVideoContainer = (src)->
+        parent = createParentDiv()
+        childDivForVideo = createChildDiv()
+        childDivForVideo.className = "col-md-8"
+        childDivForButton = createChildDiv()    
+        childDivForVideo.innerHTML = src
+        childButton = createButton("delete","Delete")
+        childDivForButton.appendChild childButton
+        parent.appendChild childDivForVideo
+        parent.appendChild childDivForButton        
+        return parent  
+
     initFileUpload = () ->
       $('#imageupload').fileupload({
         url: '/Exercise/UploadImage',
         dataType: 'json',
         add: (e, data) -> 
             $jqXHRData = data
+            $('.progress')[0].hidden = false
             $jqXHRData.submit()
         done: (event, data) -> 
             jsItem = createImageElement(data.result.path)
             $('#listOfPictures').append(jsItem)
-            $('.progress > .progress-bar').css('width',0 + '%')            
+            $('.progress')[0].hidden = true
         fail: (event, data) ->
             alert "ERROR"
             if data.files[0].error
               alert data.files[0].error
         progressall: (e, data) ->
             progress = parseInt(data.loaded / data.total * 100, 10)
-            $('.progress > .progress-bar').css(
-                'width',
-                progress + '%')
+            $('.progress > .progress-bar')[0].style.width = progress + '%'
       })
 
     $equations = []
@@ -120,10 +132,10 @@
             return null
         $("#addVideo").on 'click', (e) ->
             e.preventDefault()
-            parent = createParentDiv()
-            parent.innerHTML =  $("#video").val()
-            $("#listOfVideos").append parent
-            $("#video").val("")
+            if $("#video").val()
+                parent = createVideoContainer($("#video").val())
+                $("#listOfVideos").append parent
+                $("#video").val("")
         $(document).on 'click', "[name='delete']", (e) ->
             e.stopPropagation()
             e.preventDefault()

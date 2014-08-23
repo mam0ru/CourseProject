@@ -390,12 +390,14 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult ShowExercise(int id)
         {
+            InitCategoriesIdToString();
             Exercise exercise = exerciseRepository.GetByID(id);
             ViewBag.IsRightAnweredUser = true;
             if (exercise.RightAnsweredUsers.Contains(userManager.FindById(User.Identity.GetUserId())))
             {
                 ViewBag.IsRightAnweredUser = true;
             }
+            exercise.Category.Text = categoriesIdToString[exercise.Category.Id]; 
             return View(exercise);
         }
 
@@ -403,9 +405,11 @@ namespace CourseProject.Controllers
         [HttpGet]
         public ActionResult EditExercise(int id)
         {
+            InitCategoriesIdToString();
             Exercise exercise = exerciseRepository.GetByID(id);
             EditExerciseViewModel model = new EditExerciseViewModel();
             model.Exercise = exercise;
+            model.Exercise.Category.Text = categoriesIdToString[model.Exercise.Category.Id]; 
             return View(model);
         }
 
