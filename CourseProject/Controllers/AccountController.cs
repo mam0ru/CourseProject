@@ -25,14 +25,9 @@ namespace CourseProject.Controllers
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
                 var role3 = new IdentityRole { Name = role };
                 roleManager.Create(role3);
-               // var result = await userManager.AddToRoleAsync(user.Id, role);
                 userManager.AddToRole(user.Id, role3.Name);
             }
         }
-
-        /* public AccountController()
-         {
-         }*/
 
         public AccountController(ApplicationUserManager userManager)
         {
@@ -44,9 +39,8 @@ namespace CourseProject.Controllers
                 (new UserStore<ApplicationUser>
                     (new ApplicationDbContext())))
         {
-            
-        }
 
+        }
 
         public ApplicationUserManager UserManager
         {
@@ -60,8 +54,7 @@ namespace CourseProject.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -69,8 +62,6 @@ namespace CourseProject.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -97,21 +88,16 @@ namespace CourseProject.Controllers
                     ModelState.AddModelError("", Resources.Resource.InvalidUsernameOrPassword);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // GET: /Account/Register
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -123,36 +109,19 @@ namespace CourseProject.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // если создание прошло успешно, то добавляем роль пользователя
                     await AddUserToRoleAsync(user, "user");
                     await SignInAsync(user, isPersistent: false);
-                    //TODO
-                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    //ViewBag.Link = callbackUrl;
-                    //return View("DisplayEmail");
-                    
                     return RedirectToAction("Index", "Home");
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 }
                 else
                 {
                     AddErrors(result);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
-        // GET: /Account/ConfirmEmail
+        [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -164,16 +133,13 @@ namespace CourseProject.Controllers
             return View(result.Succeeded ? Resources.Resource.ConfirmEmailMessage : Resources.Resource.Error);
         }
 
-        //
-        // GET: /Account/ForgotPassword
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -200,16 +166,14 @@ namespace CourseProject.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
@@ -220,8 +184,6 @@ namespace CourseProject.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -232,7 +194,7 @@ namespace CourseProject.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("",  Resources.Resource.NoUserFound);
+                    ModelState.AddModelError("", Resources.Resource.NoUserFound);
                     return View();
                 }
                 IdentityResult result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
@@ -251,16 +213,13 @@ namespace CourseProject.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
@@ -280,14 +239,13 @@ namespace CourseProject.Controllers
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
-        // GET: /Account/Manage
+        [HttpGet]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? @Resources.Resource.YourPasswordHasBeenChanged
                 : message == ManageMessageId.SetPasswordSuccess ? @Resources.Resource.YourPasswordHasBeenSet
-                : message == ManageMessageId.RemoveLoginSuccess ?  @Resources.Resource.TheExternalLoginWasRemoved
+                : message == ManageMessageId.RemoveLoginSuccess ? @Resources.Resource.TheExternalLoginWasRemoved
                 : message == ManageMessageId.Error ? @Resources.Resource.AnErrorHasOccurred
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
@@ -295,8 +253,6 @@ namespace CourseProject.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
@@ -348,8 +304,6 @@ namespace CourseProject.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -359,8 +313,6 @@ namespace CourseProject.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
@@ -386,8 +338,6 @@ namespace CourseProject.Controllers
             }
         }
 
-        //
-        // POST: /Account/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
@@ -396,8 +346,6 @@ namespace CourseProject.Controllers
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
         }
 
-        //
-        // GET: /Account/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -413,8 +361,6 @@ namespace CourseProject.Controllers
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -458,8 +404,6 @@ namespace CourseProject.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -468,8 +412,7 @@ namespace CourseProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {

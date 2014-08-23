@@ -69,17 +69,14 @@ namespace CourseProject.Controllers
         {
             string username = "course.project.itr@gmail.com";
             string password = "project123456";
-            NetworkCredential loginInfo = new NetworkCredential(username, password);
-            MailMessage msg = new MailMessage();
-
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 25);
+            var loginInfo = new NetworkCredential(username, password);
+            var msg = new MailMessage();
+            var smtpClient = new SmtpClient("smtp.gmail.com", 25);
             smtpClient.EnableSsl = true;
             smtpClient.UseDefaultCredentials = false;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.Credentials = loginInfo;
-
             string message = " (" + SenderAddress + ") has a message for you:<br /><br />" + Message;
-
             try
             {
                 msg.From = new MailAddress("course.project.itr@gmail.com");
@@ -88,7 +85,6 @@ namespace CourseProject.Controllers
                 msg.Sender = new MailAddress("course.project.itr@gmail.com");
                 msg.Body = message;
                 msg.IsBodyHtml = true;
-
                 smtpClient.Send(msg);
                 return Content("Your message was sent successfully!");
             }
@@ -100,19 +96,16 @@ namespace CourseProject.Controllers
 
          public ActionResult ChangeCulture(string lang)
         {
-            // Список культур
-            List<string> cultures = new List<string>() {"ru", "en"};
+            var cultures = new List<string>() {"ru", "en"};
             if (!cultures.Contains(lang))
             {
                 lang = "en";
             }
-            // Сохраняем выбранную культуру в куки
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
-                cookie.Value = lang;   // если куки уже установлено, то обновляем значение
+                cookie.Value = lang;
             else
             {
- 
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
                 cookie.Value = lang;

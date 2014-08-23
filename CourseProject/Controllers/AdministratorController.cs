@@ -85,7 +85,7 @@ namespace CourseProject.Controllers
                         String newPassword = "123456";
                         ApplicationUser cUser = UserManager.FindById(applicationUser.Id);
                         String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
-                        UserStore<ApplicationUser> store = new UserStore<ApplicationUser>();
+                        var store = new UserStore<ApplicationUser>();
                         store.SetPasswordHashAsync(cUser, hashedNewPassword);
                         //UserManager.SendEmail(applicationUser.Id, "Your password was dropped and replaced", "Your new password is 123456");
                         isUserChanged = true;
@@ -109,19 +109,21 @@ namespace CourseProject.Controllers
                     user.DroppedPassword = false;
                 }
             }
-            List<UserForAdministratorMainViewModel> newUsers = new List<UserForAdministratorMainViewModel>();
+            var newUsers = new List<UserForAdministratorMainViewModel>();
             foreach (var user in UserManager.Users)
             {
-                UserForAdministratorMainViewModel userForAdmin = new UserForAdministratorMainViewModel();
-                userForAdmin.Admin = UserManager.IsInRole(user.Id, "admin");
-                userForAdmin.Blocked = user.LockoutEnabled;
-                userForAdmin.Deleted = false;
-                userForAdmin.DroppedPassword = false;
-                userForAdmin.Email = user.Email;
-                userForAdmin.Name = user.UserName;
-                userForAdmin.SolvedExercises = user.RightAnswers;
-                userForAdmin.UsersExercises = user.Exercises;
-                userForAdmin.Id = user.Id;
+                var userForAdmin = new UserForAdministratorMainViewModel
+                {
+                    Admin = UserManager.IsInRole(user.Id, "admin"),
+                    Blocked = user.LockoutEnabled,
+                    Deleted = false,
+                    DroppedPassword = false,
+                    Email = user.Email,
+                    Name = user.UserName,
+                    SolvedExercises = user.RightAnswers,
+                    UsersExercises = user.Exercises,
+                    Id = user.Id
+                };
                 newUsers.Add(userForAdmin);
             }
             return View(newUsers);

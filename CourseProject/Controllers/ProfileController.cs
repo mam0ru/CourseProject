@@ -112,16 +112,5 @@ namespace CourseProject.Controllers
 
             return Json(new { path = uplPath });
         }
-        /*
-       [HttpPost]
-       public ActionResult ShowProfile(int id)
-       {
-           return View(MvcApplication.dataBase.UserRepository.GetByID(id));
-       }*/
-        /*[HttpPost]
-        public ActionResult MyProfile()
-        {
-            return RedirectToActionPermanent(context.Exercises);
-        }*/
     }
 }
