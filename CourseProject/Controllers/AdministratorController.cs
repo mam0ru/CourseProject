@@ -14,6 +14,7 @@ namespace CourseProject.Controllers
 {
     [Culture]
     [Authorize(Roles = "admin")]
+
     public class AdministratorController : Controller
     {
         private ApplicationUserManager userManager;
@@ -99,6 +100,7 @@ namespace CourseProject.Controllers
                         else
                         {
                             UserManager.RemoveFromRole(applicationUser.Id, "admin");
+                            UserManager.Update(applicationUser);
                         }
                         isUserChanged = true;
                     }

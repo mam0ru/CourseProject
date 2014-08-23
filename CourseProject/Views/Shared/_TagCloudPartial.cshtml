@@ -13,7 +13,7 @@
             @{
         double size = 300;
         int count = Model.Count();
-        int step = (int)(size - size / 20) / count;
+        int step = (int)(size - size / 5) / count;
         foreach (var tag in Model)
         {
             string link = "/Exercise/ShowExercisesWithTag?tag=" + tag.Text;

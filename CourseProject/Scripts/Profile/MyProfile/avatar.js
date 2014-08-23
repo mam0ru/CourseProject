@@ -4,15 +4,16 @@
       return $('#changeAvatar').fileupload({
         url: '/profile/SetAvatar',
         dataType: 'json',
-        autoUpload: true,
         add: function(e, data) {
           var $jqXHRData;
+          $('.progress')[0].hidden = false;
           $jqXHRData = data;
           return $jqXHRData.submit();
         },
         done: function(event, data) {
           $('.progress > .progress-bar').css('width', 0 + '%');
-          return $('#avatar')[0].src = data.result.path;
+          $('#avatar')[0].src = data.result.path;
+          return $('.progress')[0].hidden = true;
         },
         fail: function(event, data) {
           alert("ERROR");
