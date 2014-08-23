@@ -250,13 +250,13 @@
                     <div id="listOfVideos">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>VIDEO HTML-CODE</label>
+                                <label>@Resources.Resource.VIDEOHTMLCODE</label>
                             </div>
                             <div class="col-md-9">
                                 @Html.Editor("video")
                             </div>
                         </div>
-                        <button id="addVideo">Add Video</button>
+                        <button id="addVideo">@Resources.Resource.AddVideo</button>
                         <br />
                         @foreach (var video in Model.Exercise.Videos)
                         {
@@ -265,7 +265,7 @@
                                     <iframe width="560" height="315" src="@video.Path" frameborder="0" allowfullscreen></iframe>
                                 </div>
                                 <div class="com-md-4">
-                                    <button name="delete">Delete</button>
+                                    <button name="delete">@Resources.Resource.Delete</button>
                                 </div>
                             </div>
                         }
@@ -288,6 +288,7 @@
         @Html.HiddenFor(model => model.Category)
         @Html.HiddenFor(model => model.Videos)
         @Html.HiddenFor(model => model.Pictures)
+        <br>
         <input type="submit" id="Submit" value=@Resources.Resource.Submit />
     </div>
 }

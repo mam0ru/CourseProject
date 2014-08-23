@@ -979,6 +979,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of right answers.
+        /// </summary>
+        public static string NumberOfRightAnswers {
+            get {
+                return ResourceManager.GetString("NumberOfRightAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -1398,6 +1407,15 @@ namespace Resources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video HTML-CODE.
+        /// </summary>
+        public static string VIDEOHTMLCODE {
+            get {
+                return ResourceManager.GetString("VIDEOHTMLCODE", resourceCulture);
             }
         }
         

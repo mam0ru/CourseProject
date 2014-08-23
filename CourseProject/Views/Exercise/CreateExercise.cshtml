@@ -203,15 +203,16 @@
                     <div id="listOfVideos">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>VIDEO HTML-CODE</label>
+                                <label>@Resources.Resource.VIDEOHTMLCODE</label>
                             </div>
                             <div class="col-md-9">
                                 @Html.Editor("video")
                             </div>
                         </div>
-                        <button id="addVideo">Add Video</button>
+                        <button id="addVideo">@Resources.Resource.AddVideo</button>
                         <br />
-                        <label>Videos</label>
+                        <br />
+                        <label>@Resources.Resource.Videos</label>
                     </div>
                 </div>
             </div>
@@ -229,6 +230,7 @@
         @Html.HiddenFor(model => model.Graphs)
         @Html.HiddenFor(model => model.Videos)
         @Html.HiddenFor(model => model.Pictures)
+        <br>
         <button type="submit" class="btn btn-success" id="Submit">@Resources.Resource.Submit</button>
     </div>
 

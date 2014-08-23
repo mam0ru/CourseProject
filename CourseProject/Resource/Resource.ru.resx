@@ -579,4 +579,10 @@
   <data name="TooltipStep" xml:space="preserve">
     <value>Шаг изменения функции</value>
   </data>
+  <data name="NumberOfRightAnswers" xml:space="preserve">
+    <value>Количество правильных ответов</value>
+  </data>
+  <data name="VIDEOHTMLCODE" xml:space="preserve">
+    <value> HTML-CODE Видео</value>
+  </data>
 </root>
