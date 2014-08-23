@@ -24,7 +24,7 @@
       var button;
       button = document.createElement('button');
       button.name = name;
-      button.className = "btn btn-default";
+      button.className = "btn btn-danger";
       button.innerText = text;
       return button;
     };
@@ -165,9 +165,11 @@
       $("#addVideo").on('click', function(e) {
         var parent;
         e.preventDefault();
-        parent = createVideoContainer($("#video").val());
-        $("#listOfVideos").append(parent);
-        return $("#video").val("");
+        if ($("#video").val()) {
+          parent = createVideoContainer($("#video").val());
+          $("#listOfVideos").append(parent);
+          return $("#video").val("");
+        }
       });
       $("#Submit").on('click', function(e) {
         var answers, equation, graphs, images, tags, videos;
