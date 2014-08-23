@@ -169,17 +169,18 @@
         <div class="comments">
             @Html.Action("AddComment", "Exercise", Model.Id)
         </div>
-        <br>
-        <div class="comments">
-            <div id="bookListDiv">
-                @Html.Action("GetComments", "Exercise", Model.Id)
-            </div>
-        </div>
-        <div id="loadingDiv" style="text-align: center; display: none; margin-bottom: 20px;">
-
-            <img alt="Loading"
-                 src="@Url.Content("~/Content/ajax-loader.gif")" />
-        </div>
     }
+    <br>
+    <div class="comments">
+        <div id="bookListDiv">
+            @Html.Action("GetComments", "Exercise", Model.Id)
+        </div>
+    </div>
+    <div id="loadingDiv" style="text-align: center; display: none; margin-bottom: 20px;">
+
+        <img alt="Loading"
+             src="@Url.Content("~/Content/ajax-loader.gif")" />
+    </div>
+
 }
 
