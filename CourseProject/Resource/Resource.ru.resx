@@ -594,4 +594,7 @@
   <data name="RegisteredLogins" xml:space="preserve">
     <value>Зарегистрированные логины</value>
   </data>
+  <data name="YouAnsweredRight" xml:space="preserve">
+    <value>Вы ответили правильно</value>
+  </data>
 </root>

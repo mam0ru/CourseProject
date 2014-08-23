@@ -594,4 +594,7 @@
   <data name="RegisteredLogins" xml:space="preserve">
     <value>Registered logins</value>
   </data>
+  <data name="YouAnsweredRight" xml:space="preserve">
+    <value>You answered right</value>
+  </data>
 </root>

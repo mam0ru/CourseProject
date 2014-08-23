@@ -55,6 +55,10 @@
                 <h3>@Resources.Resource.SendAnswer</h3>
                 @Html.Action("SendAnswerPartialView", "Exercise", Model.Id)
             }
+            @if (isAnswered)
+            {
+                <img src="~/Content/right.png" alt="@Resources.Resource.YouAnsweredRight" data-toggle="tooltip" data-placement="top" title="@Resources.Resource.YouAnsweredRight">
+            }
         </td>
         <td>
             @if (!author && authenticated && Model.Active)
@@ -65,7 +69,7 @@
                     {
                         <input type="email" name="SenderAddress" id="sender-address" placeholder="Email" required hidden="" value="@Model.Author.Email" />
                         <textarea name="Message" id="message" placeholder="@Resources.Resource.Message" required></textarea>
-                        <input type="submit" id="send-button" value="@Resources.Resource.Send" />
+                        <input type="submit" class="btn-success" id="send-button" value=@Resources.Resource.AddComment>
                     }
                 </div>
             }

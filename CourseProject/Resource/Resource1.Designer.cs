@@ -1465,6 +1465,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You answered right.
+        /// </summary>
+        public static string YouAnsweredRight {
+            get {
+                return ResourceManager.GetString("YouAnsweredRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are blocked till {0}.
         /// </summary>
         public static string YouAreBlockedTill {
