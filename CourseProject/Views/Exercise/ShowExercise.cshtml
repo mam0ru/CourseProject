@@ -64,8 +64,8 @@
                     @using (Html.BeginForm("SendMail", "Home", FormMethod.Post, new { id = "email-form" }))
                     {
                         <input type="email" name="SenderAddress" id="sender-address" placeholder="Email" required hidden="" value="@Model.Author.Email" />
-                        <textarea name="Message" id="message" placeholder="Message" required></textarea>
-                        <input type="submit" id="send-button" value="Send" />
+                        <textarea name="Message" id="message" placeholder="@Resources.Resource.Message" required></textarea>
+                        <input type="submit" id="send-button" value="@Resources.Resource.Send" />
                     }
                 </div>
             }

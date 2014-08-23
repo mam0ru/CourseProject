@@ -1051,6 +1051,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registered logins.
+        /// </summary>
+        public static string RegisteredLogins {
+            get {
+                return ResourceManager.GetString("RegisteredLogins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a new account..
         /// </summary>
         public static string RegisterMessage {
