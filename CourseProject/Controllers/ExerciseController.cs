@@ -415,7 +415,41 @@ namespace CourseProject.Controllers
             Exercise exercise = exerciseRepository.GetByID(model.Exercise.Id);
             exercise.Name = model.Name;
             exercise.Text = model.Text;
-            String encodedAnswers = model.Answers;
+            SetNewAnswers(ref exercise, model.Answers);
+            SetNewTags(ref exercise, model.Tags);
+            SetNewEquations(model.Equations, ref exercise);
+            SetNewGraphs(model.Graphs, ref exercise);
+            SetNewVideos(model.Videos, ref exercise);
+            SetNewPictures(model.Pictures, ref exercise);
+            exerciseRepository.Update(exercise);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private void SetNewTags(ref Exercise exercise, string encodedTags)
+        {
+            List<String> oldTags = exercise.Tags.Select(tag => tag.Text).ToList();
+            List<String> newTags = System.Web.Helpers.Json.Decode<List<String>>(encodedTags);
+            foreach (String oldTag in oldTags)
+            {
+                if (!newTags.Contains(oldTag))
+                {
+                    exercise.Tags.Remove(exercise.Tags.First(tag => tag.Text == oldTag));
+                }
+            }
+            foreach (String newTag in newTags)
+            {
+                if (!oldTags.Contains(newTag))
+                {
+                    Tag tag = new Tag();
+                    tag.Text = newTag;
+                    tagRepository.Insert(tag);
+                    exercise.Tags.Add(tag);
+                }
+            }
+        }
+
+        private void SetNewAnswers(ref Exercise exercise, string encodedAnswers)
+        {
             List<String> oldAnswers = exercise.Answers.Select(answer => answer.Text).ToList();
             List<String> newAnswers = System.Web.Helpers.Json.Decode<List<String>>(encodedAnswers);
             foreach (String oldAnswer in oldAnswers)
@@ -435,42 +469,14 @@ namespace CourseProject.Controllers
                     exercise.Answers.Add(ans);
                 }
             }
-
-            List<String> oldTags = exercise.Tags.Select(tag => tag.Text).ToList();
-            List<String> newTags = System.Web.Helpers.Json.Decode<List<String>>(model.Tags);
-            foreach (String oldTag in oldTags)
-            {
-                if (!newTags.Contains(oldTag))
-                {
-                    exercise.Tags.Remove(exercise.Tags.First(tag => tag.Text == oldTag));
-                }
-            }
-            foreach (String newTag in newTags)
-            {
-                if (!oldTags.Contains(newTag))
-                {
-                    Tag tag = new Tag();
-                    tag.Text = newTag;
-                    tagRepository.Insert(tag);
-                    exercise.Tags.Add(tag);
-                }
-            }
-            SetNewEquations(model.Equations, ref exercise);
-            SetNewGraphs(model.Graphs, ref exercise);
-            SetNewVideos(model.Videos, ref exercise);
-            SetNewPictures(model.Pictures, ref exercise);
-            exerciseRepository.Update(exercise);
-            return RedirectToAction("Index", "Home");
         }
 
         private void SetNewPictures(string encodedPictures, ref Exercise exercise)
         {
             if (String.IsNullOrEmpty(encodedPictures))
             {
-                ICollection<Picture> pictures = new Collection<Picture>();
                 List<String> oldPictures = exercise.Pictures.Select(p => p.Path).ToList();
                 List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(encodedPictures);
-
                 foreach (String oldPicture in oldPictures)
                 {
                     if (!newPictures.Contains(oldPicture))
@@ -480,7 +486,6 @@ namespace CourseProject.Controllers
                         pictureRepository.Delete(picture);
                     }
                 }
-
                 foreach (String newPicture in newPictures)
                 {
                     if (!oldPictures.Contains(newPicture))
@@ -615,6 +620,15 @@ namespace CourseProject.Controllers
                         equation.Task = exercise;
                         equationRepository.Insert(equation);
                     }
+                }
+            }
+            else
+            {
+                ICollection<Equation> equations = exercise.Equations;
+                foreach (var equation in equations)
+                {
+                    exercise.Equations.Remove(equation);
+                    graphRepository.Delete(equation);
                 }
             }
         }
