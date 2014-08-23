@@ -146,45 +146,57 @@ namespace CourseProject.Controllers
             exercise.Text = model.Text;
             exercise.TriesOfAnswers = 0;
             exerciseRepository.Insert(exercise);
-            if (model.Answers != null)
-            {
-                var answers = GetAnswersForCreateExercise(model.Answers, exercise);
-                exercise.Answers = answers;
-            }
+            exercise.Answers = GetAnswersForCreateExercise(model.Answers, exercise);
+            exercise.Graphs = Graphs(model.Graphs, exercise);
+            exercise.Pictures = Pictures(model.Pictures, exercise);
+            exercise.Tags = AddingTags(model.Tags);
+            exercise.Equations = Equations(model.Formulas, exercise);
+            exercise.Videos = Videos(model.Videos, exercise);
+            return exercise;
+        }
 
-            if (model.Graphs != null)
+        private ICollection<Video> Videos(string encodedVideos, Exercise exercise)
+        {
+            ICollection<Video> videos = new Collection<Video>();
+            if (!String.IsNullOrEmpty(encodedVideos))
             {
-                ICollection<Graph> graphs = new Collection<Graph>();
-                List<String> modelGraphs = System.Web.Helpers.Json.Decode<List<String>>(model.Graphs);
-                foreach (String info in modelGraphs)
+                List<String> modelVideos = System.Web.Helpers.Json.Decode<List<String>>(encodedVideos);
+                foreach (string modelVideo in modelVideos)
                 {
-                    Graph graph = new Graph();
-                    graph.Path = info;
-                    graph.Task = exercise;
-                    graphs.Add(graph);
-                    graphRepository.Insert(graph);
+                    Video video = new Video();
+                    video.Path = modelVideo;
+                    video.Task = exercise;
+                    videos.Add(video);
+                    videoRepository.Insert(video);
                 }
-                exercise.Graphs = graphs;
             }
+            return videos;
+        }
 
-            if (model.Pictures != null)
+        private ICollection<Equation> Equations(string encodedFormulas, Exercise exercise)
+        {
+            ICollection<Equation> equations = new Collection<Equation>();
+            if (!String.IsNullOrEmpty(encodedFormulas))
             {
-                ICollection<Picture> pictures = new Collection<Picture>();
-                List<String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
-                foreach (String pictureSource in pictureSources)
+                List<String> modelFormulas = System.Web.Helpers.Json.Decode<List<String>>(encodedFormulas);
+                foreach (String eq in modelFormulas)
                 {
-                    Picture picture = new Picture();
-                    picture.Path = pictureSource;
-                    picture.Task = exercise;
-                    pictures.Add(picture);
-                    pictureRepository.Insert(picture);
+                    Equation equation = new Equation();
+                    equation.Path = eq;
+                    equation.Task = exercise;
+                    equations.Add(equation);
+                    equationRepository.Insert(equation);
                 }
-                exercise.Pictures = pictures;
             }
-            if (model.Tags != null)
+            return equations;
+        }
+
+        private ICollection<Tag> AddingTags(string encodedTags)
+        {
+            List<String> modelTags = System.Web.Helpers.Json.Decode<List<String>>(encodedTags);
+            ICollection<Tag> addingTags = new Collection<Tag>();
+            if (!String.IsNullOrEmpty(encodedTags))
             {
-                List<String> modelTags = System.Web.Helpers.Json.Decode<List<String>>(model.Tags);
-                ICollection<Tag> addingTags = new Collection<Tag>();
                 IEnumerable<Tag> tags = tagRepository.Get();
                 foreach (String tag in modelTags)
                 {
@@ -197,51 +209,61 @@ namespace CourseProject.Controllers
                     }
                     addingTags.Add(tagTemp);
                 }
-                exercise.Tags = addingTags;
+            }
+            return addingTags;
+        }
+
+        private ICollection<Picture> Pictures(string encodedPictures, Exercise exercise)
+        {
+            ICollection<Picture> pictures = new Collection<Picture>();
+            if (!String.IsNullOrEmpty(encodedPictures))
+            {
+                List<String> pictureSources = System.Web.Helpers.Json.Decode<List<String>>(encodedPictures);
+                foreach (String pictureSource in pictureSources)
+                {
+                    Picture picture = new Picture();
+                    picture.Path = pictureSource;
+                    picture.Task = exercise;
+                    pictures.Add(picture);
+                    pictureRepository.Insert(picture);
+                }
             }
 
-            if (model.Formulas != null)
+            return pictures;
+        }
+
+        private ICollection<Graph> Graphs(String encodedGraphs, Exercise exercise)
+        {
+            ICollection<Graph> graphs = new Collection<Graph>();
+            if (!String.IsNullOrEmpty(encodedGraphs))
             {
-                ICollection<Equation> equations = new Collection<Equation>();
-                List<String> modelFormulas = System.Web.Helpers.Json.Decode<List<String>>(model.Formulas);
-                foreach (String eq in modelFormulas)
+                List<String> modelGraphs = System.Web.Helpers.Json.Decode<List<String>>(encodedGraphs);
+                foreach (String info in modelGraphs)
                 {
-                    Equation equation = new Equation();
-                    equation.Path = eq;
-                    equation.Task = exercise;
-                    equations.Add(equation);
-                    equationRepository.Insert(equation);
+                    Graph graph = new Graph();
+                    graph.Path = info;
+                    graph.Task = exercise;
+                    graphs.Add(graph);
+                    graphRepository.Insert(graph);
                 }
-                exercise.Equations = equations;
             }
-            if (model.Videos != null)
-            {
-                ICollection<Video> videos = new Collection<Video>();
-                List<String> modelVideos = System.Web.Helpers.Json.Decode<List<String>>(model.Videos);
-                foreach (string modelVideo in modelVideos)
-                {
-                    Video video = new Video();
-                    video.Path = modelVideo;
-                    video.Task = exercise;
-                    videos.Add(video);
-                    videoRepository.Insert(video);
-                }
-                exercise.Videos = videos;
-            }
-            return exercise;
+            return graphs;
         }
 
         private ICollection<Answer> GetAnswersForCreateExercise(String encodedAnswers, Exercise exercise)
         {
             ICollection<Answer> answers = new Collection<Answer>();
-            List<String> modelAnswers = System.Web.Helpers.Json.Decode<List<String>>(encodedAnswers);
-            foreach (String ans in modelAnswers)
+            if (!String.IsNullOrEmpty(encodedAnswers))
             {
-                Answer answer = new Answer();
-                answer.Text = ans;
-                answer.Task = exercise;
-                answers.Add(answer);
-                answerRepository.Insert(answer);
+                List<String> modelAnswers = System.Web.Helpers.Json.Decode<List<String>>(encodedAnswers);
+                foreach (String ans in modelAnswers)
+                {
+                    Answer answer = new Answer();
+                    answer.Text = ans;
+                    answer.Task = exercise;
+                    answers.Add(answer);
+                    answerRepository.Insert(answer);
+                }
             }
             return answers;
         }
@@ -353,8 +375,6 @@ namespace CourseProject.Controllers
                     exerciseRepository.Update(exercise);
                     user.RightAnswers.Add(exercise);
                     userManager.Update(user);
-                    ///////////////////////////
-
                     TempData["alertMessage"] = "You answered right!";
                 }
             }
@@ -375,10 +395,6 @@ namespace CourseProject.Controllers
             {
                 ViewBag.IsRightAnweredUser = true;
             }
-            //else
-            //{
-            // ViewBag.IsRightAnweredUser = false;
-            // }
             return View(exercise);
         }
 
@@ -399,8 +415,9 @@ namespace CourseProject.Controllers
             Exercise exercise = exerciseRepository.GetByID(model.Exercise.Id);
             exercise.Name = model.Name;
             exercise.Text = model.Text;
+            String encodedAnswers = model.Answers;
             List<String> oldAnswers = exercise.Answers.Select(answer => answer.Text).ToList();
-            List<String> newAnswers = System.Web.Helpers.Json.Decode<List<String>>(model.Answers);
+            List<String> newAnswers = System.Web.Helpers.Json.Decode<List<String>>(encodedAnswers);
             foreach (String oldAnswer in oldAnswers)
             {
                 if (!newAnswers.Contains(oldAnswer))
@@ -438,114 +455,21 @@ namespace CourseProject.Controllers
                     exercise.Tags.Add(tag);
                 }
             }
-            if (model.Equations != null)
-            {
-                ICollection<Equation> equations = new Collection<Equation>();
-                List<String> oldEquations = exercise.Equations.Select(equation => equation.Path).ToList();
-                List<String> newEquations = System.Web.Helpers.Json.Decode<List<String>>(model.Equations);
+            SetNewEquations(model.Equations, ref exercise);
+            SetNewGraphs(model.Graphs, ref exercise);
+            SetNewVideos(model.Videos, ref exercise);
+            SetNewPictures(model.Pictures, ref exercise);
+            exerciseRepository.Update(exercise);
+            return RedirectToAction("Index", "Home");
+        }
 
-                foreach (String oldEquation in oldEquations)
-                {
-                    if (!newEquations.Contains(oldEquation))
-                    {
-                        Equation eq = exercise.Equations.First(equation => equation.Path == oldEquation);
-                        exercise.Equations.Remove(eq);
-                    }
-                }
-
-                foreach (String newEquation in newEquations)
-                {
-                    if (!oldEquations.Contains(newEquation))
-                    {
-                        Equation equation = new Equation();
-                        equation.Path = newEquation;
-                        equation.Task = exercise;
-                        equationRepository.Insert(equation);
-                    }
-                }
-            }
-
-            if (model.Graphs != null)
-            {
-                ICollection<Graph> graphs = new Collection<Graph>();
-                List<String> oldGraphs = exercise.Graphs.Select(graph => graph.Path).ToList();
-                List<String> newGraphs = System.Web.Helpers.Json.Decode<List<String>>(model.Graphs);
-
-                foreach (String oldGraph in oldGraphs)
-                {
-                    if (!newGraphs.Contains(oldGraph))
-                    {
-                        Graph graph = exercise.Graphs.First(g => g.Path == oldGraph);
-                        exercise.Graphs.Remove(graph);
-                        graphRepository.Delete(graph);
-                    }
-                }
-
-                foreach (String newGraph in newGraphs)
-                {
-                    if (!oldGraphs.Contains(newGraph))
-                    {
-                        Graph graph = new Graph();
-                        graph.Path = newGraph;
-                        graph.Task = exercise;
-                        graphRepository.Insert(graph);
-                    }
-                }
-            }
-            else
-            {
-                ICollection<Graph> graphs = exercise.Graphs;
-                foreach (Graph graph in graphs)
-                {
-                    exercise.Graphs.Remove(graph);
-                    graphRepository.Delete(graph);
-                }
-            }
-
-            if (model.Videos != null)
-            {
-                ICollection<Video> videos = new Collection<Video>();
-                List<String> oldVideos = exercise.Videos.Select(v => v.Path).ToList();
-                List<String> newVideos = System.Web.Helpers.Json.Decode<List<String>>(model.Videos);
-
-                foreach (String oldVideo in oldVideos)
-                {
-                    if (!newVideos.Contains(oldVideo))
-                    {
-                        Video video = exercise.Videos.First(v => v.Path == oldVideo);
-                        exercise.Videos.Remove(video);
-                        videoRepository.Delete(video);
-                    }
-                }
-
-                foreach (String newVideo in newVideos)
-                {
-                    if (!oldVideos.Contains(newVideo))
-                    {
-                        Video video = new Video();
-                        video.Path = newVideo;
-                        video.Task = exercise;
-                        videoRepository.Insert(video);
-                    }
-                }
-            }
-            else
-            {
-                ICollection<Video> videos = exercise.Videos;
-                if (videos != null)
-                {
-                    foreach (Video video in videos)
-                    {
-                        exercise.Videos.Remove(video);
-                        videoRepository.Delete(video);
-                    }
-                }
-            }
-            if (model.Pictures != null)
+        private void SetNewPictures(string encodedPictures, ref Exercise exercise)
+        {
+            if (String.IsNullOrEmpty(encodedPictures))
             {
                 ICollection<Picture> pictures = new Collection<Picture>();
                 List<String> oldPictures = exercise.Pictures.Select(p => p.Path).ToList();
-                List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(model.Pictures);
+                List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(encodedPictures);
 
                 foreach (String oldPicture in oldPictures)
                 {
@@ -580,8 +504,119 @@ namespace CourseProject.Controllers
                     }
                 }
             }
-            exerciseRepository.Update(exercise);
-            return RedirectToAction("Index", "Home");
+        }
+
+        private void SetNewVideos(string encodedVideos, ref Exercise exercise)
+        {
+            if (String.IsNullOrEmpty(encodedVideos))
+            {
+                ICollection<Video> videos = new Collection<Video>();
+                List<String> oldVideos = exercise.Videos.Select(v => v.Path).ToList();
+                List<String> newVideos = System.Web.Helpers.Json.Decode<List<String>>(encodedVideos);
+
+                foreach (String oldVideo in oldVideos)
+                {
+                    if (!newVideos.Contains(oldVideo))
+                    {
+                        Video video = exercise.Videos.First(v => v.Path == oldVideo);
+                        exercise.Videos.Remove(video);
+                        videoRepository.Delete(video);
+                    }
+                }
+
+                foreach (String newVideo in newVideos)
+                {
+                    if (!oldVideos.Contains(newVideo))
+                    {
+                        Video video = new Video();
+                        video.Path = newVideo;
+                        video.Task = exercise;
+                        videoRepository.Insert(video);
+                    }
+                }
+            }
+            else
+            {
+                ICollection<Video> videos = exercise.Videos;
+                if (videos != null)
+                {
+                    foreach (Video video in videos)
+                    {
+                        exercise.Videos.Remove(video);
+                        videoRepository.Delete(video);
+                    }
+                }
+            }
+        }
+
+        private void SetNewGraphs(string encodedGraphs, ref Exercise exercise)
+        {
+            if (String.IsNullOrEmpty(encodedGraphs))
+            {
+                ICollection<Graph> graphs = new Collection<Graph>();
+                List<String> oldGraphs = exercise.Graphs.Select(graph => graph.Path).ToList();
+                List<String> newGraphs = System.Web.Helpers.Json.Decode<List<String>>(encodedGraphs);
+
+                foreach (String oldGraph in oldGraphs)
+                {
+                    if (!newGraphs.Contains(oldGraph))
+                    {
+                        Graph graph = exercise.Graphs.First(g => g.Path == oldGraph);
+                        exercise.Graphs.Remove(graph);
+                        graphRepository.Delete(graph);
+                    }
+                }
+
+                foreach (String newGraph in newGraphs)
+                {
+                    if (!oldGraphs.Contains(newGraph))
+                    {
+                        Graph graph = new Graph();
+                        graph.Path = newGraph;
+                        graph.Task = exercise;
+                        graphRepository.Insert(graph);
+                    }
+                }
+            }
+            else
+            {
+                ICollection<Graph> graphs = exercise.Graphs;
+                foreach (Graph graph in graphs)
+                {
+                    exercise.Graphs.Remove(graph);
+                    graphRepository.Delete(graph);
+                }
+            }
+        }
+
+        private void SetNewEquations(string encodedEquations, ref Exercise exercise)
+        {
+            if (!String.IsNullOrEmpty(encodedEquations))
+            {
+                ICollection<Equation> equations = new Collection<Equation>();
+                List<String> oldEquations = exercise.Equations.Select(equation => equation.Path).ToList();
+                List<String> newEquations = System.Web.Helpers.Json.Decode<List<String>>(encodedEquations);
+
+                foreach (String oldEquation in oldEquations)
+                {
+                    if (!newEquations.Contains(oldEquation))
+                    {
+                        Equation eq = exercise.Equations.First(equation => equation.Path == oldEquation);
+                        exercise.Equations.Remove(eq);
+                    }
+                }
+
+                foreach (String newEquation in newEquations)
+                {
+                    if (!oldEquations.Contains(newEquation))
+                    {
+                        Equation equation = new Equation();
+                        equation.Path = newEquation;
+                        equation.Task = exercise;
+                        equationRepository.Insert(equation);
+                    }
+                }
+            }
         }
 
         [Authorize]
@@ -602,18 +637,10 @@ namespace CourseProject.Controllers
             return View(exercises);
         }
 
-        //[HttpGet]
-        //public ActionResult ShowExercisesWithTag()
-        //{
-        //    return View();
-        //}
-
         [Authorize]
         [HttpGet]
         public ActionResult AddAnswer()
         {
-            //MvcApplication.dataBase.ExerciseRepository.dbSet.Single(exersise => exersise.Id == id).Active = !isActive;
-            // context.Exercises.
             return RedirectToAction("MyProfile", "Profile");
         }
 
