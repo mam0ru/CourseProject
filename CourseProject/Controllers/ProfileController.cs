@@ -46,7 +46,6 @@ namespace CourseProject.Controllers
         public ActionResult MyProfile()
         {
             var currentUser = UserManager.FindById(User.Identity.GetUserId());
-            ViewBag.Rating = UserManager.Users.OrderByDescending(user => user.RightAnswers.Count()).ToList().FindIndex(user => user.Id == currentUser.Id) + 1;
             return View(currentUser);//applicationUserRepository.GetByID(User.Identity.GetUserId()));
         }
 
@@ -65,10 +64,6 @@ namespace CourseProject.Controllers
         public ActionResult ShowProfile(string id)
         {
             var user = UserManager.FindById(id);
-           var index = UserManager.Users.OrderByDescending(localUser => user.RightAnswers.Count())
-                .ToList()
-                .FindIndex(applicationUser => applicationUser==user) + 1;
-            ViewBag.Rating = index;
             return View(user);
         }
 
