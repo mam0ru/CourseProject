@@ -54,7 +54,7 @@
     createVideoContainer = (src)->
         parent = createParentDiv()
         childDivForVideo = createChildDiv()
-        childDivForVideo.className = "col-md-7"
+        childDivForVideo.className = "col-md-8"
         childDivForButton = createChildDiv()    
         childDivForVideo.innerHTML = src
         childButton = createButton("delete","Delete")
