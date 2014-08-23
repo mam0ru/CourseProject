@@ -476,7 +476,7 @@ namespace CourseProject.Controllers
 
         private void SetNewPictures(string encodedPictures, ref Exercise exercise)
         {
-            if (String.IsNullOrEmpty(encodedPictures))
+            if (!String.IsNullOrEmpty(encodedPictures))
             {
                 List<String> oldPictures = exercise.Pictures.Select(p => p.Path).ToList();
                 List<String> newPictures = System.Web.Helpers.Json.Decode<List<String>>(encodedPictures);
@@ -516,7 +516,7 @@ namespace CourseProject.Controllers
 
         private void SetNewVideos(string encodedVideos, ref Exercise exercise)
         {
-            if (String.IsNullOrEmpty(encodedVideos))
+            if (!String.IsNullOrEmpty(encodedVideos))
             {
                 ICollection<Video> videos = new Collection<Video>();
                 List<String> oldVideos = exercise.Videos.Select(v => v.Path).ToList();
@@ -559,7 +559,7 @@ namespace CourseProject.Controllers
 
         private void SetNewGraphs(string encodedGraphs, ref Exercise exercise)
         {
-            if (String.IsNullOrEmpty(encodedGraphs))
+            if (!String.IsNullOrEmpty(encodedGraphs))
             {
                 ICollection<Graph> graphs = new Collection<Graph>();
                 List<String> oldGraphs = exercise.Graphs.Select(graph => graph.Path).ToList();
