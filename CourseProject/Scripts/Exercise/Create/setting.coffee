@@ -18,7 +18,7 @@
     createButton = (name,text) ->   
         button = document.createElement('button')
         button.name = name
-        button.className = "btn btn-default"
+        button.className = "btn btn-danger"
         button.innerText = text           
         return button         
 
@@ -141,9 +141,10 @@
         initFileUpload()
         $("#addVideo").on 'click', (e) ->
             e.preventDefault()
-            parent = createVideoContainer($("#video").val())
-            $("#listOfVideos").append parent
-            $("#video").val("")
+            if $("#video").val()
+                parent = createVideoContainer($("#video").val())
+                $("#listOfVideos").append parent
+                $("#video").val("")
         $("#Submit").on 'click', (e) ->
             answers = $("#inputAnswers").textext()[0].hiddenInput().val()
             tags = $("#inputTags").textext()[0].hiddenInput().val()
