@@ -175,3 +175,12 @@ FakesAssemblies/
 *.sln
 *.csproj
 CourseProject.ra
+CourseProject/lucene_index/segments_3g
+CourseProject/lucene_index/_6s.fdt
+*.fdx
+*.fnm
+*.nrm
+*.frq
+*.prx
+*.tii
+*.tis
