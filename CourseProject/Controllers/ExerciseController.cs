@@ -155,6 +155,8 @@ namespace CourseProject.Controllers
             return exercise;
         }
 
+#region Create Exercise Helpers
+
         private ICollection<Video> Videos(string encodedVideos, Exercise exercise)
         {
             ICollection<Video> videos = new Collection<Video>();
@@ -268,18 +270,17 @@ namespace CourseProject.Controllers
             return answers;
         }
 
+#endregion
 
         [Authorize]
         [HttpPost]
         public ActionResult AddEvaluation(int id, string evaluationButton)
         {
-            //все , что закомменчено - второй способ
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
             Exercise exercise = exerciseRepository.GetByID(id);
             if (exercise.Author.Id != user.Id && Request.IsAuthenticated && exercise.Active)
             {
                 Evaluation previousEvaluation = evaluationRepository.Get().FirstOrDefault(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
-                //var previousEvaluation = exercise.Evaluations.First(localEvaluation => localEvaluation.User == user);
                 if (previousEvaluation != null)
                 {
                     bool type = previousEvaluation.Type;
@@ -424,6 +425,8 @@ namespace CourseProject.Controllers
             exerciseRepository.Update(exercise);
             return RedirectToAction("Index", "Home");
         }
+
+        #region Edit Exercise Helpers
 
         private void SetNewTags(ref Exercise exercise, string encodedTags)
         {
@@ -633,6 +636,8 @@ namespace CourseProject.Controllers
             }
         }
 
+        #endregion
+        
         [Authorize]
         [HttpGet]
         public ActionResult DeleteExercise(int id)
