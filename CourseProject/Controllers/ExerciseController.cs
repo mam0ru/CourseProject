@@ -416,7 +416,7 @@ namespace CourseProject.Controllers
             }
             else
             {
-                return RedirectToAction("Forbidden", "Error");
+                return RedirectToAction("Oops", "Error");
             }
         }
 

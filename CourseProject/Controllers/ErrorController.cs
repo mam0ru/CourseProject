@@ -9,7 +9,8 @@ namespace CourseProject.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult Forbidden()
+
+        public ActionResult Oops()
         {
             return View();
         }
