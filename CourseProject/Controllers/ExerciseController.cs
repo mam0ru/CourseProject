@@ -407,10 +407,17 @@ namespace CourseProject.Controllers
         {
             InitCategoriesIdToString();
             Exercise exercise = exerciseRepository.GetByID(id);
-            EditExerciseViewModel model = new EditExerciseViewModel();
-            model.Exercise = exercise;
-            model.Exercise.Category.Text = categoriesIdToString[model.Exercise.Category.Id]; 
-            return View(model);
+            if (User.Identity.GetUserId() == exercise.Author.Id || User.IsInRole("admin"))
+            {
+                EditExerciseViewModel model = new EditExerciseViewModel();
+                model.Exercise = exercise;
+                model.Exercise.Category.Text = categoriesIdToString[model.Exercise.Category.Id];
+                return View(model);   
+            }
+            else
+            {
+                return RedirectToAction("Forbidden", "Error");
+            }
         }
 
         [Authorize]
