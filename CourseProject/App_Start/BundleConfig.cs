@@ -88,29 +88,6 @@ namespace CourseProject
                 "~/Scripts/Exercise/tags/js/textext.plugin.prompt.js",
                 "~/Scripts/Exercise/Edit/TagAndAnswerInputSetting.js"
                 ));
-            bundles.Add(new ScriptBundle("~/bundles/Exercise/Edit/EN").Include(
-                "~/Scripts/Latex/eq_config.js",
-                "~/Scripts/Latex/eq_editor-lite-17.js",
-                "~/Scripts/Latex/latexit.js",
-                "~/Scripts/Exercise/Edit/DisplayGraphs.js",
-                "~/Scripts/FileUpload/jqueryui/jquery.ui.widget.js",
-                "~/Scripts/FileUpload/jquery.fileupload.js",
-                "~/Scripts/FileUpload/jquery.fileupload-ui.js",
-                "~/Scripts/FileUpload/jquery.iframe-transport.js",
-                "~/Scripts/Exercise/Create/fillCategories.js",
-                "~/Scripts/Exercise/Edit/setting.js",
-                "~/Scripts/Exercise/Graph/parser.js",
-                "~/Scripts/Exercise/Graph/jqplot/jquery.jqplot.js",
-                "~/Scripts/Exercise/Graph/jqplot/plugins/jqplot.canvasTextRenderer.min.js",
-                "~/Scripts/Exercise/Graph/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js",
-                "~/Scripts/Exercise/Edit/Graph.js",
-                "~/Scripts/Exercise/tags/js/textext.core.js",
-                "~/Scripts/Exercise/tags/js/textext.plugin.ajax.js",
-                "~/Scripts/Exercise/tags/js/textext.plugin.autocomplete.js",
-                "~/Scripts/Exercise/tags/js/textext.plugin.tags.js",
-                "~/Scripts/Exercise/tags/js/textext.plugin.prompt.js",
-                "~/Scripts/Exercise/Edit/TagAndAnswerInputSetting.js"
-                ));
             bundles.Add(new ScriptBundle("~/bundles/Exercise/Edit/RU").Include(
                 "~/Scripts/Latex/eq_config.js",
                 "~/Scripts/Latex/eq_editor-lite-17.js",
