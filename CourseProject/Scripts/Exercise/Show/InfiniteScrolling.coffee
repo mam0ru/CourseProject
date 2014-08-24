@@ -11,6 +11,6 @@
                     (data) ->
                         blockNumber = blockNumber + 1
                         NoMoreData = data.NoMoreData
-                        $("#bookListDiv").append(data.HTMLString)
+                        $("#commentsList").append(data.HTMLString)
                         $("#loadingDiv").hide()
                         inProgress = false
