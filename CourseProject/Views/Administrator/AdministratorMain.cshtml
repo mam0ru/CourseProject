@@ -30,7 +30,6 @@
             @for (int i = 0; i < Model.Count(); i++)
             {
                 <tr>
-
                     @Html.TextBoxFor(x => x[i].Id, new { @class = "hidden" })
                     @Html.TextBoxFor(x => x[i].Email, new { @class = "hidden" })
                     @Html.TextBoxFor(x => x[i].Name, new { @class = "hidden" })
@@ -41,11 +40,21 @@
                     <td>
                         <span class="badge">@Model.ElementAt(i).SolvedExercises.Count()</span>
                     </td>
-                        <td>@Html.CheckBoxFor(x => x[i].Admin, new { @class = "checkbox" })</td>
-                        <td>@Html.CheckBoxFor(x => x[i].Blocked, new { @class = "checkbox" })</td>
-                        <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new { @class = "checkbox" })</td>
-                        <td>@Html.CheckBoxFor(x => x[i].Deleted, new { @class = "checkbox" })</td>
-                        </tr>
+                    @if (Model.ElementAt(i).Name == "administrator")
+                    {
+                        <td>@Html.CheckBoxFor(x => x[i].Admin, new {@class = "checkbox",@disabled="disabled"})</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    }
+                    else
+                    {
+                        <td>@Html.CheckBoxFor(x => x[i].Admin, new {@class = "checkbox"})</td>
+                        <td>@Html.CheckBoxFor(x => x[i].Blocked, new {@class = "checkbox"})</td>
+                        <td>@Html.CheckBoxFor(x => x[i].DroppedPassword, new {@class = "checkbox"})</td>
+                        <td>@Html.CheckBoxFor(x => x[i].Deleted, new {@class = "checkbox"})</td>
+                    }
+                 </tr>
             }
         </table>
         <div class="left">
