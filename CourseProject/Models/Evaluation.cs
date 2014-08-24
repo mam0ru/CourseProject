@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace CourseProject.Models
 {
@@ -6,6 +8,7 @@ namespace CourseProject.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public String UserId { get; set; }
 
         public ApplicationUser User { get; set; }

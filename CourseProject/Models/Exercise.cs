@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Lucene.Net.Documents;
 
 namespace CourseProject.Models
@@ -10,6 +11,7 @@ namespace CourseProject.Models
 
         public String Text { get; set; }
 
+        [Required]
         public string AuthorId { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
