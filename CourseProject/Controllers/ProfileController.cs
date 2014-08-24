@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Web;
 using System.Web.Mvc;
 using CloudinaryDotNet;
@@ -6,6 +8,7 @@ using CloudinaryDotNet.Actions;
 using CourseProject.Models;
 using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
+using Lucene.Net.Documents;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MultilingualSite.Filters;
@@ -69,13 +72,14 @@ namespace CourseProject.Controllers
 
         public ActionResult Rating()
         {
-            var users = UserManager.Users.OrderByDescending(user => user.RightAnswers.Count());
+            var users = UserManager.Users.OrderByDescending(user => user.Rating);
+            var list = users.ToList();
             return View(users);
         }
 
         public ActionResult HighRatingUsers()
         {
-            var users = UserManager.Users.OrderByDescending(user => user.RightAnswers.Count());
+            var users = UserManager.Users.OrderByDescending(user => user.Rating);
             return PartialView("_HighRatingUsersPartial", users.ToList());
         }
 

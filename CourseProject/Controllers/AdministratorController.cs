@@ -48,6 +48,7 @@ namespace CourseProject.Controllers
                 userForAdmin.DroppedPassword = false;
                 userForAdmin.Email = user.Email;
                 userForAdmin.Name = user.UserName;
+                userForAdmin.Rating = user.Rating;
                 userForAdmin.SolvedExercises = user.RightAnswers;
                 userForAdmin.UsersExercises = user.Exercises;
                 userForAdmin.Id = user.Id;
@@ -122,6 +123,7 @@ namespace CourseProject.Controllers
                     DroppedPassword = false,
                     Email = user.Email,
                     Name = user.UserName,
+                    Rating = user.Rating,
                     SolvedExercises = user.RightAnswers,
                     UsersExercises = user.Exercises,
                     Id = user.Id

@@ -2,7 +2,7 @@
 @{
 }
 <br>
-@if ((Model.Users.Count() + Model.Exercises.Count()) >0)
+@if ((Model.Users.Count() + Model.Exercises.Count()) > 0)
 {
     if (Model.Users != null)
     {
@@ -10,8 +10,11 @@
         {
             if (user != null)
             {
-                @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-                <br>
+                <h5>
+                    @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
+                <span class="badge">@user.Rating</span>
+            </h5>
+            <br>
             }
         }
     }
@@ -21,11 +24,11 @@
         {
             if (exersise != null)
             {
-                 @Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new {id = exersise.Id}, null)
-                 <br>
-             }
-         }
-     }
+                @Html.ActionLink(exersise.Name, "ShowExercise", "Exercise", new { id = exersise.Id }, null)
+                <br>
+            }
+        }
+    }
 }
 else
 {

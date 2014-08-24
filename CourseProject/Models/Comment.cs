@@ -11,8 +11,8 @@ namespace CourseProject.Models
 
         public virtual Exercise Target { get; set; }
 
-
         public string AuthorId { get; set; }
+
         public ApplicationUser Author { get; set; }
 
         public Document GetDocument()

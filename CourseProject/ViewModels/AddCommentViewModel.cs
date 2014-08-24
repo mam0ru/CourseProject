@@ -9,6 +9,8 @@ namespace CourseProject.ViewModels
 
         public String UserId { get; set; }
 
+        public double UserRating { get; set; }
+
         public String ImagePath { get; set; }
 
         [Required]

@@ -12,6 +12,8 @@ namespace CourseProject.ViewModels
 
         public String AuthorAvatar { get; set; }
 
+        public double AuthorRating { get; set; }
+
         public int Id { get; set; }
     }
 }

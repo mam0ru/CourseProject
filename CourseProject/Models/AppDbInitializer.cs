@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -10,9 +11,12 @@ namespace CourseProject.Models
     {
         private readonly IApplicationUserRepository applicationUserRepository;
 
-        public AppDbInitializer(IApplicationUserRepository applicationUserRepository)
+        private readonly ICategoryRepository categoryRepository;
+
+        public AppDbInitializer(IApplicationUserRepository applicationUserRepository, ICategoryRepository categoryRepository)
         {
             this.applicationUserRepository = applicationUserRepository;
+            this.categoryRepository = categoryRepository;
         }
 
         protected override void Seed(ApplicationDbContext context)
@@ -42,6 +46,13 @@ namespace CourseProject.Models
             else
             {
             }
+            categoryRepository.Insert(new Category() { Text = "Culture" });
+            categoryRepository.Insert(new Category() { Text = "Math" });
+            categoryRepository.Insert(new Category() { Text = "Art" });
+            categoryRepository.Insert(new Category() { Text = "Physics" });
+            categoryRepository.Insert(new Category() { Text = "People" });
+            categoryRepository.Insert(new Category() { Text = "World" });
+            categoryRepository.Insert(new Category() { Text = "Science" });
             base.Seed(context);
         }
     }

@@ -6,6 +6,8 @@ namespace CourseProject.View_Models
 {
     public class UserForAdministratorMainViewModel
     {
+        public double Rating { get; set; }
+
         public String Name { get; set; }
 
         public String Id { get; set; }

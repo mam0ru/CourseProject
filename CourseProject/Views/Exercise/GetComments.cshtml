@@ -14,16 +14,19 @@
             }
         </a>
         <div class="media-body">
-            <h4 class="media-heading"><a class="pull-left" href="~/Profile/ShowProfile/@comment.AuthorId">@comment.AuthorName</a> </h4>
-            <br>
-            @comment.Text
-            @if (User.IsInRole("admin"))
-            {    <p>            
-                 @Html.ActionLink(Resources.Resource.Delete, "DeleteComment", "Exercise", new { id = comment.Id}, new { @style = "color:dodgerblue;" })
-                 </p>
-            }
-        </div>
+            <h4 class="media-heading">
+                <a class="pull-left" href="~/Profile/ShowProfile/@comment.AuthorId">@comment.AuthorName</a>
+                <span class="badge">@comment.AuthorRating</span>
+        </h4>
+        <br>
+        @comment.Text
+        @if (User.IsInRole("admin"))
+        {    <p>
+            @Html.ActionLink(Resources.Resource.Delete, "DeleteComment", "Exercise", new { id = comment.Id }, new { @style = "color:dodgerblue;" })
+        </p>
+        }
     </div>
+</div>
     <hr>
 }
 

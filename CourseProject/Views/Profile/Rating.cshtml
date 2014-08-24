@@ -1,15 +1,17 @@
 ﻿@model System.Linq.IOrderedQueryable<CourseProject.Models.ApplicationUser>
 @{
-    
 }
 <div class="rating">
-<h4> @Resources.Resource.Rating</h4>
-        @{ int i = 1;}
-        @foreach (var user in Model)
-        {
-            <span class="badge">@i </span>
+    <h4> @Resources.Resource.Rating</h4>
+    @{ int i = 1;}
+    @foreach (var user in Model)
+    {
+        <h5>
+            @i )
             @Html.ActionLink(user.UserName, "ShowProfile", "Profile", new { id = user.Id }, null)
-            i = i + 1;
-            <br>
-        }
+            <span class="badge">@user.Rating </span>
+        </h5>
+        i = i + 1;
+        <br>
+    }
 </div>

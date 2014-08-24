@@ -127,6 +127,7 @@ namespace CourseProject.Controllers
             exerciseRepository.Update(exercise);
             ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
             user.Exercises.Add(exercise);
+            user.Rating += 0.5;
             userManager.Update(user);
             exerciseRepository.Update(exercise);
             return RedirectToAction("MyProfile", "Profile");
@@ -335,6 +336,7 @@ namespace CourseProject.Controllers
             AddCommentViewModel model = new AddCommentViewModel();
             model.ExerciseId = id;
             model.ImagePath = user.ImagePath;
+            model.UserRating = user.Rating;
             model.UserId = user.Id;
             model.UserName = user.UserName;
             return PartialView("_AddCommentPartial", model);
@@ -375,6 +377,7 @@ namespace CourseProject.Controllers
                     exercise.TriesOfAnswers = exercise.TriesOfAnswers + 1;
                     exerciseRepository.Update(exercise);
                     user.RightAnswers.Add(exercise);
+                    user.Rating += 3.0;
                     userManager.Update(user);
                     TempData["alertMessage"] = "You answered right!";
                 }
@@ -775,6 +778,7 @@ namespace CourseProject.Controllers
                     ApplicationUser author = UserManager.FindById(comment.AuthorId);
                     element.AuthorAvatar = author.ImagePath;
                     element.AuthorName = author.UserName;
+                    element.AuthorRating = author.Rating;
                     element.Text = comment.Text;
                     element.Id = comment.Id;
                     model.Add(element);
