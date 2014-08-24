@@ -274,61 +274,6 @@ namespace CourseProject.Controllers
 #endregion
 
         [Authorize]
-        [HttpPost]
-        public ActionResult AddEvaluation(int id, string evaluationButton)
-        {
-            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
-            Exercise exercise = exerciseRepository.GetByID(id);
-            if (exercise.Author.Id != user.Id && Request.IsAuthenticated && exercise.Active)
-            {
-                Evaluation previousEvaluation = evaluationRepository.Get().FirstOrDefault(localEvaluation => localEvaluation.Target.Id == id && localEvaluation.User == user);
-                if (previousEvaluation != null)
-                {
-                    bool type = previousEvaluation.Type;
-                    switch (evaluationButton)
-                    {
-                        case "like":
-                            if (!type)
-                            {
-                                previousEvaluation.Type = true;
-                            }
-                            break;
-                        case "dislike":
-                            if (type)
-                            {
-                                previousEvaluation.Type = false;
-                            }
-                            break;
-                        default:
-                            return RedirectToAction("ShowExercise", new { id = id });
-                    }
-                    evaluationRepository.Update(previousEvaluation);
-                    return RedirectToAction("ShowExercise", new { id = id });
-                }
-                else
-                {
-                    Evaluation newEvaluation = new Evaluation();
-                    newEvaluation.Target = exercise;
-                    newEvaluation.User = user;
-                    switch (evaluationButton)
-                    {
-                        case "like":
-                            newEvaluation.Type = true;
-                            break;
-                        case "dislike":
-                            newEvaluation.Type = false;
-                            break;
-                        default:
-                            return RedirectToAction("ShowExercise", new { id = id });
-                    }
-                    evaluationRepository.Insert(newEvaluation);
-                    return RedirectToAction("ShowExercise", new { id = id });
-                }
-            }
-            return RedirectToAction("ShowExercise", new { id = id });
-        }
-
-        [Authorize]
         [HttpGet]
         public ActionResult AddComment(int id)
         {
@@ -357,7 +302,7 @@ namespace CourseProject.Controllers
             commentRepository.Insert(newComment);
             exercise.Comments.Add(newComment);
             exerciseRepository.Update(exercise);
-            return RedirectToAction("ShowExercise", "Exercise", new { id = model.ExerciseId });
+            return RedirectToAction("GetComments", "Exercise", new { id = model.ExerciseId });
         }
 
         [Authorize]
@@ -791,12 +736,10 @@ namespace CourseProject.Controllers
         public ActionResult InfinateScroll(int blockNumber, int id)
         {
             string html;
-            bool noMoreData = false;
             const int BlockSize = 5;
             var comments = getCommentViewModels(blockNumber, BlockSize, id);
             if (comments.Count() == 0)
             {
-                noMoreData = true;
                 html = "";
             }
             else
@@ -804,7 +747,7 @@ namespace CourseProject.Controllers
                 html = RenderPartialViewToString("GetComments", comments);
             }
 
-            return Json(new { NoMoreData = noMoreData, HTMLString = html });
+            return Json(new {HTMLString = html });
         }
 
         protected string RenderPartialViewToString(string viewName, object model)
