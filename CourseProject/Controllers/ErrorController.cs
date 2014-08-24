@@ -14,5 +14,10 @@ namespace CourseProject.Controllers
         {
             return View();
         }
+
+        public ActionResult NoPageFound()
+        {
+            return View();
+        }
     }
 }
