@@ -71,7 +71,6 @@
         add: (e, data) -> 
             $jqXHRData = data
             $('.progress')[0].hidden = false
-            alert data.total
             $jqXHRData.submit()
         done: (event, data) -> 
             jsItem = createImageElement(data.result.path)
@@ -82,7 +81,6 @@
             if data.files[0].error
               alert data.files[0].error
         progressall: (e, data) ->
-            alert data.loaded
             progress = parseInt((data.loaded / data.total) * 100, 10)
             $('.progress > .progress-bar')[0].style.width = progress + '%'
       })

@@ -8,6 +8,8 @@ namespace CourseProject.Models
 
         public String Path { get; set; }
 
+        public int TaskId { get; set; }
+
         public virtual Exercise Task { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace CourseProject.Models
 
         public String Text { get; set; }
 
+        public string AuthorId { get; set; }
+
         public virtual ApplicationUser Author { get; set; }
 
         public virtual ICollection<Evaluation> Evaluations { get; set; }
@@ -35,6 +37,8 @@ namespace CourseProject.Models
         public virtual ICollection<Answer> Answers { get; set; }
 
         public Boolean Active { get; set; }
+
+        public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
 

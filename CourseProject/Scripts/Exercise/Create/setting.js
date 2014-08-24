@@ -78,7 +78,6 @@
         add: function(e, data) {
           $jqXHRData = data;
           $('.progress')[0].hidden = false;
-          alert(data.total);
           return $jqXHRData.submit();
         },
         done: function(event, data) {
@@ -95,7 +94,6 @@
         },
         progressall: function(e, data) {
           var progress;
-          alert(data.loaded);
           progress = parseInt((data.loaded / data.total) * 100, 10);
           return $('.progress > .progress-bar')[0].style.width = progress + '%';
         }

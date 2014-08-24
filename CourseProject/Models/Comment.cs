@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.UI.WebControls;
 using Lucene.Net.Documents;
 
 namespace CourseProject.Models
@@ -9,11 +11,13 @@ namespace CourseProject.Models
 
         public String Text { get; set; }
 
+        public int TargetId { get; set; }
+
         public virtual Exercise Target { get; set; }
 
         public string AuthorId { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
         public Document GetDocument()
         {
