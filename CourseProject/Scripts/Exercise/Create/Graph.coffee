@@ -14,6 +14,7 @@
     createButton = () ->   
         button = document.createElement('button')
         button.name = "delete"
+        button.className = "btn btn-danger"
         button.innerText = "Delete"           
         return button   
 

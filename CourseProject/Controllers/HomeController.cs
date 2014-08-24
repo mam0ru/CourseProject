@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using CourseProject.Repository;
 using CourseProject.Repository.Interfaces;
+using Microsoft.AspNet.Identity.Owin;
 using MultilingualSite.Filters;
 
 namespace CourseProject.Controllers
@@ -20,11 +21,27 @@ namespace CourseProject.Controllers
 
         private readonly ITagRepository tagRepository;
 
-        public HomeController(IApplicationUserRepository applicationUserRepository, IExerciseRepository exerciseRepository, ITagRepository tagRepository)
+
+        private ApplicationUserManager userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                userManager = value;
+            }
+        }
+
+        public HomeController(IApplicationUserRepository applicationUserRepository, IExerciseRepository exerciseRepository, ITagRepository tagRepository,ApplicationUserManager userManager)
         {
             this.applicationUserRepository = applicationUserRepository;
             this.tagRepository = tagRepository;
             this.exerciseRepository = exerciseRepository;
+            this.userManager = userManager;
         }
 
         public ActionResult Index()
@@ -32,7 +49,7 @@ namespace CourseProject.Controllers
             return View();
         }
 
-        public ActionResult SetTheme(String theme = "white")
+        public ActionResult SetTheme(String theme)
         {
             List<string> themes = new List<string>() { "white", "dark" };
             if (!themes.Contains(theme))
@@ -65,7 +82,7 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendMail(string SenderAddress, string Message)
+        public ActionResult SendMail(string id, string Message)
         {
             string username = "course.project.itr@gmail.com";
             string password = "project123456";
@@ -76,11 +93,12 @@ namespace CourseProject.Controllers
             smtpClient.UseDefaultCredentials = false;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.Credentials = loginInfo;
-            string message = " (" + SenderAddress + ") has a message for you:<br /><br />" + Message;
+            String sendTo = exerciseRepository.GetByID(Convert.ToInt32(id)).Author.Email;
+            string message = "User find mistake in your task.<br />" + Message;
             try
             {
                 msg.From = new MailAddress("course.project.itr@gmail.com");
-                msg.To.Add(new MailAddress(SenderAddress));
+                msg.To.Add(new MailAddress(sendTo));
                 msg.Subject = "Web Message";
                 msg.Sender = new MailAddress("course.project.itr@gmail.com");
                 msg.Body = message;

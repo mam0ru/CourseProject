@@ -6,23 +6,23 @@
 }
 
 <link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
-<script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
-<script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-15.js"></script>
-<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/exercise/create/markdown")
 @Styles.Render("~/Content/markdown/css")
-@Scripts.Render("~/bundles/exercise/create/image")
-@Scripts.Render("~/bundles/exercise/create/fillcategories")
-
-@Scripts.Render("~/bundles/exercise/taginput")
 @Styles.Render("~/Content/taginput")
-
 @Styles.Render("~/Content/Graphs")
-@Scripts.Render("~/byndles/Graphs")
-<script src="~/Scripts/Exercise/Create/Graph.js"></script>
-<script src="~/Scripts/Exercise/Create/setting.js"></script>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/exercise/create/markdown")
+    @if (Request.Cookies["lang"] == null || Request.Cookies["lang"].Value == null || Request.Cookies["lang"].Value == "ru")
+    {
+        @Scripts.Render("~/bundles/Exercise/Create/RU")
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/Exercise/Create/EN")
+    }
+}
 
 <br>
 @using (Html.BeginForm("CreateExercise", "Exercise", FormMethod.Post))
@@ -177,9 +177,9 @@
                                 <div class="col-md-1">
                                     @Html.TextArea("Step", new { rows = "1", cols = "5", style = " resize: none;width: 50px", data_toggle = "tooltip", data_placement = "right", title = Resources.Resource.TooltipStep })
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn-default" id="addGraph">Add Graph</button>
-                                </div>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-default" id="addGraph">Add Graph</button>
                             </div>
                         </div>
                     </div>
@@ -209,7 +209,7 @@
                                 @Html.Editor("video")
                             </div>
                         </div>
-                        <button id="addVideo">@Resources.Resource.AddVideo</button>
+                        <button id="addVideo" class="btn-default">@Resources.Resource.AddVideo</button>
                         <br />
                         <br />
                         <label>@Resources.Resource.Videos</label>

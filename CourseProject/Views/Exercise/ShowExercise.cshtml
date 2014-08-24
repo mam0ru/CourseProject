@@ -5,11 +5,18 @@
 }
 
 @Styles.Render("~/Content/Graphs")
-@Scripts.Render("~/byndles/Graphs")
-<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
-<script src="~/Scripts/Exercise/Show/DisplayGraphs.js"></script>
-<script src="~/Scripts/Exercise/Show/SendEmail.js"></script>
-<script src="~/Scripts/Exercise/Show/InfiniteScrolling.js"></script>
+@section scripts
+{
+    @if (Request.Cookies["lang"] == null || Request.Cookies["lang"].Value == null || Request.Cookies["lang"].Value == "ru")
+    {
+        @Scripts.Render("~/bundles/Exercise/Show/RU")
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/Exercise/Show/EN")
+    }
+}
+
 @Html.HiddenFor(exercise => exercise.Id)
 @{
     bool author = false;
@@ -65,10 +72,15 @@
             {
                 <h3>@Resources.Resource.NotifyAboutMistake</h3>
                 <div id="form-container">
-                    @using (Html.BeginForm("SendMail", "Home", FormMethod.Post, new { id = "email-form" }))
+                    <script>
+                        function SendBegin() {
+                            $("#message")[0].value = "";
+                        }
+                    </script>
+                    @using (Ajax.BeginForm("SendMail", "Home", new AjaxOptions { HttpMethod = "Post", OnBegin = "SendBegin"}))
                     {
-                        <input type="email" name="SenderAddress" id="sender-address" placeholder="Email" required hidden="" value="@Model.Author.Email" />
-                        <textarea name="Message" id="message" placeholder="@Resources.Resource.Message" required></textarea>
+                        <input type="text" name="id" id="sender-address" required hidden="" value="@Model.Id" />
+                        <textarea name="Message" id="message" placeholder="@Resources.Resource.Message" style="resize: none" required></textarea>
                         <input type="submit" class="btn-success" id="send-button" value=@Resources.Resource.AddComment>
                     }
                 </div>
