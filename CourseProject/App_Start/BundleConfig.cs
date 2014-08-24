@@ -156,6 +156,12 @@ namespace CourseProject
                 "~/Scripts/Exercise/Show/RU/InfiniteScrolling.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/Profile/Show").Include(
+                "~/Scripts/FileUpload/jqueryui/jquery.ui.widget.js",
+                "~/Scripts/FileUpload/jquery.fileupload.js",
+                "~/Scripts/FileUpload/jquery.fileupload-ui.js",
+                "~/Scripts/FileUpload/jquery.iframe-transport.js"
+                ));
             bundles.Add(new StyleBundle("~/Content/taginput").Include(
                 "~/Content/tags/css/textext.core.css",
                 "~/Content/tags/css/textext.plugin.tags.css",

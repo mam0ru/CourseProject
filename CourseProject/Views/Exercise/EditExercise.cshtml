@@ -7,11 +7,11 @@
 
     @if (Request.Cookies["lang"] == null || Request.Cookies["lang"].Value == null || Request.Cookies["lang"].Value == "ru")
     {
-        @Scripts.Render("~/bundle/Exercises/Edit/RU")    
+        @Scripts.Render("~/bundles/Exercises/Edit/RU")    
     }
     else
     {
-        @Scripts.Render("~/bundle/Exercises/Edit/EN")
+        @Scripts.Render("~/bundles/Exercises/Edit/EN")
     }
 }
 <link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
