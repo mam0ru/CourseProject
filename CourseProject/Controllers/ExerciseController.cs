@@ -848,5 +848,73 @@ namespace CourseProject.Controllers
             commentRepository.Delete(id);
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
+
+        [HttpGet]
+        public ActionResult AddEv(int id)
+        {
+            var exercise = exerciseRepository.GetByID(id);
+            AddEvaluationViewModel model = new AddEvaluationViewModel();
+            model.ExerciseId = id;
+            model.Likes = exercise.Evaluations.Where(localExercise => localExercise.Type = true).Count();
+            model.Dislikes = exercise.Evaluations.Where(localExercise => localExercise.Type = false).Count();
+
+            return PartialView("_AddEvaluation", model);
+        }
+
+        [HttpPost]
+        public ActionResult AddEv(AddEvaluationViewModel model, string evaluationButton)
+        {
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Exercise exercise = exerciseRepository.GetByID(model.ExerciseId);
+            if (exercise.Author.Id != user.Id && Request.IsAuthenticated && exercise.Active)
+            {
+                Evaluation previousEvaluation = evaluationRepository.Get().FirstOrDefault(localEvaluation => localEvaluation.Target.Id == model.ExerciseId && localEvaluation.User == user);
+                if (previousEvaluation != null)
+                {
+                    bool type = previousEvaluation.Type;
+                    switch (evaluationButton)
+                    {
+                        case "like":
+                            if (!type)
+                            {
+                                previousEvaluation.Type = true;
+                            }
+                            break;
+                        case "dislike":
+                            if (type)
+                            {
+                                previousEvaluation.Type = false;
+                            }
+                            break;
+                        default:
+                            return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                    }
+                    evaluationRepository.Update(previousEvaluation);
+                    return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                }
+                else
+                {
+                    Evaluation newEvaluation = new Evaluation();
+                    newEvaluation.Target = exercise;
+                    newEvaluation.User = user;
+                    switch (evaluationButton)
+                    {
+                        case "like":
+                            newEvaluation.Type = true;
+                            break;
+                        case "dislike":
+                            newEvaluation.Type = false;
+                            break;
+                        default:
+                            return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                    }
+                    evaluationRepository.Insert(newEvaluation);
+                    return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                }
+            }
+
+            return RedirectToAction("AddEv", model.ExerciseId);
+        }
     }
+
 }

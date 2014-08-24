@@ -1,0 +1,7 @@
+﻿@model CourseProject.ViewModels.AddEvaluationViewModel
+@using (Ajax.BeginForm("AddEv", "Exercise",new AjaxOptions{HttpMethod = "Post"}))
+{
+    <input value="@Model.ExerciseId" hidden="true" name="id">
+    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Likes</button>
+    <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Dislikes</button>
+}
