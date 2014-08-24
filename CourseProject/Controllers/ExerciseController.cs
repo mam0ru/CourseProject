@@ -855,8 +855,8 @@ namespace CourseProject.Controllers
             var exercise = exerciseRepository.GetByID(id);
             AddEvaluationViewModel model = new AddEvaluationViewModel();
             model.ExerciseId = id;
-            model.Likes = exercise.Evaluations.Where(localExercise => localExercise.Type = true).Count();
-            model.Dislikes = exercise.Evaluations.Where(localExercise => localExercise.Type = false).Count();
+            model.Likes = exercise.Evaluations.Count(localExercise => localExercise.Type);
+            model.Dislikes = exercise.Evaluations.Count(localExercise => !localExercise.Type);
 
             return PartialView("_AddEvaluation", model);
         }
@@ -887,10 +887,10 @@ namespace CourseProject.Controllers
                             }
                             break;
                         default:
-                            return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                            return RedirectToAction("AddEv", model.ExerciseId);
                     }
                     evaluationRepository.Update(previousEvaluation);
-                    return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                    return RedirectToAction("AddEv", model.ExerciseId);
                 }
                 else
                 {
@@ -906,10 +906,10 @@ namespace CourseProject.Controllers
                             newEvaluation.Type = false;
                             break;
                         default:
-                            return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                            return RedirectToAction("AddEv", model.ExerciseId);
                     }
                     evaluationRepository.Insert(newEvaluation);
-                    return RedirectToAction("ShowExercise", new { id = model.ExerciseId });
+                    return RedirectToAction("AddEv", model.ExerciseId);
                 }
             }
 
