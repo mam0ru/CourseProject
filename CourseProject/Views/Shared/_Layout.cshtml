@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@Resources.Resource.LayoutTitle</title>
-    
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
@@ -57,8 +57,12 @@
             <div class="row" id='search-box' style="width: 100%">
                 @using (Html.BeginForm("Search", "Exercise"))
                 {
-                    <input type="text" class="md-editor" style="width: 80%" placeholder="@Resources.Resource.SearchOnSite" name="search" />
-                    <input type="submit" class="btn-info" value=@Resources.Resource.Search />
+                    <div class="col-md-10">
+                        <input type="text" class="md-editor" style="width: 100%;margin-top: 4px;" placeholder="@Resources.Resource.SearchOnSite" name="search" />
+                    </div>
+                    <div class="col-md-1">
+                        <input type="submit" class="btn btn-info btn-sm" value=@Resources.Resource.Search />
+                    </div>
                 }
             </div>
             <br />

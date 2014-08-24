@@ -439,6 +439,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page not Found.
+        /// </summary>
+        public static string ErrorNotFound {
+            get {
+                return ResourceManager.GetString("ErrorNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops! That something has gone wrong..
+        /// </summary>
+        public static string ErrorOops {
+            get {
+                return ResourceManager.GetString("ErrorOops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exercise`s name.
         /// </summary>
         public static string ExerciseName {

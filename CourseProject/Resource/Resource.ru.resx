@@ -597,4 +597,10 @@
   <data name="YouAnsweredRight" xml:space="preserve">
     <value>Вы ответили правильно</value>
   </data>
+  <data name="ErrorNotFound" xml:space="preserve">
+    <value>Страница не найдена</value>
+  </data>
+  <data name="ErrorOops" xml:space="preserve">
+    <value>Упс! Что-то пошло не так.</value>
+  </data>
 </root>

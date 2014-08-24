@@ -52,7 +52,7 @@
       childDivForButton = createChildDiv();
       childDivForImage.innerHTML = formula;
       childDivForImage.setAttribute('name', 'AddEquation');
-      childButton = createButton("delete", "Delete");
+      childButton = createButton("delete", "Удалить");
       childDivForButton.appendChild(childButton);
       parent.appendChild(childDivForImage);
       parent.appendChild(childDivForButton);

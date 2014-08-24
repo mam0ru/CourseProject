@@ -6,7 +6,7 @@ namespace CourseProject.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "CourseProject.Models.ApplicationDbContext";//"CustomIdentity.Models.ApplicationDbContext";
         }
 

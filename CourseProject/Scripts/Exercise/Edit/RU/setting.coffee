@@ -31,7 +31,7 @@
         childDivForButton = createChildDiv()    
         childDivForImage.innerHTML = formula
         childDivForImage.setAttribute('name','AddEquation')
-        childButton = createButton("delete","Delete")
+        childButton = createButton("delete","Удалить")
         childDivForButton.appendChild childButton
         parent.appendChild childDivForImage
         parent.appendChild childDivForButton        
@@ -45,7 +45,7 @@
         childDivForImage.className = "col-md-8 thumbnail"
         childDivForButton = createChildDiv()    
         childDivForImage.appendChild childImage
-        childButton = createButton("delete","Delete")
+        childButton = createButton("delete","Удалить")
         childDivForButton.appendChild childButton
         parent.appendChild childDivForImage
         parent.appendChild childDivForButton
@@ -57,7 +57,7 @@
         childDivForVideo.className = "col-md-8"
         childDivForButton = createChildDiv()    
         childDivForVideo.innerHTML = src
-        childButton = createButton("delete","Delete")
+        childButton = createButton("delete","Удалить")
         childDivForButton.appendChild childButton
         parent.appendChild childDivForVideo
         parent.appendChild childDivForButton        
