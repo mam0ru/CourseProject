@@ -2,42 +2,39 @@
 @{
 }
 <div>
-    <div class="media">
-        <a class="pull-left" href="~/Profile/ShowProfile/@Model.UserId">
-            @if (@Model.ImagePath == null)
-            {
-                <img class="media-object" src="~/Content/user.jpg" width="70px" alt=@Model.UserName>
-            }
-            else
-            {
-                <img class="media-object" src=@Model.ImagePath width="70px" alt=@Model.UserName>
-            }
-        </a>
-        <div class="media-body">
-            <h4 class="media-heading">
-                <a class="pull-left" href="~/Profile/ShowProfile/@Model.UserId">@Model.UserName</a>
-                <span class="badge">@Model.UserRating</span>
-            </h4>
-            <br>
-            <script>
-                function SetBlock() {
-                    $("#InfinityBlockNumber")[0].value = 2;
-                    $("#Text")[0].value = "";
+    @using (Html.BeginForm("AddComment", "Exercise"))
+    {
+        <div class="media">
+            <a class="pull-left" href="~/Profile/ShowProfile/@Model.UserId">
+                @if (@Model.ImagePath == null)
+                {
+                    <img class="media-object" src="~/Content/user.jpg" width="70px" alt=@Model.UserName>
                 }
-            </script>
-            @using (Ajax.BeginForm("AddComment", "Exercise", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "commentsList", OnSuccess = "SetBlock"}))
-            {
-                @Html.TextBoxFor(model => model.ExerciseId, new { @class = "hidden" })
-                @Html.TextBoxFor(model => model.UserId, new { @class = "hidden" })
-                <div class="row">
-                    <div class="col-md-6" style="padding-right: 0px">
-                        @Html.TextAreaFor(model => model.Text, new { style = "width:100%; resize: none" })
+                else
+                {
+                    <img class="media-object" src=@Model.ImagePath width="70px" alt=@Model.UserName>
+                }
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a class="pull-left" href="~/Profile/ShowProfile/@Model.UserId">@Model.UserName</a>
+                    <span class="badge">@Model.UserRating</span>
+                </h4>
+                <br>
+                @using (Html.BeginForm("AddComment", "Exercise"))
+                {
+                    @Html.TextBoxFor(model => model.ExerciseId, new { @class = "hidden" })
+                    @Html.TextBoxFor(model => model.UserId, new { @class = "hidden" })
+                    <div class="row">
+                        <div class="col-md-6" style="padding-right: 0px">
+                            @Html.TextAreaFor(model => model.Text, new { style = "width:100%; resize: none" })
+                        </div>
+                        <div class="col-md-2" style="padding-left: 5px">
+                            <input type="submit" class="btn-success" id="comment-button" value=@Resources.Resource.AddComment>
+                        </div>
                     </div>
-                    <div class="col-md-2" style="padding-left: 5px">
-                        <input type="submit" class="btn-success" id="comment-button" value=@Resources.Resource.AddComment>
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
+    }
 </div>

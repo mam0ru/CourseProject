@@ -1,13 +1,12 @@
 ﻿(function() {
   $(function() {
     return $(document).ready(function() {
-      var blockNumber, inProgress;
+      var NoMoreData, blockNumber, inProgress;
       blockNumber = 2;
-      $("#InfinityBlockNumber")[0].value = blockNumber;
+      NoMoreData = false;
       inProgress = false;
       return $(window).scroll(function() {
-        if ($(window).scrollTop() === $(document).height() - $(window).height() && !inProgress) {
-          blockNumber = parseInt($("#InfinityBlockNumber")[0].value);
+        if ($(window).scrollTop() === $(document).height() - $(window).height() && !NoMoreData && !inProgress) {
           inProgress = true;
           $("#loadingDiv").show();
           return $.post("/Exercise/InfinateScroll", {
@@ -15,9 +14,9 @@
             "id": $('#Id')[0].value
           }, function(data) {
             blockNumber = blockNumber + 1;
+            NoMoreData = data.NoMoreData;
             $("#commentsList").append(data.HTMLString);
             $("#loadingDiv").hide();
-            $("#InfinityBlockNumber")[0].value = blockNumber;
             return inProgress = false;
           });
         }

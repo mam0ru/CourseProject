@@ -171,11 +171,7 @@
     <hr style="border-color: black" />
 
     using (Html.BeginForm("AddEvaluation", "Exercise"))
-    {
-        <input value="@Model.Id" hidden="true" name="id">
-        <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="like"><span class="glyphicon glyphicon-thumbs-up"></span> @Model.Evaluations.Where(ev => ev.Type == true).Count()</button>
-        <button type="submit" class="btn btn-primary btn-sm" name="evaluationButton" value="dislike"><span class="glyphicon glyphicon-thumbs-down"></span> @Model.Evaluations.Where(ev => ev.Type == false).Count()</button>
-    }
+
     <br>
     <br>
     if (Model.Active && authenticated)
@@ -185,7 +181,6 @@
         </div>
     }
     <br>
-    @Html.Hidden("InfinityBlockNumber")
     <div class="comments">
         <div id="commentsList">
             @Html.Action("GetComments", "Exercise", Model.Id)
