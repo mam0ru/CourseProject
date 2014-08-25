@@ -130,7 +130,7 @@ namespace CourseProject.Controllers
                 };
                 newUsers.Add(userForAdmin);
             }
-            return View(newUsers);
+            return RedirectToAction("AdministratorMain");
         }
     }
 }

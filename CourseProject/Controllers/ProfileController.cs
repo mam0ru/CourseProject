@@ -99,12 +99,6 @@ namespace CourseProject.Controllers
             int insertIndex = uplPath.IndexOf(label) + label.Length;
             string setImageSize = "c_scale,w_100/";
             uplPath = uplPath.Insert(insertIndex, setImageSize);
-
-            Picture uploadedPicture = new Picture();
-            uploadedPicture.Path = uplPath;
-            uploadedPicture.Name = uploadResult.PublicId;
-            pictureRepository.Insert(uploadedPicture);
-
             var user = UserManager.FindById(User.Identity.GetUserId());
             user.ImagePath = uplPath;
             UserManager.Update(user);

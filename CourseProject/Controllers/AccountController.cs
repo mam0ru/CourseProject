@@ -127,7 +127,7 @@ namespace CourseProject.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                return RedirectToAction("Oops","Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? Resources.Resource.ConfirmEmailMessage : Resources.Resource.Error);

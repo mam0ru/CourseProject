@@ -53,9 +53,9 @@ namespace CourseProject.Migrations
             CreateIndex("dbo.Videos", "TaskId");
             AddForeignKey("dbo.Exercises", "CategoryId", "dbo.Categories", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Answers", "TaskId", "dbo.Exercises", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Comments", "TargetId", "dbo.Exercises", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Comments", "TargetId", "dbo.Exercises", "Id", cascadeDelete: false);
             AddForeignKey("dbo.Equations", "TaskId", "dbo.Exercises", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Evaluations", "TargetId", "dbo.Exercises", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Evaluations", "TargetId", "dbo.Exercises", "Id", cascadeDelete: false);
             AddForeignKey("dbo.Graphs", "TaskId", "dbo.Exercises", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Pictures", "TaskId", "dbo.Exercises", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Videos", "TaskId", "dbo.Exercises", "Id", cascadeDelete: true);

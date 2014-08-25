@@ -669,10 +669,6 @@ namespace CourseProject.Controllers
             {
                 uplPath = uploadResult.Uri.AbsoluteUri;
             }
-            Picture uploadedPicture = new Picture();
-            uploadedPicture.Path = uplPath;
-            uploadedPicture.Name = uploadResult.PublicId;
-            pictureRepository.Insert(uploadedPicture);
             return Json(new { path = uplPath });
         }
 

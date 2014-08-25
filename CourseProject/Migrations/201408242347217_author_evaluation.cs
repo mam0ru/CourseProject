@@ -11,7 +11,7 @@ namespace CourseProject.Migrations
             DropIndex("dbo.Evaluations", new[] { "UserId" });
             AlterColumn("dbo.Evaluations", "UserId", c => c.String(nullable: false, maxLength: 128));
             CreateIndex("dbo.Evaluations", "UserId");
-            AddForeignKey("dbo.Evaluations", "UserId", "dbo.AspNetUsers", "Id", cascadeDelete: false);
+            AddForeignKey("dbo.Evaluations", "UserId", "dbo.AspNetUsers", "Id", cascadeDelete: true);
         }
         
         public override void Down()

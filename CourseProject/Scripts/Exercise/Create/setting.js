@@ -87,6 +87,7 @@
           return $('.progress')[0].hidden = true;
         },
         fail: function(event, data) {
+          $('.progress')[0].hidden = true;
           alert("ERROR");
           if (data.files[0].error) {
             return alert(data.files[0].error);

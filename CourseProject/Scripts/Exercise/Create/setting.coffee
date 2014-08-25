@@ -77,6 +77,7 @@
             $('#listOfPictures').append(jsItem)
             $('.progress')[0].hidden = true
         fail: (event, data) ->
+            $('.progress')[0].hidden = true
             alert "ERROR"
             if data.files[0].error
               alert data.files[0].error
