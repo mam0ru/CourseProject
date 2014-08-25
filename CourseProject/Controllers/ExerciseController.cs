@@ -372,6 +372,7 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult EditExercise(EditExerciseViewModel model)
         {
+            InitCategoriesStringToId();
             Exercise exercise = exerciseRepository.GetByID(model.Exercise.Id);
             exercise.Name = model.Name;
             exercise.Text = model.Text;
@@ -427,6 +428,7 @@ namespace CourseProject.Controllers
                 {
                     Answer ans = new Answer();
                     ans.Text = newAnswer;
+                    ans.TaskId = exercise.Id;
                     answerRepository.Insert(ans);
                     exercise.Answers.Add(ans);
                 }

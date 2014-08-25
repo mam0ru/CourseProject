@@ -57,7 +57,7 @@ namespace CourseProject.Controllers
             return View(users);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult AdministratorMain(List<UserForAdministratorMainViewModel> users)
         {
             foreach (var user in users)

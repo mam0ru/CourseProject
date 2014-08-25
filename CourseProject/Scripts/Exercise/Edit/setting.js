@@ -192,6 +192,7 @@
         $("input#Name")[0].value = $("#Exercise_Name").val();
         $("input#Text")[0].value = $("[name='Exercise.Text']").val();
         $('input#Videos').val(videos);
+        $('input#Category').val($('#Category').val());
         return $('input#Pictures').val(images);
       });
       return null;
